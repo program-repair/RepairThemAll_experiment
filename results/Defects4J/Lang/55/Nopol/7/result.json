@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-28 15:08:23.608088", 
+  "repair_begin": "2018-11-28 15:06:47.341659", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 5, 
+      "patchLocation": {
+        "line": 118, 
+        "class": "org.apache.commons.lang.time.StopWatch"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/java/org/apache/commons/lang/time/StopWatch.java\n+++ b/src/java/org/apache/commons/lang/time/StopWatch.java\n@@ -117,3 +117,5 @@\n         }\n-            stopTime = System.currentTimeMillis();\n+            if (org.apache.commons.lang.time.StopWatch.this.stopTime < 10) {\n+                stopTime = System.currentTimeMillis();\n+            }\n         this.runningState = STATE_STOPPED;\n"
+    }
+  ]
+}
