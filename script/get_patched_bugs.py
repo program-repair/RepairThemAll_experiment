@@ -4,8 +4,8 @@ import json
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 
 nb_patch = 0
-print("  #  | Repair Tool | Benchmark | Bug ")
-print(" --- | ----------- | --------- | --- ")
+print("|  #  | Repair Tool | Benchmark | Bug |")
+print("| --- | ----------- | --------- | --- |")
 for benchmark in os.listdir(os.path.join(ROOT, "results")):
     benchmark_path = os.path.join(ROOT, "results", benchmark)
     for project in os.listdir(benchmark_path):
@@ -25,7 +25,7 @@ for benchmark in os.listdir(os.path.join(ROOT, "results")):
                             data = json.load(fd)
                             if 'patches' in data and len(data['patches']) > 0:
                                 nb_patch += 1
-                                print (" {:3} | {:11} | {:9} | {:4} | {:5}".format(nb_patch,repair_tool, benchmark, project, bug_id))
+                                print ("| {:3} | {:11} | {:9} | {:4} {} |".format(nb_patch,repair_tool, benchmark, project, bug_id))
                             if 'patch' in data and len(data['patch']) > 0:
                                 nb_patch += 1
-                                print (" {:3} | {:11} | {:9} | {:4} | {:5}".format(nb_patch,repair_tool, benchmark, project, bug_id))
+                                print ("| {:3} | {:11} | {:9} | {:4} {} |".format(nb_patch,repair_tool, benchmark, project, bug_id))
