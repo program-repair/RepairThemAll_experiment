@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-28 11:30:54.892706", 
+  "repair_begin": "2018-11-28 11:30:14.757782", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 2, 
+      "patchLocation": {
+        "line": 453, 
+        "class": "org.jfree.chart.block.BorderArrangement"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/source/org/jfree/chart/block/BorderArrangement.java\n+++ b/source/org/jfree/chart/block/BorderArrangement.java\n@@ -452,9 +452,11 @@\n         h[3] = h[2];\n-        if (this.rightBlock != null) {\n-            RectangleConstraint c4 = new RectangleConstraint(0.0,\n-                    new Range(0.0, constraint.getWidth() - w[2]),\n-                    LengthConstraintType.RANGE, h[2], null,\n-                    LengthConstraintType.FIXED);\n-            Size2D size = this.rightBlock.arrange(g2, c4);\n-            w[3] = size.width;\n+        if (null!=null) {\n+            if (this.rightBlock != null) {\n+                RectangleConstraint c4 = new RectangleConstraint(0.0,\n+                new Range(0.0, constraint.getWidth() - w[2]),\n+                LengthConstraintType.RANGE, h[2], null,\n+                LengthConstraintType.FIXED);\n+                Size2D size = this.rightBlock.arrange(g2, c4);\n+                w[3] = size.width;\n+            }\n         }\n"
+    }
+  ]
+}

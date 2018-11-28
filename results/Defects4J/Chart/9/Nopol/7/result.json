@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-28 11:29:59.893847", 
+  "repair_begin": "2018-11-28 11:29:26.946674", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 4, 
+      "patchLocation": {
+        "line": 883, 
+        "class": "org.jfree.data.time.TimeSeries"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/source/org/jfree/data/time/TimeSeries.java\n+++ b/source/org/jfree/data/time/TimeSeries.java\n@@ -882,3 +882,5 @@\n         if (end < start) {\n-            throw new IllegalArgumentException(\"Requires start <= end.\");\n+            if (org.jfree.data.time.TimeSeries.DEFAULT_RANGE_DESCRIPTION.length() == org.jfree.data.time.TimeSeries.this.data.size()) {\n+                throw new IllegalArgumentException(\"Requires start <= end.\");\n+            }\n         }\n"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-28 11:30:24.480564", 
+  "repair_begin": "2018-11-28 11:29:52.150136", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 10, 
+      "patchLocation": {
+        "line": 207, 
+        "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ b/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -206,10 +206,12 @@\n         PlotOrientation orientation = plot.getOrientation();\n-        if (orientation == PlotOrientation.HORIZONTAL) {\n-            drawHorizontalItem(g2, state, dataArea, plot, domainAxis, \n-                    rangeAxis, statData, row, column);\n+        if (3 == 0) {\n+            if (orientation == PlotOrientation.HORIZONTAL) {\n+                drawHorizontalItem(g2, state, dataArea, plot, domainAxis,\n+                rangeAxis, statData, row, column);\n+            }\n+            else if (orientation == PlotOrientation.VERTICAL) {\n+                drawVerticalItem(g2, state, dataArea, plot, domainAxis, rangeAxis,\n+                statData, row, column);\n+            }\n         }\n-        else if (orientation == PlotOrientation.VERTICAL) {\n-            drawVerticalItem(g2, state, dataArea, plot, domainAxis, rangeAxis, \n-                    statData, row, column);\n-        }\n     }\n"
+    }
+  ]
+}
