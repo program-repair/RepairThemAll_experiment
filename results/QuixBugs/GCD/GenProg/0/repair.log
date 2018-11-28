@@ -1,0 +1,55 @@
+cd /tmp/GenProg_QuixBugs_GCD_;
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8;
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4048m -cp /home/tdurieux/defects4j4repair/script/../libs/jmetal.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/arja.jar us.msu.cse.repair.Main \
+	GenProg \
+	-DexternalProjRoot /home/tdurieux/defects4j4repair/script/../libs/arja_external \
+	-DsrcJavaDir /tmp/GenProg_QuixBugs_GCD_/src/main/java \
+	-DbinJavaDir /tmp/GenProg_QuixBugs_GCD_/target/classes \
+	-DbinTestDir /tmp/GenProg_QuixBugs_GCD_/target/test-classes \
+	-Ddependences /home/tdurieux/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+Fault localization starts...
+Number of positive tests: 0
+Number of negative tests: 5
+Fault localization is finished!
+AST parsing starts...
+AST parsing is finished!
+Detection of local variables starts...
+Detection of local variables is finished!
+Detection of fields starts...
+Detection of fields is finished!
+Detection of methods starts...
+Detection of methods is finished!
+Ingredient screener starts...
+Ingredient screener is finished!
+Initialization of manipulations starts...
+Initialization of manipulations is finished!
+Filtering of the tests starts...
+Number of positive tests considered: 0
+Filtering of the tests is finished!
+One fitness evaluation starts...
+Exception in thread "main" java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(ArrayList.java:657)
+	at java.util.ArrayList.get(ArrayList.java:433)
+	at us.msu.cse.repair.ec.problems.GenProgProblem.evaluate(GenProgProblem.java:88)
+	at us.msu.cse.repair.ec.algorithms.GenProgGA.initPopulation(GenProgGA.java:107)
+	at us.msu.cse.repair.ec.algorithms.GenProgGA.execute(GenProgGA.java:49)
+	at us.msu.cse.repair.core.AbstractRepairAlgorithm.execute(AbstractRepairAlgorithm.java:18)
+	at us.msu.cse.repair.GenProgMain.main(GenProgMain.java:65)
+	at us.msu.cse.repair.Main.main(Main.java:10)
+Command exited with non-zero status 1
+4.04user 0.49system 0:03.75elapsed 120%CPU (0avgtext+0avgdata 144156maxresident)k
+27360inputs+5272outputs (10major+57035minor)pagefaults 0swaps
+
+
+Node: graphene-114.nancy.grid5000.fr
+
+
+
+Date: Tue Nov 27 14:40:34 EST 2018
+
