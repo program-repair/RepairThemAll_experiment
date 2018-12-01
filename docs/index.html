@@ -1,0 +1,155 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en" ng-app="defects4j-website" ng-controller="mainController">
+	<head>
+		<meta charset="UTF-8">
+		<title>Repair Them All</title>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/diff2html/2.5.0/diff2html.min.css">
+		<link rel="stylesheet" href="style/style.css">
+
+
+		<!-- JS -->
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-animate.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-touch.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-route.js"></script>
+		<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.min.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/angu-fixed-header-table@1.2.1/angu-fixed-header-table.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/diff2html/2.5.0/diff2html.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/diff2html/2.5.0/diff2html-ui.min.js"></script>
+		<script src="//overset.github.io/javascript-natural-sort/naturalSort.js"></script>
+		
+
+		<script src="js/app.js"></script>
+	</head>
+	<body keypress-events>
+		<div id="wrapper">
+			<!-- Navigation -->
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<h2>Repair Them All is showing {{filteredBugs.length}} bugs </h2>
+				</div>
+				<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+					<ul id="menu" class="nav navbar-nav side-nav">
+						<li>
+							<h3>Filters</h3>
+						</li>
+						<li>
+							<div>
+							Match 
+							<label><input type="radio" name="match" value="any" ng-model="match"> Any</label>
+							<label><input type="radio" name="match" value="all" ng-model="match"> All</label> 
+							filters
+							</div>
+						</li>
+						<li>
+							<h4>Benchmarks</h4>
+							<ul class="nav">
+								<li  ng-repeat="benchmark in benchmarks">
+									<label for="{{ benchmark }}" ng-class="{'actived': filters[benchmark]}">
+										<input type="checkbox" id="{{ benchmark }}" ng-model="filters[benchmark]">
+										{{ benchmark }}
+									</label>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<h4>Repair Tools</h4>
+							<ul class="nav">
+								<li  ng-repeat="tool in tools">
+									<label for="{{ tool }}" ng-class="{'actived': filters[tool]}">
+										<input type="checkbox" id="{{ tool }}" ng-model="filters[tool]">
+										{{ tool }}
+									</label>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</nav>
+
+			<div id="page-wrapper">
+				<div class="container-fluid">
+					<div class="row" id="main" >
+						<section class="filters" ng-show="filteredBugs.length != bugs.length">
+							Match {{match}} of these filter(s):
+							<span class="filter" ng-repeat="(k,v) in filter" ng-if="v" ng-click="filter[k]=false">{{filterName(k)}} <i class="fa fa-fw fa-times"></i></span>
+						</section>
+						<table fixed-header id="mainTable" class="table table-striped">
+							<thead>
+								<tr>
+									<th>
+										<a href="#" ng-click="sort(['benchmark', 'project', 'bug_id'])">
+											Benchmark
+											<span ng-show="sortType[0] == 'benchmark' && sortReverse" class="fa fa-caret-down"></span>
+											<span ng-show="sortType[0] == 'benchmark' && !sortReverse" class="fa fa-caret-up"></span>
+										</a>
+									</th>
+									<th>
+										<a href="#" ng-click="sort(['benchmark', 'project', 'bug_id'])">
+											Bug id
+											<span ng-show="sortType[0] == 'benchmark' && sortReverse" class="fa fa-caret-down"></span>
+											<span ng-show="sortType[0] == 'benchmark' && !sortReverse" class="fa fa-caret-up"></span>
+										</a>
+									</th>
+									<th>
+										<a href="#" ng-click="sort('repairs.length')">
+											# Tool
+											<span ng-show="sortType == 'repairs.length' && sortReverse" class="fa fa-caret-down"></span>
+											<span ng-show="sortType == 'repairs.length' && !sortReverse" class="fa fa-caret-up"></span>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="bug in bugs| orderBy:sortType:sortReverse:naturalCompare| filter:bugsFilter as filteredBugs" ng-click="openBug(bug)">
+									<td>{{ bug.benchmark }}</td>
+									<td>{{ bug.project }} {{ bug.bug_id }}</td>
+								  	<td>{{ bug.repairs.length }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</div>
+			<!-- /#page-wrapper -->
+		</div><!-- /#wrapper -->
+		<span ng-controller="bugController"></span>
+	</body>
+	<script type="text/ng-template" id="modelPatch.html">
+		<div class="modal-header">
+			<h3 class="modal-title" id="modal-title">{{ $ctrl.bug.benchmark }} {{ $ctrl.bug.project }} {{ $ctrl.bug.bug_id }}</h3>
+			<a ng-click="$ctrl.previousPatch()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous Patch</a> | <a ng-click="$ctrl.nextPatch()">Next Patch <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+		</div>
+		<div class="modal-body" id="modal-body">
+			<div ng-repeat="tool in $ctrl.bug.repairs">
+				<h3>{{tool.tool}} {{tool.result.patches.length}} generated patches</h3>
+				<div diff="tool.result.patches[0]"></div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+		</div>
+	</script>
+</html>
