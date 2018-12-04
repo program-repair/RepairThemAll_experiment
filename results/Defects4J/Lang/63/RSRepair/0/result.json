@@ -1,0 +1,245 @@
+{
+  "repair_end": "2018-12-02 08:56:11.152539", 
+  "repair_begin": "2018-12-02 08:42:02.898932", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_924/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:55:53.483330582 -0500\n@@ -434,7 +434,8 @@\n         int endValue = end.get(field);\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n-            int newdiff = startValue - endValue;\n+            end.add(Calendar.DATE, -1);\n+\t\t\tint newdiff = startValue - endValue;\n             end.add( field, newdiff );\n             return newdiff;\n         } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 437, 
+          "faulty": "int newdiff=startValue - endValue;", 
+          "type": "InsertBefore", 
+          "seed": "end.add(Calendar.DATE,-1);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_294/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:47:33.521133590 -0500\n@@ -313,7 +313,6 @@\n         }\n         while (months < 0) {\n             months += 12;\n-            years -= 1;\n         }\n         milliseconds -= reduceAndCorrect(start, end, Calendar.MILLISECOND, milliseconds);\n         seconds -= reduceAndCorrect(start, end, Calendar.SECOND, seconds);\n@@ -435,7 +434,7 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            Calendar gval = Calendar.getInstance();\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 316, 
+          "faulty": "years-=1;", 
+          "type": "Delete", 
+          "seed": "case 'd':"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Replace", 
+          "seed": "Calendar gval=Calendar.getInstance();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_6/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:43:34.196072050 -0500\n@@ -354,7 +354,6 @@\n         }\n         if (!Token.containsTokenWithValue(tokens, s)) {\n             milliseconds += 1000 * seconds;\n-            seconds = 0;\n         }\n \n         return format(tokens, years, months, days, hours, minutes, seconds, milliseconds, padWithZeros);\n@@ -435,7 +434,6 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 357, 
+          "faulty": "seconds=0;", 
+          "type": "Delete", 
+          "seed": "return 5;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Delete", 
+          "seed": "boolean done=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_446/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:50:01.849786122 -0500\n@@ -354,7 +354,6 @@\n         }\n         if (!Token.containsTokenWithValue(tokens, s)) {\n             milliseconds += 1000 * seconds;\n-            seconds = 0;\n         }\n \n         return format(tokens, years, months, days, hours, minutes, seconds, milliseconds, padWithZeros);\n@@ -435,7 +434,7 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            int milliseconds = 0;\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 357, 
+          "faulty": "seconds=0;", 
+          "type": "Delete", 
+          "seed": "return format(tokens,years,months,days,hours,minutes,seconds,milliseconds,padWithZeros);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Replace", 
+          "seed": "int milliseconds=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_385/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:49:01.081518992 -0500\n@@ -435,7 +435,7 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            Calendar cal2 = Calendar.getInstance();\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Replace", 
+          "seed": "Calendar cal2=Calendar.getInstance();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_438/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:49:59.397775344 -0500\n@@ -435,7 +435,8 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            int milliseconds = end.get(Calendar.MILLISECOND)\n+\t\t\t\t\t- start.get(Calendar.MILLISECOND);\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Replace", 
+          "seed": "int milliseconds=end.get(Calendar.MILLISECOND) - start.get(Calendar.MILLISECOND);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_895/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:55:21.103188440 -0500\n@@ -353,7 +353,6 @@\n             minutes = 0;\n         }\n         if (!Token.containsTokenWithValue(tokens, s)) {\n-            milliseconds += 1000 * seconds;\n             seconds = 0;\n         }\n \n@@ -435,7 +434,6 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 356, 
+          "faulty": "milliseconds+=1000 * seconds;", 
+          "type": "Delete", 
+          "seed": "Token previous=null;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Delete", 
+          "seed": "return newdiff;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_163/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:45:44.812652243 -0500\n@@ -435,7 +435,8 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            int days = end.get(Calendar.DAY_OF_MONTH)\n+\t\t\t\t\t- start.get(Calendar.DAY_OF_MONTH);\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Replace", 
+          "seed": "int days=end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_360/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:48:47.581459637 -0500\n@@ -435,7 +435,7 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            Calendar c = Calendar.getInstance();\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Replace", 
+          "seed": "Calendar c=Calendar.getInstance();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_815/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:54:31.278969695 -0500\n@@ -436,7 +436,8 @@\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n             end.add( field, newdiff );\n-            return newdiff;\n+            end.add(field, -1 * difference);\n+\t\t\treturn newdiff;\n         } else {\n             return 0;\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 439, 
+          "faulty": "return newdiff;", 
+          "type": "InsertBefore", 
+          "seed": "end.add(field,-1 * difference);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_600/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:51:57.690295147 -0500\n@@ -435,7 +435,7 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            StringBuffer buffer = new StringBuffer();\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Replace", 
+          "seed": "StringBuffer buffer=new StringBuffer();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_663/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:52:31.014441536 -0500\n@@ -435,7 +435,7 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            int len = 0;\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Replace", 
+          "seed": "int len=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_354/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:48:40.141426925 -0500\n@@ -303,7 +303,11 @@\n             days -= 1;\n         }\n         while (days < 0) {\n-            days += 31;\n+            while (hours < 0) {\n+\t\t\t\thours += 24;\n+\t\t\t\tdays -= 1;\n+\t\t\t}\n+\t\t\tdays += 31;\n //days += 31; // TODO: Need tests to show this is bad and the new code is good.\n // HEN: It's a tricky subject. Jan 15th to March 10th. If I count days-first it is \n // 1 month and 26 days, but if I count month-first then it is 1 month and 23 days.\n@@ -435,7 +439,6 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 306, 
+          "faulty": "days+=31;", 
+          "type": "InsertBefore", 
+          "seed": "while (hours < 0) {\n  hours+=24;\n  days-=1;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Delete", 
+          "seed": "end=(Calendar)start.clone();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_71/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:44:26.620305187 -0500\n@@ -435,7 +435,6 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Delete", 
+          "seed": "Calendar gval=Calendar.getInstance();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_485/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:50:32.309919993 -0500\n@@ -435,7 +435,7 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            Calendar cal1 = Calendar.getInstance();\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Replace", 
+          "seed": "Calendar cal1=Calendar.getInstance();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_49/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:44:18.912270933 -0500\n@@ -435,7 +435,8 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            end = (Calendar) start.clone();\n+\t\t\tend.add( field, newdiff );\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "InsertBefore", 
+          "seed": "end=(Calendar)start.clone();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:41:55.555632237 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_63/patches_65rr/Patch_375/patched/tmp/RSRepair_Defects4J_Lang_63/src/java/org/apache/commons/lang/time/DurationFormatUtils.java\t2018-12-02 02:48:52.305480408 -0500\n@@ -435,7 +435,7 @@\n         int startValue = start.get(field);\n         if (endValue < startValue) {\n             int newdiff = startValue - endValue;\n-            end.add( field, newdiff );\n+            end = (Calendar) start.clone();\n             return newdiff;\n         } else {\n             return 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/DurationFormatUtils.java", 
+          "line": 438, 
+          "faulty": "end.add(field,newdiff);", 
+          "type": "Replace", 
+          "seed": "end=(Calendar)start.clone();"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1355 @@
+{
+  "repair_end": "2018-12-02 09:32:19.170067", 
+  "repair_begin": "2018-12-02 08:51:35.253846", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_279/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:09:43.597460123 -0500\n@@ -394,9 +394,10 @@\n         keys[index]   = 0;\n         states[index] = REMOVED;\n         final double previous = values[index];\n-        values[index] = missingEntries;\n+        if (states[index] == FULL) {\n+\t\t\treturn changeIndexSign(index);\n+\t\t}\n         --size;\n-        ++count;\n         return previous;\n     }\n \n@@ -529,9 +530,6 @@\n             if (referenceCount != count) {\n                 throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n             }\n-            if (current < 0) {\n-                throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n-            }\n             return keys[current];\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 532, 
+          "faulty": "if (current < 0) {\n  throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n}", 
+          "type": "Delete", 
+          "seed": "growTable();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 397, 
+          "faulty": "values[index]=missingEntries;", 
+          "type": "Replace", 
+          "seed": "if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_333/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:10:31.597552486 -0500\n@@ -392,11 +392,13 @@\n      */\n     private double doRemove(int index) {\n         keys[index]   = 0;\n-        states[index] = REMOVED;\n+        if (shouldGrowTable()) {\n+\t\t\tgrowTable();\n+\t\t}\n+\t\tstates[index] = REMOVED;\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 395, 
+          "faulty": "states[index]=REMOVED;", 
+          "type": "InsertBefore", 
+          "seed": "if (shouldGrowTable()) {\n  growTable();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_274/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:09:40.137453363 -0500\n@@ -214,7 +214,7 @@\n         }\n \n         if (states[index] == FREE) {\n-            return false;\n+            states[index] = REMOVED;\n         }\n \n         int j = index;\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 217, 
+          "faulty": "return false;", 
+          "type": "Replace", 
+          "seed": "states[index]=REMOVED;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1489/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:27:44.367373710 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1489/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:27:44.367373710 -0500\n@@ -661,6 +661,7 @@\n     /** {@inheritDoc} */\n     public void setEntry(int index, double value) {\n         checkIndex(index);\n+\t\tcheckIndex(index);\n         if (!isDefaultValue(value)) {\n             entries.put(index, value);\n         } else if (entries.containsKey(index)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 663, 
+          "faulty": "checkIndex(index);", 
+          "type": "InsertBefore", 
+          "seed": "checkIndex(index);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_770/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:16:49.754244603 -0500\n@@ -210,7 +210,8 @@\n         final int hash  = hashOf(key);\n         int index = hash & mask;\n         if (containsKey(key, index)) {\n-            return true;\n+            keys[index] = key;\n+\t\t\treturn true;\n         }\n \n         if (states[index] == FREE) {\n@@ -396,7 +397,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 213, 
+          "faulty": "return true;", 
+          "type": "InsertBefore", 
+          "seed": "keys[index]=key;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1012/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:20:36.022638563 -0500\n@@ -213,10 +213,6 @@\n             return true;\n         }\n \n-        if (states[index] == FREE) {\n-            return false;\n-        }\n-\n         int j = index;\n         for (int perturb = perturb(hash); states[index] != FREE; perturb >>= PERTURB_SHIFT) {\n             j = probe(perturb, j);\n@@ -396,7 +392,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "growTable();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 216, 
+          "faulty": "if (states[index] == FREE) {\n  return false;\n}", 
+          "type": "Delete", 
+          "seed": "keys[index]=key;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_90/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:06:59.645119590 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_90/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:06:59.649119599 -0500\n@@ -662,7 +662,11 @@\n     public void setEntry(int index, double value) {\n         checkIndex(index);\n         if (!isDefaultValue(value)) {\n-            entries.put(index, value);\n+            if (!isDefaultValue(value)) {\n+\t\t\t\tentries.put(index, value);\n+\t\t\t} else if (entries.containsKey(index)) {\n+\t\t\t\tentries.remove(index);\n+\t\t\t}\n         } else if (entries.containsKey(index)) {\n             entries.remove(index);\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 665, 
+          "faulty": "entries.put(index,value);", 
+          "type": "Replace", 
+          "seed": "if (!isDefaultValue(value)) {\n  entries.put(index,value);\n}\n else if (entries.containsKey(index)) {\n  entries.remove(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_422/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:11:57.225711713 -0500\n@@ -394,9 +394,12 @@\n         keys[index]   = 0;\n         states[index] = REMOVED;\n         final double previous = values[index];\n-        values[index] = missingEntries;\n+        if (states[index] == FREE) {\n+\t\t\treturn index;\n+\t\t} else if (states[index] == FULL) {\n+\t\t\treturn changeIndexSign(index);\n+\t\t}\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 397, 
+          "faulty": "values[index]=missingEntries;", 
+          "type": "Replace", 
+          "seed": "if (states[index] == FREE) {\n  return index;\n}\n else if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_627/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:14:52.702022957 -0500\n@@ -394,9 +394,10 @@\n         keys[index]   = 0;\n         states[index] = REMOVED;\n         final double previous = values[index];\n-        values[index] = missingEntries;\n+        if (states[index] == FULL) {\n+\t\t\treturn changeIndexSign(index);\n+\t\t}\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (states[index] == FREE) {\n  return index;\n}\n else if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 397, 
+          "faulty": "values[index]=missingEntries;", 
+          "type": "Replace", 
+          "seed": "if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_265/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:09:33.165439692 -0500\n@@ -393,10 +393,12 @@\n     private double doRemove(int index) {\n         keys[index]   = 0;\n         states[index] = REMOVED;\n-        final double previous = values[index];\n+        if (shouldGrowTable()) {\n+\t\t\tgrowTable();\n+\t\t}\n+\t\tfinal double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 396, 
+          "faulty": "final double previous=values[index];", 
+          "type": "InsertBefore", 
+          "seed": "if (shouldGrowTable()) {\n  growTable();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_32/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:06:08.317006061 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/exception/util/LocalizedFormats.java\t2018-12-02 02:51:20.027187849 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_310/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/exception/util/LocalizedFormats.java\t2018-12-02 03:10:07.729506878 -0500\n@@ -375,8 +375,6 @@\n             // do nothing here\n         }\n \n-        // either the locale is not supported or the resource is unknown\n-        // don't translate and fall back to using the source format\n         return sourceFormat;\n \n     }\n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_310/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:10:07.729506878 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/exception/util/LocalizedFormats.java", 
+          "line": 380, 
+          "faulty": "return sourceFormat;", 
+          "type": "Replace", 
+          "seed": "return sourceFormat;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_490/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:12:55.121816236 -0500\n@@ -396,8 +396,8 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n-        return previous;\n+        values[index] = missingEntries;\n+\t\treturn previous;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 400, 
+          "faulty": "return previous;", 
+          "type": "InsertBefore", 
+          "seed": "values[index]=missingEntries;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (states[index] == FREE) {\n  return index;\n}\n else if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1104/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:21:59.130782073 -0500\n@@ -393,10 +393,12 @@\n     private double doRemove(int index) {\n         keys[index]   = 0;\n         states[index] = REMOVED;\n-        final double previous = values[index];\n+        if (states[index] == FULL) {\n+\t\t\treturn changeIndexSign(index);\n+\t\t}\n+\t\tfinal double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 396, 
+          "faulty": "final double previous=values[index];", 
+          "type": "InsertBefore", 
+          "seed": "if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_299/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:09:59.121490279 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_299/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:09:59.125490286 -0500\n@@ -366,7 +366,7 @@\n     /** {@inheritDoc} */\n     public OpenMapRealVector ebeMultiply(RealVector v) {\n         checkVectorDimensions(v.getDimension());\n-        OpenMapRealVector res = new OpenMapRealVector(this);\n+        OpenMapRealVector res = copy();\n         Iterator iter = res.entries.iterator();\n         while (iter.hasNext()) {\n             iter.advance();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 369, 
+          "faulty": "OpenMapRealVector res=new OpenMapRealVector(this);", 
+          "type": "Replace", 
+          "seed": "OpenMapRealVector res=copy();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1113/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:22:06.010793930 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n@@ -526,9 +525,9 @@\n          */\n         public int key()\n             throws ConcurrentModificationException, NoSuchElementException {\n-            if (referenceCount != count) {\n-                throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n-            }\n+            if (shouldGrowTable()) {\n+\t\t\t\tgrowTable();\n+\t\t\t}\n             if (current < 0) {\n                 throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 529, 
+          "faulty": "if (referenceCount != count) {\n  throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n}", 
+          "type": "Replace", 
+          "seed": "if (shouldGrowTable()) {\n  growTable();\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_180/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:08:14.497280768 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/MathRuntimeException.java\t2018-12-02 02:51:20.007187848 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_180/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/MathRuntimeException.java\t2018-12-02 03:08:14.501280775 -0500\n@@ -129,7 +129,12 @@\n      */\n     private static String buildMessage(final Locale locale, final Localizable pattern,\n                                        final Object ... arguments) {\n-        return new MessageFormat(pattern.getLocalizedString(locale), locale).format(arguments);\n+        if (pattern != null) {\n+\t\t\t\t\t\t\t\t\t\t\treturn new MessageFormat(\n+\t\t\t\t\t\t\t\t\t\t\t\t\tpattern.getLocalizedString(locale),\n+\t\t\t\t\t\t\t\t\t\t\t\t\tlocale).format(arguments);\n+\t\t\t\t\t\t\t\t\t\t}\n+\t\treturn new MessageFormat(pattern.getLocalizedString(locale), locale).format(arguments);\n     }\n \n     /** Gets the message in a specified locale.\n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_180/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:08:14.501280775 -0500\n@@ -367,7 +367,7 @@\n     public OpenMapRealVector ebeMultiply(RealVector v) {\n         checkVectorDimensions(v.getDimension());\n         OpenMapRealVector res = new OpenMapRealVector(this);\n-        Iterator iter = res.entries.iterator();\n+        Iterator iter = entries.iterator();\n         while (iter.hasNext()) {\n             iter.advance();\n             res.setEntry(iter.key(), iter.value() * v.getEntry(iter.key()));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 370, 
+          "faulty": "Iterator iter=res.entries.iterator();", 
+          "type": "Replace", 
+          "seed": "Iterator iter=entries.iterator();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/MathRuntimeException.java", 
+          "line": 132, 
+          "faulty": "return new MessageFormat(pattern.getLocalizedString(locale),locale).format(arguments);", 
+          "type": "InsertBefore", 
+          "seed": "if (pattern != null) {\n  return new MessageFormat(pattern.getLocalizedString(locale),locale).format(arguments);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_512/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:13:13.181848426 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_512/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:13:13.181848426 -0500\n@@ -367,7 +367,8 @@\n     public OpenMapRealVector ebeMultiply(RealVector v) {\n         checkVectorDimensions(v.getDimension());\n         OpenMapRealVector res = new OpenMapRealVector(this);\n-        Iterator iter = res.entries.iterator();\n+        checkVectorDimensions(v);\n+\t\tIterator iter = res.entries.iterator();\n         while (iter.hasNext()) {\n             iter.advance();\n             res.setEntry(iter.key(), iter.value() * v.getEntry(iter.key()));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 370, 
+          "faulty": "Iterator iter=res.entries.iterator();", 
+          "type": "InsertBefore", 
+          "seed": "checkVectorDimensions(v);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/exception/util/LocalizedFormats.java\t2018-12-02 02:51:20.027187849 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_765/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/exception/util/LocalizedFormats.java\t2018-12-02 03:16:47.214240148 -0500\n@@ -375,8 +375,6 @@\n             // do nothing here\n         }\n \n-        // either the locale is not supported or the resource is unknown\n-        // don't translate and fall back to using the source format\n         return sourceFormat;\n \n     }\n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_765/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:16:47.218240155 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n@@ -526,9 +525,6 @@\n          */\n         public int key()\n             throws ConcurrentModificationException, NoSuchElementException {\n-            if (referenceCount != count) {\n-                throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n-            }\n             if (current < 0) {\n                 throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 529, 
+          "faulty": "if (referenceCount != count) {\n  throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n}", 
+          "type": "Delete", 
+          "seed": "if (current < 0) {\n  throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/exception/util/LocalizedFormats.java", 
+          "line": 380, 
+          "faulty": "return sourceFormat;", 
+          "type": "Replace", 
+          "seed": "return sourceFormat;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_293/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:09:54.813481939 -0500\n@@ -393,10 +393,12 @@\n     private double doRemove(int index) {\n         keys[index]   = 0;\n         states[index] = REMOVED;\n-        final double previous = values[index];\n+        if (states[index] == FREE) {\n+\t\t\treturn missingEntries;\n+\t\t}\n+\t\tfinal double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 396, 
+          "faulty": "final double previous=values[index];", 
+          "type": "InsertBefore", 
+          "seed": "if (states[index] == FREE) {\n  return missingEntries;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_150/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:07:50.497230291 -0500\n@@ -396,8 +396,7 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n-        return previous;\n+        return Math.PI / 2.0;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 400, 
+          "faulty": "return previous;", 
+          "type": "Replace", 
+          "seed": "return Math.PI / 2.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_571/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:14:01.121933048 -0500\n@@ -396,7 +396,10 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n+        if (index < 0) {\n+\t\t\tthrow MathRuntimeException.createArrayIndexOutOfBoundsException(\n+\t\t\t\t\tLocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX, index);\n+\t\t}\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Replace", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/exception/util/LocalizedFormats.java\t2018-12-02 02:51:20.027187849 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1720/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/exception/util/LocalizedFormats.java\t2018-12-02 03:31:35.031766337 -0500\n@@ -375,8 +375,6 @@\n             // do nothing here\n         }\n \n-        // either the locale is not supported or the resource is unknown\n-        // don't translate and fall back to using the source format\n         return sourceFormat;\n \n     }\n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1720/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:31:35.031766337 -0500\n@@ -214,7 +214,7 @@\n         }\n \n         if (states[index] == FREE) {\n-            return false;\n+            ++size;\n         }\n \n         int j = index;\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 217, 
+          "faulty": "return false;", 
+          "type": "Replace", 
+          "seed": "++size;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/exception/util/LocalizedFormats.java", 
+          "line": 380, 
+          "faulty": "return sourceFormat;", 
+          "type": "Replace", 
+          "seed": "return sourceFormat;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1756/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:32:05.563818203 -0500\n@@ -213,10 +213,6 @@\n             return true;\n         }\n \n-        if (states[index] == FREE) {\n-            return false;\n-        }\n-\n         int j = index;\n         for (int perturb = perturb(hash); states[index] != FREE; perturb >>= PERTURB_SHIFT) {\n             j = probe(perturb, j);\n@@ -396,7 +392,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 217, 
+          "faulty": "return false;", 
+          "type": "Replace", 
+          "seed": "++size;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 216, 
+          "faulty": "if (states[index] == FREE) {\n  return false;\n}", 
+          "type": "Delete", 
+          "seed": "--size;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_430/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:12:03.257722707 -0500\n@@ -393,10 +393,9 @@\n     private double doRemove(int index) {\n         keys[index]   = 0;\n         states[index] = REMOVED;\n-        final double previous = values[index];\n+        double previous = missingEntries;\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 396, 
+          "faulty": "final double previous=values[index];", 
+          "type": "Replace", 
+          "seed": "double previous=missingEntries;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_176/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:08:11.897275348 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_176/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:08:11.901275357 -0500\n@@ -365,7 +365,6 @@\n \n     /** {@inheritDoc} */\n     public OpenMapRealVector ebeMultiply(RealVector v) {\n-        checkVectorDimensions(v.getDimension());\n         OpenMapRealVector res = new OpenMapRealVector(this);\n         Iterator iter = res.entries.iterator();\n         while (iter.hasNext()) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 368, 
+          "faulty": "checkVectorDimensions(v.getDimension());", 
+          "type": "Delete", 
+          "seed": "entries=new OpenIntToDoubleHashMap(0.0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_841/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:17:47.870346321 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_841/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:17:47.870346321 -0500\n@@ -662,6 +662,11 @@\n     public void setEntry(int index, double value) {\n         checkIndex(index);\n         if (!isDefaultValue(value)) {\n+\t\t\tentries.put(index, value);\n+\t\t} else if (entries.containsKey(index)) {\n+\t\t\tentries.remove(index);\n+\t\t}\n+\t\tif (!isDefaultValue(value)) {\n             entries.put(index, value);\n         } else if (entries.containsKey(index)) {\n             entries.remove(index);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 664, 
+          "faulty": "if (!isDefaultValue(value)) {\n  entries.put(index,value);\n}\n else if (entries.containsKey(index)) {\n  entries.remove(index);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (!isDefaultValue(value)) {\n  entries.put(index,value);\n}\n else if (entries.containsKey(index)) {\n  entries.remove(index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_767/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:16:48.066241642 -0500\n@@ -393,11 +393,10 @@\n     private double doRemove(int index) {\n         keys[index]   = 0;\n         states[index] = REMOVED;\n-        final double previous = values[index];\n+        double previous = missingEntries;\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n-        return previous;\n+        return Math.PI / 2.0;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 400, 
+          "faulty": "return previous;", 
+          "type": "Replace", 
+          "seed": "return Math.PI / 2.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 396, 
+          "faulty": "final double previous=values[index];", 
+          "type": "Replace", 
+          "seed": "double previous=missingEntries;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_635/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:14:58.802033522 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n@@ -526,9 +525,6 @@\n          */\n         public int key()\n             throws ConcurrentModificationException, NoSuchElementException {\n-            if (referenceCount != count) {\n-                throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n-            }\n             if (current < 0) {\n                 throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_635/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:14:58.802033522 -0500\n@@ -665,6 +665,7 @@\n             entries.put(index, value);\n         } else if (entries.containsKey(index)) {\n             entries.remove(index);\n+\t\t\tentries.remove(index);\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 667, 
+          "faulty": "entries.remove(index);", 
+          "type": "InsertBefore", 
+          "seed": "entries.remove(index);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 529, 
+          "faulty": "if (referenceCount != count) {\n  throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n}", 
+          "type": "Delete", 
+          "seed": "referenceCount=count;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (states[index] == FREE) {\n  return index;\n}\n else if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_241/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:09:13.405400618 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/MathRuntimeException.java\t2018-12-02 02:51:20.007187848 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_241/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/MathRuntimeException.java\t2018-12-02 03:09:13.405400618 -0500\n@@ -129,7 +129,8 @@\n      */\n     private static String buildMessage(final Locale locale, final Localizable pattern,\n                                        final Object ... arguments) {\n-        return new MessageFormat(pattern.getLocalizedString(locale), locale).format(arguments);\n+        return new MessageFormat(pattern.getLocalizedString(locale), locale)\n+\t\t\t\t.format(arguments);\n     }\n \n     /** Gets the message in a specified locale.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/MathRuntimeException.java", 
+          "line": 132, 
+          "faulty": "return new MessageFormat(pattern.getLocalizedString(locale),locale).format(arguments);", 
+          "type": "Replace", 
+          "seed": "return new MessageFormat(pattern.getLocalizedString(locale),locale).format(arguments);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1177/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:22:58.150883683 -0500\n@@ -393,10 +393,12 @@\n     private double doRemove(int index) {\n         keys[index]   = 0;\n         states[index] = REMOVED;\n-        final double previous = values[index];\n+        if (states[index] == FULL) {\n+\t\t\treturn changeIndexSign(index);\n+\t\t}\n+\t\tfinal double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1177/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:22:58.154883690 -0500\n@@ -664,7 +664,10 @@\n         if (!isDefaultValue(value)) {\n             entries.put(index, value);\n         } else if (entries.containsKey(index)) {\n-            entries.remove(index);\n+            if (entries.containsKey(index)) {\n+\t\t\t\tentries.remove(index);\n+\t\t\t}\n+\t\t\tentries.remove(index);\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 667, 
+          "faulty": "entries.remove(index);", 
+          "type": "InsertBefore", 
+          "seed": "if (entries.containsKey(index)) {\n  entries.remove(index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 396, 
+          "faulty": "final double previous=values[index];", 
+          "type": "InsertBefore", 
+          "seed": "if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_577/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:14:05.417940579 -0500\n@@ -391,12 +391,15 @@\n      * @return removed value\n      */\n     private double doRemove(int index) {\n-        keys[index]   = 0;\n         states[index] = REMOVED;\n-        final double previous = values[index];\n+\t\tkeys[index]   = 0;\n+        states[index] = REMOVED;\n+        if (states[index] == FULL) {\n+\t\t\treturn changeIndexSign(index);\n+\t\t}\n+\t\tfinal double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 396, 
+          "faulty": "final double previous=values[index];", 
+          "type": "InsertBefore", 
+          "seed": "if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 394, 
+          "faulty": "keys[index]=0;", 
+          "type": "InsertBefore", 
+          "seed": "states[index]=REMOVED;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_721/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:16:10.066169794 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/MathRuntimeException.java\t2018-12-02 02:51:20.007187848 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_721/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/MathRuntimeException.java\t2018-12-02 03:16:10.066169794 -0500\n@@ -129,7 +129,8 @@\n      */\n     private static String buildMessage(final Locale locale, final Localizable pattern,\n                                        final Object ... arguments) {\n-        return new MessageFormat(pattern.getLocalizedString(locale), locale).format(arguments);\n+        return new MessageFormat(pattern.getLocalizedString(locale), locale)\n+\t\t\t\t.format(arguments);\n     }\n \n     /** Gets the message in a specified locale.\n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_721/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:16:10.066169794 -0500\n@@ -366,7 +366,7 @@\n     /** {@inheritDoc} */\n     public OpenMapRealVector ebeMultiply(RealVector v) {\n         checkVectorDimensions(v.getDimension());\n-        OpenMapRealVector res = new OpenMapRealVector(this);\n+        OpenMapRealVector res = copy();\n         Iterator iter = res.entries.iterator();\n         while (iter.hasNext()) {\n             iter.advance();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/MathRuntimeException.java", 
+          "line": 132, 
+          "faulty": "return new MessageFormat(pattern.getLocalizedString(locale),locale).format(arguments);", 
+          "type": "Replace", 
+          "seed": "return new MessageFormat(pattern.getLocalizedString(locale),locale).format(arguments);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 369, 
+          "faulty": "OpenMapRealVector res=new OpenMapRealVector(this);", 
+          "type": "Replace", 
+          "seed": "OpenMapRealVector res=copy();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_461/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:12:26.581764982 -0500\n@@ -394,9 +394,7 @@\n         keys[index]   = 0;\n         states[index] = REMOVED;\n         final double previous = values[index];\n-        values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 397, 
+          "faulty": "values[index]=missingEntries;", 
+          "type": "Delete", 
+          "seed": "if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1525/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:28:14.351424840 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1525/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:28:14.355424847 -0500\n@@ -477,6 +477,7 @@\n     /** {@inheritDoc} */\n     public double getEntry(int index) {\n         checkIndex(index);\n+\t\tcheckIndex(index);\n         return entries.get(index);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 479, 
+          "faulty": "checkIndex(index);", 
+          "type": "InsertBefore", 
+          "seed": "checkIndex(index);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_802/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:17:16.614291668 -0500\n@@ -396,8 +396,7 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n-        return previous;\n+        return Math.PI / 2.0;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/MathRuntimeException.java\t2018-12-02 02:51:20.007187848 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_802/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/MathRuntimeException.java\t2018-12-02 03:17:16.614291668 -0500\n@@ -129,7 +129,8 @@\n      */\n     private static String buildMessage(final Locale locale, final Localizable pattern,\n                                        final Object ... arguments) {\n-        return new MessageFormat(pattern.getLocalizedString(locale), locale).format(arguments);\n+        return new MessageFormat(pattern.getLocalizedString(locale), locale)\n+\t\t\t\t.format(arguments);\n     }\n \n     /** Gets the message in a specified locale.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 400, 
+          "faulty": "return previous;", 
+          "type": "Replace", 
+          "seed": "return Math.PI / 2.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/MathRuntimeException.java", 
+          "line": 132, 
+          "faulty": "return new MessageFormat(pattern.getLocalizedString(locale),locale).format(arguments);", 
+          "type": "Replace", 
+          "seed": "return new MessageFormat(pattern.getLocalizedString(locale),locale).format(arguments);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_327/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:10:27.233544191 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n@@ -526,9 +525,6 @@\n          */\n         public int key()\n             throws ConcurrentModificationException, NoSuchElementException {\n-            if (referenceCount != count) {\n-                throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n-            }\n             if (current < 0) {\n                 throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 529, 
+          "faulty": "if (referenceCount != count) {\n  throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n}", 
+          "type": "Delete", 
+          "seed": "if (current < 0) {\n  throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (states[index] == FREE) {\n  return index;\n}\n else if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_445/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:12:15.421744801 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_445/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:12:15.425744808 -0500\n@@ -365,7 +365,7 @@\n \n     /** {@inheritDoc} */\n     public OpenMapRealVector ebeMultiply(RealVector v) {\n-        checkVectorDimensions(v.getDimension());\n+        checkVectorDimensions(v);\n         OpenMapRealVector res = new OpenMapRealVector(this);\n         Iterator iter = res.entries.iterator();\n         while (iter.hasNext()) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 368, 
+          "faulty": "checkVectorDimensions(v.getDimension());", 
+          "type": "Replace", 
+          "seed": "checkVectorDimensions(v);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1251/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:24:06.927001813 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 220, 
+          "faulty": "return FastMath.abs(value) < epsilon;", 
+          "type": "Replace", 
+          "seed": "return FastMath.abs(value) < epsilon;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_132/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:07:35.721198677 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_132/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:07:35.721198677 -0500\n@@ -367,7 +367,7 @@\n     public OpenMapRealVector ebeMultiply(RealVector v) {\n         checkVectorDimensions(v.getDimension());\n         OpenMapRealVector res = new OpenMapRealVector(this);\n-        Iterator iter = res.entries.iterator();\n+        Iterator iter = entries.iterator();\n         while (iter.hasNext()) {\n             iter.advance();\n             res.setEntry(iter.key(), iter.value() * v.getEntry(iter.key()));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 370, 
+          "faulty": "Iterator iter=res.entries.iterator();", 
+          "type": "Replace", 
+          "seed": "Iterator iter=entries.iterator();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_983/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:20:06.298587101 -0500\n@@ -393,10 +393,12 @@\n     private double doRemove(int index) {\n         keys[index]   = 0;\n         states[index] = REMOVED;\n-        final double previous = values[index];\n+        if (states[index] == FULL) {\n+\t\t\treturn changeIndexSign(index);\n+\t\t}\n+\t\tfinal double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_983/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:20:06.302587107 -0500\n@@ -365,7 +365,7 @@\n \n     /** {@inheritDoc} */\n     public OpenMapRealVector ebeMultiply(RealVector v) {\n-        checkVectorDimensions(v.getDimension());\n+        checkVectorDimensions(v);\n         OpenMapRealVector res = new OpenMapRealVector(this);\n         Iterator iter = res.entries.iterator();\n         while (iter.hasNext()) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 396, 
+          "faulty": "final double previous=values[index];", 
+          "type": "InsertBefore", 
+          "seed": "if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 368, 
+          "faulty": "checkVectorDimensions(v.getDimension());", 
+          "type": "Replace", 
+          "seed": "checkVectorDimensions(v);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1140/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:22:28.534832725 -0500\n@@ -394,9 +394,11 @@\n         keys[index]   = 0;\n         states[index] = REMOVED;\n         final double previous = values[index];\n-        values[index] = missingEntries;\n+        if (states[index] == FULL) {\n+\t\t\treturn changeIndexSign(index);\n+\t\t}\n+\t\tvalues[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 397, 
+          "faulty": "values[index]=missingEntries;", 
+          "type": "InsertBefore", 
+          "seed": "if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_218/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:08:54.437362604 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n@@ -529,9 +528,6 @@\n             if (referenceCount != count) {\n                 throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n             }\n-            if (current < 0) {\n-                throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n-            }\n             return keys[current];\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 532, 
+          "faulty": "if (current < 0) {\n  throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n}", 
+          "type": "Delete", 
+          "seed": "growTable();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_825/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:17:35.538324772 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_825/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:17:35.538324772 -0500\n@@ -665,6 +665,7 @@\n             entries.put(index, value);\n         } else if (entries.containsKey(index)) {\n             entries.remove(index);\n+\t\t\tentries.remove(index);\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 667, 
+          "faulty": "entries.remove(index);", 
+          "type": "InsertBefore", 
+          "seed": "entries.remove(index);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_960/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:19:47.250554081 -0500\n@@ -396,8 +396,7 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n-        return previous;\n+        return Math.PI / 2.0;\n     }\n \n     /**\n@@ -529,9 +528,6 @@\n             if (referenceCount != count) {\n                 throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n             }\n-            if (current < 0) {\n-                throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n-            }\n             return keys[current];\n         }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_960/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:19:47.250554081 -0500\n@@ -663,9 +663,8 @@\n         checkIndex(index);\n         if (!isDefaultValue(value)) {\n             entries.put(index, value);\n-        } else if (entries.containsKey(index)) {\n-            entries.remove(index);\n-        }\n+        } else\n+\t\t\tentries.remove(index);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 666, 
+          "faulty": "if (entries.containsKey(index)) {\n  entries.remove(index);\n}", 
+          "type": "Replace", 
+          "seed": "entries.remove(index);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 400, 
+          "faulty": "return previous;", 
+          "type": "Replace", 
+          "seed": "return Math.PI / 2.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 532, 
+          "faulty": "if (current < 0) {\n  throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n}", 
+          "type": "Delete", 
+          "seed": "growTable();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_457/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:12:24.013760346 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 422, 
+          "faulty": "return virtualSize;", 
+          "type": "Replace", 
+          "seed": "return virtualSize;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (states[index] == FREE) {\n  return index;\n}\n else if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1458/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:27:19.683331594 -0500\n@@ -214,7 +214,6 @@\n         }\n \n         if (states[index] == FREE) {\n-            return false;\n         }\n \n         int j = index;\n@@ -396,8 +395,7 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n-        return previous;\n+        return Math.PI / 2.0;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1458/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:27:19.687331600 -0500\n@@ -662,7 +662,12 @@\n     public void setEntry(int index, double value) {\n         checkIndex(index);\n         if (!isDefaultValue(value)) {\n-            entries.put(index, value);\n+            if (!isDefaultValue(value)) {\n+\t\t\t\tentries.put(index, value);\n+\t\t\t} else if (entries.containsKey(index)) {\n+\t\t\t\tentries.remove(index);\n+\t\t\t}\n+\t\t\tentries.put(index, value);\n         } else if (entries.containsKey(index)) {\n             entries.remove(index);\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 400, 
+          "faulty": "return previous;", 
+          "type": "Replace", 
+          "seed": "return Math.PI / 2.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 665, 
+          "faulty": "entries.put(index,value);", 
+          "type": "InsertBefore", 
+          "seed": "if (!isDefaultValue(value)) {\n  entries.put(index,value);\n}\n else if (entries.containsKey(index)) {\n  entries.remove(index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 217, 
+          "faulty": "return false;", 
+          "type": "Delete", 
+          "seed": "growTable();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_448/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:12:17.153747938 -0500\n@@ -210,7 +210,13 @@\n         final int hash  = hashOf(key);\n         int index = hash & mask;\n         if (containsKey(key, index)) {\n-            return true;\n+            if (index < 0) {\n+\t\t\t\tthrow MathRuntimeException\n+\t\t\t\t\t\t.createArrayIndexOutOfBoundsException(\n+\t\t\t\t\t\t\t\tLocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,\n+\t\t\t\t\t\t\t\tindex);\n+\t\t\t}\n+\t\t\treturn true;\n         }\n \n         if (states[index] == FREE) {\n@@ -396,7 +402,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 213, 
+          "faulty": "return true;", 
+          "type": "InsertBefore", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_602/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:14:32.017987031 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_602/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:14:32.021987037 -0500\n@@ -366,7 +366,8 @@\n     /** {@inheritDoc} */\n     public OpenMapRealVector ebeMultiply(RealVector v) {\n         checkVectorDimensions(v.getDimension());\n-        OpenMapRealVector res = new OpenMapRealVector(this);\n+        checkVectorDimensions(v);\n+\t\tOpenMapRealVector res = new OpenMapRealVector(this);\n         Iterator iter = res.entries.iterator();\n         while (iter.hasNext()) {\n             iter.advance();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 369, 
+          "faulty": "OpenMapRealVector res=new OpenMapRealVector(this);", 
+          "type": "InsertBefore", 
+          "seed": "checkVectorDimensions(v);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1665/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:30:24.067645706 -0500\n@@ -214,7 +214,7 @@\n         }\n \n         if (states[index] == FREE) {\n-            return false;\n+            states[index] = REMOVED;\n         }\n \n         int j = index;\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1665/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:30:24.067645706 -0500\n@@ -663,9 +663,8 @@\n         checkIndex(index);\n         if (!isDefaultValue(value)) {\n             entries.put(index, value);\n-        } else if (entries.containsKey(index)) {\n-            entries.remove(index);\n-        }\n+        } else\n+\t\t\tentries.remove(index);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 666, 
+          "faulty": "if (entries.containsKey(index)) {\n  entries.remove(index);\n}", 
+          "type": "Replace", 
+          "seed": "entries.remove(index);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 217, 
+          "faulty": "return false;", 
+          "type": "Replace", 
+          "seed": "states[index]=REMOVED;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_368/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:11:06.409617986 -0500\n@@ -214,7 +214,6 @@\n         }\n \n         if (states[index] == FREE) {\n-            return false;\n         }\n \n         int j = index;\n@@ -396,7 +395,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (states[index] == FREE) {\n  return index;\n}\n else if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 217, 
+          "faulty": "return false;", 
+          "type": "Delete", 
+          "seed": "return true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1546/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:28:31.587454218 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1546/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:28:31.587454218 -0500\n@@ -476,7 +476,10 @@\n \n     /** {@inheritDoc} */\n     public double getEntry(int index) {\n-        checkIndex(index);\n+        if (isNaN()) {\n+\t\t\treturn 9;\n+\t\t}\n+\t\tcheckIndex(index);\n         return entries.get(index);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 479, 
+          "faulty": "checkIndex(index);", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN()) {\n  return 9;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_718/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:16:08.266166230 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n@@ -527,6 +526,10 @@\n         public int key()\n             throws ConcurrentModificationException, NoSuchElementException {\n             if (referenceCount != count) {\n+\t\t\t\t\tthrow MathRuntimeException\n+\t\t\t\t\t\t\t.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n+\t\t\t\t}\n+\t\t\tif (referenceCount != count) {\n                 throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n             }\n             if (current < 0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 529, 
+          "faulty": "if (referenceCount != count) {\n  throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (referenceCount != count) {\n  throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1164/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:22:47.718865740 -0500\n@@ -394,9 +394,7 @@\n         keys[index]   = 0;\n         states[index] = REMOVED;\n         final double previous = values[index];\n-        values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n@@ -529,9 +527,6 @@\n             if (referenceCount != count) {\n                 throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n             }\n-            if (current < 0) {\n-                throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n-            }\n             return keys[current];\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 532, 
+          "faulty": "if (current < 0) {\n  throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n}", 
+          "type": "Delete", 
+          "seed": "growTable();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 397, 
+          "faulty": "values[index]=missingEntries;", 
+          "type": "Delete", 
+          "seed": "index=changeIndexSign(index);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1692/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:31:00.355707407 -0500\n@@ -396,8 +396,7 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n-        return previous;\n+        return -0.0;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 400, 
+          "faulty": "return previous;", 
+          "type": "Replace", 
+          "seed": "return -0.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_836/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:17:44.338340151 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_836/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:17:44.338340151 -0500\n@@ -663,9 +663,8 @@\n         checkIndex(index);\n         if (!isDefaultValue(value)) {\n             entries.put(index, value);\n-        } else if (entries.containsKey(index)) {\n-            entries.remove(index);\n-        }\n+        } else\n+\t\t\tentries.remove(index);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 666, 
+          "faulty": "if (entries.containsKey(index)) {\n  entries.remove(index);\n}", 
+          "type": "Replace", 
+          "seed": "entries.remove(index);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_674/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:15:31.506092613 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_674/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:15:31.510092620 -0500\n@@ -662,7 +662,12 @@\n     public void setEntry(int index, double value) {\n         checkIndex(index);\n         if (!isDefaultValue(value)) {\n-            entries.put(index, value);\n+            if (!isDefaultValue(value)) {\n+\t\t\t\tentries.put(index, value);\n+\t\t\t} else if (entries.containsKey(index)) {\n+\t\t\t\tentries.remove(index);\n+\t\t\t}\n+\t\t\tentries.put(index, value);\n         } else if (entries.containsKey(index)) {\n             entries.remove(index);\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 665, 
+          "faulty": "entries.put(index,value);", 
+          "type": "InsertBefore", 
+          "seed": "if (!isDefaultValue(value)) {\n  entries.put(index,value);\n}\n else if (entries.containsKey(index)) {\n  entries.remove(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_200/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:08:36.629326430 -0500\n@@ -394,10 +394,9 @@\n         keys[index]   = 0;\n         states[index] = REMOVED;\n         final double previous = values[index];\n-        values[index] = missingEntries;\n+        states[index] = REMOVED;\n         --size;\n-        ++count;\n-        return previous;\n+        return Float.NaN;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/MathRuntimeException.java\t2018-12-02 02:51:20.007187848 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_200/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/MathRuntimeException.java\t2018-12-02 03:08:36.629326430 -0500\n@@ -129,7 +129,12 @@\n      */\n     private static String buildMessage(final Locale locale, final Localizable pattern,\n                                        final Object ... arguments) {\n-        return new MessageFormat(pattern.getLocalizedString(locale), locale).format(arguments);\n+        if (pattern != null) {\n+\t\t\t\t\t\t\t\t\t\t\treturn new MessageFormat(\n+\t\t\t\t\t\t\t\t\t\t\t\t\tpattern.getLocalizedString(locale),\n+\t\t\t\t\t\t\t\t\t\t\t\t\tlocale).format(arguments);\n+\t\t\t\t\t\t\t\t\t\t}\n+\t\treturn new MessageFormat(pattern.getLocalizedString(locale), locale).format(arguments);\n     }\n \n     /** Gets the message in a specified locale.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 400, 
+          "faulty": "return previous;", 
+          "type": "Replace", 
+          "seed": "return Float.NaN;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/MathRuntimeException.java", 
+          "line": 132, 
+          "faulty": "return new MessageFormat(pattern.getLocalizedString(locale),locale).format(arguments);", 
+          "type": "InsertBefore", 
+          "seed": "if (pattern != null) {\n  return new MessageFormat(pattern.getLocalizedString(locale),locale).format(arguments);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (states[index] == FREE) {\n  return index;\n}\n else if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 397, 
+          "faulty": "values[index]=missingEntries;", 
+          "type": "Replace", 
+          "seed": "states[index]=REMOVED;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_415/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:11:52.005702178 -0500\n@@ -396,7 +396,11 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n+        if (states[index] == FREE) {\n+\t\t\treturn index;\n+\t\t} else if (states[index] == FULL) {\n+\t\t\treturn changeIndexSign(index);\n+\t\t}\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Replace", 
+          "seed": "if (states[index] == FREE) {\n  return index;\n}\n else if (states[index] == FULL) {\n  return changeIndexSign(index);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_479/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:12:46.389800607 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n@@ -526,9 +525,10 @@\n          */\n         public int key()\n             throws ConcurrentModificationException, NoSuchElementException {\n-            if (referenceCount != count) {\n-                throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n-            }\n+            if (current < 0) {\n+\t\t\t\tthrow MathRuntimeException\n+\t\t\t\t\t\t.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n+\t\t\t}\n             if (current < 0) {\n                 throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 529, 
+          "faulty": "if (referenceCount != count) {\n  throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n}", 
+          "type": "Replace", 
+          "seed": "if (current < 0) {\n  throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_568/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:13:59.389930010 -0500\n@@ -394,9 +394,8 @@\n         keys[index]   = 0;\n         states[index] = REMOVED;\n         final double previous = values[index];\n-        values[index] = missingEntries;\n+        index = changeIndexSign(index);\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "if (index < 0) {\n  throw MathRuntimeException.createArrayIndexOutOfBoundsException(LocalizedFormats.CANNOT_SET_AT_NEGATIVE_INDEX,index);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 397, 
+          "faulty": "values[index]=missingEntries;", 
+          "type": "Replace", 
+          "seed": "index=changeIndexSign(index);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_546/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:13:41.353898289 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 02:51:23.571187993 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_546/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\t2018-12-02 03:13:41.353898289 -0500\n@@ -665,6 +665,7 @@\n             entries.put(index, value);\n         } else if (entries.containsKey(index)) {\n             entries.remove(index);\n+\t\t\tentries.remove(index);\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 422, 
+          "faulty": "return virtualSize;", 
+          "type": "Replace", 
+          "seed": "return virtualSize;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java", 
+          "line": 667, 
+          "faulty": "entries.remove(index);", 
+          "type": "InsertBefore", 
+          "seed": "entries.remove(index);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "this.missingEntries=missingEntries;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1154/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:22:39.786852092 -0500\n@@ -396,7 +396,6 @@\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n@@ -526,12 +525,6 @@\n          */\n         public int key()\n             throws ConcurrentModificationException, NoSuchElementException {\n-            if (referenceCount != count) {\n-                throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n-            }\n-            if (current < 0) {\n-                throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n-            }\n             return keys[current];\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 529, 
+          "faulty": "if (referenceCount != count) {\n  throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n}", 
+          "type": "Delete", 
+          "seed": "if (referenceCount != count) {\n  throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 532, 
+          "faulty": "if (current < 0) {\n  throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);\n}", 
+          "type": "Delete", 
+          "seed": "growTable();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 02:51:20.079187851 -0500\n+++ /tmp/Arja_Defects4J_Math_49/patches_4ok3/Patch_1467/patched/tmp/Arja_Defects4J_Math_49/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java\t2018-12-02 03:27:26.467343171 -0500\n@@ -391,12 +391,12 @@\n      * @return removed value\n      */\n     private double doRemove(int index) {\n-        keys[index]   = 0;\n+        states[index] = REMOVED;\n+\t\tkeys[index]   = 0;\n         states[index] = REMOVED;\n         final double previous = values[index];\n         values[index] = missingEntries;\n         --size;\n-        ++count;\n         return previous;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 399, 
+          "faulty": "++count;", 
+          "type": "Delete", 
+          "seed": "count=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java", 
+          "line": 394, 
+          "faulty": "keys[index]=0;", 
+          "type": "InsertBefore", 
+          "seed": "states[index]=REMOVED;"
+        }
+      ]
+    }
+  ]
+}

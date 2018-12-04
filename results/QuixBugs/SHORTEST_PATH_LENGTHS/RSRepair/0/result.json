@@ -1,132 +1,54 @@
 {
+  "repair_end": "2018-12-02 18:33:35.270915", 
+  "repair_begin": "2018-12-02 18:31:13.906798", 
   "patches": [
     {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_64/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:27.716800105 -0500\n@@ -17,17 +17,7 @@\n     public static Map<List<Integer>,Integer> shortest_path_lengths(int numNodes, Map<List<Integer>,Integer> length_by_edge) {\n         Map<List<Integer>,Integer> length_by_path = new HashMap<>();\n         for (int i = 0; i < numNodes; i++) {\n-            for (int j =0; j < numNodes; j++) {\n-                List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n-            }\n+            return length_by_path;\n         }\n         for (int k = 0; k < numNodes; k++) {\n             for (int i = 0; i < numNodes; i++) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 19, 
-          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}", 
-          "type": "Delete", 
-          "seed": "Map<List<Integer>,Integer> length_by_path=new HashMap<>();"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 34, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
-          "type": "Delete", 
-          "seed": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}"
+          "line": 20, 
+          "faulty": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_187/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:46.092758943 -0500\n@@ -21,22 +21,12 @@\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n                 if (i == j) {\n                     length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n+                } else\n+\t\t\t\t\t;\n             }\n         }\n         for (int k = 0; k < numNodes; k++) {\n-            for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n-                }\n-            }\n+            return length_by_path;\n         }\n         return length_by_path;\n     }\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 28, 
-          "faulty": "length_by_path.put(edge,INF);", 
+          "line": 25, 
+          "faulty": "if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
           "type": "Delete", 
           "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 33, 
+          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n    length_by_path.put(Arrays.asList(i,j),update_length);\n  }\n}", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
         }, 
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
           "line": 37, 
           "faulty": "length_by_path.put(Arrays.asList(i,j),update_length);", 
           "type": "Replace", 
-          "seed": "return length_by_path;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 20, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 41, 
-          "faulty": "return length_by_path;", 
-          "type": "InsertBefore", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 25, 
-          "faulty": "if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Delete", 
-          "seed": "List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 34, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 28, 
-          "faulty": "length_by_path.put(edge,INF);", 
-          "type": "Delete", 
-          "seed": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 33, 
-          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n    length_by_path.put(Arrays.asList(i,j),update_length);\n  }\n}", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 28, 
-          "faulty": "length_by_path.put(edge,INF);", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 22, 
-          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Delete", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 34, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
-          "type": "Delete", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n    length_by_path.put(Arrays.asList(i,j),update_length);\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 25, 
-          "faulty": "if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Delete", 
           "seed": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_128/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:37.476778299 -0500\n@@ -21,22 +21,11 @@\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n                 if (i == j) {\n                     length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n+                } else\n+\t\t\t\t\t;\n             }\n         }\n         for (int k = 0; k < numNodes; k++) {\n-            for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n-                }\n-            }\n         }\n         return length_by_path;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 25, 
+          "faulty": "if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
+          "type": "Delete", 
+          "seed": "length_by_path.put(edge,0);"
         }, 
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
@@ -138,6 +60,69 @@
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_170/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:43.788764128 -0500\n@@ -23,7 +23,7 @@\n                     length_by_path.put(edge, 0);\n                 }\n                 else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n+                    return length_by_path;\n                 } else {\n                     length_by_path.put(edge, INF);\n                 }\n@@ -31,11 +31,6 @@\n         }\n         for (int k = 0; k < numNodes; k++) {\n             for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n-                }\n             }\n         }\n         return length_by_path;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 26, 
+          "faulty": "length_by_path.put(edge,length_by_edge.get(edge));", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 34, 
+          "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
+          "type": "Delete", 
+          "seed": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_764/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:33:14.252555940 -0500\n@@ -19,23 +19,10 @@\n         for (int i = 0; i < numNodes; i++) {\n             for (int j =0; j < numNodes; j++) {\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n             }\n         }\n         for (int k = 0; k < numNodes; k++) {\n             for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n-                }\n             }\n         }\n         return length_by_path;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 22, 
+          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
+          "type": "Delete", 
+          "seed": "return length_by_path;"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 34, 
+          "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
+          "type": "Delete", 
+          "seed": "return length_by_path;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_104/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:33.924786250 -0500\n@@ -20,7 +20,7 @@\n             for (int j =0; j < numNodes; j++) {\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n                 if (i == j) {\n-                    length_by_path.put(edge, 0);\n+                    return length_by_path;\n                 }\n                 else if (length_by_edge.containsKey(edge) ) {\n                     length_by_path.put(edge, length_by_edge.get(edge));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 23, 
+          "faulty": "length_by_path.put(edge,0);", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_505/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:32:34.500648511 -0500\n@@ -21,12 +21,8 @@\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n                 if (i == j) {\n                     length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n+                } else\n+\t\t\t\t\treturn length_by_path;\n             }\n         }\n         for (int k = 0; k < numNodes; k++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 25, 
+          "faulty": "if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_785/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:33:17.176549072 -0500\n@@ -17,26 +17,21 @@\n     public static Map<List<Integer>,Integer> shortest_path_lengths(int numNodes, Map<List<Integer>,Integer> length_by_edge) {\n         Map<List<Integer>,Integer> length_by_path = new HashMap<>();\n         for (int i = 0; i < numNodes; i++) {\n-            for (int j =0; j < numNodes; j++) {\n-                List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n-            }\n+            return length_by_path;\n         }\n         for (int k = 0; k < numNodes; k++) {\n             for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n-                }\n-            }\n+\t\t\t\tfor (int j = 0; j < numNodes; j++) {\n+\t\t\t\t\tList<Integer> edge = new ArrayList<>(Arrays.asList(i, j));\n+\t\t\t\t\tif (i == j) {\n+\t\t\t\t\t\tlength_by_path.put(edge, 0);\n+\t\t\t\t\t} else if (length_by_edge.containsKey(edge)) {\n+\t\t\t\t\t\tlength_by_path.put(edge, length_by_edge.get(edge));\n+\t\t\t\t\t} else {\n+\t\t\t\t\t\tlength_by_path.put(edge, INF);\n+\t\t\t\t\t}\n+\t\t\t\t}\n+\t\t\t}\n         }\n         return length_by_path;\n     }\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
@@ -148,165 +133,155 @@
         }, 
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 21, 
-          "faulty": "List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 23, 
-          "faulty": "length_by_path.put(edge,0);", 
-          "type": "InsertBefore", 
-          "seed": "length_by_path.put(edge,INF);"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 25, 
-          "faulty": "if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Delete", 
-          "seed": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 32, 
-          "faulty": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}", 
-          "type": "Delete", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 26, 
-          "faulty": "length_by_path.put(edge,length_by_edge.get(edge));", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 28, 
-          "faulty": "length_by_path.put(edge,INF);", 
-          "type": "Delete", 
-          "seed": "length_by_path.put(edge,length_by_edge.get(edge));"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 34, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
-          "type": "InsertBefore", 
-          "seed": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 22, 
-          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Delete", 
-          "seed": "length_by_path.put(edge,length_by_edge.get(edge));"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 34, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
-          "type": "Delete", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 35, 
-          "faulty": "int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));", 
-          "type": "Replace", 
-          "seed": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
           "line": 23, 
           "faulty": "length_by_path.put(edge,0);", 
           "type": "Replace", 
-          "seed": "return length_by_path;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 28, 
-          "faulty": "length_by_path.put(edge,INF);", 
-          "type": "Delete", 
-          "seed": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 32, 
-          "faulty": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}", 
-          "type": "Delete", 
-          "seed": "return length_by_path;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 26, 
-          "faulty": "length_by_path.put(edge,length_by_edge.get(edge));", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 22, 
-          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Delete", 
-          "seed": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 32, 
-          "faulty": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}", 
-          "type": "Delete", 
-          "seed": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 22, 
-          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Delete", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
+          "seed": "length_by_path.put(edge,0);"
         }, 
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
           "line": 33, 
           "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n    length_by_path.put(Arrays.asList(i,j),update_length);\n  }\n}", 
+          "type": "Replace", 
+          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_141/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:39.436773904 -0500\n@@ -23,7 +23,7 @@\n                     length_by_path.put(edge, 0);\n                 }\n                 else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n+                    return length_by_path;\n                 } else {\n                     length_by_path.put(edge, INF);\n                 }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 26, 
+          "faulty": "length_by_path.put(edge,length_by_edge.get(edge));", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_181/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:45.296760735 -0500\n@@ -15,7 +15,7 @@\n     // for vertices not connected to each other\n     final static int INF = 99999;\n     public static Map<List<Integer>,Integer> shortest_path_lengths(int numNodes, Map<List<Integer>,Integer> length_by_edge) {\n-        Map<List<Integer>,Integer> length_by_path = new HashMap<>();\n+        Map<List<Integer>, Integer> length_by_path = new HashMap<>();\n         for (int i = 0; i < numNodes; i++) {\n             for (int j =0; j < numNodes; j++) {\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n@@ -25,16 +25,6 @@\n                 else if (length_by_edge.containsKey(edge) ) {\n                     length_by_path.put(edge, length_by_edge.get(edge));\n                 } else {\n-                    length_by_path.put(edge, INF);\n-                }\n-            }\n-        }\n-        for (int k = 0; k < numNodes; k++) {\n-            for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n                 }\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 18, 
+          "faulty": "Map<List<Integer>,Integer> length_by_path=new HashMap<>();", 
+          "type": "Replace", 
+          "seed": "Map<List<Integer>,Integer> length_by_path=new HashMap<>();"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 28, 
+          "faulty": "length_by_path.put(edge,INF);", 
+          "type": "Delete", 
+          "seed": "return length_by_path;"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 32, 
+          "faulty": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}", 
           "type": "Delete", 
           "seed": "return length_by_path;"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_778/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:33:16.264551215 -0500\n@@ -25,16 +25,6 @@\n                 else if (length_by_edge.containsKey(edge) ) {\n                     length_by_path.put(edge, length_by_edge.get(edge));\n                 } else {\n-                    length_by_path.put(edge, INF);\n-                }\n-            }\n-        }\n-        for (int k = 0; k < numNodes; k++) {\n-            for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n                 }\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 28, 
+          "faulty": "length_by_path.put(edge,INF);", 
+          "type": "Delete", 
+          "seed": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 32, 
+          "faulty": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}", 
+          "type": "Delete", 
+          "seed": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_329/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:32:07.696709998 -0500\n@@ -17,26 +17,10 @@\n     public static Map<List<Integer>,Integer> shortest_path_lengths(int numNodes, Map<List<Integer>,Integer> length_by_edge) {\n         Map<List<Integer>,Integer> length_by_path = new HashMap<>();\n         for (int i = 0; i < numNodes; i++) {\n-            for (int j =0; j < numNodes; j++) {\n-                List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n-            }\n+            return length_by_path;\n         }\n         for (int k = 0; k < numNodes; k++) {\n-            for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n-                }\n-            }\n+            return length_by_path;\n         }\n         return length_by_path;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 20, 
+          "faulty": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 33, 
+          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n    length_by_path.put(Arrays.asList(i,j),update_length);\n  }\n}", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_613/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:32:51.172609877 -0500\n@@ -19,14 +19,7 @@\n         for (int i = 0; i < numNodes; i++) {\n             for (int j =0; j < numNodes; j++) {\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n+                return length_by_path;\n             }\n         }\n         for (int k = 0; k < numNodes; k++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 22, 
+          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 23, 
+          "faulty": "length_by_path.put(edge,0);", 
+          "type": "InsertBefore", 
+          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_519/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:32:36.588643689 -0500\n@@ -19,24 +19,10 @@\n         for (int i = 0; i < numNodes; i++) {\n             for (int j =0; j < numNodes; j++) {\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n             }\n         }\n         for (int k = 0; k < numNodes; k++) {\n-            for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n-                }\n-            }\n+            return length_by_path;\n         }\n         return length_by_path;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 22, 
+          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
+          "type": "Delete", 
+          "seed": "if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 33, 
+          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n    length_by_path.put(Arrays.asList(i,j),update_length);\n  }\n}", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_650/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:32:56.860596632 -0500\n@@ -19,14 +19,7 @@\n         for (int i = 0; i < numNodes; i++) {\n             for (int j =0; j < numNodes; j++) {\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n+                return length_by_path;\n             }\n         }\n         for (int k = 0; k < numNodes; k++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 22, 
+          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 28, 
+          "faulty": "length_by_path.put(edge,INF);", 
+          "type": "InsertBefore", 
+          "seed": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_400/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:32:18.520685266 -0500\n@@ -17,17 +17,7 @@\n     public static Map<List<Integer>,Integer> shortest_path_lengths(int numNodes, Map<List<Integer>,Integer> length_by_edge) {\n         Map<List<Integer>,Integer> length_by_path = new HashMap<>();\n         for (int i = 0; i < numNodes; i++) {\n-            for (int j =0; j < numNodes; j++) {\n-                List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n-            }\n+            return length_by_path;\n         }\n         for (int k = 0; k < numNodes; k++) {\n             for (int i = 0; i < numNodes; i++) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
@@ -325,98 +300,32 @@
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_677/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:33:00.992586990 -0500\n@@ -17,17 +17,7 @@\n     public static Map<List<Integer>,Integer> shortest_path_lengths(int numNodes, Map<List<Integer>,Integer> length_by_edge) {\n         Map<List<Integer>,Integer> length_by_path = new HashMap<>();\n         for (int i = 0; i < numNodes; i++) {\n-            for (int j =0; j < numNodes; j++) {\n-                List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n-            }\n+            return length_by_path;\n         }\n         for (int k = 0; k < numNodes; k++) {\n             for (int i = 0; i < numNodes; i++) {\n\n\n", 
       "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 20, 
+          "faulty": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}", 
+          "type": "Replace", 
+          "seed": "return length_by_path;"
+        }, 
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
           "line": 25, 
           "faulty": "if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
+          "type": "Delete", 
+          "seed": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_362/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:32:12.664698663 -0500\n@@ -25,17 +25,11 @@\n                 else if (length_by_edge.containsKey(edge) ) {\n                     length_by_path.put(edge, length_by_edge.get(edge));\n                 } else {\n-                    length_by_path.put(edge, INF);\n                 }\n             }\n         }\n         for (int k = 0; k < numNodes; k++) {\n             for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n-                }\n             }\n         }\n         return length_by_path;\n\n\n", 
       "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 19, 
-          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}", 
-          "type": "Delete", 
-          "seed": "return length_by_path;"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 32, 
-          "faulty": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}", 
-          "type": "Delete", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 20, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 26, 
-          "faulty": "length_by_path.put(edge,length_by_edge.get(edge));", 
-          "type": "Delete", 
-          "seed": "return length_by_path;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 19, 
-          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}", 
-          "type": "Delete", 
-          "seed": "return length_by_path;"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 21, 
-          "faulty": "List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));", 
-          "type": "Replace", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 34, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
-          "type": "Delete", 
-          "seed": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 37, 
-          "faulty": "length_by_path.put(Arrays.asList(i,j),update_length);", 
-          "type": "Replace", 
-          "seed": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 20, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}", 
-          "type": "Delete", 
-          "seed": "Map<List<Integer>,Integer> length_by_path=new HashMap<>();"
-        }, 
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
           "line": 28, 
           "faulty": "length_by_path.put(edge,INF);", 
-          "type": "Replace", 
+          "type": "Delete", 
           "seed": "List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));"
         }, 
         {
@@ -424,175 +333,75 @@
           "line": 34, 
           "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
           "type": "Delete", 
-          "seed": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 20, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 26, 
-          "faulty": "length_by_path.put(edge,length_by_edge.get(edge));", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 32, 
-          "faulty": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}", 
-          "type": "Delete", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 23, 
-          "faulty": "length_by_path.put(edge,0);", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
+          "seed": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}"
         }, 
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
           "line": 37, 
           "faulty": "length_by_path.put(Arrays.asList(i,j),update_length);", 
           "type": "InsertBefore", 
-          "seed": "List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));"
+          "seed": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_34/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:22.656811359 -0500\n@@ -25,7 +25,7 @@\n                 else if (length_by_edge.containsKey(edge) ) {\n                     length_by_path.put(edge, length_by_edge.get(edge));\n                 } else {\n-                    length_by_path.put(edge, INF);\n+                    return length_by_path;\n                 }\n             }\n         }\n\n\n", 
       "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 22, 
-          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 33, 
-          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n    length_by_path.put(Arrays.asList(i,j),update_length);\n  }\n}", 
-          "type": "Delete", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 20, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}", 
-          "type": "Replace", 
-          "seed": "return length_by_path;"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 21, 
-          "faulty": "List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));", 
-          "type": "Delete", 
-          "seed": "Map<List<Integer>,Integer> length_by_path=new HashMap<>();"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 25, 
-          "faulty": "if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Delete", 
-          "seed": "length_by_path.put(edge,length_by_edge.get(edge));"
-        }, 
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
           "line": 28, 
           "faulty": "length_by_path.put(edge,INF);", 
           "type": "Replace", 
-          "seed": "length_by_path.put(edge,INF);"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 33, 
-          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n    length_by_path.put(Arrays.asList(i,j),update_length);\n  }\n}", 
-          "type": "Replace", 
           "seed": "return length_by_path;"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_166/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:43.328765163 -0500\n@@ -16,28 +16,6 @@\n     final static int INF = 99999;\n     public static Map<List<Integer>,Integer> shortest_path_lengths(int numNodes, Map<List<Integer>,Integer> length_by_edge) {\n         Map<List<Integer>,Integer> length_by_path = new HashMap<>();\n-        for (int i = 0; i < numNodes; i++) {\n-            for (int j =0; j < numNodes; j++) {\n-                List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n-            }\n-        }\n-        for (int k = 0; k < numNodes; k++) {\n-            for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n-                }\n-            }\n-        }\n         return length_by_path;\n     }\n }\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 22, 
-          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
+          "line": 19, 
+          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}", 
           "type": "Delete", 
-          "seed": "if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 26, 
-          "faulty": "length_by_path.put(edge,length_by_edge.get(edge));", 
-          "type": "Delete", 
-          "seed": "length_by_path.put(edge,INF);"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 34, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
-          "type": "Delete", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n    length_by_path.put(Arrays.asList(i,j),update_length);\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 22, 
-          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
-          "type": "Delete", 
-          "seed": "for (int j=0; j < numNodes; j++) {\n  List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n  if (i == j) {\n    length_by_path.put(edge,0);\n  }\n else   if (length_by_edge.containsKey(edge)) {\n    length_by_path.put(edge,length_by_edge.get(edge));\n  }\n else {\n    length_by_path.put(edge,INF);\n  }\n}"
+          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
         }, 
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
           "line": 32, 
           "faulty": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}", 
           "type": "Delete", 
-          "seed": "Map<List<Integer>,Integer> length_by_path=new HashMap<>();"
-        }, 
-        {
-          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
-          "line": 34, 
-          "faulty": "for (int j=0; j < numNodes; j++) {\n  int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n  length_by_path.put(Arrays.asList(i,j),update_length);\n}", 
-          "type": "Delete", 
-          "seed": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    List<Integer> edge=new ArrayList<>(Arrays.asList(i,j));\n    if (i == j) {\n      length_by_path.put(edge,0);\n    }\n else     if (length_by_edge.containsKey(edge)) {\n      length_by_path.put(edge,length_by_edge.get(edge));\n    }\n else {\n      length_by_path.put(edge,INF);\n    }\n  }\n}"
+          "seed": "for (int k=0; k < numNodes; k++) {\n  for (int i=0; i < numNodes; i++) {\n    for (int j=0; j < numNodes; j++) {\n      int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n      length_by_path.put(Arrays.asList(i,j),update_length);\n    }\n  }\n}"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_238/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:53.776741601 -0500\n@@ -19,14 +19,7 @@\n         for (int i = 0; i < numNodes; i++) {\n             for (int j =0; j < numNodes; j++) {\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n+                return length_by_path;\n             }\n         }\n         for (int k = 0; k < numNodes; k++) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
           "line": 22, 
           "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
           "type": "Replace", 
+          "seed": "return length_by_path;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:10.452838352 -0500\n+++ /tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/patches_s07s/Patch_200/patched/tmp/RSRepair_QuixBugs_SHORTEST_PATH_LENGTHS_/src/main/java/SHORTEST_PATH_LENGTHS.java\t2018-12-02 12:31:47.964754725 -0500\n@@ -19,24 +19,9 @@\n         for (int i = 0; i < numNodes; i++) {\n             for (int j =0; j < numNodes; j++) {\n                 List<Integer> edge = new ArrayList<>(Arrays.asList(i,j));\n-                if (i == j) {\n-                    length_by_path.put(edge, 0);\n-                }\n-                else if (length_by_edge.containsKey(edge) ) {\n-                    length_by_path.put(edge, length_by_edge.get(edge));\n-                } else {\n-                    length_by_path.put(edge, INF);\n-                }\n             }\n         }\n         for (int k = 0; k < numNodes; k++) {\n-            for (int i = 0; i < numNodes; i++) {\n-                for (int j = 0; j < numNodes; j++) {\n-                    int update_length = Math.min(length_by_path.get(Arrays.asList(i,j)),\n-                            length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n-                    length_by_path.put(Arrays.asList(i,j), update_length);\n-                }\n-            }\n         }\n         return length_by_path;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 22, 
+          "faulty": "if (i == j) {\n  length_by_path.put(edge,0);\n}\n else if (length_by_edge.containsKey(edge)) {\n  length_by_path.put(edge,length_by_edge.get(edge));\n}\n else {\n  length_by_path.put(edge,INF);\n}", 
+          "type": "Delete", 
+          "seed": "length_by_path.put(edge,length_by_edge.get(edge));"
+        }, 
+        {
+          "path": "src/main/java/SHORTEST_PATH_LENGTHS.java", 
+          "line": 33, 
+          "faulty": "for (int i=0; i < numNodes; i++) {\n  for (int j=0; j < numNodes; j++) {\n    int update_length=Math.min(length_by_path.get(Arrays.asList(i,j)),length_by_path.get(Arrays.asList(i,k)) + length_by_path.get(Arrays.asList(j,k)));\n    length_by_path.put(Arrays.asList(i,j),update_length);\n  }\n}", 
+          "type": "Delete", 
           "seed": "return length_by_path;"
         }
       ]

@@ -1,6 +1,7 @@
 import os
 import json
 import re
+import datetime
 
 def natural_sort(l): 
     convert = lambda text: int(text) if text.isdigit() else text.lower() 
@@ -9,12 +10,14 @@ def natural_sort(l):
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 
+total_nb_patch = 0
 nb_patch = 0
 patch_per_tool = {}
 patch_per_bench = {}
+repaired_bugs = {}
+results = []
 
-print("|  #  | Repair Tool | Benchmark | Bug |")
-print("| --- | ----------- | --------- | --- |")
+total_time = 0
 for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
     benchmark_path = os.path.join(ROOT, "results", benchmark)
     for project in natural_sort(os.listdir(benchmark_path)):
@@ -32,6 +35,10 @@ for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
                     if os.path.exists(results_path):
                         with open(results_path) as fd:
                             data = json.load(fd)
+                            if 'repair_begin' in data:
+                                begin = datetime.datetime.strptime(data['repair_begin'], "%Y-%m-%d %H:%M:%S.%f")
+                                end = datetime.datetime.strptime(data['repair_end'], "%Y-%m-%d %H:%M:%S.%f")
+                                total_time += (end - begin).total_seconds()
                             if repair_tool not in patch_per_tool:
                                 patch_per_tool[repair_tool] = {}
                             if benchmark not in patch_per_bench:
@@ -43,12 +50,52 @@ for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
                                 patch_per_tool[repair_tool][benchmark] += 1 
                                 patch_per_bench[benchmark] += 1 
                                 nb_patch += 1
-                                print ("| {:3} | {:11} | {:9} | {:4} {} |".format(nb_patch,repair_tool, benchmark, project, bug_id))
-                            if 'patch' in data and len(data['patch']) > 0:
-                                patch_per_tool[repair_tool][benchmark] += 1 
-                                patch_per_bench[benchmark] += 1 
-                                nb_patch += 1
-                                print ("| {:3} | {:11} | {:9} | {:4} {} |".format(nb_patch,repair_tool, benchmark, project, bug_id))
+                                unique_bug_id = "%s_%s_%s" % (benchmark, project, bug_id)
+                                nb_tool_patch = len(data['patches'])
+                                total_nb_patch += nb_tool_patch
+                                data['patches'] = [data['patches'][0]]
+                                if unique_bug_id not in repaired_bugs:
+                                    repaired_bugs[unique_bug_id] = {
+                                        "benchmark": benchmark,
+                                        "project": project,
+                                        "bug_id": bug_id,
+                                        "tools": []
+                                    }
+                                results.append(
+                                    {
+                                        "benchmark": benchmark,
+                                        "project": project,
+                                        "bug_id": bug_id,
+                                        "tool": repair_tool,
+                                        "result": data,
+                                        "nb_patch": nb_tool_patch
+                                    }
+                                )
+                                    
+                                repaired_bugs[unique_bug_id]['tools'].append(repair_tool)
+                    else:
+                        stderr_path = os.path.join(seed_path, "grid5k.stderr.log")
+                        if os.path.exists(stderr_path):
+                            with open(stderr_path) as fd:
+                                # timeout
+                                if "KILLED" in fd.read():
+                                    total_time += 2 * 3600 # 2h
+                            
+
+with open(os.path.join(ROOT, "docs", "data", "patches.json"), "w+") as fd:
+    json.dump(results, fd)
+      
+index = 0
+print("|  #  |    Benchmark   |         Bug           |   | Repair Tool |")
+print("| --- | -------------- | --------------------- | - | ----------- |")
+for i in natural_sort(repaired_bugs.iterkeys()):
+    bug = repaired_bugs[i]
+    index += 1
+    bug_id = bug['bug_id']
+    if len(bug_id) > 8:
+        bug_id = bug_id[-8:]
+    project = bug['project'].split("-")[-1]
+    print ("| {:3} | {:14} | {:21} | {:1} | {:11} |".format(index, bug['benchmark'], ("%s %s" % (project, bug_id)).strip(), len(bug['tools']), " ".join(bug['tools'])))
 
 print("\n")
 benchmarks = ["Bears", "Bugs.jar", "Defects4J", "IntroClassJava", "QuixBugs"]
@@ -82,4 +129,9 @@ for benchmark in benchmarks:
         nb_patches = patch_per_bench[benchmark]
     line += " {:{width}} |".format(nb_patches, width=len(benchmark))
 line += " {:5} |".format(nb_patch)
-print(line)
+print(line + "\n")
+
+print("Total generated patch: %d\n" % total_nb_patch)
+
+
+print "Execution time %s " % datetime.timedelta(seconds=total_time)

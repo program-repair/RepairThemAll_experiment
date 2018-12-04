@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-01 16:28:06.446484", 
+  "repair_begin": "2018-12-01 16:17:59.252595", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 19, 
+      "patchLocation": {
+        "line": 605, 
+        "class": "org.apache.commons.math.optimization.general.LevenbergMarquardtOptimizer"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java\n+++ b/src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java\n@@ -604,3 +604,5 @@\n             }\n-            sum2 = 0;\n+            if (this.costRelativeTolerance <= gNorm) {\n+                sum2 = 0;\n+            }\n             for (int j = 0; j < solvedCols; ++j) {\n"
+    }
+  ]
+}

@@ -1,0 +1,665 @@
+{
+  "repair_end": "2018-12-01 15:11:53.078085", 
+  "repair_begin": "2018-12-01 14:49:50.650073", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_989/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:05:36.383045596 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"PARAM_LIST\";\n       }\n       return null;\n   }\n@@ -1456,7 +1452,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"PARAM_LIST\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_1348/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:09:28.563741471 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"BITOR\";\n       }\n       return null;\n   }\n@@ -1443,7 +1439,10 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      if (!isEquivalentTo(node2, false, false, false)) {\n+\t\t\treturn new NodeMismatch(this, node2);\n+\t\t}\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1455,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"BITOR\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "if (!isEquivalentTo(node2,false,false,false)) {\n  return new NodeMismatch(this,node2);\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_104/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:56:15.092222651 -0500\n@@ -1443,7 +1443,9 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      if (!isEquivalentTo(node2, false, false, false)) {\n+\t\treturn new NodeMismatch(this, node2);\n+\t}\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1458,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "Replace", 
+          "seed": "if (!isEquivalentTo(node2,false,false,false)) {\n  return new NodeMismatch(this,node2);\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_900/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:04:39.786852342 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"ADD\";\n       }\n       return null;\n   }\n@@ -1443,7 +1439,9 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      if (!isEquivalentTo(node2, false, false, false)) {\n+\t\treturn new NodeMismatch(this, node2);\n+\t}\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1454,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"ADD\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "Replace", 
+          "seed": "if (!isEquivalentTo(node2,false,false,false)) {\n  return new NodeMismatch(this,node2);\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_325/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:58:34.345015160 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"ADD\";\n       }\n       return null;\n   }\n@@ -1456,7 +1452,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"ADD\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_762/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:03:13.026448942 -0500\n@@ -1427,7 +1427,8 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        sourcePosition = -1;\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1443,7 +1444,8 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      parent = null;\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1458,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "sourcePosition=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "parent=null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_217/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:57:25.704634004 -0500\n@@ -1427,7 +1427,9 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        Preconditions.checkState(this.propListHead == null,\n+\t\t\t\t\"Node has existing properties.\");\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1456,7 +1458,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "Preconditions.checkState(this.propListHead == null,\"Node has existing properties.\");"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_190/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:57:09.832543432 -0500\n@@ -1427,7 +1427,13 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        if (diff != null) {\n+\t\t\treturn \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree()\n+\t\t\t\t\t+ \"\\n\\nTree2:\\n\" + node2.toStringTree() + \"\\n\\nSubtree1: \"\n+\t\t\t\t\t+ diff.nodeA.toStringTree() + \"\\n\\nSubtree2: \"\n+\t\t\t\t\t+ diff.nodeB.toStringTree();\n+\t\t}\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1456,7 +1462,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "if (diff != null) {\n  return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_729/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:02:52.214345948 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"BLOCK\";\n       }\n       return null;\n   }\n@@ -1456,7 +1452,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"BLOCK\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_57/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:55:44.672037951 -0500\n@@ -1427,7 +1427,13 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        if (diff != null) {\n+\t\t\treturn \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree()\n+\t\t\t\t\t+ \"\\n\\nTree2:\\n\" + node2.toStringTree() + \"\\n\\nSubtree1: \"\n+\t\t\t\t\t+ diff.nodeA.toStringTree() + \"\\n\\nSubtree2: \"\n+\t\t\t\t\t+ diff.nodeB.toStringTree();\n+\t\t}\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1443,7 +1449,10 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      if (!isEquivalentTo(node2, false, false, false)) {\n+\t\t\treturn new NodeMismatch(this, node2);\n+\t\t}\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1465,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "if (diff != null) {\n  return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "if (!isEquivalentTo(node2,false,false,false)) {\n  return new NodeMismatch(this,node2);\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_877/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:04:25.586804801 -0500\n@@ -1427,11 +1427,12 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        if (diff != null) {\n+\t\t\treturn \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree()\n+\t\t\t\t\t+ \"\\n\\nTree2:\\n\" + node2.toStringTree() + \"\\n\\nSubtree1: \"\n+\t\t\t\t\t+ diff.nodeA.toStringTree() + \"\\n\\nSubtree2: \"\n+\t\t\t\t\t+ diff.nodeB.toStringTree();\n+\t\t}\n       }\n       return null;\n   }\n@@ -1443,7 +1444,10 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      if (!isEquivalentTo(node2, false, false, false)) {\n+\t\t\treturn new NodeMismatch(this, node2);\n+\t\t}\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1460,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "if (diff != null) {\n  return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "if (!isEquivalentTo(node2,false,false,false)) {\n  return new NodeMismatch(this,node2);\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_1494/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:11:02.224084281 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"SCRIPT\";\n       }\n       return null;\n   }\n@@ -1456,7 +1452,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"SCRIPT\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_856/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:04:12.578741380 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return toString(true, true, true);\n       }\n       return null;\n   }\n@@ -1456,7 +1452,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return toString(true,true,true);"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_274/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:58:01.680835770 -0500\n@@ -1427,7 +1427,8 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        sourcePosition = -1;\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1456,7 +1457,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "sourcePosition=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_391/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:59:16.809243693 -0500\n@@ -1443,7 +1443,8 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      this.sourcePosition = sourcePosition;\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1457,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "this.sourcePosition=sourcePosition;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_34/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:55:30.075947475 -0500\n@@ -1456,7 +1456,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_589/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:01:23.161899442 -0500\n@@ -1443,7 +1443,8 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      sourcePosition = -1;\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1457,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "sourcePosition=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_447/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:59:51.997429595 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"SUB\";\n       }\n       return null;\n   }\n@@ -1456,7 +1452,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"SUB\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_198/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:57:13.816566261 -0500\n@@ -1427,7 +1427,8 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        this.sourcePosition = sourcePosition;\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1456,7 +1457,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "this.sourcePosition=sourcePosition;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_834/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:03:58.994674945 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"SUB\";\n       }\n       return null;\n   }\n@@ -1443,7 +1439,8 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      this.sourcePosition = sourcePosition;\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1453,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"SUB\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "this.sourcePosition=sourcePosition;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_1483/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:10:55.700059556 -0500\n@@ -1427,7 +1427,9 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        Preconditions.checkState(this.propListHead == null,\n+\t\t\t\t\"Node has existing properties.\");\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1443,7 +1445,9 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      if (!isEquivalentTo(node2, false, false, false)) {\n+\t\treturn new NodeMismatch(this, node2);\n+\t}\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1460,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "Preconditions.checkState(this.propListHead == null,\"Node has existing properties.\");"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "Replace", 
+          "seed": "if (!isEquivalentTo(node2,false,false,false)) {\n  return new NodeMismatch(this,node2);\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_148/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:56:42.940387564 -0500\n@@ -1443,7 +1443,8 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      parent = null;\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1457,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "parent=null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_9/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:55:13.191854411 -0500\n@@ -1427,7 +1427,8 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        parent = null;\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1443,7 +1444,9 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      if (!isEquivalentTo(node2, false, false, false)) {\n+\t\treturn new NodeMismatch(this, node2);\n+\t}\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1459,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "parent=null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "Replace", 
+          "seed": "if (!isEquivalentTo(node2,false,false,false)) {\n  return new NodeMismatch(this,node2);\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_983/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:05:33.107036540 -0500\n@@ -1427,11 +1427,12 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        if (diff != null) {\n+\t\t\treturn \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree()\n+\t\t\t\t\t+ \"\\n\\nTree2:\\n\" + node2.toStringTree() + \"\\n\\nSubtree1: \"\n+\t\t\t\t\t+ diff.nodeA.toStringTree() + \"\\n\\nSubtree2: \"\n+\t\t\t\t\t+ diff.nodeB.toStringTree();\n+\t\t}\n       }\n       return null;\n   }\n@@ -1456,7 +1457,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "if (diff != null) {\n  return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_664/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:02:11.206141600 -0500\n@@ -1427,7 +1427,8 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        parent = null;\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1456,7 +1457,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "parent=null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_220/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:57:27.004641379 -0500\n@@ -1443,7 +1443,10 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      if (!isEquivalentTo(node2, false, false, false)) {\n+\t\t\treturn new NodeMismatch(this, node2);\n+\t\t}\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1459,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "if (!isEquivalentTo(node2,false,false,false)) {\n  return new NodeMismatch(this,node2);\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_558/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:01:03.617799957 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"BLOCK\";\n       }\n       return null;\n   }\n@@ -1443,7 +1439,8 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      parent = null;\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1453,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"BLOCK\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "parent=null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_685/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 09:02:24.266206895 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"BITOR\";\n       }\n       return null;\n   }\n@@ -1456,7 +1452,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"BITOR\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_145/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:56:41.616379807 -0500\n@@ -1427,7 +1427,13 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        if (diff != null) {\n+\t\t\treturn \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree()\n+\t\t\t\t\t+ \"\\n\\nTree2:\\n\" + node2.toStringTree() + \"\\n\\nSubtree1: \"\n+\t\t\t\t\t+ diff.nodeA.toStringTree() + \"\\n\\nSubtree2: \"\n+\t\t\t\t\t+ diff.nodeB.toStringTree();\n+\t\t}\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1443,7 +1449,8 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      sourcePosition = -1;\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1463,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "if (diff != null) {\n  return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "sourcePosition=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_196/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:57:13.152562461 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"RETURN\";\n       }\n       return null;\n   }\n@@ -1456,7 +1452,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"RETURN\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:49:29.457654604 -0500\n+++ /tmp/Arja_Defects4J_Closure_121/patches_g62h/Patch_444/patched/tmp/Arja_Defects4J_Closure_121/src/com/google/javascript/rhino/Node.java\t2018-12-01 08:59:50.701422799 -0500\n@@ -1427,11 +1427,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return \"RETURN\";\n       }\n       return null;\n   }\n@@ -1443,7 +1439,8 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      sourcePosition = -1;\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n@@ -1456,7 +1453,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1430, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "Replace", 
+          "seed": "return \"RETURN\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "sourcePosition=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-01 16:12:53.456480", 
+  "repair_begin": "2018-12-01 16:12:31.209700", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 1, 
+      "patchLocation": {
+        "line": 199, 
+        "class": "org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtils"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\n+++ b/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\n@@ -198,8 +198,10 @@\n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n+            if (false) {\n+                throw new ConvergenceException(\n+                \"number of iterations={0}, maximum iterations={1}, \" +\n+                \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n+                \"final b value={6}, f(a)={7}, f(b)={8}\",\n+                numIterations, maximumIterations, initial,\n+                lowerBound, upperBound, a, b, fa, fb);\n+            }\n         }\n"
+    }
+  ]
+}

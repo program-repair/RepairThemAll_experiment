@@ -1,0 +1,128 @@
+{
+  "repair_end": "2018-12-02 11:41:09.689711", 
+  "repair_begin": "2018-12-02 11:24:18.312688", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_26/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:28:33.618578466 -0500\n@@ -1802,7 +1802,7 @@\n                   child.getLastChild());\n               break;\n             case Token.GETPROP:\n-              maybeCollectMember(child, child, null);\n+              JSType type = n.getJSType();\n               break;\n           }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/TypedScopeCreator.java", 
+          "line": 1805, 
+          "faulty": "maybeCollectMember(child,child,null);", 
+          "type": "Replace", 
+          "seed": "JSType type=n.getJSType();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_192/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:30:25.066629786 -0500\n@@ -1802,7 +1802,7 @@\n                   child.getLastChild());\n               break;\n             case Token.GETPROP:\n-              maybeCollectMember(child, child, null);\n+              int start = 0;\n               break;\n           }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/TypedScopeCreator.java", 
+          "line": 1805, 
+          "faulty": "maybeCollectMember(child,child,null);", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_24/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:28:32.930578126 -0500\n@@ -1802,7 +1802,7 @@\n                   child.getLastChild());\n               break;\n             case Token.GETPROP:\n-              maybeCollectMember(child, child, null);\n+              StringBuilder builder = new StringBuilder();\n               break;\n           }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/TypedScopeCreator.java", 
+          "line": 1805, 
+          "faulty": "maybeCollectMember(child,child,null);", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_2/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:28:17.350570357 -0500\n@@ -1802,7 +1802,7 @@\n                   child.getLastChild());\n               break;\n             case Token.GETPROP:\n-              maybeCollectMember(child, child, null);\n+              ;\n               break;\n           }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/TypedScopeCreator.java", 
+          "line": 1805, 
+          "faulty": "maybeCollectMember(child,child,null);", 
+          "type": "Delete", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_387/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:32:33.526680511 -0500\n@@ -927,8 +927,6 @@\n \n     scope = scope.createChildFlowScope();\n     if (node.isGetProp()) {\n-      scope.inferQualifiedSlot(\n-          node, node.getQualifiedName(), getJSType(node), narrowed);\n     } else {\n       redeclareSimpleVar(scope, node, narrowed);\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_387/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:32:33.526680511 -0500\n@@ -1802,7 +1802,7 @@\n                   child.getLastChild());\n               break;\n             case Token.GETPROP:\n-              maybeCollectMember(child, child, null);\n+              StringBuilder builder = new StringBuilder();\n               break;\n           }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/TypedScopeCreator.java", 
+          "line": 1805, 
+          "faulty": "maybeCollectMember(child,child,null);", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/TypeInference.java", 
+          "line": 930, 
+          "faulty": "scope.inferQualifiedSlot(node,node.getQualifiedName(),getJSType(node),narrowed);", 
+          "type": "Delete", 
+          "seed": "return 0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_16/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:27.282575327 -0500\n@@ -927,8 +927,6 @@\n \n     scope = scope.createChildFlowScope();\n     if (node.isGetProp()) {\n-      scope.inferQualifiedSlot(\n-          node, node.getQualifiedName(), getJSType(node), narrowed);\n     } else {\n       redeclareSimpleVar(scope, node, narrowed);\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_16/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:28:27.282575327 -0500\n@@ -1802,7 +1802,7 @@\n                   child.getLastChild());\n               break;\n             case Token.GETPROP:\n-              maybeCollectMember(child, child, null);\n+              ;\n               break;\n           }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/TypedScopeCreator.java", 
+          "line": 1805, 
+          "faulty": "maybeCollectMember(child,child,null);", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/TypeInference.java", 
+          "line": 930, 
+          "faulty": "scope.inferQualifiedSlot(node,node.getQualifiedName(),getJSType(node),narrowed);", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_33/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:28:37.642580447 -0500\n@@ -1802,7 +1802,7 @@\n                   child.getLastChild());\n               break;\n             case Token.GETPROP:\n-              maybeCollectMember(child, child, null);\n+              final String paramName = \"jscomp_throw_param\";\n               break;\n           }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/TypedScopeCreator.java", 
+          "line": 1805, 
+          "faulty": "maybeCollectMember(child,child,null);", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_267/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:31:14.242650215 -0500\n@@ -1802,7 +1802,7 @@\n                   child.getLastChild());\n               break;\n             case Token.GETPROP:\n-              maybeCollectMember(child, child, null);\n+              int index = -1;\n               break;\n           }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/TypedScopeCreator.java", 
+          "line": 1805, 
+          "faulty": "maybeCollectMember(child,child,null);", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:24:03.002420387 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_117/patches_dssd/Patch_133/patched/tmp/RSRepair_Defects4J_Closure_117/src/com/google/javascript/jscomp/TypedScopeCreator.java\t2018-12-02 05:29:46.046612633 -0500\n@@ -1802,7 +1802,7 @@\n                   child.getLastChild());\n               break;\n             case Token.GETPROP:\n-              maybeCollectMember(child, child, null);\n+              int type = n.getType();\n               break;\n           }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/TypedScopeCreator.java", 
+          "line": 1805, 
+          "faulty": "maybeCollectMember(child,child,null);", 
+          "type": "Replace", 
+          "seed": "int type=n.getType();"
+        }
+      ]
+    }
+  ]
+}

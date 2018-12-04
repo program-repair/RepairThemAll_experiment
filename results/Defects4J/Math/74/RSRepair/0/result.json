@@ -1,0 +1,30 @@
+{
+  "repair_end": "2018-12-02 09:16:29.495828", 
+  "repair_begin": "2018-12-02 08:59:28.783966", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_74/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java\t2018-12-02 02:59:15.678254218 -0500\n+++ /tmp/RSRepair_Defects4J_Math_74/patches_ej9v/Patch_230/patched/tmp/RSRepair_Defects4J_Math_74/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java\t2018-12-02 03:07:11.384181913 -0500\n@@ -237,7 +237,7 @@\n         interpolator.storeTime(stepStart);\n \n         double hNew = stepSize;\n-        interpolator.rescale(hNew);\n+        setMaxGrowth(10.0);\n \n         boolean lastStep = false;\n         while (!lastStep) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java", 
+          "line": 240, 
+          "faulty": "interpolator.rescale(hNew);", 
+          "type": "Replace", 
+          "seed": "setMaxGrowth(10.0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_74/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java\t2018-12-02 02:59:15.678254218 -0500\n+++ /tmp/RSRepair_Defects4J_Math_74/patches_ej9v/Patch_263/patched/tmp/RSRepair_Defects4J_Math_74/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java\t2018-12-02 03:08:08.380357997 -0500\n@@ -237,7 +237,8 @@\n         interpolator.storeTime(stepStart);\n \n         double hNew = stepSize;\n-        interpolator.rescale(hNew);\n+        setMaxGrowth(10.0);\n+\t\tinterpolator.rescale(hNew);\n \n         boolean lastStep = false;\n         while (!lastStep) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java", 
+          "line": 240, 
+          "faulty": "interpolator.rescale(hNew);", 
+          "type": "InsertBefore", 
+          "seed": "setMaxGrowth(10.0);"
+        }
+      ]
+    }
+  ]
+}

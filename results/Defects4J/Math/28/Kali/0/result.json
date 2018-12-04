@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-01 23:55:09.317808", 
+  "repair_begin": "2018-12-01 23:29:39.554950", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Defects4J_Math_28/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java\t2018-12-01 17:29:26.406627915 -0500\n+++ /tmp/Kali_Defects4J_Math_28/patches_5n7v/Patch_1/patched/tmp/Kali_Defects4J_Math_28/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java\t2018-12-01 17:55:08.912495964 -0500\n@@ -140,7 +140,7 @@\n                 for (Integer row : minRatioPositions) {\n                     int i = tableau.getNumObjectiveFunctions();\n                     for (; i < tableau.getWidth() - 1 && minRow != row; i++) {\n-                        if (row == tableau.getBasicRow(i)) {\n+                        if (true) {\n                             if (i < minIndex) {\n                                 minIndex = i;\n                                 minRow = row;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java", 
+          "line": 143, 
+          "faulty": "if (row == tableau.getBasicRow(i)) {\n  if (i < minIndex) {\n    minIndex=i;\n    minRow=row;\n  }\n}", 
+          "type": "RedirectBranch true"
+        }
+      ]
+    }
+  ]
+}

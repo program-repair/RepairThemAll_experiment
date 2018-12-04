@@ -1,0 +1,712 @@
+{
+  "repair_end": "2018-12-02 09:06:02.423618", 
+  "repair_begin": "2018-12-02 08:37:00.637297", 
+  "patches": [
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 02:36:47.075168785 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1104/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 03:04:29.602168522 -0500\n@@ -575,7 +575,8 @@\n         if (title != null) {\n             title.addChangeListener(this);\n         }\n-        fireChartChanged();\n+        this.padding = RectangleInsets.ZERO_INSETS;\n+\t\tfireChartChanged();\n     }\n \n     /**\n@@ -661,7 +662,8 @@\n      * @see #getLegend()\n      */\n     public void removeLegend() {\n-        removeSubtitle(getLegend());\n+        boolean separator = false;\n+\t\tremoveSubtitle(getLegend());\n     }\n     \n     /**\n@@ -792,7 +794,6 @@\n      * @see #addSubtitle(Title)\n      */\n     public void removeSubtitle(Title title) {\n-        this.subtitles.remove(title);\n         fireChartChanged();\n     }\n     \n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1104/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:04:29.602168522 -0500\n@@ -157,8 +157,7 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        return true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "notifyListeners(new ChartProgressEvent(this,this,ChartProgressEvent.DRAWING_STARTED,0));"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 664, 
+          "faulty": "removeSubtitle(getLegend());", 
+          "type": "InsertBefore", 
+          "seed": "boolean separator=false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 578, 
+          "faulty": "fireChartChanged();", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=RectangleInsets.ZERO_INSETS;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "if (title != null) {\n  title.addChangeListener(this);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 02:36:47.075168785 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1099/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 03:04:23.994145018 -0500\n@@ -568,14 +568,15 @@\n      * @see #getTitle()\n      */\n     public void setTitle(TextTitle title) {\n-        if (this.title != null) {\n+        Object[] listeners = this.changeListeners.getListenerList();\n+\t\tif (this.title != null) {\n             this.title.removeChangeListener(this);\n         }\n-        this.title = title;\n         if (title != null) {\n             title.addChangeListener(this);\n         }\n-        fireChartChanged();\n+        this.padding = RectangleInsets.ZERO_INSETS;\n+\t\tfireChartChanged();\n     }\n \n     /**\n@@ -661,7 +662,8 @@\n      * @see #getLegend()\n      */\n     public void removeLegend() {\n-        removeSubtitle(getLegend());\n+        boolean separator = false;\n+\t\tremoveSubtitle(getLegend());\n     }\n     \n     /**\n@@ -792,7 +794,6 @@\n      * @see #addSubtitle(Title)\n      */\n     public void removeSubtitle(Title title) {\n-        this.subtitles.remove(title);\n         fireChartChanged();\n     }\n     \n@@ -956,10 +957,11 @@\n      */\n     public void setBackgroundPaint(Paint paint) {\n \n-        if (this.backgroundPaint != null) {\n+        this.title = title;\n+\t\tif (this.backgroundPaint != null) {\n             if (!this.backgroundPaint.equals(paint)) {\n                 this.backgroundPaint = paint;\n-                fireChartChanged();\n+                Object retValue = null;\n             }\n         }\n         else {\n@@ -1495,7 +1497,10 @@\n      */\n     protected void notifyListeners(ChartChangeEvent event) {\n         if (this.notify) {\n-            Object[] listeners = this.changeListeners.getListenerList();\n+            if (padding == null) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Null 'padding' argument.\");\n+\t\t\t}\n+\t\t\tObject[] listeners = this.changeListeners.getListenerList();\n             for (int i = listeners.length - 2; i >= 0; i -= 2) {\n                 if (listeners[i] == ChartChangeListener.class) {\n                     ((ChartChangeListener) listeners[i + 1]).chartChanged(\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1099/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:04:23.994145018 -0500\n@@ -157,8 +157,7 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        return true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 959, 
+          "faulty": "if (this.backgroundPaint != null) {\n  if (!this.backgroundPaint.equals(paint)) {\n    this.backgroundPaint=paint;\n    fireChartChanged();\n  }\n}\n else {\n  if (paint != null) {\n    this.backgroundPaint=paint;\n    fireChartChanged();\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.title=title;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 571, 
+          "faulty": "if (this.title != null) {\n  this.title.removeChangeListener(this);\n}", 
+          "type": "InsertBefore", 
+          "seed": "Object[] listeners=this.changeListeners.getListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "return getLegend(0);"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 962, 
+          "faulty": "fireChartChanged();", 
+          "type": "Replace", 
+          "seed": "Object retValue=null;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 574, 
+          "faulty": "this.title=title;", 
+          "type": "Delete", 
+          "seed": "if (renderingHints == null) {\n  throw new NullPointerException(\"RenderingHints given are null\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 1498, 
+          "faulty": "Object[] listeners=this.changeListeners.getListenerList();", 
+          "type": "InsertBefore", 
+          "seed": "if (padding == null) {\n  throw new IllegalArgumentException(\"Null 'padding' argument.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "notifyListeners(new ChartProgressEvent(this,this,ChartProgressEvent.DRAWING_STARTED,0));"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 664, 
+          "faulty": "removeSubtitle(getLegend());", 
+          "type": "InsertBefore", 
+          "seed": "boolean separator=false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 578, 
+          "faulty": "fireChartChanged();", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=RectangleInsets.ZERO_INSETS;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "if (title != null) {\n  title.addChangeListener(this);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 02:36:47.075168785 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1137/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 03:05:11.474343982 -0500\n@@ -575,7 +575,8 @@\n         if (title != null) {\n             title.addChangeListener(this);\n         }\n-        fireChartChanged();\n+        this.padding = RectangleInsets.ZERO_INSETS;\n+\t\tfireChartChanged();\n     }\n \n     /**\n@@ -639,7 +640,8 @@\n      */\n     public LegendTitle getLegend(int index) {\n         int seen = 0;\n-        Iterator iterator = this.subtitles.iterator();\n+        this.progressListeners = new EventListenerList();\n+\t\tIterator iterator = this.subtitles.iterator();\n         while (iterator.hasNext()) {\n             Title subtitle = (Title) iterator.next();\n             if (subtitle instanceof LegendTitle) {\n@@ -661,7 +663,8 @@\n      * @see #getLegend()\n      */\n     public void removeLegend() {\n-        removeSubtitle(getLegend());\n+        notifyListeners(new ChartProgressEvent(this, this,\n+\t\t\t\tChartProgressEvent.DRAWING_FINISHED, 100));\n     }\n     \n     /**\n@@ -792,7 +795,6 @@\n      * @see #addSubtitle(Title)\n      */\n     public void removeSubtitle(Title title) {\n-        this.subtitles.remove(title);\n         fireChartChanged();\n     }\n     \n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/title/LegendTitle.java\t2018-12-02 02:36:47.175169208 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1137/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/title/LegendTitle.java\t2018-12-02 03:05:11.478343999 -0500\n@@ -538,9 +538,6 @@\n      * @return A boolean.\n      */\n     public boolean equals(Object obj) {\n-        if (obj == this) {\n-            return true;   \n-        }\n         if (!(obj instanceof LegendTitle)) {\n             return false;   \n         }\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1137/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:05:11.478343999 -0500\n@@ -157,8 +157,7 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        return true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/title/LegendTitle.java", 
+          "line": 541, 
+          "faulty": "if (obj == this) {\n  return true;\n}", 
+          "type": "Delete", 
+          "seed": "if (!(obj instanceof LegendTitle)) {\n  return false;\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 578, 
+          "faulty": "fireChartChanged();", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=RectangleInsets.ZERO_INSETS;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "if (title != null) {\n  title.addChangeListener(this);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 642, 
+          "faulty": "Iterator iterator=this.subtitles.iterator();", 
+          "type": "InsertBefore", 
+          "seed": "this.progressListeners=new EventListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 664, 
+          "faulty": "removeSubtitle(getLegend());", 
+          "type": "Replace", 
+          "seed": "notifyListeners(new ChartProgressEvent(this,this,ChartProgressEvent.DRAWING_FINISHED,100));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 02:36:47.075168785 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1163/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 03:05:45.602486962 -0500\n@@ -643,7 +643,8 @@\n         while (iterator.hasNext()) {\n             Title subtitle = (Title) iterator.next();\n             if (subtitle instanceof LegendTitle) {\n-                if (seen == index) {\n+                this.padding = padding;\n+\t\t\t\tif (seen == index) {\n                     return (LegendTitle) subtitle;\n                 }\n                 else {\n@@ -958,7 +959,8 @@\n \n         if (this.backgroundPaint != null) {\n             if (!this.backgroundPaint.equals(paint)) {\n-                this.backgroundPaint = paint;\n+                Rectangle2D titleArea = new Rectangle2D.Double();\n+\t\t\t\tthis.backgroundPaint = paint;\n                 fireChartChanged();\n             }\n         }\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1163/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:05:45.606486979 -0500\n@@ -157,8 +157,9 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        boolean allItemsNull = true;\n+\t\tList list = Arrays.asList(this.listenerList.getListenerList());\n+        return true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 961, 
+          "faulty": "this.backgroundPaint=paint;", 
+          "type": "InsertBefore", 
+          "seed": "Rectangle2D titleArea=new Rectangle2D.Double();"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "InsertBefore", 
+          "seed": "boolean allItemsNull=true;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 646, 
+          "faulty": "if (seen == index) {\n  return (LegendTitle)subtitle;\n}\n else {\n  seen++;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=padding;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 02:36:47.075168785 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1146/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 03:05:22.910391897 -0500\n@@ -568,9 +568,6 @@\n      * @see #getTitle()\n      */\n     public void setTitle(TextTitle title) {\n-        if (this.title != null) {\n-            this.title.removeChangeListener(this);\n-        }\n         this.title = title;\n         if (title != null) {\n             title.addChangeListener(this);\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1146/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:05:22.910391897 -0500\n@@ -157,8 +157,7 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        return true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 571, 
+          "faulty": "if (this.title != null) {\n  this.title.removeChangeListener(this);\n}", 
+          "type": "Delete", 
+          "seed": "Iterator iterator=this.subtitles.iterator();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1123/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:04:53.402268259 -0500\n@@ -157,8 +157,7 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        return true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 02:36:47.075168785 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1081/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 03:04:02.934056750 -0500\n@@ -568,14 +568,12 @@\n      * @see #getTitle()\n      */\n     public void setTitle(TextTitle title) {\n-        if (this.title != null) {\n-            this.title.removeChangeListener(this);\n-        }\n-        this.title = title;\n-        if (title != null) {\n+        Object[] listeners = this.changeListeners.getListenerList();\n+\t\tif (title != null) {\n             title.addChangeListener(this);\n         }\n-        fireChartChanged();\n+        this.padding = RectangleInsets.ZERO_INSETS;\n+\t\tfireChartChanged();\n     }\n \n     /**\n@@ -792,8 +790,8 @@\n      * @see #addSubtitle(Title)\n      */\n     public void removeSubtitle(Title title) {\n-        this.subtitles.remove(title);\n-        fireChartChanged();\n+        this.progressListeners = new EventListenerList();\n+\t\tfireChartChanged();\n     }\n     \n     /**\n@@ -956,10 +954,11 @@\n      */\n     public void setBackgroundPaint(Paint paint) {\n \n-        if (this.backgroundPaint != null) {\n+        this.title = title;\n+\t\tif (this.backgroundPaint != null) {\n             if (!this.backgroundPaint.equals(paint)) {\n                 this.backgroundPaint = paint;\n-                fireChartChanged();\n+                Object retValue = null;\n             }\n         }\n         else {\n@@ -1495,7 +1494,10 @@\n      */\n     protected void notifyListeners(ChartChangeEvent event) {\n         if (this.notify) {\n-            Object[] listeners = this.changeListeners.getListenerList();\n+            if (padding == null) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Null 'padding' argument.\");\n+\t\t\t}\n+\t\t\tObject[] listeners = this.changeListeners.getListenerList();\n             for (int i = listeners.length - 2; i >= 0; i -= 2) {\n                 if (listeners[i] == ChartChangeListener.class) {\n                     ((ChartChangeListener) listeners[i + 1]).chartChanged(\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/title/LegendTitle.java\t2018-12-02 02:36:47.175169208 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1081/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/title/LegendTitle.java\t2018-12-02 03:04:02.934056750 -0500\n@@ -538,9 +538,6 @@\n      * @return A boolean.\n      */\n     public boolean equals(Object obj) {\n-        if (obj == this) {\n-            return true;   \n-        }\n         if (!(obj instanceof LegendTitle)) {\n             return false;   \n         }\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1081/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:04:02.938056767 -0500\n@@ -157,8 +157,8 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        double runningTotal = 0.0;\n+\t\treturn true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 959, 
+          "faulty": "if (this.backgroundPaint != null) {\n  if (!this.backgroundPaint.equals(paint)) {\n    this.backgroundPaint=paint;\n    fireChartChanged();\n  }\n}\n else {\n  if (paint != null) {\n    this.backgroundPaint=paint;\n    fireChartChanged();\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.title=title;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 571, 
+          "faulty": "if (this.title != null) {\n  this.title.removeChangeListener(this);\n}", 
+          "type": "InsertBefore", 
+          "seed": "Object[] listeners=this.changeListeners.getListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "return getLegend(0);"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 962, 
+          "faulty": "fireChartChanged();", 
+          "type": "Replace", 
+          "seed": "Object retValue=null;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 574, 
+          "faulty": "this.title=title;", 
+          "type": "Delete", 
+          "seed": "if (renderingHints == null) {\n  throw new NullPointerException(\"RenderingHints given are null\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 1498, 
+          "faulty": "Object[] listeners=this.changeListeners.getListenerList();", 
+          "type": "InsertBefore", 
+          "seed": "if (padding == null) {\n  throw new IllegalArgumentException(\"Null 'padding' argument.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "InsertBefore", 
+          "seed": "double runningTotal=0.0;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "InsertBefore", 
+          "seed": "this.progressListeners=new EventListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/title/LegendTitle.java", 
+          "line": 541, 
+          "faulty": "if (obj == this) {\n  return true;\n}", 
+          "type": "Delete", 
+          "seed": "if (!(obj instanceof LegendTitle)) {\n  return false;\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 578, 
+          "faulty": "fireChartChanged();", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=RectangleInsets.ZERO_INSETS;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "if (title != null) {\n  title.addChangeListener(this);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 571, 
+          "faulty": "if (this.title != null) {\n  this.title.removeChangeListener(this);\n}", 
+          "type": "Delete", 
+          "seed": "return super.clone();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 02:36:47.075168785 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1046/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 03:03:16.293861230 -0500\n@@ -568,14 +568,15 @@\n      * @see #getTitle()\n      */\n     public void setTitle(TextTitle title) {\n-        if (this.title != null) {\n+        Object[] listeners = this.changeListeners.getListenerList();\n+\t\tif (this.title != null) {\n             this.title.removeChangeListener(this);\n         }\n-        this.title = title;\n         if (title != null) {\n             title.addChangeListener(this);\n         }\n-        fireChartChanged();\n+        this.padding = RectangleInsets.ZERO_INSETS;\n+\t\tfireChartChanged();\n     }\n \n     /**\n@@ -792,8 +793,8 @@\n      * @see #addSubtitle(Title)\n      */\n     public void removeSubtitle(Title title) {\n-        this.subtitles.remove(title);\n-        fireChartChanged();\n+        this.progressListeners = new EventListenerList();\n+\t\tfireChartChanged();\n     }\n     \n     /**\n@@ -956,10 +957,11 @@\n      */\n     public void setBackgroundPaint(Paint paint) {\n \n-        if (this.backgroundPaint != null) {\n+        this.title = title;\n+\t\tif (this.backgroundPaint != null) {\n             if (!this.backgroundPaint.equals(paint)) {\n                 this.backgroundPaint = paint;\n-                fireChartChanged();\n+                Object retValue = null;\n             }\n         }\n         else {\n@@ -1495,7 +1497,10 @@\n      */\n     protected void notifyListeners(ChartChangeEvent event) {\n         if (this.notify) {\n-            Object[] listeners = this.changeListeners.getListenerList();\n+            if (padding == null) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Null 'padding' argument.\");\n+\t\t\t}\n+\t\t\tObject[] listeners = this.changeListeners.getListenerList();\n             for (int i = listeners.length - 2; i >= 0; i -= 2) {\n                 if (listeners[i] == ChartChangeListener.class) {\n                     ((ChartChangeListener) listeners[i + 1]).chartChanged(\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/title/LegendTitle.java\t2018-12-02 02:36:47.175169208 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1046/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/title/LegendTitle.java\t2018-12-02 03:03:16.305861281 -0500\n@@ -538,9 +538,6 @@\n      * @return A boolean.\n      */\n     public boolean equals(Object obj) {\n-        if (obj == this) {\n-            return true;   \n-        }\n         if (!(obj instanceof LegendTitle)) {\n             return false;   \n         }\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1046/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:03:16.305861281 -0500\n@@ -157,8 +157,8 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        double runningTotal = 0.0;\n+\t\treturn true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 959, 
+          "faulty": "if (this.backgroundPaint != null) {\n  if (!this.backgroundPaint.equals(paint)) {\n    this.backgroundPaint=paint;\n    fireChartChanged();\n  }\n}\n else {\n  if (paint != null) {\n    this.backgroundPaint=paint;\n    fireChartChanged();\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.title=title;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 571, 
+          "faulty": "if (this.title != null) {\n  this.title.removeChangeListener(this);\n}", 
+          "type": "InsertBefore", 
+          "seed": "Object[] listeners=this.changeListeners.getListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "return getLegend(0);"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 962, 
+          "faulty": "fireChartChanged();", 
+          "type": "Replace", 
+          "seed": "Object retValue=null;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 574, 
+          "faulty": "this.title=title;", 
+          "type": "Delete", 
+          "seed": "if (renderingHints == null) {\n  throw new NullPointerException(\"RenderingHints given are null\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 1498, 
+          "faulty": "Object[] listeners=this.changeListeners.getListenerList();", 
+          "type": "InsertBefore", 
+          "seed": "if (padding == null) {\n  throw new IllegalArgumentException(\"Null 'padding' argument.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "InsertBefore", 
+          "seed": "double runningTotal=0.0;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "InsertBefore", 
+          "seed": "this.progressListeners=new EventListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/title/LegendTitle.java", 
+          "line": 541, 
+          "faulty": "if (obj == this) {\n  return true;\n}", 
+          "type": "Delete", 
+          "seed": "if (!(obj instanceof LegendTitle)) {\n  return false;\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 578, 
+          "faulty": "fireChartChanged();", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=RectangleInsets.ZERO_INSETS;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "if (title != null) {\n  title.addChangeListener(this);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 02:36:47.075168785 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1087/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 03:04:08.618080575 -0500\n@@ -571,11 +571,11 @@\n         if (this.title != null) {\n             this.title.removeChangeListener(this);\n         }\n-        this.title = title;\n         if (title != null) {\n             title.addChangeListener(this);\n         }\n-        fireChartChanged();\n+        this.padding = RectangleInsets.ZERO_INSETS;\n+\t\tfireChartChanged();\n     }\n \n     /**\n@@ -639,7 +639,8 @@\n      */\n     public LegendTitle getLegend(int index) {\n         int seen = 0;\n-        Iterator iterator = this.subtitles.iterator();\n+        this.progressListeners = new EventListenerList();\n+\t\tIterator iterator = this.subtitles.iterator();\n         while (iterator.hasNext()) {\n             Title subtitle = (Title) iterator.next();\n             if (subtitle instanceof LegendTitle) {\n@@ -792,8 +793,8 @@\n      * @see #addSubtitle(Title)\n      */\n     public void removeSubtitle(Title title) {\n-        this.subtitles.remove(title);\n-        fireChartChanged();\n+        this.progressListeners = new EventListenerList();\n+\t\tfireChartChanged();\n     }\n     \n     /**\n@@ -958,8 +959,9 @@\n \n         if (this.backgroundPaint != null) {\n             if (!this.backgroundPaint.equals(paint)) {\n-                this.backgroundPaint = paint;\n-                fireChartChanged();\n+                Rectangle2D titleArea = new Rectangle2D.Double();\n+\t\t\t\tthis.backgroundPaint = paint;\n+                Object retValue = null;\n             }\n         }\n         else {\n@@ -1495,7 +1497,10 @@\n      */\n     protected void notifyListeners(ChartChangeEvent event) {\n         if (this.notify) {\n-            Object[] listeners = this.changeListeners.getListenerList();\n+            if (padding == null) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Null 'padding' argument.\");\n+\t\t\t}\n+\t\t\tObject[] listeners = this.changeListeners.getListenerList();\n             for (int i = listeners.length - 2; i >= 0; i -= 2) {\n                 if (listeners[i] == ChartChangeListener.class) {\n                     ((ChartChangeListener) listeners[i + 1]).chartChanged(\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/title/LegendTitle.java\t2018-12-02 02:36:47.175169208 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1087/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/title/LegendTitle.java\t2018-12-02 03:04:08.622080590 -0500\n@@ -538,9 +538,6 @@\n      * @return A boolean.\n      */\n     public boolean equals(Object obj) {\n-        if (obj == this) {\n-            return true;   \n-        }\n         if (!(obj instanceof LegendTitle)) {\n             return false;   \n         }\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1087/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:04:08.622080590 -0500\n@@ -157,8 +157,9 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        boolean allItemsNull = true;\n+\t\tdouble runningTotal = 0.0;\n+\t\treturn true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 961, 
+          "faulty": "this.backgroundPaint=paint;", 
+          "type": "InsertBefore", 
+          "seed": "Rectangle2D titleArea=new Rectangle2D.Double();"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "InsertBefore", 
+          "seed": "boolean allItemsNull=true;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "return getLegend(0);"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 962, 
+          "faulty": "fireChartChanged();", 
+          "type": "Replace", 
+          "seed": "Object retValue=null;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 574, 
+          "faulty": "this.title=title;", 
+          "type": "Delete", 
+          "seed": "if (renderingHints == null) {\n  throw new NullPointerException(\"RenderingHints given are null\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 1498, 
+          "faulty": "Object[] listeners=this.changeListeners.getListenerList();", 
+          "type": "InsertBefore", 
+          "seed": "if (padding == null) {\n  throw new IllegalArgumentException(\"Null 'padding' argument.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "InsertBefore", 
+          "seed": "double runningTotal=0.0;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "InsertBefore", 
+          "seed": "this.progressListeners=new EventListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/title/LegendTitle.java", 
+          "line": 541, 
+          "faulty": "if (obj == this) {\n  return true;\n}", 
+          "type": "Delete", 
+          "seed": "if (!(obj instanceof LegendTitle)) {\n  return false;\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 578, 
+          "faulty": "fireChartChanged();", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=RectangleInsets.ZERO_INSETS;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "if (title != null) {\n  title.addChangeListener(this);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 642, 
+          "faulty": "Iterator iterator=this.subtitles.iterator();", 
+          "type": "InsertBefore", 
+          "seed": "this.progressListeners=new EventListenerList();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 02:36:47.075168785 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1116/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 03:04:44.754232019 -0500\n@@ -575,7 +575,8 @@\n         if (title != null) {\n             title.addChangeListener(this);\n         }\n-        fireChartChanged();\n+        this.padding = RectangleInsets.ZERO_INSETS;\n+\t\tfireChartChanged();\n     }\n \n     /**\n@@ -639,7 +640,8 @@\n      */\n     public LegendTitle getLegend(int index) {\n         int seen = 0;\n-        Iterator iterator = this.subtitles.iterator();\n+        this.progressListeners = new EventListenerList();\n+\t\tIterator iterator = this.subtitles.iterator();\n         while (iterator.hasNext()) {\n             Title subtitle = (Title) iterator.next();\n             if (subtitle instanceof LegendTitle) {\n@@ -792,7 +794,6 @@\n      * @see #addSubtitle(Title)\n      */\n     public void removeSubtitle(Title title) {\n-        this.subtitles.remove(title);\n         fireChartChanged();\n     }\n     \n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/title/LegendTitle.java\t2018-12-02 02:36:47.175169208 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1116/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/title/LegendTitle.java\t2018-12-02 03:04:44.758232036 -0500\n@@ -538,9 +538,6 @@\n      * @return A boolean.\n      */\n     public boolean equals(Object obj) {\n-        if (obj == this) {\n-            return true;   \n-        }\n         if (!(obj instanceof LegendTitle)) {\n             return false;   \n         }\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1116/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:04:44.758232036 -0500\n@@ -157,8 +157,7 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        return true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/title/LegendTitle.java", 
+          "line": 541, 
+          "faulty": "if (obj == this) {\n  return true;\n}", 
+          "type": "Delete", 
+          "seed": "if (!(obj instanceof LegendTitle)) {\n  return false;\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 578, 
+          "faulty": "fireChartChanged();", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=RectangleInsets.ZERO_INSETS;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "if (title != null) {\n  title.addChangeListener(this);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 642, 
+          "faulty": "Iterator iterator=this.subtitles.iterator();", 
+          "type": "InsertBefore", 
+          "seed": "this.progressListeners=new EventListenerList();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 02:36:47.075168785 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1084/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/chart/JFreeChart.java\t2018-12-02 03:04:05.858069005 -0500\n@@ -568,14 +568,16 @@\n      * @see #getTitle()\n      */\n     public void setTitle(TextTitle title) {\n-        if (this.title != null) {\n+        Object[] listeners = this.progressListeners.getListenerList();\n+\t\tif (this.title != null) {\n             this.title.removeChangeListener(this);\n         }\n         this.title = title;\n         if (title != null) {\n             title.addChangeListener(this);\n         }\n-        fireChartChanged();\n+        this.padding = RectangleInsets.ZERO_INSETS;\n+\t\tfireChartChanged();\n     }\n \n     /**\n@@ -643,7 +645,9 @@\n         while (iterator.hasNext()) {\n             Title subtitle = (Title) iterator.next();\n             if (subtitle instanceof LegendTitle) {\n-                if (seen == index) {\n+                this.padding = padding;\n+\t\t\t\tthis.padding = padding;\n+\t\t\t\tif (seen == index) {\n                     return (LegendTitle) subtitle;\n                 }\n                 else {\n@@ -661,7 +665,8 @@\n      * @see #getLegend()\n      */\n     public void removeLegend() {\n-        removeSubtitle(getLegend());\n+        boolean separator = false;\n+\t\tremoveSubtitle(getLegend());\n     }\n     \n     /**\n@@ -792,8 +797,8 @@\n      * @see #addSubtitle(Title)\n      */\n     public void removeSubtitle(Title title) {\n-        this.subtitles.remove(title);\n-        fireChartChanged();\n+        this.progressListeners = new EventListenerList();\n+\t\tfireChartChanged();\n     }\n     \n     /**\n@@ -958,7 +963,8 @@\n \n         if (this.backgroundPaint != null) {\n             if (!this.backgroundPaint.equals(paint)) {\n-                this.backgroundPaint = paint;\n+                Rectangle2D titleArea = new Rectangle2D.Double();\n+\t\t\t\tthis.backgroundPaint = paint;\n                 fireChartChanged();\n             }\n         }\n\n\n--- /tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 02:36:47.443170342 -0500\n+++ /tmp/GenProg_Defects4J_Chart_12/patches_ilme/Patch_1084/patched/tmp/GenProg_Defects4J_Chart_12/source/org/jfree/data/general/AbstractDataset.java\t2018-12-02 03:04:05.858069005 -0500\n@@ -157,8 +157,8 @@\n      * @see #removeChangeListener(DatasetChangeListener)\n      */\n     public boolean hasListener(EventListener listener) {\n-        List list = Arrays.asList(this.listenerList.getListenerList());\n-        return list.contains(listener);\n+        boolean allItemsNull = true;\n+\t\treturn true;\n     }\n     \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 961, 
+          "faulty": "this.backgroundPaint=paint;", 
+          "type": "InsertBefore", 
+          "seed": "Rectangle2D titleArea=new Rectangle2D.Double();"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "InsertBefore", 
+          "seed": "boolean allItemsNull=true;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 646, 
+          "faulty": "if (seen == index) {\n  return (LegendTitle)subtitle;\n}\n else {\n  seen++;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=padding;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 571, 
+          "faulty": "if (this.title != null) {\n  this.title.removeChangeListener(this);\n}", 
+          "type": "InsertBefore", 
+          "seed": "Object[] listeners=this.progressListeners.getListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "InsertBefore", 
+          "seed": "this.progressListeners=new EventListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 646, 
+          "faulty": "if (seen == index) {\n  return (LegendTitle)subtitle;\n}\n else {\n  seen++;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=padding;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "notifyListeners(new ChartProgressEvent(this,this,ChartProgressEvent.DRAWING_STARTED,0));"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 664, 
+          "faulty": "removeSubtitle(getLegend());", 
+          "type": "InsertBefore", 
+          "seed": "boolean separator=false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 578, 
+          "faulty": "fireChartChanged();", 
+          "type": "InsertBefore", 
+          "seed": "this.padding=RectangleInsets.ZERO_INSETS;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/JFreeChart.java", 
+          "line": 795, 
+          "faulty": "this.subtitles.remove(title);", 
+          "type": "Delete", 
+          "seed": "if (title != null) {\n  title.addChangeListener(this);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 160, 
+          "faulty": "List list=Arrays.asList(this.listenerList.getListenerList());", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/AbstractDataset.java", 
+          "line": 161, 
+          "faulty": "return list.contains(listener);", 
+          "type": "Replace", 
+          "seed": "return true;"
+        }
+      ]
+    }
+  ]
+}

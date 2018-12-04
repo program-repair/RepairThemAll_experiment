@@ -1,0 +1,555 @@
+{
+  "repair_end": "2018-12-02 14:44:23.301213", 
+  "repair_begin": "2018-12-02 14:32:09.004901", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_629/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:44:06.812387568 -0500\n@@ -424,11 +424,6 @@\n \n       Node propName = getGetPropertyName(node);\n       if (propName != null) {\n-        if (propName.getType() != Token.STRING) {\n-          throw new IllegalStateException(\n-              \"Expected STRING, got \" + Token.name(propName.getType()));\n-        }\n-\n         return buildCallNode(FACTORY_METHOD_NAME, propName,\n                              node.getLineno(), node.getCharno());\n       } else {\n@@ -448,7 +443,6 @@\n       if (value != null &&\n           NodeUtil.isGetProp(value) &&\n           NodeUtil.isThis(value.getFirstChild())) {\n-        return value.getLastChild();\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 427, 
+          "faulty": "if (propName.getType() != Token.STRING) {\n  throw new IllegalStateException(\"Expected STRING, got \" + Token.name(propName.getType()));\n}", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 451, 
+          "faulty": "return value.getLastChild();", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_91/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:57.382193327 -0500\n@@ -448,7 +448,6 @@\n       if (value != null &&\n           NodeUtil.isGetProp(value) &&\n           NodeUtil.isThis(value.getFirstChild())) {\n-        return value.getLastChild();\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 451, 
+          "faulty": "return value.getLastChild();", 
+          "type": "Delete", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:31:49.079007559 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_416/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:41:38.478158388 -0500\n@@ -1674,7 +1674,7 @@\n       case Token.SETPROP:         return \"setprop\";\n       case Token.GETELEM:         return \"getelem\";\n       case Token.SETELEM:         return \"setelem\";\n-      case Token.CALL:            return \"call\";\n+      case Token.CALL:            ;\n       case Token.NAME:            return \"name\";\n       case Token.NUMBER:          return \"number\";\n       case Token.STRING:          return \"string\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_416/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:41:38.482158316 -0500\n@@ -448,7 +448,6 @@\n       if (value != null &&\n           NodeUtil.isGetProp(value) &&\n           NodeUtil.isThis(value.getFirstChild())) {\n-        return value.getLastChild();\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 451, 
+          "faulty": "return value.getLastChild();", 
+          "type": "Delete", 
+          "seed": "boolean valid=false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1677, 
+          "faulty": "return \"call\";", 
+          "type": "Delete", 
+          "seed": "if (matchChar('=')) {\n  if (matchChar('='))   return Token.SHEQ;\n else   return Token.EQ;\n}\n else {\n  return Token.ASSIGN;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/AstValidator.java\t2018-12-02 08:31:49.030983558 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_174/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/AstValidator.java\t2018-12-02 08:38:53.014321774 -0500\n@@ -765,9 +765,9 @@\n \n   private void validateNodeType(int type, Node n) {\n     if (n.getType() != type) {\n-      violation(\n-          \"Expected \" + Node.tokenToName(type) + \" but was \"\n-              + Node.tokenToName(n.getType()), n);\n+      if (n.hasChildren()) {\n+\t\tvalidateExpression(n.getFirstChild());\n+\t}\n     }\n   }\n \n\n\n--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_174/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:38:53.014321774 -0500\n@@ -87,18 +87,6 @@\n       for (Reduction reduction : reductions) {\n         savings += reduction.estimateSavings();\n       }\n-\n-      // Compare estimated savings against the helper cost.  Apply\n-      // reductions if doing so will result in some savings.\n-      if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n-        for (Reduction reduction : reductions) {\n-          reduction.apply();\n-        }\n-\n-        Node addingRoot = compiler.getNodeForCodeInsertion(null);\n-        addingRoot.addChildrenToFront(helperCode);\n-        compiler.reportCodeChange();\n-      }\n     }\n   }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 93, 
+          "faulty": "if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n  for (  Reduction reduction : reductions) {\n    reduction.apply();\n  }\n  Node addingRoot=compiler.getNodeForCodeInsertion(null);\n  addingRoot.addChildrenToFront(helperCode);\n  compiler.reportCodeChange();\n}", 
+          "type": "Delete", 
+          "seed": "return;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/AstValidator.java", 
+          "line": 768, 
+          "faulty": "violation(\"Expected \" + Node.tokenToName(type) + \" but was \"+ Node.tokenToName(n.getType()),n);", 
+          "type": "Replace", 
+          "seed": "if (n.hasChildren()) {\n  validateExpression(n.getFirstChild());\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_450/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:42:02.637750666 -0500\n@@ -85,7 +85,7 @@\n       // Estimate savings\n       int savings = 0;\n       for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n+        Node parameterName = Node.newString(Token.NAME, \"jscomp_throw_param\");\n       }\n \n       // Compare estimated savings against the helper cost.  Apply\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 88, 
+          "faulty": "savings+=reduction.estimateSavings();", 
+          "type": "Replace", 
+          "seed": "Node parameterName=Node.newString(Token.NAME,\"jscomp_throw_param\");"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_71/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:43.830160612 -0500\n@@ -448,7 +448,6 @@\n       if (value != null &&\n           NodeUtil.isGetProp(value) &&\n           NodeUtil.isThis(value.getFirstChild())) {\n-        return value.getLastChild();\n       }\n       return null;\n     }\n@@ -508,7 +507,6 @@\n     private Node getSetPropertyName(Node functionNode) {\n       Node body = functionNode.getLastChild();\n       if (!body.hasOneChild()) {\n-        return null;\n       }\n \n       Node argList = functionNode.getFirstChild().getNext();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 451, 
+          "faulty": "return value.getLastChild();", 
+          "type": "Delete", 
+          "seed": "boolean valid=false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 511, 
+          "faulty": "return null;", 
+          "type": "Delete", 
+          "seed": "formatPreamble();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_57/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:34.670138149 -0500\n@@ -84,10 +84,6 @@\n \n       // Estimate savings\n       int savings = 0;\n-      for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n-      }\n-\n       // Compare estimated savings against the helper cost.  Apply\n       // reductions if doing so will result in some savings.\n       if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n@@ -424,10 +420,7 @@\n \n       Node propName = getGetPropertyName(node);\n       if (propName != null) {\n-        if (propName.getType() != Token.STRING) {\n-          throw new IllegalStateException(\n-              \"Expected STRING, got \" + Token.name(propName.getType()));\n-        }\n+        boolean valid = false;\n \n         return buildCallNode(FACTORY_METHOD_NAME, propName,\n                              node.getLineno(), node.getCharno());\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 427, 
+          "faulty": "if (propName.getType() != Token.STRING) {\n  throw new IllegalStateException(\"Expected STRING, got \" + Token.name(propName.getType()));\n}", 
+          "type": "Replace", 
+          "seed": "boolean valid=false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 87, 
+          "faulty": "for (Reduction reduction : reductions) {\n  savings+=reduction.estimateSavings();\n}", 
+          "type": "Delete", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_95/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:59.726198925 -0500\n@@ -87,18 +87,6 @@\n       for (Reduction reduction : reductions) {\n         savings += reduction.estimateSavings();\n       }\n-\n-      // Compare estimated savings against the helper cost.  Apply\n-      // reductions if doing so will result in some savings.\n-      if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n-        for (Reduction reduction : reductions) {\n-          reduction.apply();\n-        }\n-\n-        Node addingRoot = compiler.getNodeForCodeInsertion(null);\n-        addingRoot.addChildrenToFront(helperCode);\n-        compiler.reportCodeChange();\n-      }\n     }\n   }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 93, 
+          "faulty": "if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n  for (  Reduction reduction : reductions) {\n    reduction.apply();\n  }\n  Node addingRoot=compiler.getNodeForCodeInsertion(null);\n  addingRoot.addChildrenToFront(helperCode);\n  compiler.reportCodeChange();\n}", 
+          "type": "Delete", 
+          "seed": "formatPreamble();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_55/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:33.998136489 -0500\n@@ -84,9 +84,7 @@\n \n       // Estimate savings\n       int savings = 0;\n-      for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n-      }\n+      boolean valid = false;\n \n       // Compare estimated savings against the helper cost.  Apply\n       // reductions if doing so will result in some savings.\n@@ -97,7 +95,8 @@\n \n         Node addingRoot = compiler.getNodeForCodeInsertion(null);\n         addingRoot.addChildrenToFront(helperCode);\n-        compiler.reportCodeChange();\n+        StringBuilder builder = new StringBuilder();\n+\t\tcompiler.reportCodeChange();\n       }\n     }\n   }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 87, 
+          "faulty": "for (Reduction reduction : reductions) {\n  savings+=reduction.estimateSavings();\n}", 
+          "type": "Replace", 
+          "seed": "boolean valid=false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 100, 
+          "faulty": "compiler.reportCodeChange();", 
+          "type": "InsertBefore", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_27/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:13.566085255 -0500\n@@ -175,7 +175,6 @@\n       for (Reducer reducer : reducers) {\n         Node replacement = reducer.reduce(node);\n         if (replacement != node) {\n-          reductions.put(reducer, new Reduction(parent, node, replacement));\n           return false;\n         }\n       }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 178, 
+          "faulty": "reductions.put(reducer,new Reduction(parent,node,replacement));", 
+          "type": "Delete", 
+          "seed": "return 0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_196/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:39:07.838354576 -0500\n@@ -214,7 +214,8 @@\n      */\n     protected final Node buildCallNode(String methodName, Node argumentNode,\n                                        int lineno, int charno) {\n-      Node call = new Node(Token.CALL, lineno, charno);\n+      StringBuilder builder = new StringBuilder();\n+\tNode call = new Node(Token.CALL, lineno, charno);\n       call.putBooleanProp(Node.FREE_CALL, true);\n       call.addChildToBack(Node.newString(Token.NAME, methodName));\n       if (argumentNode != null) {\n@@ -274,7 +275,6 @@\n \n       Node statement = body.getFirstChild();\n       if (statement.getType() == Token.RETURN) {\n-        return statement.getFirstChild();\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 277, 
+          "faulty": "return statement.getFirstChild();", 
+          "type": "Delete", 
+          "seed": "return this;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 217, 
+          "faulty": "Node call=new Node(Token.CALL,lineno,charno);", 
+          "type": "InsertBefore", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_113/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:38:10.518224476 -0500\n@@ -274,7 +274,7 @@\n \n       Node statement = body.getFirstChild();\n       if (statement.getType() == Token.RETURN) {\n-        return statement.getFirstChild();\n+        int index = -1;\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 277, 
+          "faulty": "return statement.getFirstChild();", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_324/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:40:35.018052646 -0500\n@@ -175,7 +175,7 @@\n       for (Reducer reducer : reducers) {\n         Node replacement = reducer.reduce(node);\n         if (replacement != node) {\n-          reductions.put(reducer, new Reduction(parent, node, replacement));\n+          Node parameterName = Node.newString(Token.NAME, \"jscomp_throw_param\");\n           return false;\n         }\n       }\n@@ -218,7 +218,6 @@\n       call.putBooleanProp(Node.FREE_CALL, true);\n       call.addChildToBack(Node.newString(Token.NAME, methodName));\n       if (argumentNode != null) {\n-        call.addChildToBack(argumentNode.cloneTree());\n       }\n       return call;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 221, 
+          "faulty": "call.addChildToBack(argumentNode.cloneTree());", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 178, 
+          "faulty": "reductions.put(reducer,new Reduction(parent,node,replacement));", 
+          "type": "Replace", 
+          "seed": "Node parameterName=Node.newString(Token.NAME,\"jscomp_throw_param\");"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_203/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:39:12.098482284 -0500\n@@ -85,7 +85,6 @@\n       // Estimate savings\n       int savings = 0;\n       for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n       }\n \n       // Compare estimated savings against the helper cost.  Apply\n@@ -110,7 +109,8 @@\n   public Node parseHelperCode(Reducer reducer) {\n     Node root = compiler.parseSyntheticCode(\n         reducer.getClass().toString() + \":helper\", reducer.getHelperSource());\n-    return (root != null) ? root.removeFirstChild() : null;\n+    boolean valid = false;\n+\treturn (root != null) ? root.removeFirstChild() : null;\n   }\n \n   private static boolean isReduceableFunctionExpression(Node n) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 88, 
+          "faulty": "savings+=reduction.estimateSavings();", 
+          "type": "Delete", 
+          "seed": "boolean valid=false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 113, 
+          "faulty": "return (root != null) ? root.removeFirstChild() : null;", 
+          "type": "InsertBefore", 
+          "seed": "boolean valid=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_644/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:44:16.816321181 -0500\n@@ -88,17 +88,7 @@\n         savings += reduction.estimateSavings();\n       }\n \n-      // Compare estimated savings against the helper cost.  Apply\n-      // reductions if doing so will result in some savings.\n-      if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n-        for (Reduction reduction : reductions) {\n-          reduction.apply();\n-        }\n-\n-        Node addingRoot = compiler.getNodeForCodeInsertion(null);\n-        addingRoot.addChildrenToFront(helperCode);\n-        compiler.reportCodeChange();\n-      }\n+      Node parameterName = Node.newString(Token.NAME, \"jscomp_throw_param\");\n     }\n   }\n \n@@ -508,7 +498,6 @@\n     private Node getSetPropertyName(Node functionNode) {\n       Node body = functionNode.getLastChild();\n       if (!body.hasOneChild()) {\n-        return null;\n       }\n \n       Node argList = functionNode.getFirstChild().getNext();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 93, 
+          "faulty": "if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n  for (  Reduction reduction : reductions) {\n    reduction.apply();\n  }\n  Node addingRoot=compiler.getNodeForCodeInsertion(null);\n  addingRoot.addChildrenToFront(helperCode);\n  compiler.reportCodeChange();\n}", 
+          "type": "Replace", 
+          "seed": "Node parameterName=Node.newString(Token.NAME,\"jscomp_throw_param\");"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 511, 
+          "faulty": "return null;", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_403/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:41:30.001982688 -0500\n@@ -87,18 +87,6 @@\n       for (Reduction reduction : reductions) {\n         savings += reduction.estimateSavings();\n       }\n-\n-      // Compare estimated savings against the helper cost.  Apply\n-      // reductions if doing so will result in some savings.\n-      if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n-        for (Reduction reduction : reductions) {\n-          reduction.apply();\n-        }\n-\n-        Node addingRoot = compiler.getNodeForCodeInsertion(null);\n-        addingRoot.addChildrenToFront(helperCode);\n-        compiler.reportCodeChange();\n-      }\n     }\n   }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 93, 
+          "faulty": "if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n  for (  Reduction reduction : reductions) {\n    reduction.apply();\n  }\n  Node addingRoot=compiler.getNodeForCodeInsertion(null);\n  addingRoot.addChildrenToFront(helperCode);\n  compiler.reportCodeChange();\n}", 
+          "type": "Delete", 
+          "seed": "return new DotFormatter();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 95, 
+          "faulty": "reduction.apply();", 
+          "type": "Delete", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_283/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:40:06.259675700 -0500\n@@ -448,7 +448,7 @@\n       if (value != null &&\n           NodeUtil.isGetProp(value) &&\n           NodeUtil.isThis(value.getFirstChild())) {\n-        return value.getLastChild();\n+        int index = -1;\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 451, 
+          "faulty": "return value.getLastChild();", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_215/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:39:18.843184928 -0500\n@@ -274,7 +274,7 @@\n \n       Node statement = body.getFirstChild();\n       if (statement.getType() == Token.RETURN) {\n-        return statement.getFirstChild();\n+        StringBuilder builder = new StringBuilder();\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 277, 
+          "faulty": "return statement.getFirstChild();", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_552/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:43:14.860826542 -0500\n@@ -274,7 +274,8 @@\n \n       Node statement = body.getFirstChild();\n       if (statement.getType() == Token.RETURN) {\n-        return statement.getFirstChild();\n+        Node parameterName = Node.newString(Token.NAME, \"jscomp_throw_param\");\n+\t\treturn statement.getFirstChild();\n       }\n       return null;\n     }\n@@ -448,7 +449,7 @@\n       if (value != null &&\n           NodeUtil.isGetProp(value) &&\n           NodeUtil.isThis(value.getFirstChild())) {\n-        return value.getLastChild();\n+        int start = 0;\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 277, 
+          "faulty": "return statement.getFirstChild();", 
+          "type": "InsertBefore", 
+          "seed": "Node parameterName=Node.newString(Token.NAME,\"jscomp_throw_param\");"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 451, 
+          "faulty": "return value.getLastChild();", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_149/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:38:36.018283465 -0500\n@@ -274,7 +274,7 @@\n \n       Node statement = body.getFirstChild();\n       if (statement.getType() == Token.RETURN) {\n-        return statement.getFirstChild();\n+        int start = 0;\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 277, 
+          "faulty": "return statement.getFirstChild();", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:31:49.079007559 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_616/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:43:57.732452616 -0500\n@@ -1674,7 +1674,7 @@\n       case Token.SETPROP:         return \"setprop\";\n       case Token.GETELEM:         return \"getelem\";\n       case Token.SETELEM:         return \"setelem\";\n-      case Token.CALL:            return \"call\";\n+      case Token.CALL:            ;\n       case Token.NAME:            return \"name\";\n       case Token.NUMBER:          return \"number\";\n       case Token.STRING:          return \"string\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_616/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:43:57.736452587 -0500\n@@ -84,10 +84,6 @@\n \n       // Estimate savings\n       int savings = 0;\n-      for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n-      }\n-\n       // Compare estimated savings against the helper cost.  Apply\n       // reductions if doing so will result in some savings.\n       if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 87, 
+          "faulty": "for (Reduction reduction : reductions) {\n  savings+=reduction.estimateSavings();\n}", 
+          "type": "Delete", 
+          "seed": "return;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1677, 
+          "faulty": "return \"call\";", 
+          "type": "Delete", 
+          "seed": "throw onSeledMutation();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_66/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:41.110153972 -0500\n@@ -274,7 +274,6 @@\n \n       Node statement = body.getFirstChild();\n       if (statement.getType() == Token.RETURN) {\n-        return statement.getFirstChild();\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 277, 
+          "faulty": "return statement.getFirstChild();", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_130/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:38:22.950253472 -0500\n@@ -85,7 +85,7 @@\n       // Estimate savings\n       int savings = 0;\n       for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n+        break;\n       }\n \n       // Compare estimated savings against the helper cost.  Apply\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 88, 
+          "faulty": "savings+=reduction.estimateSavings();", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_462/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:42:11.129620044 -0500\n@@ -84,9 +84,7 @@\n \n       // Estimate savings\n       int savings = 0;\n-      for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n-      }\n+      int start = 0;\n \n       // Compare estimated savings against the helper cost.  Apply\n       // reductions if doing so will result in some savings.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 87, 
+          "faulty": "for (Reduction reduction : reductions) {\n  savings+=reduction.estimateSavings();\n}", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_476/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:42:20.193487553 -0500\n@@ -448,7 +448,7 @@\n       if (value != null &&\n           NodeUtil.isGetProp(value) &&\n           NodeUtil.isThis(value.getFirstChild())) {\n-        return value.getLastChild();\n+        int start = 0;\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 451, 
+          "faulty": "return value.getLastChild();", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_572/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:43:28.140698321 -0500\n@@ -92,7 +92,8 @@\n       // reductions if doing so will result in some savings.\n       if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n         for (Reduction reduction : reductions) {\n-          reduction.apply();\n+          boolean valid = false;\n+\t\treduction.apply();\n         }\n \n         Node addingRoot = compiler.getNodeForCodeInsertion(null);\n@@ -274,7 +275,6 @@\n \n       Node statement = body.getFirstChild();\n       if (statement.getType() == Token.RETURN) {\n-        return statement.getFirstChild();\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 95, 
+          "faulty": "reduction.apply();", 
+          "type": "InsertBefore", 
+          "seed": "boolean valid=false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 277, 
+          "faulty": "return statement.getFirstChild();", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_207/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:39:14.106693210 -0500\n@@ -448,7 +448,7 @@\n       if (value != null &&\n           NodeUtil.isGetProp(value) &&\n           NodeUtil.isThis(value.getFirstChild())) {\n-        return value.getLastChild();\n+        return null;\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 451, 
+          "faulty": "return value.getLastChild();", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_268/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:39:55.958763738 -0500\n@@ -85,7 +85,7 @@\n       // Estimate savings\n       int savings = 0;\n       for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n+        return;\n       }\n \n       // Compare estimated savings against the helper cost.  Apply\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 88, 
+          "faulty": "savings+=reduction.estimateSavings();", 
+          "type": "Replace", 
+          "seed": "return;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_45/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:27.118119408 -0500\n@@ -448,7 +448,7 @@\n       if (value != null &&\n           NodeUtil.isGetProp(value) &&\n           NodeUtil.isThis(value.getFirstChild())) {\n-        return value.getLastChild();\n+        boolean valid = false;\n       }\n       return null;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 451, 
+          "faulty": "return value.getLastChild();", 
+          "type": "Replace", 
+          "seed": "boolean valid=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_168/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:38:48.946312675 -0500\n@@ -84,9 +84,7 @@\n \n       // Estimate savings\n       int savings = 0;\n-      for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n-      }\n+      int index = -1;\n \n       // Compare estimated savings against the helper cost.  Apply\n       // reductions if doing so will result in some savings.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 87, 
+          "faulty": "for (Reduction reduction : reductions) {\n  savings+=reduction.estimateSavings();\n}", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_49/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:30.062126738 -0500\n@@ -110,7 +110,7 @@\n   public Node parseHelperCode(Reducer reducer) {\n     Node root = compiler.parseSyntheticCode(\n         reducer.getClass().toString() + \":helper\", reducer.getHelperSource());\n-    return (root != null) ? root.removeFirstChild() : null;\n+    return null;\n   }\n \n   private static boolean isReduceableFunctionExpression(Node n) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 113, 
+          "faulty": "return (root != null) ? root.removeFirstChild() : null;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_98/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:38:01.102202203 -0500\n@@ -84,10 +84,6 @@\n \n       // Estimate savings\n       int savings = 0;\n-      for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n-      }\n-\n       // Compare estimated savings against the helper cost.  Apply\n       // reductions if doing so will result in some savings.\n       if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 87, 
+          "faulty": "for (Reduction reduction : reductions) {\n  savings+=reduction.estimateSavings();\n}", 
+          "type": "Delete", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_294/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:40:14.388372191 -0500\n@@ -143,8 +143,7 @@\n      * Estimate number of bytes saved by applying this reduction.\n      */\n     int estimateSavings() {\n-      return InlineCostEstimator.getCost(oldChild) -\n-          InlineCostEstimator.getCost(newChild);\n+      return 0;\n     }\n   }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 146, 
+          "faulty": "return InlineCostEstimator.getCost(oldChild) - InlineCostEstimator.getCost(newChild);", 
+          "type": "Replace", 
+          "seed": "return 0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_503/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:42:39.173232190 -0500\n@@ -84,9 +84,7 @@\n \n       // Estimate savings\n       int savings = 0;\n-      for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n-      }\n+      boolean valid = false;\n \n       // Compare estimated savings against the helper cost.  Apply\n       // reductions if doing so will result in some savings.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 87, 
+          "faulty": "for (Reduction reduction : reductions) {\n  savings+=reduction.estimateSavings();\n}", 
+          "type": "Replace", 
+          "seed": "boolean valid=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_599/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:43:46.464539932 -0500\n@@ -85,7 +85,6 @@\n       // Estimate savings\n       int savings = 0;\n       for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n       }\n \n       // Compare estimated savings against the helper cost.  Apply\n@@ -108,7 +107,8 @@\n    * @return Helper code root.  If parse fails, return null.\n    */\n   public Node parseHelperCode(Reducer reducer) {\n-    Node root = compiler.parseSyntheticCode(\n+    int index = -1;\n+\tNode root = compiler.parseSyntheticCode(\n         reducer.getClass().toString() + \":helper\", reducer.getHelperSource());\n     return (root != null) ? root.removeFirstChild() : null;\n   }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 88, 
+          "faulty": "savings+=reduction.estimateSavings();", 
+          "type": "Delete", 
+          "seed": "boolean valid=false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 111, 
+          "faulty": "Node root=compiler.parseSyntheticCode(reducer.getClass().toString() + \":helper\",reducer.getHelperSource());", 
+          "type": "InsertBefore", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_30/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:15.070089080 -0500\n@@ -85,7 +85,6 @@\n       // Estimate savings\n       int savings = 0;\n       for (Reduction reduction : reductions) {\n-        savings += reduction.estimateSavings();\n       }\n \n       // Compare estimated savings against the helper cost.  Apply\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 88, 
+          "faulty": "savings+=reduction.estimateSavings();", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:31:50.719827596 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_55/patches_2m63/Patch_87/patched/tmp/RSRepair_Defects4J_Closure_55/src/com/google/javascript/jscomp/FunctionRewriter.java\t2018-12-02 08:37:55.158188000 -0500\n@@ -92,7 +92,7 @@\n       // reductions if doing so will result in some savings.\n       if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {\n         for (Reduction reduction : reductions) {\n-          reduction.apply();\n+          return;\n         }\n \n         Node addingRoot = compiler.getNodeForCodeInsertion(null);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionRewriter.java", 
+          "line": 95, 
+          "faulty": "reduction.apply();", 
+          "type": "Replace", 
+          "seed": "return;"
+        }
+      ]
+    }
+  ]
+}

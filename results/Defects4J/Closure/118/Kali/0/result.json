@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-02 01:46:16.051281", 
+  "repair_begin": "2018-12-02 01:37:45.220540", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Defects4J_Closure_118/src/com/google/javascript/jscomp/DisambiguateProperties.java\t2018-12-01 19:37:25.302976717 -0500\n+++ /tmp/Kali_Defects4J_Closure_118/patches_pv93/Patch_1/patched/tmp/Kali_Defects4J_Closure_118/src/com/google/javascript/jscomp/DisambiguateProperties.java\t2018-12-01 19:46:15.540507038 -0500\n@@ -498,8 +498,7 @@\n         T type = typeSystem.getType(getScope(), n, name);\n \n         Property prop = getProperty(name);\n-        if (!prop.scheduleRenaming(child,\n-                                   processProperty(t, prop, type, null))) {\n+        if (true) {\n           // TODO(user): It doesn't look like the user can do much in this\n           // case right now.\n           if (propertiesToErrorFor.containsKey(name)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/DisambiguateProperties.java", 
+          "line": 501, 
+          "faulty": "if (!prop.scheduleRenaming(child,processProperty(t,prop,type,null))) {\n  if (propertiesToErrorFor.containsKey(name)) {\n    compiler.report(JSError.make(t.getSourceName(),child,propertiesToErrorFor.get(name),Warnings.INVALIDATION,name,(type == null ? \"null\" : type.toString()),n.toString(),\"\"));\n  }\n}", 
+          "type": "RedirectBranch true"
+        }
+      ]
+    }
+  ]
+}

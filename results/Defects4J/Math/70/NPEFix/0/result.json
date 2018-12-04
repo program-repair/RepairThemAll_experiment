@@ -1,0 +1,25 @@
+{
+  "repair_end": "2018-11-29 16:37:04.555989", 
+  "repair_begin": "2018-11-29 16:35:48.170014", 
+  "patches": [
+    {
+      "diff": "--- analysis/solvers/BisectionSolver.java\n+++ analysis/solvers/BisectionSolver.java\n@@ -87,4 +87,12 @@\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n-           fm = f.value(m);\n+           if (f == null) {\n+               fmin = new SinFunction().value(min);\n+           } else {\n+               fmin = f.value(min);\n+           }\n+           if (f == null) {\n+               fm = new SinFunction().value(m);\n+           } else {\n+               fm = f.value(m);\n+           }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 89, 
+          "class": "org.apache.commons.math.analysis.solvers.BisectionSolver", 
+          "sourceStart": 3098, 
+          "sourceEnd": 3098
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 88, 
+          "class": "org.apache.commons.math.analysis.solvers.BisectionSolver", 
+          "sourceStart": 3068, 
+          "sourceEnd": 3068
+        }
+      ]
+    }
+  ]
+}

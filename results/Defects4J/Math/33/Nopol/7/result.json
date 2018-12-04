@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 05:47:32.186548", 
+  "repair_begin": "2018-11-29 05:36:02.379893", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 5, 
+      "patchLocation": {
+        "line": 339, 
+        "class": "org.apache.commons.math3.optimization.linear.SimplexTableau"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math3/optimization/linear/SimplexTableau.java\n+++ b/src/main/java/org/apache/commons/math3/optimization/linear/SimplexTableau.java\n@@ -338,3 +338,5 @@\n             if (Precision.compareTo(entry, 0d, maxUlps) > 0) {\n-                columnsToDrop.add(i);\n+                if ((2) != (org.apache.commons.math3.optimization.linear.SimplexTableau.this.numArtificialVariables)) {\n+                    columnsToDrop.add(i);\n+                }\n             }\n"
+    }
+  ]
+}

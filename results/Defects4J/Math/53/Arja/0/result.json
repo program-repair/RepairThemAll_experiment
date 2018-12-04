@@ -1,0 +1,163 @@
+{
+  "repair_end": "2018-12-01 12:44:53.179672", 
+  "repair_begin": "2018-12-01 12:05:39.745697", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:05:28.593004488 -0500\n+++ /tmp/Arja_Defects4J_Math_53/patches_hhsr/Patch_540/patched/tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:27:16.673857164 -0500\n@@ -149,7 +149,10 @@\n      */\n     public Complex add(Complex rhs)\n         throws NullArgumentException {\n-        MathUtils.checkNotNull(rhs);\n+        if (isNaN || rhs.isNaN) {\n+\t\t\t\treturn NaN;\n+\t\t\t}\n+\t\tMathUtils.checkNotNull(rhs);\n         return createComplex(real + rhs.getReal(),\n             imaginary + rhs.getImaginary());\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 152, 
+          "faulty": "MathUtils.checkNotNull(rhs);", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN || rhs.isNaN) {\n  return NaN;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 997, 
+          "faulty": "return new Complex(realPart,imaginaryPart);", 
+          "type": "Replace", 
+          "seed": "return new Complex(realPart,imaginaryPart);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:05:28.593004488 -0500\n+++ /tmp/Arja_Defects4J_Math_53/patches_hhsr/Patch_275/patched/tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:22:04.367927393 -0500\n@@ -149,7 +149,10 @@\n      */\n     public Complex add(Complex rhs)\n         throws NullArgumentException {\n-        MathUtils.checkNotNull(rhs);\n+        if (isNaN || rhs.isNaN) {\n+\t\t\t\treturn NaN;\n+\t\t\t}\n+\t\tMathUtils.checkNotNull(rhs);\n         return createComplex(real + rhs.getReal(),\n             imaginary + rhs.getImaginary());\n     }\n@@ -994,7 +997,10 @@\n      * @since 1.2\n      */\n     protected Complex createComplex(double realPart, double imaginaryPart) {\n-        return new Complex(realPart, imaginaryPart);\n+        if (isNaN) {\n+\t\t\treturn NaN;\n+\t\t}\n+\t\treturn new Complex(realPart, imaginaryPart);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 152, 
+          "faulty": "MathUtils.checkNotNull(rhs);", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN || rhs.isNaN) {\n  return NaN;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 997, 
+          "faulty": "return new Complex(realPart,imaginaryPart);", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN) {\n  return NaN;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:05:28.593004488 -0500\n+++ /tmp/Arja_Defects4J_Math_53/patches_hhsr/Patch_125/patched/tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:19:00.934645415 -0500\n@@ -149,7 +149,10 @@\n      */\n     public Complex add(Complex rhs)\n         throws NullArgumentException {\n-        MathUtils.checkNotNull(rhs);\n+        if (isNaN || rhs.isNaN) {\n+\t\t\t\treturn NaN;\n+\t\t\t}\n+\t\tMathUtils.checkNotNull(rhs);\n         return createComplex(real + rhs.getReal(),\n             imaginary + rhs.getImaginary());\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 152, 
+          "faulty": "MathUtils.checkNotNull(rhs);", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN || rhs.isNaN) {\n  return NaN;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:05:28.593004488 -0500\n+++ /tmp/Arja_Defects4J_Math_53/patches_hhsr/Patch_449/patched/tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:25:29.637231146 -0500\n@@ -149,8 +149,12 @@\n      */\n     public Complex add(Complex rhs)\n         throws NullArgumentException {\n+        if (isNaN || rhs.isNaN) {\n+\t\t\t\treturn NaN;\n+\t\t\t}\n+\t\tMathUtils.checkNotNull(rhs);\n         MathUtils.checkNotNull(rhs);\n-        return createComplex(real + rhs.getReal(),\n+\t\treturn createComplex(real + rhs.getReal(),\n             imaginary + rhs.getImaginary());\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 152, 
+          "faulty": "MathUtils.checkNotNull(rhs);", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN || rhs.isNaN) {\n  return NaN;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 153, 
+          "faulty": "return createComplex(real + rhs.getReal(),imaginary + rhs.getImaginary());", 
+          "type": "InsertBefore", 
+          "seed": "MathUtils.checkNotNull(rhs);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:05:28.593004488 -0500\n+++ /tmp/Arja_Defects4J_Math_53/patches_hhsr/Patch_655/patched/tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:29:33.926699869 -0500\n@@ -149,7 +149,9 @@\n      */\n     public Complex add(Complex rhs)\n         throws NullArgumentException {\n-        MathUtils.checkNotNull(rhs);\n+        if (isNaN || rhs.isNaN) {\n+\t\t\treturn NaN;\n+\t\t}\n         return createComplex(real + rhs.getReal(),\n             imaginary + rhs.getImaginary());\n     }\n@@ -994,7 +996,10 @@\n      * @since 1.2\n      */\n     protected Complex createComplex(double realPart, double imaginaryPart) {\n-        return new Complex(realPart, imaginaryPart);\n+        if (isNaN) {\n+\t\t\treturn NaN;\n+\t\t}\n+\t\treturn new Complex(realPart, imaginaryPart);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 152, 
+          "faulty": "MathUtils.checkNotNull(rhs);", 
+          "type": "Replace", 
+          "seed": "if (isNaN || rhs.isNaN) {\n  return NaN;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 997, 
+          "faulty": "return new Complex(realPart,imaginaryPart);", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN) {\n  return NaN;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:05:28.593004488 -0500\n+++ /tmp/Arja_Defects4J_Math_53/patches_hhsr/Patch_302/patched/tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:22:35.220135637 -0500\n@@ -149,7 +149,10 @@\n      */\n     public Complex add(Complex rhs)\n         throws NullArgumentException {\n-        MathUtils.checkNotNull(rhs);\n+        if (isNaN || rhs.isNaN) {\n+\t\t\t\treturn NaN;\n+\t\t\t}\n+\t\tMathUtils.checkNotNull(rhs);\n         return createComplex(real + rhs.getReal(),\n             imaginary + rhs.getImaginary());\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 152, 
+          "faulty": "MathUtils.checkNotNull(rhs);", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN || rhs.isNaN) {\n  return NaN;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 319, 
+          "faulty": "return isNaN;", 
+          "type": "Replace", 
+          "seed": "return isNaN;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:05:28.593004488 -0500\n+++ /tmp/Arja_Defects4J_Math_53/patches_hhsr/Patch_376/patched/tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:24:03.280703532 -0500\n@@ -149,8 +149,14 @@\n      */\n     public Complex add(Complex rhs)\n         throws NullArgumentException {\n-        MathUtils.checkNotNull(rhs);\n-        return createComplex(real + rhs.getReal(),\n+        if (isNaN || rhs.isNaN) {\n+\t\t\t\treturn NaN;\n+\t\t\t}\n+\t\tMathUtils.checkNotNull(rhs);\n+        if (isNaN) {\n+\t\t\treturn NaN;\n+\t\t}\n+\t\treturn createComplex(real + rhs.getReal(),\n             imaginary + rhs.getImaginary());\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 152, 
+          "faulty": "MathUtils.checkNotNull(rhs);", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN || rhs.isNaN) {\n  return NaN;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 153, 
+          "faulty": "return createComplex(real + rhs.getReal(),imaginary + rhs.getImaginary());", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN) {\n  return NaN;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:05:28.593004488 -0500\n+++ /tmp/Arja_Defects4J_Math_53/patches_hhsr/Patch_200/patched/tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:20:32.763310128 -0500\n@@ -149,7 +149,9 @@\n      */\n     public Complex add(Complex rhs)\n         throws NullArgumentException {\n-        MathUtils.checkNotNull(rhs);\n+        if (isNaN || rhs.isNaN) {\n+\t\t\treturn NaN;\n+\t\t}\n         return createComplex(real + rhs.getReal(),\n             imaginary + rhs.getImaginary());\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 152, 
+          "faulty": "MathUtils.checkNotNull(rhs);", 
+          "type": "Replace", 
+          "seed": "if (isNaN || rhs.isNaN) {\n  return NaN;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:05:28.593004488 -0500\n+++ /tmp/Arja_Defects4J_Math_53/patches_hhsr/Patch_913/patched/tmp/Arja_Defects4J_Math_53/src/main/java/org/apache/commons/math/complex/Complex.java\t2018-12-01 06:34:45.488592841 -0500\n@@ -149,8 +149,11 @@\n      */\n     public Complex add(Complex rhs)\n         throws NullArgumentException {\n+        if (isNaN || rhs.isNaN) {\n+\t\t\treturn NaN;\n+\t\t}\n         MathUtils.checkNotNull(rhs);\n-        return createComplex(real + rhs.getReal(),\n+\t\treturn createComplex(real + rhs.getReal(),\n             imaginary + rhs.getImaginary());\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 152, 
+          "faulty": "MathUtils.checkNotNull(rhs);", 
+          "type": "Replace", 
+          "seed": "if (isNaN || rhs.isNaN) {\n  return NaN;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/complex/Complex.java", 
+          "line": 153, 
+          "faulty": "return createComplex(real + rhs.getReal(),imaginary + rhs.getImaginary());", 
+          "type": "InsertBefore", 
+          "seed": "MathUtils.checkNotNull(rhs);"
+        }
+      ]
+    }
+  ]
+}

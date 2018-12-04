@@ -1,0 +1,176 @@
+{
+  "repair_end": "2018-12-02 08:54:09.318101", 
+  "repair_begin": "2018-12-02 08:43:56.225993", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_93/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:46:38.979525961 -0500\n@@ -450,7 +450,8 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n+            Double d = createDouble(str);\n+\t\t\treturn null;\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "InsertBefore", 
+          "seed": "Double d=createDouble(str);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_250/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:48:14.180428125 -0500\n@@ -450,7 +450,9 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n+            if (str == null) {\n+\t\t\t\treturn null;\n+\t\t\t}\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "if (str == null) {\n  return null;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_424/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:49:58.609408356 -0500\n@@ -450,7 +450,7 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n+            int i = 1;\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "int i=1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_207/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:47:48.080181635 -0500\n@@ -450,7 +450,7 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n+            int decPos = str.indexOf('.');\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "int decPos=str.indexOf('.');"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_269/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:48:25.560535406 -0500\n@@ -450,7 +450,7 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n+            return Short.parseShort(str);\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "return Short.parseShort(str);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_147/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:47:11.783837801 -0500\n@@ -450,7 +450,6 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java\t2018-12-02 02:43:45.162024349 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_147/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java\t2018-12-02 02:47:11.787837839 -0500\n@@ -227,8 +227,7 @@\n                 testObjectOutputStream.writeObject(listener);\n                 serializableListeners.add(listener);\n             } catch (IOException exception) {\n-                //recreate test stream in case of indeterminate state\n-                testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());\n+                listeners.add(listener);\n             }\n         }\n         /*\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java", 
+          "line": 231, 
+          "faulty": "testObjectOutputStream=new ObjectOutputStream(new ByteArrayOutputStream());", 
+          "type": "Replace", 
+          "seed": "listeners.add(listener);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Delete", 
+          "seed": "double y2=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_327/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:49:01.092869631 -0500\n@@ -444,13 +444,13 @@\n      */\n     public static Number createNumber(String str) throws NumberFormatException {\n         if (str == null) {\n-            return null;\n+            int i = 1;\n+\t\t\treturn null;\n         }\n         if (StringUtils.isBlank(str)) {\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 447, 
+          "faulty": "return null;", 
+          "type": "InsertBefore", 
+          "seed": "int i=1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Delete", 
+          "seed": "throw new NumberFormatException(\"A blank string is not a valid number\");"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_334/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:49:04.652903057 -0500\n@@ -450,7 +450,17 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n+            if (str.startsWith(\"0x\") || str.startsWith(\"-0x\")\n+\t\t\t\t\t|| str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n+\t\t\t\tint hexDigits = str.length() - 2;\n+\t\t\t\tif (str.startsWith(\"-\")) {\n+\t\t\t\t\thexDigits--;\n+\t\t\t\t}\n+\t\t\t\tif (hexDigits > 8) {\n+\t\t\t\t\treturn createLong(str);\n+\t\t\t\t}\n+\t\t\t\treturn createInteger(str);\n+\t\t\t}\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\")|| str.startsWith(\"-0X\")) {\n  int hexDigits=str.length() - 2;\n  if (str.startsWith(\"-\")) {\n    hexDigits--;\n  }\n  if (hexDigits > 8) {\n    return createLong(str);\n  }\n  return createInteger(str);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_795/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:53:43.779492805 -0500\n@@ -450,7 +450,7 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n+            Float f = createFloat(str);\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "Float f=createFloat(str);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_552/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:51:17.426142239 -0500\n@@ -450,7 +450,7 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n+            char[] chars = str.toCharArray();\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "char[] chars=str.toCharArray();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_662/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:52:23.950758006 -0500\n@@ -450,7 +450,7 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n+            boolean allowSigns = false;\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "boolean allowSigns=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_44/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:46:08.803254198 -0500\n@@ -450,7 +450,7 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n+            return Long.decode(str);\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "return Long.decode(str);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:43:48.618053998 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_7/patches_gx6z/Patch_21/patched/tmp/RSRepair_Defects4J_Lang_7/src/main/java/org/apache/commons/lang3/math/NumberUtils.java\t2018-12-02 02:45:54.579132560 -0500\n@@ -450,7 +450,6 @@\n             throw new NumberFormatException(\"A blank string is not a valid number\");\n         }  \n         if (str.startsWith(\"--\")) {\n-            return null;\n         }\n         if (str.startsWith(\"0x\") || str.startsWith(\"-0x\") || str.startsWith(\"0X\") || str.startsWith(\"-0X\")) {\n             int hexDigits = str.length() - 2; // drop 0x\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/math/NumberUtils.java", 
+          "line": 453, 
+          "faulty": "return null;", 
+          "type": "Delete", 
+          "seed": "double delta1, delta2=Double.MAX_VALUE;"
+        }
+      ]
+    }
+  ]
+}

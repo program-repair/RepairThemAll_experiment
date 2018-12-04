@@ -1,0 +1,535 @@
+{
+  "repair_end": "2018-12-02 15:08:50.046655", 
+  "repair_begin": "2018-12-02 14:53:37.849534", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_91/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:59:58.678196973 -0500\n@@ -118,8 +118,9 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)\n+\t\t\t;\n+\t\telse break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/rhino/Token.java\t2018-12-02 08:53:16.936107918 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_91/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/rhino/Token.java\t2018-12-02 08:59:58.682196997 -0500\n@@ -184,7 +184,10 @@\n           case BITOR:           return \"BITOR\";\n           case BITXOR:          return \"BITXOR\";\n           case BITAND:          return \"BITAND\";\n-          case EQ:              return \"EQ\";\n+          case EQ:              {\n+\t\t\t\tint count = 0;\n+\t\t\t\treturn \"EQ\";\n+\t\t\t}\n           case NE:              return \"NE\";\n           case LT:              return \"LT\";\n           case LE:              return \"LE\";\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Token.java", 
+          "line": 187, 
+          "faulty": "return \"EQ\";", 
+          "type": "InsertBefore", 
+          "seed": "int count=0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_130/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:00:27.362368905 -0500\n@@ -118,8 +118,10 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          int type = n.getType();\n+\t\tif (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)\n+\t\t\t;\n+\t\telse break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "InsertBefore", 
+          "seed": "int type=n.getType();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_49/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:59:26.013997789 -0500\n@@ -118,8 +118,7 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          int type = n.getType();\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "Replace", 
+          "seed": "int type=n.getType();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_103/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:00:07.250248631 -0500\n@@ -115,12 +115,7 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n+        int start = 0;\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_698/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:07:47.483598048 -0500\n@@ -115,12 +115,6 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 119, 
+          "faulty": "int ancestorType=an.getType();", 
+          "type": "Replace", 
+          "seed": "return this;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_716/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:08:00.595497560 -0500\n@@ -117,7 +117,9 @@\n       if (n == parent.getLastChild()) {\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n+          StringBuilder builder = new StringBuilder();\n+\t\tif (ancestorType == Token.COMMA)\n+\t\t\tbreak;\n           if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n           else break;\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 120, 
+          "faulty": "if (ancestorType == Token.COMMA) continue;", 
+          "type": "InsertBefore", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 120, 
+          "faulty": "continue;", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_110/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:00:12.054277475 -0500\n@@ -118,8 +118,9 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)\n+\t\t\tbreak;\n+\t\telse break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "return;", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_28/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:59:08.993892415 -0500\n@@ -115,12 +115,6 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Delete", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_19/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:59:02.589852463 -0500\n@@ -118,8 +118,6 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "Delete", 
+          "seed": "return new DefaultCodingConvention();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_459/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:04:44.089924357 -0500\n@@ -115,12 +115,6 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 120, 
+          "faulty": "continue;", 
+          "type": "Delete", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_756/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:08:31.607685628 -0500\n@@ -118,8 +118,7 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          int start = 0;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_579/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:06:18.856478455 -0500\n@@ -115,12 +115,6 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/rhino/Token.java\t2018-12-02 08:53:16.936107918 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_579/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/rhino/Token.java\t2018-12-02 09:06:18.860478406 -0500\n@@ -184,7 +184,7 @@\n           case BITOR:           return \"BITOR\";\n           case BITXOR:          return \"BITXOR\";\n           case BITAND:          return \"BITAND\";\n-          case EQ:              return \"EQ\";\n+          case EQ:              Node block = new Node(Token.BLOCK);\n           case NE:              return \"NE\";\n           case LT:              return \"LT\";\n           case LE:              return \"LE\";\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Token.java", 
+          "line": 187, 
+          "faulty": "return \"EQ\";", 
+          "type": "Replace", 
+          "seed": "Node block=new Node(Token.BLOCK);"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Delete", 
+          "seed": "return new DefaultCodingConvention();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_146/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:00:38.854028307 -0500\n@@ -115,12 +115,7 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n+        int type = n.getType();\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Replace", 
+          "seed": "int type=n.getType();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 120, 
+          "faulty": "continue;", 
+          "type": "Replace", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_11/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:58:56.493814273 -0500\n@@ -118,8 +118,7 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_232/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:01:44.866979953 -0500\n@@ -117,9 +117,6 @@\n       if (n == parent.getLastChild()) {\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n@@ -163,7 +160,6 @@\n         n.getParent().replaceChild(n, replacement);\n         replacement.addChildToBack(n);\n       }\n-      compiler.reportCodeChange();\n     }\n   }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 120, 
+          "faulty": "if (ancestorType == Token.COMMA) continue;", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "Delete", 
+          "seed": "int start=0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 166, 
+          "faulty": "compiler.reportCodeChange();", 
+          "type": "Delete", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_462/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:04:45.853891453 -0500\n@@ -114,14 +114,7 @@\n       if (isResultUsed) {\n         return;\n       }\n-      if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n-      }\n+      int start = 0;\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n         return;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 117, 
+          "faulty": "if (n == parent.getLastChild()) {\n  for (  Node an : parent.getAncestors()) {\n    int ancestorType=an.getType();\n    if (ancestorType == Token.COMMA)     continue;\n    if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)     return;\n else     break;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_214/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:01:30.987553905 -0500\n@@ -115,12 +115,6 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Delete", 
+          "seed": "return this;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "Delete", 
+          "seed": "return new DefaultCodingConvention();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_313/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:02:46.844785371 -0500\n@@ -118,8 +118,9 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)\n+\t\t\t;\n+\t\telse break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n@@ -177,7 +178,6 @@\n     var.setJSDocInfo(builder.build(var));\n     CompilerInput input = compiler.getSynthesizedExternsInput();\n     input.getAstRoot(compiler).addChildrenToBack(var);\n-    compiler.reportCodeChange();\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 180, 
+          "faulty": "compiler.reportCodeChange();", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_288/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:02:27.521409657 -0500\n@@ -118,8 +118,6 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n@@ -133,8 +131,6 @@\n       if (n.isString()) {\n         msg = \"Is there a missing '+' on the previous line?\";\n       } else if (isSimpleOp) {\n-        msg = \"The result of the '\" + Token.name(n.getType()).toLowerCase() +\n-            \"' operator is not being used.\";\n       }\n \n       t.getCompiler().report(\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "Delete", 
+          "seed": "int index=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 136, 
+          "faulty": "msg=\"The result of the '\" + Token.name(n.getType()).toLowerCase() + \"' operator is not being used.\";", 
+          "type": "Delete", 
+          "seed": "int keyParent=key(parent);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_272/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:02:16.765779681 -0500\n@@ -115,12 +115,6 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Delete", 
+          "seed": "return new DotFormatter();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 120, 
+          "faulty": "if (ancestorType == Token.COMMA) continue;", 
+          "type": "InsertBefore", 
+          "seed": "return 0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_608/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:06:40.856223671 -0500\n@@ -115,12 +115,6 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Delete", 
+          "seed": "traverseNodes(n);"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 120, 
+          "faulty": "if (ancestorType == Token.COMMA) continue;", 
+          "type": "Delete", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_285/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:02:25.805467573 -0500\n@@ -115,12 +115,6 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_285/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 09:02:25.805467573 -0500\n@@ -3121,19 +3121,7 @@\n             ? true : isExpressionResultUsed(parent);\n       case Token.COMMA:\n         Node gramps = parent.getParent();\n-        if (gramps.isCall() &&\n-            parent == gramps.getFirstChild()) {\n-          // Semantically, a direct call to eval is different from an indirect\n-          // call to an eval. See ECMA-262 S15.1.2.1. So it's OK for the first\n-          // expression to a comma to be a no-op if it's used to indirect\n-          // an eval. This we pretend that this is \"used\".\n-          if (expr == parent.getFirstChild() &&\n-              parent.getChildCount() == 2 &&\n-              expr.getNext().isName() &&\n-              \"eval\".equals(expr.getNext().getString())) {\n-            return true;\n-          }\n-        }\n+        ;\n \n         return (expr == parent.getFirstChild())\n             ? false : isExpressionResultUsed(parent);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Delete", 
+          "seed": "int start=0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 3124, 
+          "faulty": "if (gramps.isCall() && parent == gramps.getFirstChild()) {\n  if (expr == parent.getFirstChild() && parent.getChildCount() == 2 && expr.getNext().isName() && \"eval\".equals(expr.getNext().getString())) {\n    return true;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_377/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:03:37.035383132 -0500\n@@ -118,8 +118,7 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          int index = -1;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_136/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:00:31.698393435 -0500\n@@ -118,8 +118,9 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)\n+\t\t\t;\n+\t\telse break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/rhino/Token.java\t2018-12-02 08:53:16.936107918 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_136/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/rhino/Token.java\t2018-12-02 09:00:31.702393447 -0500\n@@ -184,7 +184,7 @@\n           case BITOR:           return \"BITOR\";\n           case BITXOR:          return \"BITXOR\";\n           case BITAND:          return \"BITAND\";\n-          case EQ:              return \"EQ\";\n+          case EQ:              ;\n           case NE:              return \"NE\";\n           case LT:              return \"LT\";\n           case LE:              return \"LE\";\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Token.java", 
+          "line": 187, 
+          "faulty": "return \"EQ\";", 
+          "type": "Delete", 
+          "seed": "return \"ADD\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "int type=n.getType();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_189/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:01:11.092436193 -0500\n@@ -115,12 +115,6 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n@@ -154,7 +148,6 @@\n    */\n   private void protectSideEffects() {\n     if (!problemNodes.isEmpty()) {\n-      addExtern();\n       for (Node n : problemNodes) {\n         Node name = IR.name(PROTECTOR_FN).srcref(n);\n         name.putBooleanProp(Node.IS_CONSTANT_NAME, true);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Delete", 
+          "seed": "int keyParent=key(parent);"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 157, 
+          "faulty": "addExtern();", 
+          "type": "Delete", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_121/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:00:20.410327473 -0500\n@@ -115,12 +115,7 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n+        int index = -1;\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_64/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:59:37.530068454 -0500\n@@ -118,8 +118,9 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)\n+\t\t\t;\n+\t\telse break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/rhino/Token.java\t2018-12-02 08:53:16.936107918 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_64/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/rhino/Token.java\t2018-12-02 08:59:37.530068454 -0500\n@@ -184,7 +184,204 @@\n           case BITOR:           return \"BITOR\";\n           case BITXOR:          return \"BITXOR\";\n           case BITAND:          return \"BITAND\";\n-          case EQ:              return \"EQ\";\n+          case EQ:              switch (token) {\n+\t\t\tcase ERROR:\n+\t\t\t\treturn \"ERROR\";\n+\t\t\tcase RETURN:\n+\t\t\t\treturn \"RETURN\";\n+\t\t\tcase BITOR:\n+\t\t\t\treturn \"BITOR\";\n+\t\t\tcase BITXOR:\n+\t\t\t\treturn \"BITXOR\";\n+\t\t\tcase BITAND:\n+\t\t\t\treturn \"BITAND\";\n+\t\t\tcase EQ:\n+\t\t\t\treturn \"EQ\";\n+\t\t\tcase NE:\n+\t\t\t\treturn \"NE\";\n+\t\t\tcase LT:\n+\t\t\t\treturn \"LT\";\n+\t\t\tcase LE:\n+\t\t\t\treturn \"LE\";\n+\t\t\tcase GT:\n+\t\t\t\treturn \"GT\";\n+\t\t\tcase GE:\n+\t\t\t\treturn \"GE\";\n+\t\t\tcase LSH:\n+\t\t\t\treturn \"LSH\";\n+\t\t\tcase RSH:\n+\t\t\t\treturn \"RSH\";\n+\t\t\tcase URSH:\n+\t\t\t\treturn \"URSH\";\n+\t\t\tcase ADD:\n+\t\t\t\treturn \"ADD\";\n+\t\t\tcase SUB:\n+\t\t\t\treturn \"SUB\";\n+\t\t\tcase MUL:\n+\t\t\t\treturn \"MUL\";\n+\t\t\tcase DIV:\n+\t\t\t\treturn \"DIV\";\n+\t\t\tcase MOD:\n+\t\t\t\treturn \"MOD\";\n+\t\t\tcase NOT:\n+\t\t\t\treturn \"NOT\";\n+\t\t\tcase BITNOT:\n+\t\t\t\treturn \"BITNOT\";\n+\t\t\tcase POS:\n+\t\t\t\treturn \"POS\";\n+\t\t\tcase NEG:\n+\t\t\t\treturn \"NEG\";\n+\t\t\tcase NEW:\n+\t\t\t\treturn \"NEW\";\n+\t\t\tcase DELPROP:\n+\t\t\t\treturn \"DELPROP\";\n+\t\t\tcase TYPEOF:\n+\t\t\t\treturn \"TYPEOF\";\n+\t\t\tcase GETPROP:\n+\t\t\t\treturn \"GETPROP\";\n+\t\t\tcase GETELEM:\n+\t\t\t\treturn \"GETELEM\";\n+\t\t\tcase CALL:\n+\t\t\t\treturn \"CALL\";\n+\t\t\tcase NAME:\n+\t\t\t\treturn \"NAME\";\n+\t\t\tcase LABEL_NAME:\n+\t\t\t\treturn \"LABEL_NAME\";\n+\t\t\tcase NUMBER:\n+\t\t\t\treturn \"NUMBER\";\n+\t\t\tcase STRING:\n+\t\t\t\treturn \"STRING\";\n+\t\t\tcase STRING_KEY:\n+\t\t\t\treturn \"STRING_KEY\";\n+\t\t\tcase NULL:\n+\t\t\t\treturn \"NULL\";\n+\t\t\tcase THIS:\n+\t\t\t\treturn \"THIS\";\n+\t\t\tcase FALSE:\n+\t\t\t\treturn \"FALSE\";\n+\t\t\tcase TRUE:\n+\t\t\t\treturn \"TRUE\";\n+\t\t\tcase SHEQ:\n+\t\t\t\treturn \"SHEQ\";\n+\t\t\tcase SHNE:\n+\t\t\t\treturn \"SHNE\";\n+\t\t\tcase REGEXP:\n+\t\t\t\treturn \"REGEXP\";\n+\t\t\tcase THROW:\n+\t\t\t\treturn \"THROW\";\n+\t\t\tcase IN:\n+\t\t\t\treturn \"IN\";\n+\t\t\tcase INSTANCEOF:\n+\t\t\t\treturn \"INSTANCEOF\";\n+\t\t\tcase ARRAYLIT:\n+\t\t\t\treturn \"ARRAYLIT\";\n+\t\t\tcase OBJECTLIT:\n+\t\t\t\treturn \"OBJECTLIT\";\n+\t\t\tcase TRY:\n+\t\t\t\treturn \"TRY\";\n+\t\t\tcase PARAM_LIST:\n+\t\t\t\treturn \"PARAM_LIST\";\n+\t\t\tcase COMMA:\n+\t\t\t\treturn \"COMMA\";\n+\t\t\tcase ASSIGN:\n+\t\t\t\treturn \"ASSIGN\";\n+\t\t\tcase ASSIGN_BITOR:\n+\t\t\t\treturn \"ASSIGN_BITOR\";\n+\t\t\tcase ASSIGN_BITXOR:\n+\t\t\t\treturn \"ASSIGN_BITXOR\";\n+\t\t\tcase ASSIGN_BITAND:\n+\t\t\t\treturn \"ASSIGN_BITAND\";\n+\t\t\tcase ASSIGN_LSH:\n+\t\t\t\treturn \"ASSIGN_LSH\";\n+\t\t\tcase ASSIGN_RSH:\n+\t\t\t\treturn \"ASSIGN_RSH\";\n+\t\t\tcase ASSIGN_URSH:\n+\t\t\t\treturn \"ASSIGN_URSH\";\n+\t\t\tcase ASSIGN_ADD:\n+\t\t\t\treturn \"ASSIGN_ADD\";\n+\t\t\tcase ASSIGN_SUB:\n+\t\t\t\treturn \"ASSIGN_SUB\";\n+\t\t\tcase ASSIGN_MUL:\n+\t\t\t\treturn \"ASSIGN_MUL\";\n+\t\t\tcase ASSIGN_DIV:\n+\t\t\t\treturn \"ASSIGN_DIV\";\n+\t\t\tcase ASSIGN_MOD:\n+\t\t\t\treturn \"ASSIGN_MOD\";\n+\t\t\tcase HOOK:\n+\t\t\t\treturn \"HOOK\";\n+\t\t\tcase COLON:\n+\t\t\t\treturn \"COLON\";\n+\t\t\tcase OR:\n+\t\t\t\treturn \"OR\";\n+\t\t\tcase AND:\n+\t\t\t\treturn \"AND\";\n+\t\t\tcase INC:\n+\t\t\t\treturn \"INC\";\n+\t\t\tcase DEC:\n+\t\t\t\treturn \"DEC\";\n+\t\t\tcase FUNCTION:\n+\t\t\t\treturn \"FUNCTION\";\n+\t\t\tcase IF:\n+\t\t\t\treturn \"IF\";\n+\t\t\tcase SWITCH:\n+\t\t\t\treturn \"SWITCH\";\n+\t\t\tcase CASE:\n+\t\t\t\treturn \"CASE\";\n+\t\t\tcase DEFAULT_CASE:\n+\t\t\t\treturn \"DEFAULT_CASE\";\n+\t\t\tcase WHILE:\n+\t\t\t\treturn \"WHILE\";\n+\t\t\tcase DO:\n+\t\t\t\treturn \"DO\";\n+\t\t\tcase FOR:\n+\t\t\t\treturn \"FOR\";\n+\t\t\tcase BREAK:\n+\t\t\t\treturn \"BREAK\";\n+\t\t\tcase CONTINUE:\n+\t\t\t\treturn \"CONTINUE\";\n+\t\t\tcase VAR:\n+\t\t\t\treturn \"VAR\";\n+\t\t\tcase WITH:\n+\t\t\t\treturn \"WITH\";\n+\t\t\tcase CATCH:\n+\t\t\t\treturn \"CATCH\";\n+\t\t\tcase EMPTY:\n+\t\t\t\treturn \"EMPTY\";\n+\t\t\tcase BLOCK:\n+\t\t\t\treturn \"BLOCK\";\n+\t\t\tcase LABEL:\n+\t\t\t\treturn \"LABEL\";\n+\t\t\tcase EXPR_RESULT:\n+\t\t\t\treturn \"EXPR_RESULT\";\n+\t\t\tcase SCRIPT:\n+\t\t\t\treturn \"SCRIPT\";\n+\t\t\tcase GETTER_DEF:\n+\t\t\t\treturn \"GETTER_DEF\";\n+\t\t\tcase SETTER_DEF:\n+\t\t\t\treturn \"SETTER_DEF\";\n+\t\t\tcase CONST:\n+\t\t\t\treturn \"CONST\";\n+\t\t\tcase DEBUGGER:\n+\t\t\t\treturn \"DEBUGGER\";\n+\t\t\tcase ANNOTATION:\n+\t\t\t\treturn \"ANNOTATION\";\n+\t\t\tcase PIPE:\n+\t\t\t\treturn \"PIPE\";\n+\t\t\tcase STAR:\n+\t\t\t\treturn \"STAR\";\n+\t\t\tcase EOC:\n+\t\t\t\treturn \"EOC\";\n+\t\t\tcase QMARK:\n+\t\t\t\treturn \"QMARK\";\n+\t\t\tcase ELLIPSIS:\n+\t\t\t\treturn \"ELLIPSIS\";\n+\t\t\tcase BANG:\n+\t\t\t\treturn \"BANG\";\n+\t\t\tcase VOID:\n+\t\t\t\treturn \"VOID\";\n+\t\t\tcase EQUALS:\n+\t\t\t\treturn \"EQUALS\";\n+\t\t\t}\n           case NE:              return \"NE\";\n           case LT:              return \"LT\";\n           case LE:              return \"LE\";\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Token.java", 
+          "line": 187, 
+          "faulty": "return \"EQ\";", 
+          "type": "Replace", 
+          "seed": "switch (token) {\ncase ERROR:\n  return \"ERROR\";\ncase RETURN:\nreturn \"RETURN\";\ncase BITOR:\nreturn \"BITOR\";\ncase BITXOR:\nreturn \"BITXOR\";\ncase BITAND:\nreturn \"BITAND\";\ncase EQ:\nreturn \"EQ\";\ncase NE:\nreturn \"NE\";\ncase LT:\nreturn \"LT\";\ncase LE:\nreturn \"LE\";\ncase GT:\nreturn \"GT\";\ncase GE:\nreturn \"GE\";\ncase LSH:\nreturn \"LSH\";\ncase RSH:\nreturn \"RSH\";\ncase URSH:\nreturn \"URSH\";\ncase ADD:\nreturn \"ADD\";\ncase SUB:\nreturn \"SUB\";\ncase MUL:\nreturn \"MUL\";\ncase DIV:\nreturn \"DIV\";\ncase MOD:\nreturn \"MOD\";\ncase NOT:\nreturn \"NOT\";\ncase BITNOT:\nreturn \"BITNOT\";\ncase POS:\nreturn \"POS\";\ncase NEG:\nreturn \"NEG\";\ncase NEW:\nreturn \"NEW\";\ncase DELPROP:\nreturn \"DELPROP\";\ncase TYPEOF:\nreturn \"TYPEOF\";\ncase GETPROP:\nreturn \"GETPROP\";\ncase GETELEM:\nreturn \"GETELEM\";\ncase CALL:\nreturn \"CALL\";\ncase NAME:\nreturn \"NAME\";\ncase LABEL_NAME:\nreturn \"LABEL_NAME\";\ncase NUMBER:\nreturn \"NUMBER\";\ncase STRING:\nreturn \"STRING\";\ncase STRING_KEY:\nreturn \"STRING_KEY\";\ncase NULL:\nreturn \"NULL\";\ncase THIS:\nreturn \"THIS\";\ncase FALSE:\nreturn \"FALSE\";\ncase TRUE:\nreturn \"TRUE\";\ncase SHEQ:\nreturn \"SHEQ\";\ncase SHNE:\nreturn \"SHNE\";\ncase REGEXP:\nreturn \"REGEXP\";\ncase THROW:\nreturn \"THROW\";\ncase IN:\nreturn \"IN\";\ncase INSTANCEOF:\nreturn \"INSTANCEOF\";\ncase ARRAYLIT:\nreturn \"ARRAYLIT\";\ncase OBJECTLIT:\nreturn \"OBJECTLIT\";\ncase TRY:\nreturn \"TRY\";\ncase PARAM_LIST:\nreturn \"PARAM_LIST\";\ncase COMMA:\nreturn \"COMMA\";\ncase ASSIGN:\nreturn \"ASSIGN\";\ncase ASSIGN_BITOR:\nreturn \"ASSIGN_BITOR\";\ncase ASSIGN_BITXOR:\nreturn \"ASSIGN_BITXOR\";\ncase ASSIGN_BITAND:\nreturn \"ASSIGN_BITAND\";\ncase ASSIGN_LSH:\nreturn \"ASSIGN_LSH\";\ncase ASSIGN_RSH:\nreturn \"ASSIGN_RSH\";\ncase ASSIGN_URSH:\nreturn \"ASSIGN_URSH\";\ncase ASSIGN_ADD:\nreturn \"ASSIGN_ADD\";\ncase ASSIGN_SUB:\nreturn \"ASSIGN_SUB\";\ncase ASSIGN_MUL:\nreturn \"ASSIGN_MUL\";\ncase ASSIGN_DIV:\nreturn \"ASSIGN_DIV\";\ncase ASSIGN_MOD:\nreturn \"ASSIGN_MOD\";\ncase HOOK:\nreturn \"HOOK\";\ncase COLON:\nreturn \"COLON\";\ncase OR:\nreturn \"OR\";\ncase AND:\nreturn \"AND\";\ncase INC:\nreturn \"INC\";\ncase DEC:\nreturn \"DEC\";\ncase FUNCTION:\nreturn \"FUNCTION\";\ncase IF:\nreturn \"IF\";\ncase SWITCH:\nreturn \"SWITCH\";\ncase CASE:\nreturn \"CASE\";\ncase DEFAULT_CASE:\nreturn \"DEFAULT_CASE\";\ncase WHILE:\nreturn \"WHILE\";\ncase DO:\nreturn \"DO\";\ncase FOR:\nreturn \"FOR\";\ncase BREAK:\nreturn \"BREAK\";\ncase CONTINUE:\nreturn \"CONTINUE\";\ncase VAR:\nreturn \"VAR\";\ncase WITH:\nreturn \"WITH\";\ncase CATCH:\nreturn \"CATCH\";\ncase EMPTY:\nreturn \"EMPTY\";\ncase BLOCK:\nreturn \"BLOCK\";\ncase LABEL:\nreturn \"LABEL\";\ncase EXPR_RESULT:\nreturn \"EXPR_RESULT\";\ncase SCRIPT:\nreturn \"SCRIPT\";\ncase GETTER_DEF:\nreturn \"GETTER_DEF\";\ncase SETTER_DEF:\nreturn \"SETTER_DEF\";\ncase CONST:\nreturn \"CONST\";\ncase DEBUGGER:\nreturn \"DEBUGGER\";\ncase ANNOTATION:\nreturn \"ANNOTATION\";\ncase PIPE:\nreturn \"PIPE\";\ncase STAR:\nreturn \"STAR\";\ncase EOC:\nreturn \"EOC\";\ncase QMARK:\nreturn \"QMARK\";\ncase ELLIPSIS:\nreturn \"ELLIPSIS\";\ncase BANG:\nreturn \"BANG\";\ncase VOID:\nreturn \"VOID\";\ncase EQUALS:\nreturn \"EQUALS\";\n}"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "formatPreamble();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_8/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:58:54.369800929 -0500\n@@ -118,8 +118,9 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)\n+\t\t\t;\n+\t\telse break;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_316/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:02:48.360738514 -0500\n@@ -118,8 +118,7 @@\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          StringBuilder builder = new StringBuilder();\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_172/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:00:58.277044003 -0500\n@@ -114,14 +114,6 @@\n       if (isResultUsed) {\n         return;\n       }\n-      if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n-      }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n         return;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 117, 
+          "faulty": "if (n == parent.getLastChild()) {\n  for (  Node an : parent.getAncestors()) {\n    int ancestorType=an.getType();\n    if (ancestorType == Token.COMMA)     continue;\n    if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)     return;\n else     break;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_633/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:06:58.460038136 -0500\n@@ -114,14 +114,7 @@\n       if (isResultUsed) {\n         return;\n       }\n-      if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n-      }\n+      final String PARAM_NAME = \"jscomp_throw_param\";\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n         return;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 117, 
+          "faulty": "if (n == parent.getLastChild()) {\n  for (  Node an : parent.getAncestors()) {\n    int ancestorType=an.getType();\n    if (ancestorType == Token.COMMA)     continue;\n    if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)     return;\n else     break;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "final String PARAM_NAME=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_675/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:07:30.767736246 -0500\n@@ -115,12 +115,7 @@\n         return;\n       }\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n-        }\n+        final String PARAM_NAME = \"jscomp_throw_param\";\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstChild() || n == parent.getFirstChild().getNext().getNext()))) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 118, 
+          "faulty": "for (Node an : parent.getAncestors()) {\n  int ancestorType=an.getType();\n  if (ancestorType == Token.COMMA)   continue;\n  if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)   return;\n else   break;\n}", 
+          "type": "Replace", 
+          "seed": "final String PARAM_NAME=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 08:53:18.499325959 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_21/patches_43a5/Patch_430/patched/tmp/RSRepair_Defects4J_Closure_21/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-02 09:04:19.214416622 -0500\n@@ -117,9 +117,8 @@\n       if (n == parent.getLastChild()) {\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+          int type = n.getType();\n+\t\tif (ancestorType == Token.COMMA) continue;\n         }\n       }\n     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 120, 
+          "faulty": "if (ancestorType == Token.COMMA) continue;", 
+          "type": "InsertBefore", 
+          "seed": "int type=n.getType();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 121, 
+          "faulty": "if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n else break;", 
+          "type": "Delete", 
+          "seed": "final String PARAM_NAME=\"jscomp_throw_param\";"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-02 02:26:18.971404", 
+  "repair_begin": "2018-12-02 02:22:26.171268", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Defects4J_Closure_7/src/com/google/javascript/jscomp/type/ChainableReverseAbstractInterpreter.java\t2018-12-01 20:22:13.335509294 -0500\n+++ /tmp/Kali_Defects4J_Closure_7/patches_e972/Patch_11/patched/tmp/Kali_Defects4J_Closure_7/src/com/google/javascript/jscomp/type/ChainableReverseAbstractInterpreter.java\t2018-12-01 20:26:18.527065436 -0500\n@@ -392,7 +392,9 @@\n           if (restricted == null) {\n             restricted = restrictedAlternate;\n           } else {\n-            restricted = restrictedAlternate.getLeastSupertype(restricted);\n+            if (true)\n+\t\t\t\treturn null;\n+\t\t\trestricted = restrictedAlternate.getLeastSupertype(restricted);\n           }\n         }\n       }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/type/ChainableReverseAbstractInterpreter.java", 
+          "line": 395, 
+          "faulty": "restricted=restrictedAlternate.getLeastSupertype(restricted);", 
+          "type": "InsertReturn true"
+        }
+      ]
+    }
+  ]
+}

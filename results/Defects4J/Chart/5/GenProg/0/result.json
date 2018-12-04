@@ -1,0 +1,84 @@
+{
+  "repair_end": "2018-12-02 09:07:50.371381", 
+  "repair_begin": "2018-12-02 08:35:51.800104", 
+  "patches": [
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_5/source/org/jfree/data/xy/XYSeries.java\t2018-12-02 02:35:42.719931504 -0500\n+++ /tmp/GenProg_Defects4J_Chart_5/patches_4pgo/Patch_475/patched/tmp/GenProg_Defects4J_Chart_5/source/org/jfree/data/xy/XYSeries.java\t2018-12-02 02:48:34.008006427 -0500\n@@ -538,10 +538,6 @@\n      *         item was overwritten.\n      */\n     public XYDataItem addOrUpdate(Number x, Number y) {\n-        if (x == null) {\n-            throw new IllegalArgumentException(\"Null 'x' argument.\");\n-        }\n-\n         // if we get to here, we know that duplicate X values are not permitted\n         XYDataItem overwritten = null;\n         int index = indexOf(x);\n@@ -561,7 +557,7 @@\n             // new item...otherwise it will be just -1 and we should just\n             // append the value to the list...\n             if (this.autoSort) {\n-                this.data.add(-index - 1, new XYDataItem(x, y));\n+                this.data.add(new XYDataItem(x, y));\n             }\n             else {\n                 this.data.add(new XYDataItem(x, y));\n@@ -572,7 +568,8 @@\n             }\n         }\n         fireSeriesChanged();\n-        return overwritten;\n+        int seriesCount = this.data.size();\n+\t\treturn overwritten;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/xy/XYSeries.java", 
+          "line": 541, 
+          "faulty": "if (x == null) {\n  throw new IllegalArgumentException(\"Null 'x' argument.\");\n}", 
+          "type": "Delete", 
+          "seed": "for (int s=0; s < this.data.size(); s++) {\n  XYSeries series=(XYSeries)this.data.get(s);\n  if (series.getY(series.indexOf(x)) != null) {\n    return false;\n  }\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/xy/XYSeries.java", 
+          "line": 541, 
+          "faulty": "if (x == null) {\n  throw new IllegalArgumentException(\"Null 'x' argument.\");\n}", 
+          "type": "Delete", 
+          "seed": "for (int s=0; s < this.data.size(); s++) {\n  XYSeries series=(XYSeries)this.data.get(s);\n  if (series.getY(series.indexOf(x)) != null) {\n    return false;\n  }\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/xy/XYSeries.java", 
+          "line": 575, 
+          "faulty": "return overwritten;", 
+          "type": "InsertBefore", 
+          "seed": "int seriesCount=this.data.size();"
+        }, 
+        {
+          "path": "source/org/jfree/data/xy/XYSeries.java", 
+          "line": 564, 
+          "faulty": "this.data.add(-index - 1,new XYDataItem(x,y));", 
+          "type": "Replace", 
+          "seed": "this.data.add(new XYDataItem(x,y));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_5/source/org/jfree/data/xy/XYSeries.java\t2018-12-02 02:35:42.719931504 -0500\n+++ /tmp/GenProg_Defects4J_Chart_5/patches_4pgo/Patch_571/patched/tmp/GenProg_Defects4J_Chart_5/source/org/jfree/data/xy/XYSeries.java\t2018-12-02 02:50:40.168671867 -0500\n@@ -561,7 +561,7 @@\n             // new item...otherwise it will be just -1 and we should just\n             // append the value to the list...\n             if (this.autoSort) {\n-                this.data.add(-index - 1, new XYDataItem(x, y));\n+                this.data.add(new XYDataItem(x, y));\n             }\n             else {\n                 this.data.add(new XYDataItem(x, y));\n@@ -572,7 +572,8 @@\n             }\n         }\n         fireSeriesChanged();\n-        return overwritten;\n+        int seriesCount = this.data.size();\n+\t\treturn overwritten;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/xy/XYSeries.java", 
+          "line": 575, 
+          "faulty": "return overwritten;", 
+          "type": "InsertBefore", 
+          "seed": "int seriesCount=this.data.size();"
+        }, 
+        {
+          "path": "source/org/jfree/data/xy/XYSeries.java", 
+          "line": 564, 
+          "faulty": "this.data.add(-index - 1,new XYDataItem(x,y));", 
+          "type": "Replace", 
+          "seed": "this.data.add(new XYDataItem(x,y));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Chart_5/source/org/jfree/data/xy/XYSeries.java\t2018-12-02 02:35:42.719931504 -0500\n+++ /tmp/GenProg_Defects4J_Chart_5/patches_4pgo/Patch_499/patched/tmp/GenProg_Defects4J_Chart_5/source/org/jfree/data/xy/XYSeries.java\t2018-12-02 02:49:04.816168953 -0500\n@@ -538,10 +538,6 @@\n      *         item was overwritten.\n      */\n     public XYDataItem addOrUpdate(Number x, Number y) {\n-        if (x == null) {\n-            throw new IllegalArgumentException(\"Null 'x' argument.\");\n-        }\n-\n         // if we get to here, we know that duplicate X values are not permitted\n         XYDataItem overwritten = null;\n         int index = indexOf(x);\n@@ -561,7 +557,7 @@\n             // new item...otherwise it will be just -1 and we should just\n             // append the value to the list...\n             if (this.autoSort) {\n-                this.data.add(-index - 1, new XYDataItem(x, y));\n+                this.data.add(new XYDataItem(x, y));\n             }\n             else {\n                 this.data.add(new XYDataItem(x, y));\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/xy/XYSeries.java", 
+          "line": 541, 
+          "faulty": "if (x == null) {\n  throw new IllegalArgumentException(\"Null 'x' argument.\");\n}", 
+          "type": "Delete", 
+          "seed": "for (int s=0; s < this.data.size(); s++) {\n  XYSeries series=(XYSeries)this.data.get(s);\n  if (series.getY(series.indexOf(x)) != null) {\n    return false;\n  }\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/xy/XYSeries.java", 
+          "line": 541, 
+          "faulty": "if (x == null) {\n  throw new IllegalArgumentException(\"Null 'x' argument.\");\n}", 
+          "type": "Delete", 
+          "seed": "for (int s=0; s < this.data.size(); s++) {\n  XYSeries series=(XYSeries)this.data.get(s);\n  if (series.getY(series.indexOf(x)) != null) {\n    return false;\n  }\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/xy/XYSeries.java", 
+          "line": 564, 
+          "faulty": "this.data.add(-index - 1,new XYDataItem(x,y));", 
+          "type": "Replace", 
+          "seed": "this.data.add(new XYDataItem(x,y));"
+        }
+      ]
+    }
+  ]
+}

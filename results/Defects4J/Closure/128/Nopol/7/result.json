@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 01:31:25.854948", 
+  "repair_begin": "2018-11-29 01:25:03.681030", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 9, 
+      "patchLocation": {
+        "line": 1428, 
+        "class": "com.google.javascript.rhino.Node"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/com/google/javascript/rhino/Node.java\n+++ b/src/com/google/javascript/rhino/Node.java\n@@ -1427,7 +1427,9 @@\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        if (node2.type <= 31) {\n+          return \"Node tree inequality:\" +\n+          \"\\nTree1:\\n\" + toStringTree() +\n+          \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n+          \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n+          \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        }\n       }\n"
+    }
+  ]
+}

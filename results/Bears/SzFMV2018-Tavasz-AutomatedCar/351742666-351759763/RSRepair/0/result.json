@@ -1,57 +1,680 @@
 {
+  "repair_end": "2018-12-04 04:52:44.819991", 
+  "repair_begin": "2018-12-04 04:37:53.508791", 
   "patches": [
     {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_441/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:43:43.332621847 -0500\n@@ -55,8 +55,6 @@\n         gasProgressBar.setValue(inputPacket.getGasPedalPosition());\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n-        rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n@@ -85,7 +83,8 @@\n         gasLabel.setText(\"gas pedal\");\n         breakLabel.setText(\"break pedal\");\n         gasProgressBar.setStringPainted(true);\n-        breakProgressBar.setStringPainted(true);\n+        gasProgressBar.setStringPainted(true);\n+\t\tbreakProgressBar.setStringPainted(true);\n \n         add(progressBarsPanel);\n         progressBarsPanel.add(gasLabel);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 57, 
-          "faulty": "speedAngle=calculateSpeedometer(0);", 
-          "type": "InsertBefore", 
-          "seed": "final int maxSpeedValue=500;"
+          "line": 58, 
+          "faulty": "rpmAngle=calculateTachometer(0);", 
+          "type": "Delete", 
+          "seed": "gasLabel.setText(\"gas pedal\");"
         }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 59, 
           "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "progressBarsPanel.add(breakProgressBar);"
+          "type": "Delete", 
+          "seed": "setBackground(new Color(backgroundColor));"
         }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 144, 
-          "faulty": "return (newspeed - minSpeedValue) * (maxSpeedMeter - minSpeedMeter) / (maxSpeedValue - minSpeedValue) + minSpeedMeter;", 
+          "line": 88, 
+          "faulty": "breakProgressBar.setStringPainted(true);", 
           "type": "InsertBefore", 
+          "seed": "gasProgressBar.setStringPainted(true);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_961/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:50:29.540791457 -0500\n@@ -56,14 +56,14 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n      * Initializes the dashboard components\n      */\n     private void initializeDashboard() {\n-        // Not using any layout manager, but fixed coordinates\n+        progressBarsPanel.setBackground(new Color(backgroundColor));\n+\t\t// Not using any layout manager, but fixed coordinates\n         setLayout(null);\n         setBackground(new Color(backgroundColor));\n         setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n@@ -90,7 +90,8 @@\n         add(progressBarsPanel);\n         progressBarsPanel.add(gasLabel);\n         progressBarsPanel.add(gasProgressBar);\n-        progressBarsPanel.add(breakLabel);\n+        setBackground(new Color(backgroundColor));\n+\t\tprogressBarsPanel.add(breakLabel);\n         progressBarsPanel.add(breakProgressBar);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 67, 
+          "faulty": "setLayout(null);", 
+          "type": "InsertBefore", 
+          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 93, 
+          "faulty": "progressBarsPanel.add(breakLabel);", 
+          "type": "InsertBefore", 
+          "seed": "setBackground(new Color(backgroundColor));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_105/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:39:28.225559540 -0500\n@@ -56,7 +56,6 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n@@ -65,7 +64,8 @@\n     private void initializeDashboard() {\n         // Not using any layout manager, but fixed coordinates\n         setLayout(null);\n-        setBackground(new Color(backgroundColor));\n+        rpmAngle = calculateTachometer(0);\n+\t\tsetBackground(new Color(backgroundColor));\n         setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n \n         initializeProgressBars();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "progressBarsPanel.add(breakLabel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 68, 
+          "faulty": "setBackground(new Color(backgroundColor));", 
+          "type": "InsertBefore", 
+          "seed": "rpmAngle=calculateTachometer(0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_455/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:43:53.180885490 -0500\n@@ -56,7 +56,6 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n@@ -100,7 +99,8 @@\n      * @param g {@link Graphics} object that can draw to the canvas\n      */\n     protected void paintComponent(Graphics g) {\n-        super.paintComponent(g);\n+        progressBarsPanel.add(breakProgressBar);\n+\t\tsuper.paintComponent(g);\n         g.setColor(Color.BLACK);\n         g.drawOval(speedMeterX, speedMeterY, meterWidth, meterHeight);\n         g.drawOval(tachoMeterX, tachoMeterY, meterWidth, meterHeight);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "breakProgressBar.setValue(inputPacket.getBreakPedalPosition());"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 103, 
+          "faulty": "super.paintComponent(g);", 
+          "type": "InsertBefore", 
+          "seed": "progressBarsPanel.add(breakProgressBar);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_127/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:39:43.897558989 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        gasLabel.setText(\"gas pedal\");\n     }\n \n     /**\n@@ -90,7 +90,7 @@\n         add(progressBarsPanel);\n         progressBarsPanel.add(gasLabel);\n         progressBarsPanel.add(gasProgressBar);\n-        progressBarsPanel.add(breakLabel);\n+        progressBarsPanel.setBackground(new Color(backgroundColor));\n         progressBarsPanel.add(breakProgressBar);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "gasLabel.setText(\"gas pedal\");"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 93, 
+          "faulty": "progressBarsPanel.add(breakLabel);", 
+          "type": "Replace", 
+          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_119/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:39:39.061559159 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        add(progressBarsPanel);\n     }\n \n     /**\n@@ -66,7 +66,8 @@\n         // Not using any layout manager, but fixed coordinates\n         setLayout(null);\n         setBackground(new Color(backgroundColor));\n-        setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n+        final int minSpeedMeter = -75;\n+\t\tsetBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n \n         initializeProgressBars();\n     }\n@@ -82,14 +83,11 @@\n                 progressBarsPanelWidth,\n                 progressBarsPanelHeight);\n \n-        gasLabel.setText(\"gas pedal\");\n-        breakLabel.setText(\"break pedal\");\n         gasProgressBar.setStringPainted(true);\n         breakProgressBar.setStringPainted(true);\n \n         add(progressBarsPanel);\n         progressBarsPanel.add(gasLabel);\n-        progressBarsPanel.add(gasProgressBar);\n         progressBarsPanel.add(breakLabel);\n         progressBarsPanel.add(breakProgressBar);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "add(progressBarsPanel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 69, 
+          "faulty": "setBounds(dashboardBoundsX,dashboardBoundsY,width,height);", 
+          "type": "InsertBefore", 
+          "seed": "final int minSpeedMeter=-75;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 85, 
+          "faulty": "gasLabel.setText(\"gas pedal\");", 
+          "type": "Delete", 
+          "seed": "setLayout(null);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 86, 
+          "faulty": "breakLabel.setText(\"break pedal\");", 
+          "type": "Delete", 
+          "seed": "final int maxSpeedValue=500;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 92, 
+          "faulty": "progressBarsPanel.add(gasProgressBar);", 
+          "type": "Delete", 
+          "seed": "gasProgressBar.setStringPainted(true);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_687/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:46:53.174367153 -0500\n@@ -56,7 +56,6 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n@@ -83,7 +82,6 @@\n                 progressBarsPanelHeight);\n \n         gasLabel.setText(\"gas pedal\");\n-        breakLabel.setText(\"break pedal\");\n         gasProgressBar.setStringPainted(true);\n         breakProgressBar.setStringPainted(true);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "final int minRpmValue=0;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 86, 
+          "faulty": "breakLabel.setText(\"break pedal\");", 
+          "type": "Delete", 
+          "seed": "progressBarsPanel.add(breakLabel);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_402/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:43:14.555851439 -0500\n@@ -56,14 +56,15 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        gasProgressBar.setStringPainted(true);\n     }\n \n     /**\n      * Initializes the dashboard components\n      */\n     private void initializeDashboard() {\n-        // Not using any layout manager, but fixed coordinates\n+        setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n+\t\t// Not using any layout manager, but fixed coordinates\n         setLayout(null);\n         setBackground(new Color(backgroundColor));\n         setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n@@ -89,7 +90,7 @@\n \n         add(progressBarsPanel);\n         progressBarsPanel.add(gasLabel);\n-        progressBarsPanel.add(gasProgressBar);\n+        final int maxSpeedValue = 500;\n         progressBarsPanel.add(breakLabel);\n         progressBarsPanel.add(breakProgressBar);\n     }\n@@ -100,7 +101,7 @@\n      * @param g {@link Graphics} object that can draw to the canvas\n      */\n     protected void paintComponent(Graphics g) {\n-        super.paintComponent(g);\n+        rpmAngle = calculateTachometer(0);\n         g.setColor(Color.BLACK);\n         g.drawOval(speedMeterX, speedMeterY, meterWidth, meterHeight);\n         g.drawOval(tachoMeterX, tachoMeterY, meterWidth, meterHeight);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "gasProgressBar.setStringPainted(true);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 67, 
+          "faulty": "setLayout(null);", 
+          "type": "InsertBefore", 
+          "seed": "setBounds(dashboardBoundsX,dashboardBoundsY,width,height);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 92, 
+          "faulty": "progressBarsPanel.add(gasProgressBar);", 
+          "type": "Replace", 
+          "seed": "final int maxSpeedValue=500;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 103, 
+          "faulty": "super.paintComponent(g);", 
+          "type": "Replace", 
+          "seed": "rpmAngle=calculateTachometer(0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_39/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:38:31.661561528 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        setLayout(null);\n     }\n \n     /**\n@@ -65,7 +65,6 @@\n     private void initializeDashboard() {\n         // Not using any layout manager, but fixed coordinates\n         setLayout(null);\n-        setBackground(new Color(backgroundColor));\n         setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n \n         initializeProgressBars();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "setLayout(null);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 68, 
+          "faulty": "setBackground(new Color(backgroundColor));", 
+          "type": "Delete", 
           "seed": "progressBarsPanel.add(gasLabel);"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_394/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:43:09.731722282 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        final int minSpeedMeter = -75;\n     }\n \n     /**\n@@ -88,7 +88,7 @@\n         breakProgressBar.setStringPainted(true);\n \n         add(progressBarsPanel);\n-        progressBarsPanel.add(gasLabel);\n+        final int minRpmValue = 0;\n         progressBarsPanel.add(gasProgressBar);\n         progressBarsPanel.add(breakLabel);\n         progressBarsPanel.add(breakProgressBar);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 57, 
-          "faulty": "speedAngle=calculateSpeedometer(0);", 
-          "type": "InsertBefore", 
-          "seed": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);"
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "final int minSpeedMeter=-75;"
         }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 91, 
+          "faulty": "progressBarsPanel.add(gasLabel);", 
+          "type": "Replace", 
+          "seed": "final int minRpmValue=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_292/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:41:54.334859762 -0500\n@@ -55,8 +55,8 @@\n         gasProgressBar.setValue(inputPacket.getGasPedalPosition());\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n-        rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        initializeDashboard();\n+\t\trpmAngle = calculateTachometer(0);\n     }\n \n     /**\n@@ -66,7 +66,7 @@\n         // Not using any layout manager, but fixed coordinates\n         setLayout(null);\n         setBackground(new Color(backgroundColor));\n-        setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n+        setLayout(null);\n \n         initializeProgressBars();\n     }\n@@ -76,11 +76,7 @@\n      */\n     private void initializeProgressBars() {\n         progressBarsPanel.setBackground(new Color(backgroundColor));\n-        progressBarsPanel.setBounds(\n-                progressBarsPanelX,\n-                progressBarsPanelY,\n-                progressBarsPanelWidth,\n-                progressBarsPanelHeight);\n+        final int maxSpeedMeter = 255;\n \n         gasLabel.setText(\"gas pedal\");\n         breakLabel.setText(\"break pedal\");\n@@ -91,7 +87,6 @@\n         progressBarsPanel.add(gasLabel);\n         progressBarsPanel.add(gasProgressBar);\n         progressBarsPanel.add(breakLabel);\n-        progressBarsPanel.add(breakProgressBar);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 58, 
+          "faulty": "rpmAngle=calculateTachometer(0);", 
+          "type": "InsertBefore", 
+          "seed": "initializeDashboard();"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "add(progressBarsPanel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 69, 
+          "faulty": "setBounds(dashboardBoundsX,dashboardBoundsY,width,height);", 
+          "type": "Replace", 
+          "seed": "setLayout(null);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 79, 
+          "faulty": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);", 
+          "type": "Replace", 
+          "seed": "final int maxSpeedMeter=255;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 94, 
+          "faulty": "progressBarsPanel.add(breakProgressBar);", 
+          "type": "Delete", 
+          "seed": "gasProgressBar.setStringPainted(true);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_717/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:47:16.319133467 -0500\n@@ -53,18 +53,16 @@\n      */\n     public void updateDisplayedValues(ReadOnlyInputPacket inputPacket) {\n         gasProgressBar.setValue(inputPacket.getGasPedalPosition());\n-        breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n+        initializeProgressBars();\n+\t\tbreakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n      * Initializes the dashboard components\n      */\n     private void initializeDashboard() {\n-        // Not using any layout manager, but fixed coordinates\n-        setLayout(null);\n         setBackground(new Color(backgroundColor));\n         setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 56, 
+          "faulty": "breakProgressBar.setValue(inputPacket.getBreakPedalPosition());", 
+          "type": "InsertBefore", 
+          "seed": "initializeProgressBars();"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "final int maxRpmValue=10000;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 67, 
+          "faulty": "setLayout(null);", 
+          "type": "Delete", 
+          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_257/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:41:29.951374477 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        progressBarsPanel.add(breakLabel);\n     }\n \n     /**\n@@ -84,7 +84,7 @@\n \n         gasLabel.setText(\"gas pedal\");\n         breakLabel.setText(\"break pedal\");\n-        gasProgressBar.setStringPainted(true);\n+        add(progressBarsPanel);\n         breakProgressBar.setStringPainted(true);\n \n         add(progressBarsPanel);\n@@ -100,7 +100,6 @@\n      * @param g {@link Graphics} object that can draw to the canvas\n      */\n     protected void paintComponent(Graphics g) {\n-        super.paintComponent(g);\n         g.setColor(Color.BLACK);\n         g.drawOval(speedMeterX, speedMeterY, meterWidth, meterHeight);\n         g.drawOval(tachoMeterX, tachoMeterY, meterWidth, meterHeight);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "progressBarsPanel.add(breakLabel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 87, 
+          "faulty": "gasProgressBar.setStringPainted(true);", 
+          "type": "Replace", 
+          "seed": "add(progressBarsPanel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 103, 
+          "faulty": "super.paintComponent(g);", 
+          "type": "Delete", 
+          "seed": "breakLabel.setText(\"break pedal\");"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_54/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:38:42.825561136 -0500\n@@ -56,7 +56,6 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "progressBarsPanel.add(gasLabel);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_373/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:42:55.195333090 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        add(progressBarsPanel);\n     }\n \n     /**\n@@ -88,7 +88,7 @@\n         breakProgressBar.setStringPainted(true);\n \n         add(progressBarsPanel);\n-        progressBarsPanel.add(gasLabel);\n+        progressBarsPanel.setBackground(new Color(backgroundColor));\n         progressBarsPanel.add(gasProgressBar);\n         progressBarsPanel.add(breakLabel);\n         progressBarsPanel.add(breakProgressBar);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "add(progressBarsPanel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 91, 
+          "faulty": "progressBarsPanel.add(gasLabel);", 
+          "type": "Replace", 
+          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_169/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:40:17.641557803 -0500\n@@ -56,15 +56,13 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        breakLabel.setText(\"break pedal\");\n     }\n \n     /**\n      * Initializes the dashboard components\n      */\n     private void initializeDashboard() {\n-        // Not using any layout manager, but fixed coordinates\n-        setLayout(null);\n         setBackground(new Color(backgroundColor));\n         setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n \n@@ -119,7 +117,8 @@\n      */\n     private int calculateTachometer(int rpm) {\n         final int minRpmValue = 0;\n-        final int maxRpmValue = 10000;\n+        speedAngle = calculateSpeedometer(0);\n+\t\tfinal int maxRpmValue = 10000;\n         final int minRpmMeter = -75;\n         final int maxRpmMeter = 255;\n         int newrpm = maxRpmValue - rpm;\n\n\n", 
+      "edits": [
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 59, 
           "faulty": "paintComponent(getGraphics());", 
           "type": "Replace", 
           "seed": "breakLabel.setText(\"break pedal\");"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 67, 
+          "faulty": "setLayout(null);", 
+          "type": "Delete", 
+          "seed": "final int minSpeedValue=0;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 122, 
+          "faulty": "final int maxRpmValue=10000;", 
+          "type": "InsertBefore", 
+          "seed": "speedAngle=calculateSpeedometer(0);"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_627/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:46:10.188908036 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        speedAngle = calculateSpeedometer(0);\n     }\n \n     /**\n@@ -85,7 +85,7 @@\n         gasLabel.setText(\"gas pedal\");\n         breakLabel.setText(\"break pedal\");\n         gasProgressBar.setStringPainted(true);\n-        breakProgressBar.setStringPainted(true);\n+        progressBarsPanel.add(gasProgressBar);\n \n         add(progressBarsPanel);\n         progressBarsPanel.add(gasLabel);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 57, 
-          "faulty": "speedAngle=calculateSpeedometer(0);", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "speedAngle=calculateSpeedometer(0);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 88, 
+          "faulty": "breakProgressBar.setStringPainted(true);", 
+          "type": "Replace", 
+          "seed": "progressBarsPanel.add(gasProgressBar);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_799/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:48:21.345225391 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        final int maxRpmValue = 10000;\n     }\n \n     /**\n@@ -65,7 +65,7 @@\n     private void initializeDashboard() {\n         // Not using any layout manager, but fixed coordinates\n         setLayout(null);\n-        setBackground(new Color(backgroundColor));\n+        progressBarsPanel.add(gasLabel);\n         setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n \n         initializeProgressBars();\n@@ -139,7 +139,8 @@\n         final int maxSpeedValue = 500;\n         final int minSpeedMeter = -75;\n         final int maxSpeedMeter = 255;\n-        int newspeed = maxSpeedValue - speed;\n+        final int minRpmMeter = -75;\n+\t\tint newspeed = maxSpeedValue - speed;\n \n         return (newspeed - minSpeedValue) * (maxSpeedMeter - minSpeedMeter)\n                 / (maxSpeedValue - minSpeedValue) + minSpeedMeter;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "final int maxRpmValue=10000;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 68, 
+          "faulty": "setBackground(new Color(backgroundColor));", 
+          "type": "Replace", 
+          "seed": "progressBarsPanel.add(gasLabel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 142, 
+          "faulty": "int newspeed=maxSpeedValue - speed;", 
+          "type": "InsertBefore", 
+          "seed": "final int minRpmMeter=-75;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_253/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:41:27.655076045 -0500\n@@ -56,7 +56,8 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        progressBarsPanel.setBounds(progressBarsPanelX, progressBarsPanelY,\n+\t\t\t\tprogressBarsPanelWidth, progressBarsPanelHeight);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_819/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:48:36.649655561 -0500\n@@ -56,7 +56,6 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n@@ -138,7 +137,8 @@\n         final int minSpeedValue = 0;\n         final int maxSpeedValue = 500;\n         final int minSpeedMeter = -75;\n-        final int maxSpeedMeter = 255;\n+        gasProgressBar.setStringPainted(true);\n+\t\tfinal int maxSpeedMeter = 255;\n         int newspeed = maxSpeedValue - speed;\n \n         return (newspeed - minSpeedValue) * (maxSpeedMeter - minSpeedMeter)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "speedAngle=calculateSpeedometer(0);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 141, 
+          "faulty": "final int maxSpeedMeter=255;", 
+          "type": "InsertBefore", 
+          "seed": "gasProgressBar.setStringPainted(true);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_447/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:43:47.152724113 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        gasProgressBar.setStringPainted(true);\n     }\n \n     /**\n@@ -91,7 +91,8 @@\n         progressBarsPanel.add(gasLabel);\n         progressBarsPanel.add(gasProgressBar);\n         progressBarsPanel.add(breakLabel);\n-        progressBarsPanel.add(breakProgressBar);\n+        gasLabel.setText(\"gas pedal\");\n+\t\tprogressBarsPanel.add(breakProgressBar);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "gasProgressBar.setStringPainted(true);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 94, 
+          "faulty": "progressBarsPanel.add(breakProgressBar);", 
+          "type": "InsertBefore", 
+          "seed": "gasLabel.setText(\"gas pedal\");"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_597/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:45:48.228142396 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        breakProgressBar.setStringPainted(true);\n     }\n \n     /**\n@@ -76,7 +76,8 @@\n      */\n     private void initializeProgressBars() {\n         progressBarsPanel.setBackground(new Color(backgroundColor));\n-        progressBarsPanel.setBounds(\n+        rpmAngle = calculateTachometer(0);\n+\t\tprogressBarsPanel.setBounds(\n                 progressBarsPanelX,\n                 progressBarsPanelY,\n                 progressBarsPanelWidth,\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
           "type": "Replace", 
           "seed": "breakProgressBar.setStringPainted(true);"
         }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 79, 
+          "faulty": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);", 
+          "type": "InsertBefore", 
+          "seed": "rpmAngle=calculateTachometer(0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_640/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:46:19.213218525 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        setLayout(null);\n     }\n \n     /**\n@@ -75,7 +75,8 @@\n      * Initializes the progress bars on the dashboard\n      */\n     private void initializeProgressBars() {\n-        progressBarsPanel.setBackground(new Color(backgroundColor));\n+        setLayout(null);\n+\t\tprogressBarsPanel.setBackground(new Color(backgroundColor));\n         progressBarsPanel.setBounds(\n                 progressBarsPanelX,\n                 progressBarsPanelY,\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "setLayout(null);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 78, 
+          "faulty": "progressBarsPanel.setBackground(new Color(backgroundColor));", 
+          "type": "InsertBefore", 
+          "seed": "setLayout(null);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_391/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:43:08.447687905 -0500\n@@ -56,7 +56,6 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n@@ -100,7 +99,8 @@\n      * @param g {@link Graphics} object that can draw to the canvas\n      */\n     protected void paintComponent(Graphics g) {\n-        super.paintComponent(g);\n+        final int maxRpmMeter = 255;\n+\t\tsuper.paintComponent(g);\n         g.setColor(Color.BLACK);\n         g.drawOval(speedMeterX, speedMeterY, meterWidth, meterHeight);\n         g.drawOval(tachoMeterX, tachoMeterY, meterWidth, meterHeight);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "progressBarsPanel.add(gasLabel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 103, 
+          "faulty": "super.paintComponent(g);", 
+          "type": "InsertBefore", 
+          "seed": "final int maxRpmMeter=255;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_781/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:48:07.272779599 -0500\n@@ -56,7 +56,6 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n@@ -88,7 +87,7 @@\n         breakProgressBar.setStringPainted(true);\n \n         add(progressBarsPanel);\n-        progressBarsPanel.add(gasLabel);\n+        progressBarsPanel.setBackground(new Color(backgroundColor));\n         progressBarsPanel.add(gasProgressBar);\n         progressBarsPanel.add(breakLabel);\n         progressBarsPanel.add(breakProgressBar);\n@@ -100,7 +99,7 @@\n      * @param g {@link Graphics} object that can draw to the canvas\n      */\n     protected void paintComponent(Graphics g) {\n-        super.paintComponent(g);\n+        final int maxSpeedValue = 500;\n         g.setColor(Color.BLACK);\n         g.drawOval(speedMeterX, speedMeterY, meterWidth, meterHeight);\n         g.drawOval(tachoMeterX, tachoMeterY, meterWidth, meterHeight);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "final int maxSpeedMeter=255;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 91, 
+          "faulty": "progressBarsPanel.add(gasLabel);", 
+          "type": "Replace", 
+          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 103, 
+          "faulty": "super.paintComponent(g);", 
+          "type": "Replace", 
+          "seed": "final int maxSpeedValue=500;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_109/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:39:31.701559418 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        progressBarsPanel.setBackground(new Color(backgroundColor));\n     }\n \n     /**\n@@ -66,7 +66,7 @@\n         // Not using any layout manager, but fixed coordinates\n         setLayout(null);\n         setBackground(new Color(backgroundColor));\n-        setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n+        breakLabel.setText(\"break pedal\");\n \n         initializeProgressBars();\n     }\n@@ -84,9 +84,7 @@\n \n         gasLabel.setText(\"gas pedal\");\n         breakLabel.setText(\"break pedal\");\n-        gasProgressBar.setStringPainted(true);\n-        breakProgressBar.setStringPainted(true);\n-\n+        setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n         add(progressBarsPanel);\n         progressBarsPanel.add(gasLabel);\n         progressBarsPanel.add(gasProgressBar);\n@@ -100,7 +98,7 @@\n      * @param g {@link Graphics} object that can draw to the canvas\n      */\n     protected void paintComponent(Graphics g) {\n-        super.paintComponent(g);\n+        final int maxSpeedValue = 500;\n         g.setColor(Color.BLACK);\n         g.drawOval(speedMeterX, speedMeterY, meterWidth, meterHeight);\n         g.drawOval(tachoMeterX, tachoMeterY, meterWidth, meterHeight);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 69, 
+          "faulty": "setBounds(dashboardBoundsX,dashboardBoundsY,width,height);", 
+          "type": "Replace", 
+          "seed": "breakLabel.setText(\"break pedal\");"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 87, 
+          "faulty": "gasProgressBar.setStringPainted(true);", 
+          "type": "Replace", 
+          "seed": "setBounds(dashboardBoundsX,dashboardBoundsY,width,height);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 88, 
+          "faulty": "breakProgressBar.setStringPainted(true);", 
+          "type": "Delete", 
+          "seed": "progressBarsPanel.add(gasLabel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 103, 
+          "faulty": "super.paintComponent(g);", 
+          "type": "Replace", 
+          "seed": "final int maxSpeedValue=500;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_519/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:44:45.470285213 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        speedAngle = calculateSpeedometer(0);\n     }\n \n     /**\n@@ -119,7 +119,9 @@\n      */\n     private int calculateTachometer(int rpm) {\n         final int minRpmValue = 0;\n-        final int maxRpmValue = 10000;\n+        progressBarsPanel.setBounds(progressBarsPanelX, progressBarsPanelY,\n+\t\t\t\tprogressBarsPanelWidth, progressBarsPanelHeight);\n+\t\tfinal int maxRpmValue = 10000;\n         final int minRpmMeter = -75;\n         final int maxRpmMeter = 255;\n         int newrpm = maxRpmValue - rpm;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "speedAngle=calculateSpeedometer(0);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 122, 
+          "faulty": "final int maxRpmValue=10000;", 
+          "type": "InsertBefore", 
+          "seed": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_300/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:41:59.423535514 -0500\n@@ -56,7 +56,6 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n@@ -91,7 +90,6 @@\n         progressBarsPanel.add(gasLabel);\n         progressBarsPanel.add(gasProgressBar);\n         progressBarsPanel.add(breakLabel);\n-        progressBarsPanel.add(breakProgressBar);\n     }\n \n     /**\n@@ -100,7 +98,6 @@\n      * @param g {@link Graphics} object that can draw to the canvas\n      */\n     protected void paintComponent(Graphics g) {\n-        super.paintComponent(g);\n         g.setColor(Color.BLACK);\n         g.drawOval(speedMeterX, speedMeterY, meterWidth, meterHeight);\n         g.drawOval(tachoMeterX, tachoMeterY, meterWidth, meterHeight);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "final int maxSpeedMeter=255;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 94, 
+          "faulty": "progressBarsPanel.add(breakProgressBar);", 
+          "type": "Delete", 
+          "seed": "breakLabel.setText(\"break pedal\");"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 103, 
+          "faulty": "super.paintComponent(g);", 
+          "type": "Delete", 
+          "seed": "final int minSpeedMeter=-75;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_957/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:50:27.084723545 -0500\n@@ -56,7 +56,6 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n@@ -90,7 +89,7 @@\n         add(progressBarsPanel);\n         progressBarsPanel.add(gasLabel);\n         progressBarsPanel.add(gasProgressBar);\n-        progressBarsPanel.add(breakLabel);\n+        speedAngle = calculateSpeedometer(0);\n         progressBarsPanel.add(breakProgressBar);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Delete", 
+          "seed": "gasProgressBar.setStringPainted(true);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 93, 
+          "faulty": "progressBarsPanel.add(breakLabel);", 
+          "type": "Replace", 
+          "seed": "speedAngle=calculateSpeedometer(0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_277/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:41:43.953170919 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        initializeDashboard();\n     }\n \n     /**\n@@ -65,7 +65,6 @@\n     private void initializeDashboard() {\n         // Not using any layout manager, but fixed coordinates\n         setLayout(null);\n-        setBackground(new Color(backgroundColor));\n         setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n \n         initializeProgressBars();\n@@ -84,13 +83,11 @@\n \n         gasLabel.setText(\"gas pedal\");\n         breakLabel.setText(\"break pedal\");\n-        gasProgressBar.setStringPainted(true);\n         breakProgressBar.setStringPainted(true);\n \n         add(progressBarsPanel);\n-        progressBarsPanel.add(gasLabel);\n         progressBarsPanel.add(gasProgressBar);\n-        progressBarsPanel.add(breakLabel);\n+        progressBarsPanel.add(gasProgressBar);\n         progressBarsPanel.add(breakProgressBar);\n     }\n \n\n\n", 
+      "edits": [
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 59, 
@@ -61,665 +684,183 @@
         }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 90, 
-          "faulty": "add(progressBarsPanel);", 
-          "type": "Replace", 
-          "seed": "breakProgressBar.setStringPainted(true);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "final int maxRpmMeter=255;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 78, 
-          "faulty": "progressBarsPanel.setBackground(new Color(backgroundColor));", 
-          "type": "InsertBefore", 
-          "seed": "final int maxRpmMeter=255;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.add(breakLabel);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 88, 
-          "faulty": "breakProgressBar.setStringPainted(true);", 
-          "type": "Delete", 
-          "seed": "setBackground(new Color(backgroundColor));"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 103, 
-          "faulty": "super.paintComponent(g);", 
-          "type": "Delete", 
-          "seed": "gasLabel.setText(\"gas pedal\");"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 141, 
-          "faulty": "final int maxSpeedMeter=255;", 
-          "type": "InsertBefore", 
-          "seed": "progressBarsPanel.add(gasLabel);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "final int minRpmMeter=-75;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 92, 
-          "faulty": "progressBarsPanel.add(gasProgressBar);", 
-          "type": "Delete", 
-          "seed": "breakLabel.setText(\"break pedal\");"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.add(breakLabel);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 91, 
-          "faulty": "progressBarsPanel.add(gasLabel);", 
-          "type": "Delete", 
-          "seed": "final int minSpeedValue=0;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 141, 
-          "faulty": "final int maxSpeedMeter=255;", 
-          "type": "InsertBefore", 
-          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "final int maxSpeedValue=500;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 92, 
-          "faulty": "progressBarsPanel.add(gasProgressBar);", 
-          "type": "Replace", 
-          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 127, 
-          "faulty": "return (newrpm - minRpmValue) * (maxRpmMeter - minRpmMeter) / (maxRpmValue - minRpmValue) + minRpmMeter;", 
-          "type": "InsertBefore", 
-          "seed": "breakProgressBar.setStringPainted(true);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 57, 
-          "faulty": "speedAngle=calculateSpeedometer(0);", 
-          "type": "Replace", 
-          "seed": "breakProgressBar.setStringPainted(true);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 139, 
-          "faulty": "final int maxSpeedValue=500;", 
-          "type": "InsertBefore", 
-          "seed": "breakProgressBar.setStringPainted(true);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.add(breakProgressBar);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 71, 
-          "faulty": "initializeProgressBars();", 
-          "type": "InsertBefore", 
-          "seed": "add(progressBarsPanel);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 124, 
-          "faulty": "final int maxRpmMeter=255;", 
-          "type": "InsertBefore", 
-          "seed": "setLayout(null);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "final int maxSpeedValue=500;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 103, 
-          "faulty": "super.paintComponent(g);", 
-          "type": "InsertBefore", 
-          "seed": "final int minSpeedValue=0;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 139, 
-          "faulty": "final int maxSpeedValue=500;", 
-          "type": "InsertBefore", 
-          "seed": "breakProgressBar.setStringPainted(true);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "setLayout(null);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 79, 
-          "faulty": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);", 
-          "type": "InsertBefore", 
-          "seed": "setBackground(new Color(backgroundColor));"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 88, 
-          "faulty": "breakProgressBar.setStringPainted(true);", 
-          "type": "InsertBefore", 
-          "seed": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 93, 
-          "faulty": "progressBarsPanel.add(breakLabel);", 
-          "type": "Delete", 
-          "seed": "final int minSpeedValue=0;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 56, 
-          "faulty": "breakProgressBar.setValue(inputPacket.getBreakPedalPosition());", 
-          "type": "InsertBefore", 
-          "seed": "final int maxRpmMeter=255;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 57, 
-          "faulty": "speedAngle=calculateSpeedometer(0);", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.add(breakProgressBar);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 88, 
-          "faulty": "breakProgressBar.setStringPainted(true);", 
-          "type": "InsertBefore", 
-          "seed": "speedAngle=calculateSpeedometer(0);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "add(progressBarsPanel);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 103, 
-          "faulty": "super.paintComponent(g);", 
-          "type": "Replace", 
-          "seed": "final int maxRpmValue=10000;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "final int minSpeedValue=0;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 68, 
-          "faulty": "setBackground(new Color(backgroundColor));", 
-          "type": "InsertBefore", 
-          "seed": "gasLabel.setText(\"gas pedal\");"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "progressBarsPanel.add(breakLabel);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 67, 
-          "faulty": "setLayout(null);", 
-          "type": "Replace", 
-          "seed": "progressBarsPanel.add(gasProgressBar);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 71, 
-          "faulty": "initializeProgressBars();", 
-          "type": "Replace", 
-          "seed": "rpmAngle=calculateTachometer(0);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "progressBarsPanel.add(gasProgressBar);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 91, 
-          "faulty": "progressBarsPanel.add(gasLabel);", 
-          "type": "InsertBefore", 
-          "seed": "breakLabel.setText(\"break pedal\");"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 141, 
-          "faulty": "final int maxSpeedMeter=255;", 
-          "type": "InsertBefore", 
-          "seed": "final int minRpmMeter=-75;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "add(progressBarsPanel);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 71, 
-          "faulty": "initializeProgressBars();", 
-          "type": "Delete", 
-          "seed": "setLayout(null);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 88, 
-          "faulty": "breakProgressBar.setStringPainted(true);", 
-          "type": "Replace", 
-          "seed": "final int maxSpeedValue=500;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 57, 
-          "faulty": "speedAngle=calculateSpeedometer(0);", 
-          "type": "InsertBefore", 
-          "seed": "initializeProgressBars();"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "gasProgressBar.setStringPainted(true);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 88, 
-          "faulty": "breakProgressBar.setStringPainted(true);", 
-          "type": "Delete", 
-          "seed": "breakLabel.setText(\"break pedal\");"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 93, 
-          "faulty": "progressBarsPanel.add(breakLabel);", 
-          "type": "Replace", 
-          "seed": "progressBarsPanel.add(gasLabel);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 56, 
-          "faulty": "breakProgressBar.setValue(inputPacket.getBreakPedalPosition());", 
-          "type": "InsertBefore", 
-          "seed": "speedAngle=calculateSpeedometer(0);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.add(breakProgressBar);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 141, 
-          "faulty": "final int maxSpeedMeter=255;", 
-          "type": "InsertBefore", 
-          "seed": "final int maxRpmMeter=255;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "breakProgressBar.setValue(inputPacket.getBreakPedalPosition());"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 122, 
-          "faulty": "final int maxRpmValue=10000;", 
-          "type": "InsertBefore", 
-          "seed": "final int minSpeedMeter=-75;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "gasProgressBar.setStringPainted(true);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 90, 
-          "faulty": "add(progressBarsPanel);", 
-          "type": "Replace", 
-          "seed": "progressBarsPanel.add(breakProgressBar);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 68, 
           "faulty": "setBackground(new Color(backgroundColor));", 
           "type": "Delete", 
-          "seed": "breakProgressBar.setStringPainted(true);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 90, 
-          "faulty": "add(progressBarsPanel);", 
-          "type": "Replace", 
-          "seed": "progressBarsPanel.add(gasProgressBar);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "speedAngle=calculateSpeedometer(0);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "progressBarsPanel.add(breakProgressBar);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 78, 
-          "faulty": "progressBarsPanel.setBackground(new Color(backgroundColor));", 
-          "type": "Replace", 
-          "seed": "gasLabel.setText(\"gas pedal\");"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 88, 
-          "faulty": "breakProgressBar.setStringPainted(true);", 
-          "type": "Replace", 
-          "seed": "setBackground(new Color(backgroundColor));"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "breakLabel.setText(\"break pedal\");"
+          "seed": "setLayout(null);"
         }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 87, 
           "faulty": "gasProgressBar.setStringPainted(true);", 
           "type": "Delete", 
-          "seed": "final int maxRpmMeter=255;"
+          "seed": "progressBarsPanel.add(breakLabel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 91, 
+          "faulty": "progressBarsPanel.add(gasLabel);", 
+          "type": "Delete", 
+          "seed": "initializeDashboard();"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 93, 
+          "faulty": "progressBarsPanel.add(breakLabel);", 
+          "type": "Replace", 
+          "seed": "progressBarsPanel.add(gasProgressBar);"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_161/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:40:11.017558036 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        add(progressBarsPanel);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "add(progressBarsPanel);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_977/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:50:41.873132278 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        final int minRpmMeter = -75;\n     }\n \n     /**\n@@ -124,7 +124,8 @@\n         final int maxRpmMeter = 255;\n         int newrpm = maxRpmValue - rpm;\n \n-        return (newrpm - minRpmValue) * (maxRpmMeter - minRpmMeter) / (maxRpmValue - minRpmValue) + minRpmMeter;\n+        progressBarsPanel.setBackground(new Color(backgroundColor));\n+\t\treturn (newrpm - minRpmValue) * (maxRpmMeter - minRpmMeter) / (maxRpmValue - minRpmValue) + minRpmMeter;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "final int minRpmMeter=-75;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 127, 
+          "faulty": "return (newrpm - minRpmValue) * (maxRpmMeter - minRpmMeter) / (maxRpmValue - minRpmValue) + minRpmMeter;", 
+          "type": "InsertBefore", 
+          "seed": "progressBarsPanel.setBackground(new Color(backgroundColor));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_879/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:49:25.395013515 -0500\n@@ -56,7 +56,6 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n     }\n \n     /**\n@@ -85,7 +84,8 @@\n         gasLabel.setText(\"gas pedal\");\n         breakLabel.setText(\"break pedal\");\n         gasProgressBar.setStringPainted(true);\n-        breakProgressBar.setStringPainted(true);\n+        final int maxRpmValue = 10000;\n+\t\tbreakProgressBar.setStringPainted(true);\n \n         add(progressBarsPanel);\n         progressBarsPanel.add(gasLabel);\n@@ -139,7 +139,8 @@\n         final int maxSpeedValue = 500;\n         final int minSpeedMeter = -75;\n         final int maxSpeedMeter = 255;\n-        int newspeed = maxSpeedValue - speed;\n+        gasProgressBar.setStringPainted(true);\n+\t\tint newspeed = maxSpeedValue - speed;\n \n         return (newspeed - minSpeedValue) * (maxSpeedMeter - minSpeedMeter)\n                 / (maxSpeedValue - minSpeedValue) + minSpeedMeter;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 59, 
           "faulty": "paintComponent(getGraphics());", 
           "type": "Delete", 
-          "seed": "gasProgressBar.setStringPainted(true);"
+          "seed": "final int minSpeedValue=0;"
         }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 88, 
           "faulty": "breakProgressBar.setStringPainted(true);", 
           "type": "InsertBefore", 
-          "seed": "progressBarsPanel.add(gasProgressBar);"
+          "seed": "final int maxRpmValue=10000;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 142, 
+          "faulty": "int newspeed=maxSpeedValue - speed;", 
+          "type": "InsertBefore", 
+          "seed": "gasProgressBar.setStringPainted(true);"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_294/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:41:55.014956100 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n     }\n \n     /**\n@@ -124,7 +124,8 @@\n         final int maxRpmMeter = 255;\n         int newrpm = maxRpmValue - rpm;\n \n-        return (newrpm - minRpmValue) * (maxRpmMeter - minRpmMeter) / (maxRpmValue - minRpmValue) + minRpmMeter;\n+        breakLabel.setText(\"break pedal\");\n+\t\treturn (newrpm - minRpmValue) * (maxRpmMeter - minRpmMeter) / (maxRpmValue - minRpmValue) + minRpmMeter;\n     }\n \n     /**\n\n\n", 
       "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 58, 
-          "faulty": "rpmAngle=calculateTachometer(0);", 
-          "type": "Replace", 
-          "seed": "final int minRpmValue=0;"
-        }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 59, 
           "faulty": "paintComponent(getGraphics());", 
           "type": "Replace", 
+          "seed": "setBounds(dashboardBoundsX,dashboardBoundsY,width,height);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 127, 
+          "faulty": "return (newrpm - minRpmValue) * (maxRpmMeter - minRpmMeter) / (maxRpmValue - minRpmValue) + minRpmMeter;", 
+          "type": "InsertBefore", 
+          "seed": "breakLabel.setText(\"break pedal\");"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_365/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:42:48.939165584 -0500\n@@ -56,14 +56,15 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        speedAngle = calculateSpeedometer(0);\n     }\n \n     /**\n      * Initializes the dashboard components\n      */\n     private void initializeDashboard() {\n-        // Not using any layout manager, but fixed coordinates\n+        add(progressBarsPanel);\n+\t\t// Not using any layout manager, but fixed coordinates\n         setLayout(null);\n         setBackground(new Color(backgroundColor));\n         setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n@@ -89,7 +90,8 @@\n \n         add(progressBarsPanel);\n         progressBarsPanel.add(gasLabel);\n-        progressBarsPanel.add(gasProgressBar);\n+        progressBarsPanel.add(breakProgressBar);\n+\t\tprogressBarsPanel.add(gasProgressBar);\n         progressBarsPanel.add(breakLabel);\n         progressBarsPanel.add(breakProgressBar);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "speedAngle=calculateSpeedometer(0);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 67, 
+          "faulty": "setLayout(null);", 
+          "type": "InsertBefore", 
+          "seed": "add(progressBarsPanel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 92, 
+          "faulty": "progressBarsPanel.add(gasProgressBar);", 
+          "type": "InsertBefore", 
+          "seed": "progressBarsPanel.add(breakProgressBar);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_891/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:49:35.247287209 -0500\n@@ -53,18 +53,18 @@\n      */\n     public void updateDisplayedValues(ReadOnlyInputPacket inputPacket) {\n         gasProgressBar.setValue(inputPacket.getGasPedalPosition());\n-        breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n+        final int minSpeedMeter = -75;\n+\t\tbreakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        final int maxRpmValue = 10000;\n     }\n \n     /**\n      * Initializes the dashboard components\n      */\n     private void initializeDashboard() {\n-        // Not using any layout manager, but fixed coordinates\n-        setLayout(null);\n+        final int maxRpmValue = 10000;\n         setBackground(new Color(backgroundColor));\n         setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 56, 
+          "faulty": "breakProgressBar.setValue(inputPacket.getBreakPedalPosition());", 
+          "type": "InsertBefore", 
           "seed": "final int minSpeedMeter=-75;"
         }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 68, 
-          "faulty": "setBackground(new Color(backgroundColor));", 
-          "type": "Replace", 
-          "seed": "final int maxSpeedMeter=255;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 78, 
-          "faulty": "progressBarsPanel.setBackground(new Color(backgroundColor));", 
-          "type": "Delete", 
-          "seed": "final int minRpmMeter=-75;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 86, 
-          "faulty": "breakLabel.setText(\"break pedal\");", 
-          "type": "InsertBefore", 
-          "seed": "final int maxRpmMeter=255;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 93, 
-          "faulty": "progressBarsPanel.add(breakLabel);", 
-          "type": "Delete", 
-          "seed": "breakProgressBar.setStringPainted(true);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 59, 
           "faulty": "paintComponent(getGraphics());", 
           "type": "Replace", 
-          "seed": "initializeProgressBars();"
+          "seed": "final int maxRpmValue=10000;"
         }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 67, 
           "faulty": "setLayout(null);", 
           "type": "Replace", 
-          "seed": "final int maxRpmMeter=255;"
+          "seed": "final int maxRpmValue=10000;"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_318/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:42:12.624941644 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        setLayout(null);\n     }\n \n     /**\n@@ -100,7 +100,7 @@\n      * @param g {@link Graphics} object that can draw to the canvas\n      */\n     protected void paintComponent(Graphics g) {\n-        super.paintComponent(g);\n+        initializeProgressBars();\n         g.setColor(Color.BLACK);\n         g.drawOval(speedMeterX, speedMeterY, meterWidth, meterHeight);\n         g.drawOval(tachoMeterX, tachoMeterY, meterWidth, meterHeight);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 59, 
           "faulty": "paintComponent(getGraphics());", 
           "type": "Replace", 
-          "seed": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);"
+          "seed": "setLayout(null);"
         }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 103, 
           "faulty": "super.paintComponent(g);", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.add(gasLabel);"
+          "type": "Replace", 
+          "seed": "initializeProgressBars();"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_309/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:42:05.176202639 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        progressBarsPanel.setBackground(new Color(backgroundColor));\n     }\n \n     /**\n@@ -76,11 +76,7 @@\n      */\n     private void initializeProgressBars() {\n         progressBarsPanel.setBackground(new Color(backgroundColor));\n-        progressBarsPanel.setBounds(\n-                progressBarsPanelX,\n-                progressBarsPanelY,\n-                progressBarsPanelWidth,\n-                progressBarsPanelHeight);\n+        progressBarsPanel.add(breakProgressBar);\n \n         gasLabel.setText(\"gas pedal\");\n         breakLabel.setText(\"break pedal\");\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
@@ -730,147 +871,93 @@
         }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 91, 
-          "faulty": "progressBarsPanel.add(gasLabel);", 
-          "type": "InsertBefore", 
-          "seed": "setLayout(null);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 93, 
-          "faulty": "progressBarsPanel.add(breakLabel);", 
-          "type": "Delete", 
-          "seed": "add(progressBarsPanel);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
+          "line": 79, 
+          "faulty": "progressBarsPanel.setBounds(progressBarsPanelX,progressBarsPanelY,progressBarsPanelWidth,progressBarsPanelHeight);", 
           "type": "Replace", 
-          "seed": "setBackground(new Color(backgroundColor));"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 85, 
-          "faulty": "gasLabel.setText(\"gas pedal\");", 
-          "type": "InsertBefore", 
-          "seed": "add(progressBarsPanel);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "add(progressBarsPanel);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.add(gasLabel);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 93, 
-          "faulty": "progressBarsPanel.add(breakLabel);", 
-          "type": "Delete", 
-          "seed": "final int maxRpmMeter=255;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "breakLabel.setText(\"break pedal\");"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 139, 
-          "faulty": "final int maxSpeedValue=500;", 
-          "type": "InsertBefore", 
-          "seed": "add(progressBarsPanel);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "final int minRpmValue=0;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Replace", 
-          "seed": "breakProgressBar.setValue(inputPacket.getBreakPedalPosition());"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 57, 
-          "faulty": "speedAngle=calculateSpeedometer(0);", 
-          "type": "InsertBefore", 
-          "seed": "final int maxSpeedValue=500;"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 59, 
-          "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.add(gasProgressBar);"
-        }, 
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 127, 
-          "faulty": "return (newrpm - minRpmValue) * (maxRpmMeter - minRpmMeter) / (maxRpmValue - minRpmValue) + minRpmMeter;", 
-          "type": "InsertBefore", 
           "seed": "progressBarsPanel.add(breakProgressBar);"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_662/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:46:35.385769289 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        final int minRpmValue = 0;\n     }\n \n     /**\n\n\n", 
       "edits": [
-        {
-          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
-          "line": 58, 
-          "faulty": "rpmAngle=calculateTachometer(0);", 
-          "type": "Delete", 
-          "seed": "progressBarsPanel.add(breakLabel);"
-        }, 
         {
           "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
           "line": 59, 
           "faulty": "paintComponent(getGraphics());", 
-          "type": "Delete", 
+          "type": "Replace", 
+          "seed": "final int minRpmValue=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_70/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:38:56.549560653 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        setLayout(null);\n     }\n \n     /**\n@@ -138,7 +138,8 @@\n         final int minSpeedValue = 0;\n         final int maxSpeedValue = 500;\n         final int minSpeedMeter = -75;\n-        final int maxSpeedMeter = 255;\n+        setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n+\t\tfinal int maxSpeedMeter = 255;\n         int newspeed = maxSpeedValue - speed;\n \n         return (newspeed - minSpeedValue) * (maxSpeedMeter - minSpeedMeter)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "setLayout(null);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 141, 
+          "faulty": "final int maxSpeedMeter=255;", 
+          "type": "InsertBefore", 
+          "seed": "setBounds(dashboardBoundsX,dashboardBoundsY,width,height);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_380/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:43:01.043489668 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        speedAngle = calculateSpeedometer(0);\n     }\n \n     /**\n@@ -84,7 +84,8 @@\n \n         gasLabel.setText(\"gas pedal\");\n         breakLabel.setText(\"break pedal\");\n-        gasProgressBar.setStringPainted(true);\n+        final int maxRpmValue = 10000;\n+\t\tgasProgressBar.setStringPainted(true);\n         breakProgressBar.setStringPainted(true);\n \n         add(progressBarsPanel);\n@@ -138,7 +139,8 @@\n         final int minSpeedValue = 0;\n         final int maxSpeedValue = 500;\n         final int minSpeedMeter = -75;\n-        final int maxSpeedMeter = 255;\n+        progressBarsPanel.add(breakLabel);\n+\t\tfinal int maxSpeedMeter = 255;\n         int newspeed = maxSpeedValue - speed;\n \n         return (newspeed - minSpeedValue) * (maxSpeedMeter - minSpeedMeter)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "speedAngle=calculateSpeedometer(0);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 87, 
+          "faulty": "gasProgressBar.setStringPainted(true);", 
+          "type": "InsertBefore", 
           "seed": "final int maxRpmValue=10000;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 141, 
+          "faulty": "final int maxSpeedMeter=255;", 
+          "type": "InsertBefore", 
+          "seed": "progressBarsPanel.add(breakLabel);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:37:33.673563566 -0500\n+++ /tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/patches_5fk4/Patch_671/patched/tmp/RSRepair_Bears_SzFMV2018-Tavasz-AutomatedCar_351742666-351759763/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java\t2018-12-03 22:46:41.317969564 -0500\n@@ -56,7 +56,7 @@\n         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());\n         speedAngle = calculateSpeedometer(0);\n         rpmAngle = calculateTachometer(0);\n-        paintComponent(getGraphics());\n+        progressBarsPanel.add(breakLabel);\n     }\n \n     /**\n@@ -88,10 +88,11 @@\n         breakProgressBar.setStringPainted(true);\n \n         add(progressBarsPanel);\n-        progressBarsPanel.add(gasLabel);\n+        final int maxRpmValue = 10000;\n+\t\tprogressBarsPanel.add(gasLabel);\n         progressBarsPanel.add(gasProgressBar);\n         progressBarsPanel.add(breakLabel);\n-        progressBarsPanel.add(breakProgressBar);\n+        setBounds(dashboardBoundsX, dashboardBoundsY, width, height);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 59, 
+          "faulty": "paintComponent(getGraphics());", 
+          "type": "Replace", 
+          "seed": "progressBarsPanel.add(breakLabel);"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 91, 
+          "faulty": "progressBarsPanel.add(gasLabel);", 
+          "type": "InsertBefore", 
+          "seed": "final int maxRpmValue=10000;"
+        }, 
+        {
+          "path": "src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java", 
+          "line": 94, 
+          "faulty": "progressBarsPanel.add(breakProgressBar);", 
+          "type": "Replace", 
+          "seed": "setBounds(dashboardBoundsX,dashboardBoundsY,width,height);"
         }
       ]
     }

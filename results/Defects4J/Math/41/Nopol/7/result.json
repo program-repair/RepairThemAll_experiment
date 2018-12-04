@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 05:28:39.386676", 
+  "repair_begin": "2018-11-29 05:22:18.376387", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 6, 
+      "patchLocation": {
+        "line": 217, 
+        "class": "org.apache.commons.math.stat.descriptive.moment.Mean"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/stat/descriptive/moment/Mean.java\n+++ b/src/main/java/org/apache/commons/math/stat/descriptive/moment/Mean.java\n@@ -216,3 +216,5 @@\n             }\n-            return xbarw + (correction/sumw);\n+            if (xbarw < length) {\n+                return xbarw + (correction/sumw);\n+            }\n         }\n"
+    }
+  ]
+}

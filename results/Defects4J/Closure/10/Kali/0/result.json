@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-02 02:26:26.557947", 
+  "repair_begin": "2018-12-02 02:21:38.414006", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-01 20:21:25.279505116 -0500\n+++ /tmp/Kali_Defects4J_Closure_10/patches_7aq0/Patch_17/patched/tmp/Kali_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-01 20:26:26.105562203 -0500\n@@ -1268,8 +1268,12 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        {\n+\t\t\tif (true)\n+\t\t\t\treturn true;\n+\t\t\treturn allResultsMatch(n.getFirstChild().getNext(), p)\n+\t\t\t\t\t&& allResultsMatch(n.getLastChild(), p);\n+\t\t}\n       default:\n         return p.apply(n);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "InsertReturn true"
+        }
+      ]
+    }
+  ]
+}

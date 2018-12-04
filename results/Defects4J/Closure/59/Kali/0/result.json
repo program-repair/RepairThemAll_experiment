@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-02 02:10:20.110013", 
+  "repair_begin": "2018-12-02 02:03:52.181478", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Defects4J_Closure_59/src/com/google/javascript/jscomp/DefaultPassConfig.java\t2018-12-01 20:03:32.314309418 -0500\n+++ /tmp/Kali_Defects4J_Closure_59/patches_z1hr/Patch_61/patched/tmp/Kali_Defects4J_Closure_59/src/com/google/javascript/jscomp/DefaultPassConfig.java\t2018-12-01 20:10:19.587488139 -0500\n@@ -260,7 +260,9 @@\n     if (options.checkTypes &&\n         (options.enables(DiagnosticGroups.ACCESS_CONTROLS)\n          || options.enables(DiagnosticGroups.CONSTANT_PROPERTY))) {\n-      checks.add(checkAccessControls);\n+      if (true)\n+\t\t\t\treturn null;\n+\tchecks.add(checkAccessControls);\n     }\n \n     if (options.checkGlobalNamesLevel.isOn()) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/DefaultPassConfig.java", 
+          "line": 263, 
+          "faulty": "checks.add(checkAccessControls);", 
+          "type": "InsertReturn true"
+        }
+      ]
+    }
+  ]
+}

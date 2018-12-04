@@ -1,0 +1,236 @@
+{
+  "repair_end": "2018-12-02 10:23:51.306993", 
+  "repair_begin": "2018-12-02 09:46:21.880419", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_397/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:16:11.113595025 -0500\n@@ -135,7 +135,7 @@\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n             if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n+                double lowerBound = getSupportLowerBound();\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 138, 
+          "faulty": "upper=((int)Math.ceil(tmp)) - 1;", 
+          "type": "Replace", 
+          "seed": "double lowerBound=getSupportLowerBound();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_151/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:09:48.235589689 -0500\n@@ -126,19 +126,6 @@\n         final double sigma = FastMath.sqrt(getNumericalVariance());\n         final boolean chebyshevApplies = !(Double.isInfinite(mu) || Double.isNaN(mu) ||\n                 Double.isInfinite(sigma) || Double.isNaN(sigma) || sigma == 0.0);\n-        if (chebyshevApplies) {\n-            double k = FastMath.sqrt((1.0 - p) / p);\n-            double tmp = mu - k * sigma;\n-            if (tmp > lower) {\n-                lower = ((int) Math.ceil(tmp)) - 1;\n-            }\n-            k = 1.0 / k;\n-            tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n-        }\n-\n         return solveInverseCumulativeProbability(p, lower, upper);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 129, 
+          "faulty": "if (chebyshevApplies) {\n  double k=FastMath.sqrt((1.0 - p) / p);\n  double tmp=mu - k * sigma;\n  if (tmp > lower) {\n    lower=((int)Math.ceil(tmp)) - 1;\n  }\n  k=1.0 / k;\n  tmp=mu + k * sigma;\n  if (tmp < upper) {\n    upper=((int)Math.ceil(tmp)) - 1;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return 1 / (upper - lower);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_495/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:18:43.294389796 -0500\n@@ -135,7 +135,18 @@\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n             if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n+                while (lower + 1 < upper) {\n+\t\t\t\t\tint xm = (lower + upper) / 2;\n+\t\t\t\t\tif (xm < lower || xm > upper) {\n+\t\t\t\t\t\txm = lower + (upper - lower) / 2;\n+\t\t\t\t\t}\n+\t\t\t\t\tdouble pm = checkedCumulativeProbability(xm);\n+\t\t\t\t\tif (pm >= p) {\n+\t\t\t\t\t\tupper = xm;\n+\t\t\t\t\t} else {\n+\t\t\t\t\t\tlower = xm;\n+\t\t\t\t\t}\n+\t\t\t\t}\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 138, 
+          "faulty": "upper=((int)Math.ceil(tmp)) - 1;", 
+          "type": "Replace", 
+          "seed": "while (lower + 1 < upper) {\n  int xm=(lower + upper) / 2;\n  if (xm < lower || xm > upper) {\n    xm=lower + (upper - lower) / 2;\n  }\n  double pm=checkedCumulativeProbability(xm);\n  if (pm >= p) {\n    upper=xm;\n  }\n else {\n    lower=xm;\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_237/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:12:02.580242446 -0500\n@@ -126,18 +126,7 @@\n         final double sigma = FastMath.sqrt(getNumericalVariance());\n         final boolean chebyshevApplies = !(Double.isInfinite(mu) || Double.isNaN(mu) ||\n                 Double.isInfinite(sigma) || Double.isNaN(sigma) || sigma == 0.0);\n-        if (chebyshevApplies) {\n-            double k = FastMath.sqrt((1.0 - p) / p);\n-            double tmp = mu - k * sigma;\n-            if (tmp > lower) {\n-                lower = ((int) Math.ceil(tmp)) - 1;\n-            }\n-            k = 1.0 / k;\n-            tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n-        }\n+        double s = Double.NaN;\n \n         return solveInverseCumulativeProbability(p, lower, upper);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 129, 
+          "faulty": "if (chebyshevApplies) {\n  double k=FastMath.sqrt((1.0 - p) / p);\n  double tmp=mu - k * sigma;\n  if (tmp > lower) {\n    lower=((int)Math.ceil(tmp)) - 1;\n  }\n  k=1.0 / k;\n  tmp=mu + k * sigma;\n  if (tmp < upper) {\n    upper=((int)Math.ceil(tmp)) - 1;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "double s=Double.NaN;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_206/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:11:14.412011193 -0500\n@@ -126,18 +126,13 @@\n         final double sigma = FastMath.sqrt(getNumericalVariance());\n         final boolean chebyshevApplies = !(Double.isInfinite(mu) || Double.isNaN(mu) ||\n                 Double.isInfinite(sigma) || Double.isNaN(sigma) || sigma == 0.0);\n-        if (chebyshevApplies) {\n-            double k = FastMath.sqrt((1.0 - p) / p);\n-            double tmp = mu - k * sigma;\n-            if (tmp > lower) {\n-                lower = ((int) Math.ceil(tmp)) - 1;\n-            }\n-            k = 1.0 / k;\n-            tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n-        }\n+        if (lower == Integer.MIN_VALUE) {\n+\t\t\tif (checkedCumulativeProbability(lower) >= p) {\n+\t\t\t\treturn lower;\n+\t\t\t}\n+\t\t} else {\n+\t\t\tlower -= 1;\n+\t\t}\n \n         return solveInverseCumulativeProbability(p, lower, upper);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 129, 
+          "faulty": "if (chebyshevApplies) {\n  double k=FastMath.sqrt((1.0 - p) / p);\n  double tmp=mu - k * sigma;\n  if (tmp > lower) {\n    lower=((int)Math.ceil(tmp)) - 1;\n  }\n  k=1.0 / k;\n  tmp=mu + k * sigma;\n  if (tmp < upper) {\n    upper=((int)Math.ceil(tmp)) - 1;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "if (lower == Integer.MIN_VALUE) {\n  if (checkedCumulativeProbability(lower) >= p) {\n    return lower;\n  }\n}\n else {\n  lower-=1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_20/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:06:22.430518668 -0500\n@@ -135,7 +135,6 @@\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n             if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 138, 
+          "faulty": "upper=((int)Math.ceil(tmp)) - 1;", 
+          "type": "Delete", 
+          "seed": "final double r=getNumberOfSuccesses();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_597/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:21:23.995232010 -0500\n@@ -134,9 +134,7 @@\n             }\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n+            final double mn = getNumericalMean();\n         }\n \n         return solveInverseCumulativeProbability(p, lower, upper);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 137, 
+          "faulty": "if (tmp < upper) {\n  upper=((int)Math.ceil(tmp)) - 1;\n}", 
+          "type": "Replace", 
+          "seed": "final double mn=getNumericalMean();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_3/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:05:56.158372146 -0500\n@@ -134,9 +134,6 @@\n             }\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n         }\n \n         return solveInverseCumulativeProbability(p, lower, upper);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 137, 
+          "faulty": "if (tmp < upper) {\n  upper=((int)Math.ceil(tmp)) - 1;\n}", 
+          "type": "Delete", 
+          "seed": "tmp=mu + k * sigma;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_22/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:06:24.366529354 -0500\n@@ -135,7 +135,7 @@\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n             if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n+                double value = 0;\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 138, 
+          "faulty": "upper=((int)Math.ceil(tmp)) - 1;", 
+          "type": "Replace", 
+          "seed": "double value=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_135/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:09:25.479476346 -0500\n@@ -134,9 +134,7 @@\n             }\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n+            double qi = 0;\n         }\n \n         return solveInverseCumulativeProbability(p, lower, upper);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 137, 
+          "faulty": "if (tmp < upper) {\n  upper=((int)Math.ceil(tmp)) - 1;\n}", 
+          "type": "Replace", 
+          "seed": "double qi=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/HypergeometricDistribution.java\t2018-12-02 03:46:08.140465971 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_270/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/HypergeometricDistribution.java\t2018-12-02 04:12:54.348541070 -0500\n@@ -278,7 +278,6 @@\n     public double getNumericalVariance() {\n         if (!numericalVarianceIsCalculated) {\n             numericalVariance = calculateNumericalVariance();\n-            numericalVarianceIsCalculated = true;\n         }\n         return numericalVariance;\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_270/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:12:54.352541094 -0500\n@@ -134,9 +134,6 @@\n             }\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n         }\n \n         return solveInverseCumulativeProbability(p, lower, upper);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/HypergeometricDistribution.java", 
+          "line": 281, 
+          "faulty": "numericalVarianceIsCalculated=true;", 
+          "type": "Delete", 
+          "seed": "return inverseCumulativeProbability(random.nextDouble());"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 137, 
+          "faulty": "if (tmp < upper) {\n  upper=((int)Math.ceil(tmp)) - 1;\n}", 
+          "type": "Delete", 
+          "seed": "int j=1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_219/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:11:34.684108847 -0500\n@@ -135,7 +135,7 @@\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n             if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n+                double meanOfSquares = 0;\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 138, 
+          "faulty": "upper=((int)Math.ceil(tmp)) - 1;", 
+          "type": "Replace", 
+          "seed": "double meanOfSquares=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_84/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:08:07.119077728 -0500\n@@ -134,9 +134,7 @@\n             }\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n+            double x = 0;\n         }\n \n         return solveInverseCumulativeProbability(p, lower, upper);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 137, 
+          "faulty": "if (tmp < upper) {\n  upper=((int)Math.ceil(tmp)) - 1;\n}", 
+          "type": "Replace", 
+          "seed": "double x=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_426/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:16:56.241828127 -0500\n@@ -126,19 +126,6 @@\n         final double sigma = FastMath.sqrt(getNumericalVariance());\n         final boolean chebyshevApplies = !(Double.isInfinite(mu) || Double.isNaN(mu) ||\n                 Double.isInfinite(sigma) || Double.isNaN(sigma) || sigma == 0.0);\n-        if (chebyshevApplies) {\n-            double k = FastMath.sqrt((1.0 - p) / p);\n-            double tmp = mu - k * sigma;\n-            if (tmp > lower) {\n-                lower = ((int) Math.ceil(tmp)) - 1;\n-            }\n-            k = 1.0 / k;\n-            tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n-        }\n-\n         return solveInverseCumulativeProbability(p, lower, upper);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 129, 
+          "faulty": "if (chebyshevApplies) {\n  double k=FastMath.sqrt((1.0 - p) / p);\n  double tmp=mu - k * sigma;\n  if (tmp > lower) {\n    lower=((int)Math.ceil(tmp)) - 1;\n  }\n  k=1.0 / k;\n  tmp=mu + k * sigma;\n  if (tmp < upper) {\n    upper=((int)Math.ceil(tmp)) - 1;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "final int N=getNumberOfElements();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 136, 
+          "faulty": "tmp=mu + k * sigma;", 
+          "type": "Delete", 
+          "seed": "tmp=mu + k * sigma;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_112/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:08:50.835301823 -0500\n@@ -134,9 +134,9 @@\n             }\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n+            if (p == 0.0) {\n+\t\t\t\treturn lower;\n+\t\t\t}\n         }\n \n         return solveInverseCumulativeProbability(p, lower, upper);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 137, 
+          "faulty": "if (tmp < upper) {\n  upper=((int)Math.ceil(tmp)) - 1;\n}", 
+          "type": "Replace", 
+          "seed": "if (p == 0.0) {\n  return lower;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_475/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:18:12.438224807 -0500\n@@ -126,18 +126,7 @@\n         final double sigma = FastMath.sqrt(getNumericalVariance());\n         final boolean chebyshevApplies = !(Double.isInfinite(mu) || Double.isNaN(mu) ||\n                 Double.isInfinite(sigma) || Double.isNaN(sigma) || sigma == 0.0);\n-        if (chebyshevApplies) {\n-            double k = FastMath.sqrt((1.0 - p) / p);\n-            double tmp = mu - k * sigma;\n-            if (tmp > lower) {\n-                lower = ((int) Math.ceil(tmp)) - 1;\n-            }\n-            k = 1.0 / k;\n-            tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n-        }\n+        int max = Integer.MIN_VALUE;\n \n         return solveInverseCumulativeProbability(p, lower, upper);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 129, 
+          "faulty": "if (chebyshevApplies) {\n  double k=FastMath.sqrt((1.0 - p) / p);\n  double tmp=mu - k * sigma;\n  if (tmp > lower) {\n    lower=((int)Math.ceil(tmp)) - 1;\n  }\n  k=1.0 / k;\n  tmp=mu + k * sigma;\n  if (tmp < upper) {\n    upper=((int)Math.ceil(tmp)) - 1;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "int max=Integer.MIN_VALUE;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_133/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:09:23.467466277 -0500\n@@ -135,7 +135,7 @@\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n             if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n+                double x = 0;\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 138, 
+          "faulty": "upper=((int)Math.ceil(tmp)) - 1;", 
+          "type": "Replace", 
+          "seed": "double x=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 03:46:04.348451226 -0500\n+++ /tmp/RSRepair_Defects4J_Math_2/patches_5nkj/Patch_373/patched/tmp/RSRepair_Defects4J_Math_2/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java\t2018-12-02 04:15:34.485404383 -0500\n@@ -134,9 +134,7 @@\n             }\n             k = 1.0 / k;\n             tmp = mu + k * sigma;\n-            if (tmp < upper) {\n-                upper = ((int) Math.ceil(tmp)) - 1;\n-            }\n+            double min = Double.POSITIVE_INFINITY;\n         }\n \n         return solveInverseCumulativeProbability(p, lower, upper);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java", 
+          "line": 137, 
+          "faulty": "if (tmp < upper) {\n  upper=((int)Math.ceil(tmp)) - 1;\n}", 
+          "type": "Replace", 
+          "seed": "double min=Double.POSITIVE_INFINITY;"
+        }
+      ]
+    }
+  ]
+}

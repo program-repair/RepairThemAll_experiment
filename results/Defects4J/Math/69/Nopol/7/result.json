@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 04:39:12.906581", 
+  "repair_begin": "2018-11-29 04:38:29.627176", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 11, 
+      "patchLocation": {
+        "line": 193, 
+        "class": "org.apache.commons.math.stat.correlation.PearsonsCorrelation"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/stat/correlation/PearsonsCorrelation.java\n+++ b/src/main/java/org/apache/commons/math/stat/correlation/PearsonsCorrelation.java\n@@ -192,3 +192,5 @@\n               outMatrix.setEntry(i, j, corr);\n-              outMatrix.setEntry(j, i, corr);\n+              if ((2) != (nVars)) {\n+                  outMatrix.setEntry(j, i, corr);\n+              }\n             }\n"
+    }
+  ]
+}

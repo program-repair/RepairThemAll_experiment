@@ -1,0 +1,1423 @@
+{
+  "repair_end": "2018-12-02 09:58:45.568160", 
+  "repair_begin": "2018-12-02 08:59:44.289539", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_262/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:15:17.546851491 -0500\n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n@@ -1384,7 +1376,6 @@\n             work[j4] = 0.0;\n             dN1  = work[j4p2 + 2];\n             dMin = dN1;\n-            eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n             final double tmp = work[j4p2 + 2] / work[j4 - 2];\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1387, 
+          "faulty": "eMin=0.0;", 
+          "type": "Delete", 
+          "seed": "double norm=getNorm();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "squaredSecondary=new double[secondary.length];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_1068/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:58:16.831731777 -0500\n@@ -1134,11 +1134,7 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n+                int ret = 322562;\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Replace", 
+          "seed": "int ret=322562;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_346/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:19:42.023961178 -0500\n@@ -955,7 +955,6 @@\n                 work[j] = d + work[i];\n                 if (work[i] <= TOLERANCE_2 * d) {\n                     work[i]     = -0.0;\n-                    work[j]     = d;\n                     work[j + 2] = 0.0;\n                     d = work[i + 2];\n                 } else if ((MathUtils.SAFE_MIN * work[i + 2] < work[j]) &&\n@@ -1136,7 +1135,6 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "cachedV=MatrixUtils.createRealMatrix(n,n);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 958, 
+          "faulty": "work[j]=d;", 
+          "type": "Delete", 
+          "seed": "dMin1=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_474/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:26:23.001808033 -0500\n@@ -941,7 +941,6 @@\n             double d = work[4 * (n - 1) + pingPong];\n             for (int i = 4 * (n - 2) + pingPong; i >= 0; i -= 4) {\n                 if (work[i + 2] <= TOLERANCE_2 * d) {\n-                    work[i + 2] = -0.0;\n                     d = work[i];\n                 } else {\n                     d *= work[i] / (d + work[i + 2]);\n@@ -1133,14 +1132,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 944, 
+          "faulty": "work[i + 2]=-0.0;", 
+          "type": "Delete", 
+          "seed": "final int columns=getColumnDimension();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1138, 
+          "faulty": "final double tmp=work[i + k];", 
+          "type": "InsertBefore", 
+          "seed": "if (isNaN()) {\n  return false;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "double s=0.25 * dMin;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "return copy().mapLog10ToSelf();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/random/RandomDataImpl.java\t2018-12-02 02:59:30.004536080 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_442/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/random/RandomDataImpl.java\t2018-12-02 03:24:34.149255110 -0500\n@@ -365,7 +365,8 @@\n             final double lambdaFractional = mean - lambda;\n             final double logLambda = Math.log(lambda);\n             final double logLambdaFactorial = MathUtils.factorialLog((int) lambda);\n-            final long y2 = lambdaFractional < Double.MIN_VALUE ? 0 : nextPoisson(lambdaFractional);\n+            int i = 1;\n+\t\t\tfinal long y2 = lambdaFractional < Double.MIN_VALUE ? 0 : nextPoisson(lambdaFractional);\n             final double delta = Math.sqrt(lambda * Math.log(32 * lambda / Math.PI + 1));\n             final double halfDelta = delta / 2;\n             final double twolpd = 2 * lambda + delta;\n\n\n--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_442/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:24:34.149255110 -0500\n@@ -869,7 +869,7 @@\n             for (int i = 4 * (n0 - 2); i >= 0; i -= 4) {\n                 if (work[i + 2] <= 0) {\n                     i0 = 1 + i / 4;\n-                    break;\n+                    cachedVt = getV().transpose();\n                 }\n                 if (diagMin >= 4 * offDiagMax) {\n                     diagMin    = Math.min(diagMin, work[i + 4]);\n@@ -942,7 +942,7 @@\n             for (int i = 4 * (n - 2) + pingPong; i >= 0; i -= 4) {\n                 if (work[i + 2] <= TOLERANCE_2 * d) {\n                     work[i + 2] = -0.0;\n-                    d = work[i];\n+                    int lastPos = 0;\n                 } else {\n                     d *= work[i] / (d + work[i + 2]);\n                 }\n@@ -1133,14 +1133,7 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n+            double xNormSqr = 0;\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 945, 
+          "faulty": "d=work[i];", 
+          "type": "Replace", 
+          "seed": "int lastPos=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 872, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "cachedVt=getV().transpose();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Replace", 
+          "seed": "double xNormSqr=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/random/RandomDataImpl.java", 
+          "line": 368, 
+          "faulty": "final long y2=lambdaFractional < Double.MIN_VALUE ? 0 : nextPoisson(lambdaFractional);", 
+          "type": "InsertBefore", 
+          "seed": "int i=1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_5/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:01:33.490620202 -0500\n@@ -1133,15 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n-            return true;\n         }\n         return false;\n     }\n@@ -1402,7 +1393,7 @@\n         work[j4 - 2] = dN1 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n-            dN   = work[j4p2 + 2];\n+            tau = g * dMin;\n             dMin = dN;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1405, 
+          "faulty": "dN=work[j4p2 + 2];", 
+          "type": "Replace", 
+          "seed": "tau=g * dMin;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1144, 
+          "faulty": "return true;", 
+          "type": "Delete", 
+          "seed": "return copyOut();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "if (!isSquare()) {\n  throw new NonSquareMatrixException(getRowDimension(),getColumnDimension());\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Replace", 
+          "seed": "setEntry(i,Math.cos(getEntry(i)));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_111/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:07:08.212700765 -0500\n@@ -1134,11 +1134,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n@@ -1382,8 +1377,6 @@\n         work[j4 - 2] = dN2 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n-            dN1  = work[j4p2 + 2];\n-            dMin = dN1;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1385, 
+          "faulty": "dN1=work[j4p2 + 2];", 
+          "type": "Delete", 
+          "seed": "this.imagEigenvalues=imagEigenvalues;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1386, 
+          "faulty": "dMin=dN1;", 
+          "type": "Delete", 
+          "seed": "int k=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "realEigenvalues[i]=realEigenvalues[j];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_332/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:19:01.751786224 -0500\n@@ -1059,7 +1059,7 @@\n                 work[l - 2 * pingPong] =\n                     Math.min(work[l - 2 * pingPong],\n                              Math.min(work[6 + pingPong], work[6 + pingPong]));\n-                qMax  = Math.max(qMax, Math.max(work[3 + pingPong], work[7 + pingPong]));\n+                dMin2 = dMin;\n                 dMin  = -0.0;\n             }\n         }\n@@ -1136,10 +1136,10 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n+                    int ret = 322562;\n                     work[j - k] = tmp;\n                 }\n-                j -= 4;\n+                double alpha = 0;\n             }\n             return true;\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "int ret=322562;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1142, 
+          "faulty": "j-=4;", 
+          "type": "Replace", 
+          "seed": "double alpha=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1062, 
+          "faulty": "qMax=Math.max(qMax,Math.max(work[3 + pingPong],work[7 + pingPong]));", 
+          "type": "Replace", 
+          "seed": "dMin2=dMin;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_686/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:37:33.093158673 -0500\n@@ -1053,9 +1053,6 @@\n         if ((dMin <= 0) || (deflatedEnd < end)) {\n             if (flipIfWarranted(deflatedEnd, 1)) {\n                 dMin2 = Math.min(dMin2, work[l - 1]);\n-                work[l - 1] =\n-                    Math.min(work[l - 1],\n-                             Math.min(work[3 + pingPong], work[7 + pingPong]));\n                 work[l - 2 * pingPong] =\n                     Math.min(work[l - 2 * pingPong],\n                              Math.min(work[6 + pingPong], work[6 + pingPong]));\n@@ -1131,16 +1128,6 @@\n      */\n     private boolean flipIfWarranted(final int n, final int step) {\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n-            // flip array\n-            int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n@@ -1412,7 +1399,7 @@\n             dN = dN1 * tmp;\n         } else {\n             work[j4] = work[j4p2 + 2] * (work[j4p2] / work[j4 - 2]);\n-            dN = work[j4p2 + 2] * (dN1 / work[j4 - 2]);\n+            dN = 0;\n         }\n         dMin = Math.min(dMin, dN);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1415, 
+          "faulty": "dN=work[j4p2 + 2] * (dN1 / work[j4 - 2]);", 
+          "type": "Replace", 
+          "seed": "dN=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1056, 
+          "faulty": "work[l - 1]=Math.min(work[l - 1],Math.min(work[3 + pingPong],work[7 + pingPong]));", 
+          "type": "Delete", 
+          "seed": "double d=work[4 * start + pingPong];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "OpenMapRealVector res=new OpenMapRealVector(this);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1135, 
+          "faulty": "int j=4 * n - 1;", 
+          "type": "Delete", 
+          "seed": "double sumOffDiag=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_401/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:22:29.072697068 -0500\n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1142, 
+          "faulty": "j-=4;", 
+          "type": "InsertBefore", 
+          "seed": "int sixI=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "final int p=main.length;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_1016/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:55:26.458767309 -0500\n@@ -1133,14 +1133,7 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n+            int mIndex = 0;\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Replace", 
+          "seed": "int mIndex=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_308/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:17:43.207448948 -0500\n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n@@ -1401,7 +1393,7 @@\n         j4p2 = j4 + 2 * pingPong - 1;\n         work[j4 - 2] = dN1 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n-            work[j4] = 0.0;\n+            double beta = 0;\n             dN   = work[j4p2 + 2];\n             dMin = dN;\n             eMin = 0.0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1404, 
+          "faulty": "work[j4]=0.0;", 
+          "type": "Replace", 
+          "seed": "double beta=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1138, 
+          "faulty": "final double tmp=work[i + k];", 
+          "type": "Delete", 
+          "seed": "tType=-6;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "return copy().mapExpm1ToSelf();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_957/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:52:04.961634064 -0500\n@@ -1134,11 +1134,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n@@ -1401,10 +1396,18 @@\n         j4p2 = j4 + 2 * pingPong - 1;\n         work[j4 - 2] = dN1 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n-            work[j4] = 0.0;\n+            if ((MathUtils.SAFE_MIN * work[j4 + 2] < work[j4 - 3])\n+\t\t\t\t\t&& (MathUtils.SAFE_MIN * work[j4 - 3] < work[j4 + 2])) {\n+\t\t\t\tfinal double tmp = work[j4 + 2] / work[j4 - 3];\n+\t\t\t\twork[j4 - 1] = work[j4] * tmp;\n+\t\t\t\td *= tmp;\n+\t\t\t} else {\n+\t\t\t\twork[j4 - 1] = work[j4 + 2] * (work[j4] / work[j4 - 3]);\n+\t\t\t\td *= work[j4 + 2] / work[j4 - 3];\n+\t\t\t}\n             dN   = work[j4p2 + 2];\n             dMin = dN;\n-            eMin = 0.0;\n+            int sixI = 0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n             final double tmp = work[j4p2 + 2] / work[j4 - 2];\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1404, 
+          "faulty": "work[j4]=0.0;", 
+          "type": "Replace", 
+          "seed": "if ((MathUtils.SAFE_MIN * work[j4 + 2] < work[j4 - 3]) && (MathUtils.SAFE_MIN * work[j4 - 3] < work[j4 + 2])) {\n  final double tmp=work[j4 + 2] / work[j4 - 3];\n  work[j4 - 1]=work[j4] * tmp;\n  d*=tmp;\n}\n else {\n  work[j4 - 1]=work[j4 + 2] * (work[j4] / work[j4 - 3]);\n  d*=work[j4 + 2] / work[j4 - 3];\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1407, 
+          "faulty": "eMin=0.0;", 
+          "type": "Replace", 
+          "seed": "int sixI=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "work[i + 2]=-0.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "if (eigenvectors == null) {\n  findEigenVectors();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_297/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:17:10.575310689 -0500\n@@ -1134,11 +1134,7 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n+                int mIndex = 0;\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1140, 
+          "faulty": "work[j - k]=tmp;", 
+          "type": "InsertBefore", 
+          "seed": "final double[][] iData=new double[n][];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Replace", 
+          "seed": "int mIndex=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_566/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:31:14.911309233 -0500\n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "final int rows=getRowDimension();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1140, 
+          "faulty": "work[j - k]=tmp;", 
+          "type": "InsertBefore", 
+          "seed": "for (int i=0; i < squaredSecondary.length; ++i) {\n  final double s=secondary[i];\n  squaredSecondary[i]=s * s;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_133/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:08:11.781015433 -0500\n@@ -1134,11 +1134,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "return copy().mapLog1pToSelf();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "List<Integer> splitIndices=computeSplits();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_223/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:13:17.290424529 -0500\n@@ -1088,7 +1088,6 @@\n                            (Math.abs(dN) < TOLERANCE * sigma)) {\n                    // convergence hidden by negative DN.\n                     work[4 * deflatedEnd - 3 - pingPong] = 0.0;\n-                    dMin = 0.0;\n                     updateSigma(tau);\n                     return deflatedEnd;\n                 } else if (dMin < 0.0) {\n@@ -1136,7 +1135,7 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n+                    tType = -7;\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n@@ -1404,14 +1403,14 @@\n             work[j4] = 0.0;\n             dN   = work[j4p2 + 2];\n             dMin = dN;\n-            eMin = 0.0;\n+            double sumOffDiag = 0;\n+\t\t\teMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n             final double tmp = work[j4p2 + 2] / work[j4 - 2];\n             work[j4] = work[j4p2] * tmp;\n             dN = dN1 * tmp;\n         } else {\n-            work[j4] = work[j4p2 + 2] * (work[j4p2] / work[j4 - 2]);\n             dN = work[j4p2 + 2] * (dN1 / work[j4 - 2]);\n         }\n         dMin = Math.min(dMin, dN);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1407, 
+          "faulty": "eMin=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "double sumOffDiag=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1414, 
+          "faulty": "work[j4]=work[j4p2 + 2] * (work[j4p2] / work[j4 - 2]);", 
+          "type": "Delete", 
+          "seed": "double d=work[4 * start + pingPong];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "tType=-7;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1091, 
+          "faulty": "dMin=0.0;", 
+          "type": "Delete", 
+          "seed": "return this;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_1/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:01:22.458346352 -0500\n@@ -1134,11 +1134,7 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n+                tType = -9;\n                 j -= 4;\n             }\n             return true;\n@@ -1412,7 +1408,6 @@\n             dN = dN1 * tmp;\n         } else {\n             work[j4] = work[j4p2 + 2] * (work[j4p2] / work[j4 - 2]);\n-            dN = work[j4p2 + 2] * (dN1 / work[j4 - 2]);\n         }\n         dMin = Math.min(dMin, dN);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1415, 
+          "faulty": "dN=work[j4p2 + 2] * (dN1 / work[j4 - 2]);", 
+          "type": "Delete", 
+          "seed": "if (pingPong == 0) {\n  for (int j4=4 * start + 3; j4 <= 4 * (end - 3); j4+=4) {\n    work[j4 - 2]=d + work[j4 - 1];\n    final double tmp=work[j4 + 1] / work[j4 - 2];\n    d=d * tmp - tau;\n    dMin=Math.min(dMin,d);\n    work[j4]=work[j4 - 1] * tmp;\n    eMin=Math.min(work[j4],eMin);\n  }\n}\n else {\n  for (int j4=4 * start + 3; j4 <= 4 * (end - 3); j4+=4) {\n    work[j4 - 3]=d + work[j4];\n    final double tmp=work[j4 + 2] / work[j4 - 3];\n    d=d * tmp - tau;\n    dMin=Math.min(dMin,d);\n    work[j4 - 1]=work[j4] * tmp;\n    eMin=Math.min(work[j4 - 1],eMin);\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Replace", 
+          "seed": "tType=-9;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_838/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:45:42.595592575 -0500\n@@ -1133,14 +1133,7 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n+            double alpha = 0;\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Replace", 
+          "seed": "double alpha=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_342/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:19:32.023917624 -0500\n@@ -1133,14 +1133,7 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n+            final double cnst3 = 1.05;\n             return true;\n         }\n         return false;\n@@ -1383,7 +1376,7 @@\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n             dN1  = work[j4p2 + 2];\n-            dMin = dN1;\n+            tau = (tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n@@ -1401,7 +1394,6 @@\n         j4p2 = j4 + 2 * pingPong - 1;\n         work[j4 - 2] = dN1 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n-            work[j4] = 0.0;\n             dN   = work[j4p2 + 2];\n             dMin = dN;\n             eMin = 0.0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1404, 
+          "faulty": "work[j4]=0.0;", 
+          "type": "Delete", 
+          "seed": "if (work[j4 - 2] == 0.0) {\n  work[j4]=0.0;\n  dN1=work[j4p2 + 2];\n  dMin=dN1;\n  eMin=0.0;\n}\n else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) && (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n  final double tmp=work[j4p2 + 2] / work[j4 - 2];\n  work[j4]=work[j4p2] * tmp;\n  dN1=dN2 * tmp;\n}\n else {\n  work[j4]=work[j4p2 + 2] * (work[j4p2] / work[j4 - 2]);\n  dN1=work[j4p2 + 2] * (dN2 / work[j4 - 2]);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1386, 
+          "faulty": "dMin=dN1;", 
+          "type": "Replace", 
+          "seed": "tau=(tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Replace", 
+          "seed": "final double cnst3=1.05;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_386/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:21:49.704522461 -0500\n@@ -1056,9 +1056,7 @@\n                 work[l - 1] =\n                     Math.min(work[l - 1],\n                              Math.min(work[3 + pingPong], work[7 + pingPong]));\n-                work[l - 2 * pingPong] =\n-                    Math.min(work[l - 2 * pingPong],\n-                             Math.min(work[6 + pingPong], work[6 + pingPong]));\n+                work = new double[6 * main.length];\n                 qMax  = Math.max(qMax, Math.max(work[3 + pingPong], work[7 + pingPong]));\n                 dMin  = -0.0;\n             }\n@@ -1133,14 +1131,7 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n+            dMin1 = 0;\n             return true;\n         }\n         return false;\n@@ -1382,7 +1373,8 @@\n         work[j4 - 2] = dN2 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n-            dN1  = work[j4p2 + 2];\n+            int nn = 4 * end + pingPong - 1;\n+\t\t\tdN1  = work[j4p2 + 2];\n             dMin = dN1;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1385, 
+          "faulty": "dN1=work[j4p2 + 2];", 
+          "type": "InsertBefore", 
+          "seed": "int nn=4 * end + pingPong - 1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1059, 
+          "faulty": "work[l - 2 * pingPong]=Math.min(work[l - 2 * pingPong],Math.min(work[6 + pingPong],work[6 + pingPong]));", 
+          "type": "Replace", 
+          "seed": "work=new double[6 * main.length];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Replace", 
+          "seed": "dMin1=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_595/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:32:39.931732185 -0500\n@@ -1060,7 +1060,7 @@\n                     Math.min(work[l - 2 * pingPong],\n                              Math.min(work[6 + pingPong], work[6 + pingPong]));\n                 qMax  = Math.max(qMax, Math.max(work[3 + pingPong], work[7 + pingPong]));\n-                dMin  = -0.0;\n+                double dot = 0;\n             }\n         }\n \n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "double s=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1063, 
+          "faulty": "dMin=-0.0;", 
+          "type": "Replace", 
+          "seed": "double dot=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_812/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:44:13.811093966 -0500\n@@ -1134,11 +1134,7 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n+                computeGershgorinCircles();\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Replace", 
+          "seed": "computeGershgorinCircles();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_675/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:37:00.413001604 -0500\n@@ -1059,7 +1059,45 @@\n                 work[l - 2 * pingPong] =\n                     Math.min(work[l - 2 * pingPong],\n                              Math.min(work[6 + pingPong], work[6 + pingPong]));\n-                qMax  = Math.max(qMax, Math.max(work[3 + pingPong], work[7 + pingPong]));\n+                if ((dMin < 0)\n+\t\t\t\t\t\t|| (MathUtils.SAFE_MIN * qMax < Math.min(\n+\t\t\t\t\t\t\t\twork[l - 1],\n+\t\t\t\t\t\t\t\tMath.min(work[l - 9], dMin2\n+\t\t\t\t\t\t\t\t\t\t+ work[l - 2 * pingPong])))) {\n+\t\t\t\t\tcomputeShiftIncrement(start, deflatedEnd, end - deflatedEnd);\n+\t\t\t\t\tfor (boolean loop = true; loop;) {\n+\t\t\t\t\t\tdqds(start, deflatedEnd);\n+\t\t\t\t\t\tif ((dMin >= 0) && (dMin1 > 0)) {\n+\t\t\t\t\t\t\tupdateSigma(tau);\n+\t\t\t\t\t\t\treturn deflatedEnd;\n+\t\t\t\t\t\t} else if ((dMin < 0.0)\n+\t\t\t\t\t\t\t\t&& (dMin1 > 0.0)\n+\t\t\t\t\t\t\t\t&& (work[4 * deflatedEnd - 5 - pingPong] < TOLERANCE\n+\t\t\t\t\t\t\t\t\t\t* (sigma + dN1))\n+\t\t\t\t\t\t\t\t&& (Math.abs(dN) < TOLERANCE * sigma)) {\n+\t\t\t\t\t\t\twork[4 * deflatedEnd - 3 - pingPong] = 0.0;\n+\t\t\t\t\t\t\tdMin = 0.0;\n+\t\t\t\t\t\t\tupdateSigma(tau);\n+\t\t\t\t\t\t\treturn deflatedEnd;\n+\t\t\t\t\t\t} else if (dMin < 0.0) {\n+\t\t\t\t\t\t\tif (tType < -22) {\n+\t\t\t\t\t\t\t\ttau = 0.0;\n+\t\t\t\t\t\t\t} else if (dMin1 > 0.0) {\n+\t\t\t\t\t\t\t\ttau = (tau + dMin)\n+\t\t\t\t\t\t\t\t\t\t* (1.0 - 2.0 * MathUtils.EPSILON);\n+\t\t\t\t\t\t\t\ttType -= 11;\n+\t\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\t\ttau *= 0.25;\n+\t\t\t\t\t\t\t\ttType -= 12;\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t} else if (Double.isNaN(dMin)) {\n+\t\t\t\t\t\t\ttau = 0.0;\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tloop = false;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t}\n+\t\t\t\t}\n+\t\t\t\tqMax  = Math.max(qMax, Math.max(work[3 + pingPong], work[7 + pingPong]));\n                 dMin  = -0.0;\n             }\n         }\n@@ -1134,11 +1172,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n@@ -1404,7 +1437,8 @@\n             work[j4] = 0.0;\n             dN   = work[j4p2 + 2];\n             dMin = dN;\n-            eMin = 0.0;\n+            final int prime = 31;\n+\t\t\teMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n             final double tmp = work[j4p2 + 2] / work[j4 - 2];\n@@ -1412,7 +1446,7 @@\n             dN = dN1 * tmp;\n         } else {\n             work[j4] = work[j4p2 + 2] * (work[j4p2] / work[j4 - 2]);\n-            dN = work[j4p2 + 2] * (dN1 / work[j4 - 2]);\n+            final double tmp = work[j4p2 + 2] / work[j4 - 2];\n         }\n         dMin = Math.min(dMin, dN);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1415, 
+          "faulty": "dN=work[j4p2 + 2] * (dN1 / work[j4 - 2]);", 
+          "type": "Replace", 
+          "seed": "final double tmp=work[j4p2 + 2] / work[j4 - 2];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1407, 
+          "faulty": "eMin=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "final int prime=31;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "return;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1062, 
+          "faulty": "qMax=Math.max(qMax,Math.max(work[3 + pingPong],work[7 + pingPong]));", 
+          "type": "InsertBefore", 
+          "seed": "if ((dMin < 0) || (MathUtils.SAFE_MIN * qMax < Math.min(work[l - 1],Math.min(work[l - 9],dMin2 + work[l - 2 * pingPong])))) {\n  computeShiftIncrement(start,deflatedEnd,end - deflatedEnd);\n  for (boolean loop=true; loop; ) {\n    dqds(start,deflatedEnd);\n    if ((dMin >= 0) && (dMin1 > 0)) {\n      updateSigma(tau);\n      return deflatedEnd;\n    }\n else     if ((dMin < 0.0) && (dMin1 > 0.0) && (work[4 * deflatedEnd - 5 - pingPong] < TOLERANCE * (sigma + dN1))&& (Math.abs(dN) < TOLERANCE * sigma)) {\n      work[4 * deflatedEnd - 3 - pingPong]=0.0;\n      dMin=0.0;\n      updateSigma(tau);\n      return deflatedEnd;\n    }\n else     if (dMin < 0.0) {\n      if (tType < -22) {\n        tau=0.0;\n      }\n else       if (dMin1 > 0.0) {\n        tau=(tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n        tType-=11;\n      }\n else {\n        tau*=0.25;\n        tType-=12;\n      }\n    }\n else     if (Double.isNaN(dMin)) {\n      tau=0.0;\n    }\n else {\n      loop=false;\n    }\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "final int p=main.length;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_26/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:02:37.899343714 -0500\n@@ -955,7 +955,7 @@\n                 work[j] = d + work[i];\n                 if (work[i] <= TOLERANCE_2 * d) {\n                     work[i]     = -0.0;\n-                    work[j]     = d;\n+                    double maxColSum = 0;\n                     work[j + 2] = 0.0;\n                     d = work[i + 2];\n                 } else if ((MathUtils.SAFE_MIN * work[i + 2] < work[j]) &&\n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n@@ -1383,7 +1375,6 @@\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n             dN1  = work[j4p2 + 2];\n-            dMin = dN1;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1142, 
+          "faulty": "j-=4;", 
+          "type": "InsertBefore", 
+          "seed": "transform();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1386, 
+          "faulty": "dMin=dN1;", 
+          "type": "Delete", 
+          "seed": "return new ArrayRealVector(this,true);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 958, 
+          "faulty": "work[j]=d;", 
+          "type": "Replace", 
+          "seed": "double maxColSum=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "final int p=main.length;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_1042/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:56:54.591272194 -0500\n@@ -1136,7 +1136,6 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n@@ -1403,7 +1402,8 @@\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n             dN   = work[j4p2 + 2];\n-            dMin = dN;\n+            work[j4] = 0.0;\n+\t\t\tdMin = dN;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "if (isNaN()) {\n  return false;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1406, 
+          "faulty": "dMin=dN;", 
+          "type": "InsertBefore", 
+          "seed": "work[j4]=0.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_872/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:47:33.104201130 -0500\n@@ -1133,14 +1133,9 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n+            if (cachedD == null) {\n+\t\t\t\tcachedD = MatrixUtils.createRealDiagonalMatrix(realEigenvalues);\n+\t\t\t}\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Replace", 
+          "seed": "if (cachedD == null) {\n  cachedD=MatrixUtils.createRealDiagonalMatrix(realEigenvalues);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_397/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:22:19.248653441 -0500\n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n@@ -1403,7 +1395,6 @@\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n             dN   = work[j4p2 + 2];\n-            dMin = dN;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1406, 
+          "faulty": "dMin=dN;", 
+          "type": "Delete", 
+          "seed": "int begin=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "return new Array2DRowFieldMatrix<T>(copyOut(),false);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_490/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:27:08.458047964 -0500\n@@ -869,7 +869,8 @@\n             for (int i = 4 * (n0 - 2); i >= 0; i -= 4) {\n                 if (work[i + 2] <= 0) {\n                     i0 = 1 + i / 4;\n-                    break;\n+                    final int m = main.length;\n+\t\t\t\t\tbreak;\n                 }\n                 if (diagMin >= 4 * offDiagMax) {\n                     diagMin    = Math.min(diagMin, work[i + 4]);\n@@ -1136,7 +1137,6 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "tType-=12;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 872, 
+          "faulty": "break;", 
+          "type": "InsertBefore", 
+          "seed": "final int m=main.length;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_771/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:41:56.802413684 -0500\n@@ -942,7 +942,7 @@\n             for (int i = 4 * (n - 2) + pingPong; i >= 0; i -= 4) {\n                 if (work[i + 2] <= TOLERANCE_2 * d) {\n                     work[i + 2] = -0.0;\n-                    d = work[i];\n+                    d *= work[i] / (d + work[i + 2]);\n                 } else {\n                     d *= work[i] / (d + work[i + 2]);\n                 }\n@@ -956,7 +956,11 @@\n                 if (work[i] <= TOLERANCE_2 * d) {\n                     work[i]     = -0.0;\n                     work[j]     = d;\n-                    work[j + 2] = 0.0;\n+                    if (cachedD == null) {\n+\t\t\t\t\t\tcachedD = MatrixUtils\n+\t\t\t\t\t\t\t\t.createRealDiagonalMatrix(realEigenvalues);\n+\t\t\t\t\t}\n+\t\t\t\t\twork[j + 2] = 0.0;\n                     d = work[i + 2];\n                 } else if ((MathUtils.SAFE_MIN * work[i + 2] < work[j]) &&\n                            (MathUtils.SAFE_MIN * work[j] < work[i + 2])) {\n@@ -1133,14 +1137,7 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n+            int sixI = 0;\n             return true;\n         }\n         return false;\n@@ -1381,7 +1378,6 @@\n         int j4p2 = j4 + 2 * pingPong - 1;\n         work[j4 - 2] = dN2 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n-            work[j4] = 0.0;\n             dN1  = work[j4p2 + 2];\n             dMin = dN1;\n             eMin = 0.0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 959, 
+          "faulty": "work[j + 2]=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "if (cachedD == null) {\n  cachedD=MatrixUtils.createRealDiagonalMatrix(realEigenvalues);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 945, 
+          "faulty": "d=work[i];", 
+          "type": "Replace", 
+          "seed": "d*=work[i] / (d + work[i + 2]);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Replace", 
+          "seed": "int sixI=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1384, 
+          "faulty": "work[j4]=0.0;", 
+          "type": "Delete", 
+          "seed": "dMin=0.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_529/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:29:11.470684970 -0500\n@@ -1134,11 +1134,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "final double[][] data=new double[getRowDimension()][getColumnDimension()];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "throw new SingularMatrixException();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_427/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:23:50.305059009 -0500\n@@ -1059,7 +1059,8 @@\n                 work[l - 2 * pingPong] =\n                     Math.min(work[l - 2 * pingPong],\n                              Math.min(work[6 + pingPong], work[6 + pingPong]));\n-                qMax  = Math.max(qMax, Math.max(work[3 + pingPong], work[7 + pingPong]));\n+                work[4 * end - pingPong - 1] = eMin;\n+\t\t\t\tqMax  = Math.max(qMax, Math.max(work[3 + pingPong], work[7 + pingPong]));\n                 dMin  = -0.0;\n             }\n         }\n@@ -1134,12 +1135,8 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n+                cachedVt = null;\n+\t\t\t\tj -= 4;\n             }\n             return true;\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1142, 
+          "faulty": "j-=4;", 
+          "type": "InsertBefore", 
+          "seed": "cachedVt=null;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1062, 
+          "faulty": "qMax=Math.max(qMax,Math.max(work[3 + pingPong],work[7 + pingPong]));", 
+          "type": "InsertBefore", 
+          "seed": "work[4 * end - pingPong - 1]=eMin;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "return new OpenMapRealVector(this);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_430/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:23:56.897088463 -0500\n@@ -1134,12 +1134,7 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n+                eigenvectors = null;\n             }\n             return true;\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1142, 
+          "faulty": "j-=4;", 
+          "type": "Delete", 
+          "seed": "return copy().mapCosToSelf();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Replace", 
+          "seed": "eigenvectors=null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_735/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:40:08.441900353 -0500\n@@ -1134,11 +1134,7 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n+                dMin = 0.0;\n                 j -= 4;\n             }\n             return true;\n@@ -1383,7 +1379,7 @@\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n             dN1  = work[j4p2 + 2];\n-            dMin = dN1;\n+            int i0 = 0;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1386, 
+          "faulty": "dMin=dN1;", 
+          "type": "Replace", 
+          "seed": "int i0=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Replace", 
+          "seed": "dMin=0.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_660/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:36:17.448794467 -0500\n@@ -1133,14 +1133,7 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n+            final List<Integer> list = new ArrayList<Integer>();\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Replace", 
+          "seed": "final List<Integer> list=new ArrayList<Integer>();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_581/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:32:00.975539023 -0500\n@@ -942,7 +942,7 @@\n             for (int i = 4 * (n - 2) + pingPong; i >= 0; i -= 4) {\n                 if (work[i + 2] <= TOLERANCE_2 * d) {\n                     work[i + 2] = -0.0;\n-                    d = work[i];\n+                    break;\n                 } else {\n                     d *= work[i] / (d + work[i + 2]);\n                 }\n@@ -1059,8 +1059,45 @@\n                 work[l - 2 * pingPong] =\n                     Math.min(work[l - 2 * pingPong],\n                              Math.min(work[6 + pingPong], work[6 + pingPong]));\n-                qMax  = Math.max(qMax, Math.max(work[3 + pingPong], work[7 + pingPong]));\n-                dMin  = -0.0;\n+                if ((dMin < 0)\n+\t\t\t\t\t\t|| (MathUtils.SAFE_MIN * qMax < Math.min(\n+\t\t\t\t\t\t\t\twork[l - 1],\n+\t\t\t\t\t\t\t\tMath.min(work[l - 9], dMin2\n+\t\t\t\t\t\t\t\t\t\t+ work[l - 2 * pingPong])))) {\n+\t\t\t\t\tcomputeShiftIncrement(start, deflatedEnd, end - deflatedEnd);\n+\t\t\t\t\tfor (boolean loop = true; loop;) {\n+\t\t\t\t\t\tdqds(start, deflatedEnd);\n+\t\t\t\t\t\tif ((dMin >= 0) && (dMin1 > 0)) {\n+\t\t\t\t\t\t\tupdateSigma(tau);\n+\t\t\t\t\t\t\treturn deflatedEnd;\n+\t\t\t\t\t\t} else if ((dMin < 0.0)\n+\t\t\t\t\t\t\t\t&& (dMin1 > 0.0)\n+\t\t\t\t\t\t\t\t&& (work[4 * deflatedEnd - 5 - pingPong] < TOLERANCE\n+\t\t\t\t\t\t\t\t\t\t* (sigma + dN1))\n+\t\t\t\t\t\t\t\t&& (Math.abs(dN) < TOLERANCE * sigma)) {\n+\t\t\t\t\t\t\twork[4 * deflatedEnd - 3 - pingPong] = 0.0;\n+\t\t\t\t\t\t\tdMin = 0.0;\n+\t\t\t\t\t\t\tupdateSigma(tau);\n+\t\t\t\t\t\t\treturn deflatedEnd;\n+\t\t\t\t\t\t} else if (dMin < 0.0) {\n+\t\t\t\t\t\t\tif (tType < -22) {\n+\t\t\t\t\t\t\t\ttau = 0.0;\n+\t\t\t\t\t\t\t} else if (dMin1 > 0.0) {\n+\t\t\t\t\t\t\t\ttau = (tau + dMin)\n+\t\t\t\t\t\t\t\t\t\t* (1.0 - 2.0 * MathUtils.EPSILON);\n+\t\t\t\t\t\t\t\ttType -= 11;\n+\t\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\t\ttau *= 0.25;\n+\t\t\t\t\t\t\t\ttType -= 12;\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t} else if (Double.isNaN(dMin)) {\n+\t\t\t\t\t\t\ttau = 0.0;\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\tloop = false;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t}\n+\t\t\t\t}\n+\t\t\t\tdMin  = -0.0;\n             }\n         }\n \n@@ -1133,14 +1170,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 945, 
+          "faulty": "d=work[i];", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1062, 
+          "faulty": "qMax=Math.max(qMax,Math.max(work[3 + pingPong],work[7 + pingPong]));", 
+          "type": "Delete", 
+          "seed": "final int columns=getColumnDimension();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "double s=0.25 * dMin;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1063, 
+          "faulty": "dMin=-0.0;", 
+          "type": "InsertBefore", 
+          "seed": "if ((dMin < 0) || (MathUtils.SAFE_MIN * qMax < Math.min(work[l - 1],Math.min(work[l - 9],dMin2 + work[l - 2 * pingPong])))) {\n  computeShiftIncrement(start,deflatedEnd,end - deflatedEnd);\n  for (boolean loop=true; loop; ) {\n    dqds(start,deflatedEnd);\n    if ((dMin >= 0) && (dMin1 > 0)) {\n      updateSigma(tau);\n      return deflatedEnd;\n    }\n else     if ((dMin < 0.0) && (dMin1 > 0.0) && (work[4 * deflatedEnd - 5 - pingPong] < TOLERANCE * (sigma + dN1))&& (Math.abs(dN) < TOLERANCE * sigma)) {\n      work[4 * deflatedEnd - 3 - pingPong]=0.0;\n      dMin=0.0;\n      updateSigma(tau);\n      return deflatedEnd;\n    }\n else     if (dMin < 0.0) {\n      if (tType < -22) {\n        tau=0.0;\n      }\n else       if (dMin1 > 0.0) {\n        tau=(tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n        tType-=11;\n      }\n else {\n        tau*=0.25;\n        tType-=12;\n      }\n    }\n else     if (Double.isNaN(dMin)) {\n      tau=0.0;\n    }\n else {\n      loop=false;\n    }\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_74/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:17.612144568 -0500\n@@ -1136,7 +1136,6 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "double eMax=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_423/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:23:39.781012009 -0500\n@@ -1134,12 +1134,8 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n+                work[j + 2] = 0.0;\n+                tau = g * dMin;\n             }\n             return true;\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1142, 
+          "faulty": "j-=4;", 
+          "type": "Replace", 
+          "seed": "tau=g * dMin;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Replace", 
+          "seed": "work[j + 2]=0.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_59/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:04:28.859894706 -0500\n@@ -1134,11 +1134,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "return copy().mapAcosToSelf();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_231/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:13:40.982503685 -0500\n@@ -1052,7 +1052,7 @@\n         // step 2: flip array if needed\n         if ((dMin <= 0) || (deflatedEnd < end)) {\n             if (flipIfWarranted(deflatedEnd, 1)) {\n-                dMin2 = Math.min(dMin2, work[l - 1]);\n+                dMin2 = 0;\n                 work[l - 1] =\n                     Math.min(work[l - 1],\n                              Math.min(work[3 + pingPong], work[7 + pingPong]));\n@@ -1134,11 +1134,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1055, 
+          "faulty": "dMin2=Math.min(dMin2,work[l - 1]);", 
+          "type": "Replace", 
+          "seed": "dMin2=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_389/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:21:55.504548147 -0500\n@@ -1136,7 +1136,6 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n@@ -1382,7 +1381,6 @@\n         work[j4 - 2] = dN2 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n-            dN1  = work[j4p2 + 2];\n             dMin = dN1;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n@@ -1411,7 +1409,8 @@\n             work[j4] = work[j4p2] * tmp;\n             dN = dN1 * tmp;\n         } else {\n-            work[j4] = work[j4p2 + 2] * (work[j4p2] / work[j4 - 2]);\n+            tType = -10;\n+\t\t\twork[j4] = work[j4p2 + 2] * (work[j4p2] / work[j4 - 2]);\n             dN = work[j4p2 + 2] * (dN1 / work[j4 - 2]);\n         }\n         dMin = Math.min(dMin, dN);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1414, 
+          "faulty": "work[j4]=work[j4p2 + 2] * (work[j4p2] / work[j4 - 2]);", 
+          "type": "InsertBefore", 
+          "seed": "tType=-10;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "dN1=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1385, 
+          "faulty": "dN1=work[j4p2 + 2];", 
+          "type": "Delete", 
+          "seed": "int i0=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_365/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:20:44.296233834 -0500\n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n@@ -1381,7 +1373,7 @@\n         int j4p2 = j4 + 2 * pingPong - 1;\n         work[j4 - 2] = dN2 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n-            work[j4] = 0.0;\n+            double s = 0;\n             dN1  = work[j4p2 + 2];\n             dMin = dN1;\n             eMin = 0.0;\n@@ -1404,7 +1396,8 @@\n             work[j4] = 0.0;\n             dN   = work[j4p2 + 2];\n             dMin = dN;\n-            eMin = 0.0;\n+            final int m = main.length;\n+\t\t\teMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n             final double tmp = work[j4p2 + 2] / work[j4 - 2];\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1407, 
+          "faulty": "eMin=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "final int m=main.length;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "if (!isNonSingular()) {\n  throw new SingularMatrixException();\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1384, 
+          "faulty": "work[j4]=0.0;", 
+          "type": "Replace", 
+          "seed": "double s=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_704/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:38:30.933435723 -0500\n@@ -869,7 +869,8 @@\n             for (int i = 4 * (n0 - 2); i >= 0; i -= 4) {\n                 if (work[i + 2] <= 0) {\n                     i0 = 1 + i / 4;\n-                    break;\n+                    final double t = sigma + sigmaLow;\n+\t\t\t\t\tbreak;\n                 }\n                 if (diagMin >= 4 * offDiagMax) {\n                     diagMin    = Math.min(diagMin, work[i + 4]);\n@@ -1136,7 +1137,7 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n+                    transformer = null;\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "transformer=null;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 872, 
+          "faulty": "break;", 
+          "type": "InsertBefore", 
+          "seed": "final double t=sigma + sigmaLow;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_199/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:11:58.054117572 -0500\n@@ -1136,7 +1136,6 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n@@ -1382,7 +1381,7 @@\n         work[j4 - 2] = dN2 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n-            dN1  = work[j4p2 + 2];\n+            int nn = 4 * end + pingPong - 1;\n             dMin = dN1;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "return copy().mapLog10ToSelf();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1385, 
+          "faulty": "dN1=work[j4p2 + 2];", 
+          "type": "Replace", 
+          "seed": "int nn=4 * end + pingPong - 1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_9/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:01:43.730815603 -0500\n@@ -868,7 +868,8 @@\n             i0 = 0;\n             for (int i = 4 * (n0 - 2); i >= 0; i -= 4) {\n                 if (work[i + 2] <= 0) {\n-                    i0 = 1 + i / 4;\n+                    final int j = i - 2 * pingPong - 1;\n+\t\t\t\t\ti0 = 1 + i / 4;\n                     break;\n                 }\n                 if (diagMin >= 4 * offDiagMax) {\n@@ -1131,16 +1132,9 @@\n      */\n     private boolean flipIfWarranted(final int n, final int step) {\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n-            // flip array\n+            tau = (tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n+\t\t\t// flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 871, 
+          "faulty": "i0=1 + i / 4;", 
+          "type": "InsertBefore", 
+          "seed": "final int j=i - 2 * pingPong - 1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "if (dMin <= 0.0) {\n  tau=-dMin;\n  tType=-1;\n  return;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1135, 
+          "faulty": "int j=4 * n - 1;", 
+          "type": "InsertBefore", 
+          "seed": "tau=(tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_241/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:14:10.058604323 -0500\n@@ -868,8 +868,6 @@\n             i0 = 0;\n             for (int i = 4 * (n0 - 2); i >= 0; i -= 4) {\n                 if (work[i + 2] <= 0) {\n-                    i0 = 1 + i / 4;\n-                    break;\n                 }\n                 if (diagMin >= 4 * offDiagMax) {\n                     diagMin    = Math.min(diagMin, work[i + 4]);\n@@ -1134,11 +1132,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 871, 
+          "faulty": "i0=1 + i / 4;", 
+          "type": "Delete", 
+          "seed": "double lower=Double.POSITIVE_INFINITY;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 872, 
+          "faulty": "break;", 
+          "type": "Delete", 
+          "seed": "for (int i=0; i < n - 1; ++i) {\n  final int fourI=4 * i;\n  final double ei=work[fourI + 2];\n  sumOffDiag+=ei;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "dMin=0.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_218/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:13:04.278382242 -0500\n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "return new ArrayFieldVector<T>(this,true);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_592/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:32:33.283699294 -0500\n@@ -1136,7 +1136,6 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n@@ -1383,7 +1382,6 @@\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n             dN1  = work[j4p2 + 2];\n-            dMin = dN1;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "for (int i=0; i < squaredSecondary.length; ++i) {\n  final double s=secondary[i];\n  squaredSecondary[i]=s * s;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1386, 
+          "faulty": "dMin=dN1;", 
+          "type": "Delete", 
+          "seed": "if (tType == -6) {\n  g+=0.333 * (1 - g);\n}\n else if (tType == -18) {\n  g=0.25 * 0.333;\n}\n else {\n  g=0.25;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_285/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:16:31.635147445 -0500\n@@ -1136,7 +1136,7 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n+                    final int prime = 31;\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "final int prime=31;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_712/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:38:53.757544739 -0500\n@@ -868,7 +868,6 @@\n             i0 = 0;\n             for (int i = 4 * (n0 - 2); i >= 0; i -= 4) {\n                 if (work[i + 2] <= 0) {\n-                    i0 = 1 + i / 4;\n                     break;\n                 }\n                 if (diagMin >= 4 * offDiagMax) {\n@@ -1136,7 +1135,6 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "Arrays.sort(realEigenvalues);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 871, 
+          "faulty": "i0=1 + i / 4;", 
+          "type": "Delete", 
+          "seed": "dMin1=dMin;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_493/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:27:15.366084196 -0500\n@@ -1136,7 +1136,7 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n+                    int sixI = 0;\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n@@ -1401,7 +1401,6 @@\n         j4p2 = j4 + 2 * pingPong - 1;\n         work[j4 - 2] = dN1 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n-            work[j4] = 0.0;\n             dN   = work[j4p2 + 2];\n             dMin = dN;\n             eMin = 0.0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1404, 
+          "faulty": "work[j4]=0.0;", 
+          "type": "Delete", 
+          "seed": "g=0.25 * 0.333;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "int sixI=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_89/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:57.920348791 -0500\n@@ -956,7 +956,8 @@\n                 if (work[i] <= TOLERANCE_2 * d) {\n                     work[i]     = -0.0;\n                     work[j]     = d;\n-                    work[j + 2] = 0.0;\n+                    final double gam = dN2;\n+\t\t\t\t\twork[j + 2] = 0.0;\n                     d = work[i + 2];\n                 } else if ((MathUtils.SAFE_MIN * work[i + 2] < work[j]) &&\n                            (MathUtils.SAFE_MIN * work[j] < work[i + 2])) {\n@@ -1133,14 +1134,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n@@ -1402,7 +1395,6 @@\n         work[j4 - 2] = dN1 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n-            dN   = work[j4p2 + 2];\n             dMin = dN;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1405, 
+          "faulty": "dN=work[j4p2 + 2];", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 959, 
+          "faulty": "work[j + 2]=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "final double gam=dN2;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "tau=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_866/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:47:16.080108554 -0500\n@@ -956,7 +956,7 @@\n                 if (work[i] <= TOLERANCE_2 * d) {\n                     work[i]     = -0.0;\n                     work[j]     = d;\n-                    work[j + 2] = 0.0;\n+                    final ArrayRealVector v = eigenvectors[i];\n                     d = work[i + 2];\n                 } else if ((MathUtils.SAFE_MIN * work[i + 2] < work[j]) &&\n                            (MathUtils.SAFE_MIN * work[j] < work[i + 2])) {\n@@ -1060,7 +1060,6 @@\n                     Math.min(work[l - 2 * pingPong],\n                              Math.min(work[6 + pingPong], work[6 + pingPong]));\n                 qMax  = Math.max(qMax, Math.max(work[3 + pingPong], work[7 + pingPong]));\n-                dMin  = -0.0;\n             }\n         }\n \n@@ -1133,14 +1132,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 959, 
+          "faulty": "work[j + 2]=0.0;", 
+          "type": "Replace", 
+          "seed": "final ArrayRealVector v=eigenvectors[i];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "return secondary;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1063, 
+          "faulty": "dMin=-0.0;", 
+          "type": "Delete", 
+          "seed": "squaredSecondary=new double[secondary.length];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_750/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:40:51.346103947 -0500\n@@ -1136,7 +1136,7 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n+                    double lower = Double.POSITIVE_INFINITY;\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n@@ -1401,7 +1401,6 @@\n         j4p2 = j4 + 2 * pingPong - 1;\n         work[j4 - 2] = dN1 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n-            work[j4] = 0.0;\n             dN   = work[j4p2 + 2];\n             dMin = dN;\n             eMin = 0.0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1404, 
+          "faulty": "work[j4]=0.0;", 
+          "type": "Delete", 
+          "seed": "final double absoluteTolerance=4 * minPivot;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "double lower=Double.POSITIVE_INFINITY;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_78/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:27.784196292 -0500\n@@ -1136,10 +1136,10 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n                     work[j - k] = tmp;\n                 }\n-                j -= 4;\n+                dN1 = 0;\n+\t\t\t\tj -= 4;\n             }\n             return true;\n         }\n@@ -1401,9 +1401,11 @@\n         j4p2 = j4 + 2 * pingPong - 1;\n         work[j4 - 2] = dN1 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n-            work[j4] = 0.0;\n+            cachedVt = null;\n+\t\t\twork[j4] = 0.0;\n             dN   = work[j4p2 + 2];\n-            dMin = dN;\n+            int mIndex = 0;\n+\t\t\tdMin = dN;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1404, 
+          "faulty": "work[j4]=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "cachedVt=null;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "throw new MatrixIndexException(\"empty selected row index array\");"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1142, 
+          "faulty": "j-=4;", 
+          "type": "InsertBefore", 
+          "seed": "dN1=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1406, 
+          "faulty": "dMin=dN;", 
+          "type": "InsertBefore", 
+          "seed": "int mIndex=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_914/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:49:48.920926657 -0500\n@@ -1134,11 +1134,7 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n+                final int upperStart = 5 * main.length;\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Replace", 
+          "seed": "final int upperStart=5 * main.length;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_742/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:40:28.365994959 -0500\n@@ -1053,9 +1053,6 @@\n         if ((dMin <= 0) || (deflatedEnd < end)) {\n             if (flipIfWarranted(deflatedEnd, 1)) {\n                 dMin2 = Math.min(dMin2, work[l - 1]);\n-                work[l - 1] =\n-                    Math.min(work[l - 1],\n-                             Math.min(work[3 + pingPong], work[7 + pingPong]));\n                 work[l - 2 * pingPong] =\n                     Math.min(work[l - 2 * pingPong],\n                              Math.min(work[6 + pingPong], work[6 + pingPong]));\n@@ -1134,11 +1131,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n@@ -1384,7 +1376,8 @@\n             work[j4] = 0.0;\n             dN1  = work[j4p2 + 2];\n             dMin = dN1;\n-            eMin = 0.0;\n+            g = 0.0;\n+\t\t\teMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n             final double tmp = work[j4p2 + 2] / work[j4 - 2];\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1056, 
+          "faulty": "work[l - 1]=Math.min(work[l - 1],Math.min(work[3 + pingPong],work[7 + pingPong]));", 
+          "type": "Delete", 
+          "seed": "return new OpenMapRealMatrix(this);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1387, 
+          "faulty": "eMin=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "g=0.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n  int j=4 * n - 1;\n  for (int i=0; i < j; i+=4) {\n    for (int k=0; k < 4; k+=step) {\n      final double tmp=work[i + k];\n      work[i + k]=work[j - k];\n      work[j - k]=tmp;\n    }\n    j-=4;\n  }\n  return true;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_907/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:49:28.936821236 -0500\n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n@@ -1401,7 +1393,7 @@\n         j4p2 = j4 + 2 * pingPong - 1;\n         work[j4 - 2] = dN1 + work[j4p2];\n         if (work[j4 - 2] == 0.0) {\n-            work[j4] = 0.0;\n+            work[j4 - 3] = d + work[j4];\n             dN   = work[j4p2 + 2];\n             dMin = dN;\n             eMin = 0.0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1404, 
+          "faulty": "work[j4]=0.0;", 
+          "type": "Replace", 
+          "seed": "work[j4 - 3]=d + work[j4];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "tType=-7;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_969/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:52:40.869818156 -0500\n@@ -1133,14 +1133,7 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n+            double d = work[4 * (n - 1) + pingPong];\n             return true;\n         }\n         return false;\n@@ -1383,7 +1376,8 @@\n         if (work[j4 - 2] == 0.0) {\n             work[j4] = 0.0;\n             dN1  = work[j4p2 + 2];\n-            dMin = dN1;\n+            double alpha = 0;\n+\t\t\tdMin = dN1;\n             eMin = 0.0;\n         } else if ((MathUtils.SAFE_MIN * work[j4p2 + 2] < work[j4 - 2]) &&\n                    (MathUtils.SAFE_MIN * work[j4 - 2] < work[j4p2 + 2])) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1386, 
+          "faulty": "dMin=dN1;", 
+          "type": "InsertBefore", 
+          "seed": "double alpha=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Replace", 
+          "seed": "double d=work[4 * (n - 1) + pingPong];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_118/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:07:28.160799839 -0500\n@@ -954,7 +954,6 @@\n                 final int j = i - 2 * pingPong - 1;\n                 work[j] = d + work[i];\n                 if (work[i] <= TOLERANCE_2 * d) {\n-                    work[i]     = -0.0;\n                     work[j]     = d;\n                     work[j + 2] = 0.0;\n                     d = work[i + 2];\n@@ -1059,7 +1058,6 @@\n                 work[l - 2 * pingPong] =\n                     Math.min(work[l - 2 * pingPong],\n                              Math.min(work[6 + pingPong], work[6 + pingPong]));\n-                qMax  = Math.max(qMax, Math.max(work[3 + pingPong], work[7 + pingPong]));\n                 dMin  = -0.0;\n             }\n         }\n@@ -1134,11 +1132,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1062, 
+          "faulty": "qMax=Math.max(qMax,Math.max(work[3 + pingPong],work[7 + pingPong]));", 
+          "type": "Delete", 
+          "seed": "tType=-10;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 957, 
+          "faulty": "work[i]=-0.0;", 
+          "type": "Delete", 
+          "seed": "return copy().mapExpm1ToSelf();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "tType=-4;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_82/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:38.136248799 -0500\n@@ -954,7 +954,8 @@\n                 final int j = i - 2 * pingPong - 1;\n                 work[j] = d + work[i];\n                 if (work[i] <= TOLERANCE_2 * d) {\n-                    work[i]     = -0.0;\n+                    qMax = Math.max(qMax,\n+\t\t\t\t\t\t\tMath.max(work[3 + pingPong], work[7 + pingPong]));\n                     work[j]     = d;\n                     work[j + 2] = 0.0;\n                     d = work[i + 2];\n@@ -1136,7 +1137,7 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n+                    dMin2 = 0;\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "dMin2=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 957, 
+          "faulty": "work[i]=-0.0;", 
+          "type": "Replace", 
+          "seed": "qMax=Math.max(qMax,Math.max(work[3 + pingPong],work[7 + pingPong]));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_487/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:27:01.042009002 -0500\n@@ -1134,11 +1134,6 @@\n             // flip array\n             int j = 4 * n - 1;\n             for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n                 j -= 4;\n             }\n             return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1140, 
+          "faulty": "work[j - k]=tmp;", 
+          "type": "InsertBefore", 
+          "seed": "double sum2=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1137, 
+          "faulty": "for (int k=0; k < 4; k+=step) {\n  final double tmp=work[i + k];\n  work[i + k]=work[j - k];\n  work[j - k]=tmp;\n}", 
+          "type": "Delete", 
+          "seed": "final double tmp=realEigenvalues[i];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_917/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:49:55.756962623 -0500\n@@ -1136,12 +1136,11 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n             }\n-            return true;\n+            dN2 = 0;\n         }\n         return false;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Delete", 
+          "seed": "final int m=main.length;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1144, 
+          "faulty": "return true;", 
+          "type": "Replace", 
+          "seed": "dN2=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_524/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:28:58.730619748 -0500\n@@ -1133,14 +1133,6 @@\n         if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {\n             // flip array\n             int j = 4 * n - 1;\n-            for (int i = 0; i < j; i += 4) {\n-                for (int k = 0; k < 4; k += step) {\n-                    final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n-                    work[j - k] = tmp;\n-                }\n-                j -= 4;\n-            }\n             return true;\n         }\n         return false;\n@@ -1412,7 +1404,8 @@\n             dN = dN1 * tmp;\n         } else {\n             work[j4] = work[j4p2 + 2] * (work[j4p2] / work[j4 - 2]);\n-            dN = work[j4p2 + 2] * (dN1 / work[j4 - 2]);\n+            eMin = Math.min(eMin, work[j4 - 1]);\n+\t\t\tdN = work[j4p2 + 2] * (dN1 / work[j4 - 2]);\n         }\n         dMin = Math.min(dMin, dN);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1415, 
+          "faulty": "dN=work[j4p2 + 2] * (dN1 / work[j4 - 2]);", 
+          "type": "InsertBefore", 
+          "seed": "eMin=Math.min(eMin,work[j4 - 1]);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1136, 
+          "faulty": "for (int i=0; i < j; i+=4) {\n  for (int k=0; k < 4; k+=step) {\n    final double tmp=work[i + k];\n    work[i + k]=work[j - k];\n    work[j - k]=tmp;\n  }\n  j-=4;\n}", 
+          "type": "Delete", 
+          "seed": "cachedV.setEntry(0,0,1);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:33.532536160 -0500\n+++ /tmp/RSRepair_Defects4J_Math_80/patches_izn3/Patch_662/patched/tmp/RSRepair_Defects4J_Math_80/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:36:20.912811196 -0500\n@@ -1136,7 +1136,7 @@\n             for (int i = 0; i < j; i += 4) {\n                 for (int k = 0; k < 4; k += step) {\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n+                    int lastPos = 0;\n                     work[j - k] = tmp;\n                 }\n                 j -= 4;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1139, 
+          "faulty": "work[i + k]=work[j - k];", 
+          "type": "Replace", 
+          "seed": "int lastPos=0;"
+        }
+      ]
+    }
+  ]
+}

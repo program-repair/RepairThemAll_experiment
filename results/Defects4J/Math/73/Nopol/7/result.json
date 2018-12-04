@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 04:34:25.058314", 
+  "repair_begin": "2018-11-29 04:33:55.348166", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 5, 
+      "patchLocation": {
+        "line": 225, 
+        "class": "org.apache.commons.math.analysis.solvers.UnivariateRealSolverImpl"
+      }, 
+      "patchType": "CONDITIONAL", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java\n+++ b/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java\n@@ -224,6 +224,6 @@\n     protected void verifySequence(final double lower, final double initial, final double upper) {\n-        if (!isSequence(lower, initial, upper)) {\n+        if ((!(lower < initial)) || ((org.apache.commons.math.analysis.solvers.UnivariateRealSolverImpl.this.result <= lower) && (1 == lower))) {\n             throw MathRuntimeException.createIllegalArgumentException(\n-                    \"invalid interval, initial value parameters:  lower={0}, initial={1}, upper={2}\",\n-                    lower, initial, upper);\n+            \"invalid interval, initial value parameters:  lower={0}, initial={1}, upper={2}\",\n+            lower, initial, upper);\n         }\n"
+    }
+  ]
+}

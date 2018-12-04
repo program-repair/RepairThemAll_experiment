@@ -1,0 +1,1282 @@
+{
+  "repair_end": "2018-12-02 09:16:53.741478", 
+  "repair_begin": "2018-12-02 08:59:14.080105", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_589/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:11:06.800407842 -0500\n@@ -1539,26 +1539,11 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                if (a2 < cnst1) {\n+\t\t\t\t\ttau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n+\t\t\t\t} else {\n+\t\t\t\t\ttau = s;\n+\t\t\t\t}\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "if (a2 < cnst1) {\n  tau=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n}\n else {\n  tau=s;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_394/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:07:11.577462545 -0500\n@@ -1477,7 +1477,7 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n+                        double invIJ = 0;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Replace", 
+          "seed": "double invIJ=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_684/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:28.964054578 -0500\n@@ -1539,26 +1539,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                final int upperStart = 5 * main.length;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "final int upperStart=5 * main.length;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_817/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:14:18.207682486 -0500\n@@ -1534,7 +1534,18 @@\n                 double b1 = work[np - 2];\n                 double b2 = work[np - 6];\n                 final double gam = dN2;\n-                if (work[np - 8] > b2 || work[np - 4] > b1) {\n+                for (int i4 = 4 * end - 9 + pingPong; i4 >= 4 * start + 2\n+\t\t\t\t\t\t+ pingPong; i4 -= 4) {\n+\t\t\t\t\tif (work[i4] > work[i4 - 2]) {\n+\t\t\t\t\t\treturn;\n+\t\t\t\t\t}\n+\t\t\t\t\tb1 *= work[i4] / work[i4 - 2];\n+\t\t\t\t\tb2 += b1;\n+\t\t\t\t\tif (100 * b1 < b2) {\n+\t\t\t\t\t\tbreak;\n+\t\t\t\t\t}\n+\t\t\t\t}\n+\t\t\t\tif (work[np - 8] > b2 || work[np - 4] > b1) {\n                     return;\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1537, 
+          "faulty": "if (work[np - 8] > b2 || work[np - 4] > b1) {\n  return;\n}", 
+          "type": "InsertBefore", 
+          "seed": "for (int i4=4 * end - 9 + pingPong; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n  if (work[i4] > work[i4 - 2]) {\n    return;\n  }\n  b1*=work[i4] / work[i4 - 2];\n  b2+=b1;\n  if (100 * b1 < b2) {\n    break;\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_160/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:03:19.362654649 -0500\n@@ -1481,7 +1481,7 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n+                        int dataPos = 0;\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Replace", 
+          "seed": "int dataPos=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_344/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:06:39.413614569 -0500\n@@ -1477,7 +1477,6 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Delete", 
+          "seed": "tType=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_650/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:04.248160300 -0500\n@@ -1541,7 +1541,7 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n+                    dN = 0;\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Replace", 
+          "seed": "dN=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_43/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:01:16.879742114 -0500\n@@ -1533,7 +1533,19 @@\n                 final int np = nn - 2 * pingPong;\n                 double b1 = work[np - 2];\n                 double b2 = work[np - 6];\n-                final double gam = dN2;\n+                for (int i4 = 4 * end - 10 + pingPong; i4 >= 4 * start + 2\n+\t\t\t\t\t\t+ pingPong; i4 -= 4) {\n+\t\t\t\t\tfinal double oldB1 = b1;\n+\t\t\t\t\tif (work[i4] > work[i4 - 2]) {\n+\t\t\t\t\t\treturn;\n+\t\t\t\t\t}\n+\t\t\t\t\tb1 = b1 * (work[i4] / work[i4 - 2]);\n+\t\t\t\t\tb2 = b2 + b1;\n+\t\t\t\t\tif (100 * Math.max(b1, oldB1) < b2) {\n+\t\t\t\t\t\tbreak;\n+\t\t\t\t\t}\n+\t\t\t\t}\n+\t\t\t\tfinal double gam = dN2;\n                 if (work[np - 8] > b2 || work[np - 4] > b1) {\n                     return;\n                 }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1536, 
+          "faulty": "final double gam=dN2;", 
+          "type": "InsertBefore", 
+          "seed": "for (int i4=4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n  final double oldB1=b1;\n  if (work[i4] > work[i4 - 2]) {\n    return;\n  }\n  b1=b1 * (work[i4] / work[i4 - 2]);\n  b2=b2 + b1;\n  if (100 * Math.max(b1,oldB1) < b2) {\n    break;\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_504/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:09:12.568909853 -0500\n@@ -1541,7 +1541,7 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n+                    s = dN - b1;\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Replace", 
+          "seed": "s=dN - b1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_68/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:01:38.707346205 -0500\n@@ -1539,27 +1539,6 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n-\n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n                 } else {\n@@ -1622,7 +1601,7 @@\n                 if (dMin1 == dN1) {\n                     tau = 0.5 * dMin1;\n                 }\n-                tType = -9;\n+                double sumOffDiag = 0;\n             }\n             break;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Delete", 
+          "seed": "eigenvectors=null;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1625, 
+          "faulty": "tType=-9;", 
+          "type": "Replace", 
+          "seed": "double sumOffDiag=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_20/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:00:56.620382654 -0500\n@@ -1481,7 +1481,6 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "T sum=getField().getZero();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_966/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:16:46.407212909 -0500\n@@ -1477,7 +1477,7 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n+                        dMin = 0.0;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Replace", 
+          "seed": "dMin=0.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_182/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:03:33.042574310 -0500\n@@ -1477,7 +1477,7 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n+                        final double t = sigma + sigmaLow;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n@@ -1505,9 +1505,6 @@\n                             break;\n                         }\n                         b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n                         b2 = b2 * (work[i4] / work[i4 - 2]);\n                         a2 = a2 + b2;\n                         if (100 * Math.max(b2, b1) < a2 || cnst1 < a2) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1508, 
+          "faulty": "if (work[i4] > work[i4 - 2]) {\n  return;\n}", 
+          "type": "Delete", 
+          "seed": "tau*=0.25;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Replace", 
+          "seed": "final double t=sigma + sigmaLow;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_698/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:34.004033070 -0500\n@@ -1098,7 +1098,7 @@\n                     } else if (dMin1 > 0.0) {\n                         // late failure. Gives excellent shift.\n                         tau = (tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n-                        tType -= 11;\n+                        int k = 0;\n                     } else {\n                         // early failure. Divide by 4.\n                         tau *= 0.25;\n@@ -1478,9 +1478,7 @@\n                     if (dMin == dN) {\n                         gam = dN;\n                         a2 = 0.0;\n-                        if (work[nn - 5]  >  work[nn - 7]) {\n-                            return;\n-                        }\n+                        double trace = 0;\n                         b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n@@ -1539,26 +1537,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                final double gap2 = dMin2 - a2 - dMin2 * 0.25;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "final double gap2=dMin2 - a2 - dMin2 * 0.25;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1481, 
+          "faulty": "if (work[nn - 5] > work[nn - 7]) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "double trace=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1101, 
+          "faulty": "tType-=11;", 
+          "type": "Replace", 
+          "seed": "int k=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_850/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:15:05.403540320 -0500\n@@ -1541,7 +1541,7 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n+                    tType = -10;\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Replace", 
+          "seed": "tType=-10;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_729/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:56.719936335 -0500\n@@ -1470,8 +1470,9 @@\n                         tType = -3;\n                     }\n                 } else {\n-                    // case 4.\n-                    tType = -4;\n+                    if (100 * b1 < b2) {\n+\t\t\t\t\t\tbreak;\n+\t\t\t\t\t}\n                     double s = 0.25 * dMin;\n                     double gam;\n                     int np;\n@@ -1501,9 +1502,6 @@\n                     // approximate contribution to norm squared from i < nn-1.\n                     a2 = a2 + b2;\n                     for (int i4 = np; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if(b2 == 0.0) {\n-                            break;\n-                        }\n                         b1 = b2;\n                         if (work[i4]  >  work[i4 - 2]) {\n                             return;\n@@ -1539,26 +1537,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                s = Math.min(s, a2 - (b1 + b2));\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1504, 
+          "faulty": "if (b2 == 0.0) {\n  break;\n}", 
+          "type": "Delete", 
+          "seed": "decompose();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "s=Math.min(s,a2 - (b1 + b2));"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1474, 
+          "faulty": "tType=-4;", 
+          "type": "Replace", 
+          "seed": "if (100 * b1 < b2) {\n  break;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_605/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:11:18.416357565 -0500\n@@ -1091,7 +1091,14 @@\n                     updateSigma(tau);\n                     return deflatedEnd;\n                 } else if (dMin < 0.0) {\n-                    // tau too big. Select new tau and try again.\n+                    if (dMin1 > 0.0) {\n+\t\t\t\t\t\ttau = (tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n+\t\t\t\t\t\ttType -= 11;\n+\t\t\t\t\t} else {\n+\t\t\t\t\t\ttau *= 0.25;\n+\t\t\t\t\t\ttType -= 12;\n+\t\t\t\t\t}\n+\t\t\t\t\t// tau too big. Select new tau and try again.\n                     if (tType < -22) {\n                         // failed twice. Play it safe.\n                         tau = 0.0;\n@@ -1516,10 +1523,6 @@\n                     }\n                     a2 = cnst3 * a2;\n \n-                    // rayleigh quotient residual bound.\n-                    if (a2 < cnst1) {\n-                        s = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n-                    }\n                     tau = s;\n \n                 }\n@@ -1622,7 +1625,6 @@\n                 if (dMin1 == dN1) {\n                     tau = 0.5 * dMin1;\n                 }\n-                tType = -9;\n             }\n             break;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1095, 
+          "faulty": "if (tType < -22) {\n  tau=0.0;\n}\n else if (dMin1 > 0.0) {\n  tau=(tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n  tType-=11;\n}\n else {\n  tau*=0.25;\n  tType-=12;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (dMin1 > 0.0) {\n  tau=(tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n  tType-=11;\n}\n else {\n  tau*=0.25;\n  tType-=12;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1520, 
+          "faulty": "if (a2 < cnst1) {\n  s=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n}", 
+          "type": "Delete", 
+          "seed": "return new Array2DRowFieldMatrix<T>(copyOut(),false);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1625, 
+          "faulty": "tType=-9;", 
+          "type": "Delete", 
+          "seed": "return new BigMatrixImpl(this.copyOut(),false);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_747/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:13:15.099858445 -0500\n@@ -1098,7 +1098,6 @@\n                     } else if (dMin1 > 0.0) {\n                         // late failure. Gives excellent shift.\n                         tau = (tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n-                        tType -= 11;\n                     } else {\n                         // early failure. Divide by 4.\n                         tau *= 0.25;\n@@ -1477,7 +1476,8 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n+                        tau = 0.25 * dMin1;\n+\t\t\t\t\t\ta2 = 0.0;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n@@ -1525,8 +1525,6 @@\n                 }\n             } else if (dMin == dN2) {\n \n-                // case 5.\n-                tType = -5;\n                 double s = 0.25 * dMin;\n \n                 // compute contribution to norm squared from i > nn-2.\n@@ -1539,26 +1537,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                double n2 = 1;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "double n2=1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1529, 
+          "faulty": "tType=-5;", 
+          "type": "Delete", 
+          "seed": "dMin1=dMin;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "tau=0.25 * dMin1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1101, 
+          "faulty": "tType-=11;", 
+          "type": "Delete", 
+          "seed": "dMin1=dMin;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_48/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:01:18.795698178 -0500\n@@ -1475,12 +1475,21 @@\n                     double s = 0.25 * dMin;\n                     double gam;\n                     int np;\n-                    if (dMin == dN) {\n+                    dMin1 = dMin;\n+\t\t\t\t\tif (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n-                        if (work[nn - 5]  >  work[nn - 7]) {\n-                            return;\n-                        }\n+                        this.secondary = secondary.clone();\n+                        for (int i4 = 4 * end - 9 + pingPong; i4 >= 4 * start\n+\t\t\t\t\t\t\t\t+ 2 + pingPong; i4 -= 4) {\n+\t\t\t\t\t\t\tif (work[i4] > work[i4 - 2]) {\n+\t\t\t\t\t\t\t\treturn;\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t\tb1 *= work[i4] / work[i4 - 2];\n+\t\t\t\t\t\t\tb2 += b1;\n+\t\t\t\t\t\t\tif (100 * b1 < b2) {\n+\t\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n                         b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1478, 
+          "faulty": "if (dMin == dN) {\n  gam=dN;\n  a2=0.0;\n  if (work[nn - 5] > work[nn - 7]) {\n    return;\n  }\n  b2=work[nn - 5] / work[nn - 7];\n  np=nn - 9;\n}\n else {\n  np=nn - 2 * pingPong;\n  b2=work[np - 2];\n  gam=dN1;\n  if (work[np - 4] > work[np - 2]) {\n    return;\n  }\n  a2=work[np - 4] / work[np - 2];\n  if (work[nn - 9] > work[nn - 11]) {\n    return;\n  }\n  b2=work[nn - 9] / work[nn - 11];\n  np=nn - 13;\n}", 
+          "type": "InsertBefore", 
+          "seed": "dMin1=dMin;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Replace", 
+          "seed": "this.secondary=secondary.clone();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1481, 
+          "faulty": "if (work[nn - 5] > work[nn - 7]) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "for (int i4=4 * end - 9 + pingPong; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n  if (work[i4] > work[i4 - 2]) {\n    return;\n  }\n  b1*=work[i4] / work[i4 - 2];\n  b2+=b1;\n  if (100 * b1 < b2) {\n    break;\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_291/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:31.817943320 -0500\n@@ -1477,11 +1477,9 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Delete", 
+          "seed": "final T[][] data=buildArray(getField(),getRowDimension(),getColumnDimension());"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "final int nCols=getColumnDimension();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_686/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:29.348052938 -0500\n@@ -1477,7 +1477,6 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n@@ -1541,7 +1540,7 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n+                    a2 = 0.0;\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Replace", 
+          "seed": "a2=0.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Delete", 
+          "seed": "cachedD=null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_727/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:56.335937968 -0500\n@@ -1477,7 +1477,7 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n+                        final double absoluteTolerance = 4 * minPivot;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n@@ -1501,9 +1501,6 @@\n                     // approximate contribution to norm squared from i < nn-1.\n                     a2 = a2 + b2;\n                     for (int i4 = np; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if(b2 == 0.0) {\n-                            break;\n-                        }\n                         b1 = b2;\n                         if (work[i4]  >  work[i4 - 2]) {\n                             return;\n@@ -1533,7 +1530,8 @@\n                 final int np = nn - 2 * pingPong;\n                 double b1 = work[np - 2];\n                 double b2 = work[np - 6];\n-                final double gam = dN2;\n+                g = 0.25 * 0.333;\n+\t\t\t\tfinal double gam = dN2;\n                 if (work[np - 8] > b2 || work[np - 4] > b1) {\n                     return;\n                 }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1504, 
+          "faulty": "if (b2 == 0.0) {\n  break;\n}", 
+          "type": "Delete", 
+          "seed": "double norm=getNorm();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1536, 
+          "faulty": "final double gam=dN2;", 
+          "type": "InsertBefore", 
+          "seed": "g=0.25 * 0.333;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Replace", 
+          "seed": "final double absoluteTolerance=4 * minPivot;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_725/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:55.951939601 -0500\n@@ -1481,7 +1481,6 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n@@ -1622,7 +1621,11 @@\n                 if (dMin1 == dN1) {\n                     tau = 0.5 * dMin1;\n                 }\n-                tType = -9;\n+                if (tType == -18) {\n+\t\t\t\t\tg = 0.25 * 0.333;\n+\t\t\t\t} else {\n+\t\t\t\t\tg = 0.25;\n+\t\t\t\t}\n             }\n             break;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1625, 
+          "faulty": "tType=-9;", 
+          "type": "Replace", 
+          "seed": "if (tType == -18) {\n  g=0.25 * 0.333;\n}\n else {\n  g=0.25;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "final T zero=getField().getZero();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_256/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:07.258066422 -0500\n@@ -1583,47 +1583,48 @@\n             break;\n \n         case 1 : // one eigenvalue just deflated. use dMin1, dN1 for dMin and dN.\n-            if (dMin1 == dN1 && dMin2 == dN2) {\n-\n-                // cases 7 and 8.\n-                tType = -7;\n-                double s = 0.333 * dMin1;\n-                if (work[nn - 5] > work[nn - 7]) {\n-                    return;\n-                }\n-                double b1 = work[nn - 5] / work[nn - 7];\n-                double b2 = b1;\n-                if (b2 != 0.0) {\n-                    for (int i4 = 4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        final double oldB1 = b1;\n-                        if (work[i4] > work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b1 = b1 * (work[i4] / work[i4 - 2]);\n-                        b2 = b2 + b1;\n-                        if (100 * Math.max(b1, oldB1) < b2) {\n-                            break;\n-                        }\n-                    }\n-                }\n-                b2 = Math.sqrt(cnst3 * b2);\n-                final double a2 = dMin1 / (1 + b2 * b2);\n-                final double gap2 = 0.5 * dMin2 - a2;\n-                if (gap2 > 0.0 && gap2 > b2 * a2) {\n-                    tau = Math.max(s, a2 * (1 - cnst2 * a2 * (b2 / gap2) * b2));\n-                } else {\n-                    tau = Math.max(s, a2 * (1 - cnst2 * b2));\n-                    tType = -8;\n-                }\n-            } else {\n-\n-                // case 9.\n-                tau = 0.25 * dMin1;\n-                if (dMin1 == dN1) {\n-                    tau = 0.5 * dMin1;\n-                }\n-                tType = -9;\n-            }\n+            {\n+\t\t\t\tdMin1 = -work[4 * start + pingPong];\n+\t\t\t\tif (dMin1 == dN1 && dMin2 == dN2) {\n+\t\t\t\t\ttType = -7;\n+\t\t\t\t\tdouble s = 0.333 * dMin1;\n+\t\t\t\t\tif (work[nn - 5] > work[nn - 7]) {\n+\t\t\t\t\t\treturn;\n+\t\t\t\t\t}\n+\t\t\t\t\tdouble b1 = work[nn - 5] / work[nn - 7];\n+\t\t\t\t\tdouble b2 = b1;\n+\t\t\t\t\tif (b2 != 0.0) {\n+\t\t\t\t\t\tfor (int i4 = 4 * end - 10 + pingPong; i4 >= 4 * start\n+\t\t\t\t\t\t\t\t+ 2 + pingPong; i4 -= 4) {\n+\t\t\t\t\t\t\tfinal double oldB1 = b1;\n+\t\t\t\t\t\t\tif (work[i4] > work[i4 - 2]) {\n+\t\t\t\t\t\t\t\treturn;\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t\tb1 = b1 * (work[i4] / work[i4 - 2]);\n+\t\t\t\t\t\t\tb2 = b2 + b1;\n+\t\t\t\t\t\t\tif (100 * Math.max(b1, oldB1) < b2) {\n+\t\t\t\t\t\t\t\tbreak;\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n+\t\t\t\t\t}\n+\t\t\t\t\tb2 = Math.sqrt(cnst3 * b2);\n+\t\t\t\t\tfinal double a2 = dMin1 / (1 + b2 * b2);\n+\t\t\t\t\tfinal double gap2 = 0.5 * dMin2 - a2;\n+\t\t\t\t\tif (gap2 > 0.0 && gap2 > b2 * a2) {\n+\t\t\t\t\t\ttau = Math.max(s, a2\n+\t\t\t\t\t\t\t\t* (1 - cnst2 * a2 * (b2 / gap2) * b2));\n+\t\t\t\t\t} else {\n+\t\t\t\t\t\ttau = Math.max(s, a2 * (1 - cnst2 * b2));\n+\t\t\t\t\t\ttType = -8;\n+\t\t\t\t\t}\n+\t\t\t\t} else {\n+\t\t\t\t\ttau = 0.25 * dMin1;\n+\t\t\t\t\tif (dMin1 == dN1) {\n+\t\t\t\t\t\ttau = 0.5 * dMin1;\n+\t\t\t\t\t}\n+\t\t\t\t\ttType = -9;\n+\t\t\t\t}\n+\t\t\t}\n             break;\n \n         case 2 : // two realEigenvalues deflated. use dMin2, dN2 for dMin and dN.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1586, 
+          "faulty": "if (dMin1 == dN1 && dMin2 == dN2) {\n  tType=-7;\n  double s=0.333 * dMin1;\n  if (work[nn - 5] > work[nn - 7]) {\n    return;\n  }\n  double b1=work[nn - 5] / work[nn - 7];\n  double b2=b1;\n  if (b2 != 0.0) {\n    for (int i4=4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n      final double oldB1=b1;\n      if (work[i4] > work[i4 - 2]) {\n        return;\n      }\n      b1=b1 * (work[i4] / work[i4 - 2]);\n      b2=b2 + b1;\n      if (100 * Math.max(b1,oldB1) < b2) {\n        break;\n      }\n    }\n  }\n  b2=Math.sqrt(cnst3 * b2);\n  final double a2=dMin1 / (1 + b2 * b2);\n  final double gap2=0.5 * dMin2 - a2;\n  if (gap2 > 0.0 && gap2 > b2 * a2) {\n    tau=Math.max(s,a2 * (1 - cnst2 * a2 * (b2 / gap2)* b2));\n  }\n else {\n    tau=Math.max(s,a2 * (1 - cnst2 * b2));\n    tType=-8;\n  }\n}\n else {\n  tau=0.25 * dMin1;\n  if (dMin1 == dN1) {\n    tau=0.5 * dMin1;\n  }\n  tType=-9;\n}", 
+          "type": "InsertBefore", 
+          "seed": "dMin1=-work[4 * start + pingPong];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_355/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:06:49.593566176 -0500\n@@ -1539,27 +1539,6 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n-\n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n                 } else {\n@@ -1583,47 +1562,7 @@\n             break;\n \n         case 1 : // one eigenvalue just deflated. use dMin1, dN1 for dMin and dN.\n-            if (dMin1 == dN1 && dMin2 == dN2) {\n-\n-                // cases 7 and 8.\n-                tType = -7;\n-                double s = 0.333 * dMin1;\n-                if (work[nn - 5] > work[nn - 7]) {\n-                    return;\n-                }\n-                double b1 = work[nn - 5] / work[nn - 7];\n-                double b2 = b1;\n-                if (b2 != 0.0) {\n-                    for (int i4 = 4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        final double oldB1 = b1;\n-                        if (work[i4] > work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b1 = b1 * (work[i4] / work[i4 - 2]);\n-                        b2 = b2 + b1;\n-                        if (100 * Math.max(b1, oldB1) < b2) {\n-                            break;\n-                        }\n-                    }\n-                }\n-                b2 = Math.sqrt(cnst3 * b2);\n-                final double a2 = dMin1 / (1 + b2 * b2);\n-                final double gap2 = 0.5 * dMin2 - a2;\n-                if (gap2 > 0.0 && gap2 > b2 * a2) {\n-                    tau = Math.max(s, a2 * (1 - cnst2 * a2 * (b2 / gap2) * b2));\n-                } else {\n-                    tau = Math.max(s, a2 * (1 - cnst2 * b2));\n-                    tType = -8;\n-                }\n-            } else {\n-\n-                // case 9.\n-                tau = 0.25 * dMin1;\n-                if (dMin1 == dN1) {\n-                    tau = 0.5 * dMin1;\n-                }\n-                tType = -9;\n-            }\n+            int outIndex = 0;\n             break;\n \n         case 2 : // two realEigenvalues deflated. use dMin2, dN2 for dMin and dN.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1586, 
+          "faulty": "if (dMin1 == dN1 && dMin2 == dN2) {\n  tType=-7;\n  double s=0.333 * dMin1;\n  if (work[nn - 5] > work[nn - 7]) {\n    return;\n  }\n  double b1=work[nn - 5] / work[nn - 7];\n  double b2=b1;\n  if (b2 != 0.0) {\n    for (int i4=4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n      final double oldB1=b1;\n      if (work[i4] > work[i4 - 2]) {\n        return;\n      }\n      b1=b1 * (work[i4] / work[i4 - 2]);\n      b2=b2 + b1;\n      if (100 * Math.max(b1,oldB1) < b2) {\n        break;\n      }\n    }\n  }\n  b2=Math.sqrt(cnst3 * b2);\n  final double a2=dMin1 / (1 + b2 * b2);\n  final double gap2=0.5 * dMin2 - a2;\n  if (gap2 > 0.0 && gap2 > b2 * a2) {\n    tau=Math.max(s,a2 * (1 - cnst2 * a2 * (b2 / gap2)* b2));\n  }\n else {\n    tau=Math.max(s,a2 * (1 - cnst2 * b2));\n    tType=-8;\n  }\n}\n else {\n  tau=0.25 * dMin1;\n  if (dMin1 == dN1) {\n    tau=0.5 * dMin1;\n  }\n  tType=-9;\n}", 
+          "type": "Replace", 
+          "seed": "int outIndex=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Delete", 
+          "seed": "double sum2=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_461/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:08:20.505144439 -0500\n@@ -1475,7 +1475,8 @@\n                     double s = 0.25 * dMin;\n                     double gam;\n                     int np;\n-                    if (dMin == dN) {\n+                    dMin2 = 0;\n+\t\t\t\t\tif (dMin == dN) {\n                         gam = dN;\n                         a2 = 0.0;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n@@ -1539,27 +1540,6 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n-\n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n                 } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1478, 
+          "faulty": "if (dMin == dN) {\n  gam=dN;\n  a2=0.0;\n  if (work[nn - 5] > work[nn - 7]) {\n    return;\n  }\n  b2=work[nn - 5] / work[nn - 7];\n  np=nn - 9;\n}\n else {\n  np=nn - 2 * pingPong;\n  b2=work[np - 2];\n  gam=dN1;\n  if (work[np - 4] > work[np - 2]) {\n    return;\n  }\n  a2=work[np - 4] / work[np - 2];\n  if (work[nn - 9] > work[nn - 11]) {\n    return;\n  }\n  b2=work[nn - 9] / work[nn - 11];\n  np=nn - 13;\n}", 
+          "type": "InsertBefore", 
+          "seed": "dMin2=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Delete", 
+          "seed": "SparseFieldVector<T> res=(SparseFieldVector<T>)copy();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_259/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:08.190061710 -0500\n@@ -1096,8 +1096,6 @@\n                         // failed twice. Play it safe.\n                         tau = 0.0;\n                     } else if (dMin1 > 0.0) {\n-                        // late failure. Gives excellent shift.\n-                        tau = (tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n                         tType -= 11;\n                     } else {\n                         // early failure. Divide by 4.\n@@ -1509,7 +1507,6 @@\n                             return;\n                         }\n                         b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n                         if (100 * Math.max(b2, b1) < a2 || cnst1 < a2) {\n                             break;\n                         }\n@@ -1541,7 +1538,6 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Delete", 
+          "seed": "return new BigMatrixImpl(this.copyOut(),false);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1512, 
+          "faulty": "a2=a2 + b2;", 
+          "type": "Delete", 
+          "seed": "return;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1100, 
+          "faulty": "tau=(tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);", 
+          "type": "Delete", 
+          "seed": "final int nRows=getRowDimension();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_915/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:15:49.403401123 -0500\n@@ -1481,7 +1481,6 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n@@ -1539,27 +1538,6 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n-\n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n                 } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Delete", 
+          "seed": "pingPong=1 - pingPong;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "if (dMin == dN) {\n  gam=dN;\n  a2=0.0;\n  if (work[nn - 5] > work[nn - 7]) {\n    return;\n  }\n  b2=work[nn - 5] / work[nn - 7];\n  np=nn - 9;\n}\n else {\n  np=nn - 2 * pingPong;\n  b2=work[np - 2];\n  gam=dN1;\n  if (work[np - 4] > work[np - 2]) {\n    return;\n  }\n  a2=work[np - 4] / work[np - 2];\n  if (work[nn - 9] > work[nn - 11]) {\n    return;\n  }\n  b2=work[nn - 9] / work[nn - 11];\n  np=nn - 13;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_831/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:14:29.251649953 -0500\n@@ -1516,10 +1516,6 @@\n                     }\n                     a2 = cnst3 * a2;\n \n-                    // rayleigh quotient residual bound.\n-                    if (a2 < cnst1) {\n-                        s = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n-                    }\n                     tau = s;\n \n                 }\n@@ -1624,7 +1620,10 @@\n                 }\n                 tType = -9;\n             }\n-            break;\n+            {\n+\t\t\t\ttType = -9;\n+\t\t\t\tbreak;\n+\t\t\t}\n \n         case 2 : // two realEigenvalues deflated. use dMin2, dN2 for dMin and dN.\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1520, 
+          "faulty": "if (a2 < cnst1) {\n  s=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n}", 
+          "type": "Delete", 
+          "seed": "final int ncols=this.getColumnDimension();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1627, 
+          "faulty": "break;", 
+          "type": "InsertBefore", 
+          "seed": "tType=-9;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_631/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:11:52.040212682 -0500\n@@ -1477,7 +1477,7 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n+                        this.main = main.clone();\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Replace", 
+          "seed": "this.main=main.clone();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_2/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:00:49.180545296 -0500\n@@ -1481,7 +1481,6 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n@@ -1534,9 +1533,7 @@\n                 double b1 = work[np - 2];\n                 double b2 = work[np - 6];\n                 final double gam = dN2;\n-                if (work[np - 8] > b2 || work[np - 4] > b1) {\n-                    return;\n-                }\n+                final StringBuffer res = new StringBuffer();\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n                 // approximate contribution to norm squared from i < nn-2.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1537, 
+          "faulty": "if (work[np - 8] > b2 || work[np - 4] > b1) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "final StringBuffer res=new StringBuffer();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "if (tType < -22) {\n  tau=0.0;\n}\n else if (dMin1 > 0.0) {\n  tau=(tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n  tType-=11;\n}\n else {\n  tau*=0.25;\n  tType-=12;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_625/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:11:44.140246639 -0500\n@@ -1505,9 +1505,6 @@\n                             break;\n                         }\n                         b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n                         b2 = b2 * (work[i4] / work[i4 - 2]);\n                         a2 = a2 + b2;\n                         if (100 * Math.max(b2, b1) < a2 || cnst1 < a2) {\n@@ -1541,7 +1538,6 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Delete", 
+          "seed": "if (a2 < cnst1) {\n  s=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1508, 
+          "faulty": "if (work[i4] > work[i4 - 2]) {\n  return;\n}", 
+          "type": "Delete", 
+          "seed": "b2=work[nn - 5] / work[nn - 7];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_29/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:00:59.664261748 -0500\n@@ -1541,7 +1541,7 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n+                    double maxColSum = 0;\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n@@ -1619,9 +1619,6 @@\n \n                 // case 9.\n                 tau = 0.25 * dMin1;\n-                if (dMin1 == dN1) {\n-                    tau = 0.5 * dMin1;\n-                }\n                 tType = -9;\n             }\n             break;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1622, 
+          "faulty": "if (dMin1 == dN1) {\n  tau=0.5 * dMin1;\n}", 
+          "type": "Delete", 
+          "seed": "dMin=Math.min(dMin,dN1);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Replace", 
+          "seed": "double maxColSum=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_114/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:02:26.494953288 -0500\n@@ -1477,7 +1477,7 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n+                        dN2 = 0;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Replace", 
+          "seed": "dN2=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_793/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:14:08.923709461 -0500\n@@ -1477,7 +1477,6 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n@@ -1504,7 +1503,6 @@\n                         if(b2 == 0.0) {\n                             break;\n                         }\n-                        b1 = b2;\n                         if (work[i4]  >  work[i4 - 2]) {\n                             return;\n                         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1507, 
+          "faulty": "b1=b2;", 
+          "type": "Delete", 
+          "seed": "double a2=(work[np - 8] / b2) * (1 + work[np - 4] / b1);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Delete", 
+          "seed": "double lower=Double.POSITIVE_INFINITY;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_71/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:01:39.707333041 -0500\n@@ -1470,7 +1470,8 @@\n                         tType = -3;\n                     }\n                 } else {\n-                    // case 4.\n+                    int index = 0;\n+\t\t\t\t\t// case 4.\n                     tType = -4;\n                     double s = 0.25 * dMin;\n                     double gam;\n@@ -1541,7 +1542,6 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Delete", 
+          "seed": "return new Array2DRowRealMatrix(copyOut(),false);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1474, 
+          "faulty": "tType=-4;", 
+          "type": "InsertBefore", 
+          "seed": "int index=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_376/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:06:58.449524289 -0500\n@@ -1477,7 +1477,7 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n+                        b2 += b1;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n@@ -1501,9 +1501,7 @@\n                     // approximate contribution to norm squared from i < nn-1.\n                     a2 = a2 + b2;\n                     for (int i4 = np; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if(b2 == 0.0) {\n-                            break;\n-                        }\n+                        double alpha = 0;\n                         b1 = b2;\n                         if (work[i4]  >  work[i4 - 2]) {\n                             return;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1504, 
+          "faulty": "if (b2 == 0.0) {\n  break;\n}", 
+          "type": "Replace", 
+          "seed": "double alpha=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Replace", 
+          "seed": "b2+=b1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_953/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:16:33.115257503 -0500\n@@ -1098,7 +1098,8 @@\n                     } else if (dMin1 > 0.0) {\n                         // late failure. Gives excellent shift.\n                         tau = (tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n-                        tType -= 11;\n+                        dN = 0;\n+\t\t\t\t\t\ttType -= 11;\n                     } else {\n                         // early failure. Divide by 4.\n                         tau *= 0.25;\n@@ -1516,10 +1517,6 @@\n                     }\n                     a2 = cnst3 * a2;\n \n-                    // rayleigh quotient residual bound.\n-                    if (a2 < cnst1) {\n-                        s = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n-                    }\n                     tau = s;\n \n                 }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1520, 
+          "faulty": "if (a2 < cnst1) {\n  s=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n}", 
+          "type": "Delete", 
+          "seed": "if (cachedVt == null) {\n  if (eigenvectors == null) {\n    findEigenVectors();\n  }\n  final int m=eigenvectors.length;\n  cachedVt=MatrixUtils.createRealMatrix(m,m);\n  for (int k=0; k < m; ++k) {\n    cachedVt.setRowVector(k,eigenvectors[k]);\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1101, 
+          "faulty": "tType-=11;", 
+          "type": "InsertBefore", 
+          "seed": "dN=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_217/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:04:17.174324714 -0500\n@@ -1539,26 +1539,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                int j4 = 4 * (end - 2) - pingPong - 1;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "int j4=4 * (end - 2) - pingPong - 1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_899/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:15:36.791441613 -0500\n@@ -1481,7 +1481,6 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n@@ -1506,7 +1505,6 @@\n                         }\n                         b1 = b2;\n                         if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n                         }\n                         b2 = b2 * (work[i4] / work[i4 - 2]);\n                         a2 = a2 + b2;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1509, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "final int rows=getRowDimension();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "int j4=4 * (end - 2) - pingPong - 1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_402/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:07:14.705447893 -0500\n@@ -1481,7 +1481,7 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n+                        squaredSecondary = new double[secondary.length];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Replace", 
+          "seed": "squaredSecondary=new double[secondary.length];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_451/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:07:59.653239679 -0500\n@@ -1516,17 +1516,11 @@\n                     }\n                     a2 = cnst3 * a2;\n \n-                    // rayleigh quotient residual bound.\n-                    if (a2 < cnst1) {\n-                        s = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n-                    }\n                     tau = s;\n \n                 }\n             } else if (dMin == dN2) {\n \n-                // case 5.\n-                tType = -5;\n                 double s = 0.25 * dMin;\n \n                 // compute contribution to norm squared from i > nn-2.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1520, 
+          "faulty": "if (a2 < cnst1) {\n  s=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n}", 
+          "type": "Delete", 
+          "seed": "return new Array2DRowFieldMatrix<T>(copyOut(),false);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1529, 
+          "faulty": "tType=-5;", 
+          "type": "Delete", 
+          "seed": "double b1=work[nn - 5] / work[nn - 7];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_552/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:10:22.916598948 -0500\n@@ -1541,7 +1541,7 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n+                    tType = -8;\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Replace", 
+          "seed": "tType=-8;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_971/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:16:48.191206894 -0500\n@@ -1516,10 +1516,6 @@\n                     }\n                     a2 = cnst3 * a2;\n \n-                    // rayleigh quotient residual bound.\n-                    if (a2 < cnst1) {\n-                        s = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n-                    }\n                     tau = s;\n \n                 }\n@@ -1539,26 +1535,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                double absDCurrent = Math.abs(main[0]);\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n@@ -1622,7 +1599,6 @@\n                 if (dMin1 == dN1) {\n                     tau = 0.5 * dMin1;\n                 }\n-                tType = -9;\n             }\n             break;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "double absDCurrent=Math.abs(main[0]);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1520, 
+          "faulty": "if (a2 < cnst1) {\n  s=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n}", 
+          "type": "Delete", 
+          "seed": "dMin=0.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1625, 
+          "faulty": "tType=-9;", 
+          "type": "Delete", 
+          "seed": "double dot=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_638/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:11:54.424202444 -0500\n@@ -1539,26 +1539,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                final double gap2 = dMin2 - a2 - dMin2 * 0.25;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "final double gap2=dMin2 - a2 - dMin2 * 0.25;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_173/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:03:29.654594086 -0500\n@@ -1539,26 +1539,18 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                for (int i4 = 4 * end - 10 + pingPong; i4 >= 4 * start + 2\n+\t\t\t\t\t\t+ pingPong; i4 -= 4) {\n+\t\t\t\t\tfinal double oldB1 = b1;\n+\t\t\t\t\tif (work[i4] > work[i4 - 2]) {\n+\t\t\t\t\t\treturn;\n+\t\t\t\t\t}\n+\t\t\t\t\tb1 = b1 * (work[i4] / work[i4 - 2]);\n+\t\t\t\t\tb2 = b2 + b1;\n+\t\t\t\t\tif (100 * Math.max(b1, oldB1) < b2) {\n+\t\t\t\t\t\tbreak;\n+\t\t\t\t\t}\n+\t\t\t\t}\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "for (int i4=4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n  final double oldB1=b1;\n  if (work[i4] > work[i4 - 2]) {\n    return;\n  }\n  b1=b1 * (work[i4] / work[i4 - 2]);\n  b2=b2 + b1;\n  if (100 * Math.max(b1,oldB1) < b2) {\n    break;\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_139/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:02:53.450802566 -0500\n@@ -1539,26 +1539,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                realEigenvalues = new double[main.length];\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "realEigenvalues=new double[main.length];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_921/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:15:51.855393199 -0500\n@@ -1539,27 +1539,6 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n-\n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n                 } else {\n@@ -1624,7 +1603,10 @@\n                 }\n                 tType = -9;\n             }\n-            break;\n+            {\n+\t\t\t\tfinal int blockSize = BlockRealMatrix.BLOCK_SIZE;\n+\t\t\t\tbreak;\n+\t\t\t}\n \n         case 2 : // two realEigenvalues deflated. use dMin2, dN2 for dMin and dN.\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Delete", 
+          "seed": "final FractionMatrixConverter converter=new FractionMatrixConverter();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1627, 
+          "faulty": "break;", 
+          "type": "InsertBefore", 
+          "seed": "final int blockSize=BlockRealMatrix.BLOCK_SIZE;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_262/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:09.166056780 -0500\n@@ -1516,10 +1516,7 @@\n                     }\n                     a2 = cnst3 * a2;\n \n-                    // rayleigh quotient residual bound.\n-                    if (a2 < cnst1) {\n-                        s = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n-                    }\n+                    a2 = cnst3 * a2;\n                     tau = s;\n \n                 }\n@@ -1624,7 +1621,7 @@\n                 }\n                 tType = -9;\n             }\n-            break;\n+            ;\n \n         case 2 : // two realEigenvalues deflated. use dMin2, dN2 for dMin and dN.\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1520, 
+          "faulty": "if (a2 < cnst1) {\n  s=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n}", 
+          "type": "Replace", 
+          "seed": "a2=cnst3 * a2;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1627, 
+          "faulty": "break;", 
+          "type": "Delete", 
+          "seed": "return true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_11/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:00:53.304527525 -0500\n@@ -1516,10 +1516,6 @@\n                     }\n                     a2 = cnst3 * a2;\n \n-                    // rayleigh quotient residual bound.\n-                    if (a2 < cnst1) {\n-                        s = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n-                    }\n                     tau = s;\n \n                 }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1520, 
+          "faulty": "if (a2 < cnst1) {\n  s=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n}", 
+          "type": "Delete", 
+          "seed": "final int upperStart=5 * main.length;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_690/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:30.688047219 -0500\n@@ -1539,26 +1539,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                int i0 = 0;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "int i0=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_24/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:00:58.008326476 -0500\n@@ -1508,7 +1508,6 @@\n                         if (work[i4]  >  work[i4 - 2]) {\n                             return;\n                         }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n                         a2 = a2 + b2;\n                         if (100 * Math.max(b2, b1) < a2 || cnst1 < a2) {\n                             break;\n@@ -1541,7 +1540,6 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n@@ -1617,7 +1615,8 @@\n                 }\n             } else {\n \n-                // case 9.\n+                final int upperStart = 5 * main.length;\n+\t\t\t\t// case 9.\n                 tau = 0.25 * dMin1;\n                 if (dMin1 == dN1) {\n                     tau = 0.5 * dMin1;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Delete", 
+          "seed": "switch (deflated) {\ncase 0:\n  if (dMin == dN || dMin == dN1) {\n    double b1=Math.sqrt(work[nn - 3]) * Math.sqrt(work[nn - 5]);\n    double b2=Math.sqrt(work[nn - 7]) * Math.sqrt(work[nn - 9]);\n    double a2=work[nn - 7] + work[nn - 5];\n    if (dMin == dN && dMin1 == dN1) {\n      final double gap2=dMin2 - a2 - dMin2 * 0.25;\n      final double gap1=a2 - dN - ((gap2 > 0.0 && gap2 > b2) ? (b2 / gap2) * b2 : (b1 + b2));\n      if (gap1 > 0.0 && gap1 > b1) {\n        tau=Math.max(dN - (b1 / gap1) * b1,0.5 * dMin);\n        tType=-2;\n      }\n else {\n        double s=0.0;\n        if (dN > b1) {\n          s=dN - b1;\n        }\n        if (a2 > (b1 + b2)) {\n          s=Math.min(s,a2 - (b1 + b2));\n        }\n        tau=Math.max(s,0.333 * dMin);\n        tType=-3;\n      }\n    }\n else {\n      tType=-4;\n      double s=0.25 * dMin;\n      double gam;\n      int np;\n      if (dMin == dN) {\n        gam=dN;\n        a2=0.0;\n        if (work[nn - 5] > work[nn - 7]) {\n          return;\n        }\n        b2=work[nn - 5] / work[nn - 7];\n        np=nn - 9;\n      }\n else {\n        np=nn - 2 * pingPong;\n        b2=work[np - 2];\n        gam=dN1;\n        if (work[np - 4] > work[np - 2]) {\n          return;\n        }\n        a2=work[np - 4] / work[np - 2];\n        if (work[nn - 9] > work[nn - 11]) {\n          return;\n        }\n        b2=work[nn - 9] / work[nn - 11];\n        np=nn - 13;\n      }\n      a2=a2 + b2;\n      for (int i4=np; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n        if (b2 == 0.0) {\n          break;\n        }\n        b1=b2;\n        if (work[i4] > work[i4 - 2]) {\n          return;\n        }\n        b2=b2 * (work[i4] / work[i4 - 2]);\n        a2=a2 + b2;\n        if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n          break;\n        }\n      }\n      a2=cnst3 * a2;\n      if (a2 < cnst1) {\n        s=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n      }\n      tau=s;\n    }\n  }\n else   if (dMin == dN2) {\n    tType=-5;\n    double s=0.25 * dMin;\n    final int np=nn - 2 * pingPong;\n    double b1=work[np - 2];\n    double b2=work[np - 6];\n    final double gam=dN2;\n    if (work[np - 8] > b2 || work[np - 4] > b1) {\n      return;\n    }\n    double a2=(work[np - 8] / b2) * (1 + work[np - 4] / b1);\n    if (end - start > 2) {\n      b2=work[nn - 13] / work[nn - 15];\n      a2=a2 + b2;\n      for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n        if (b2 == 0.0) {\n          break;\n        }\n        b1=b2;\n        if (work[i4] > work[i4 - 2]) {\n          return;\n        }\n        b2=b2 * (work[i4] / work[i4 - 2]);\n        a2=a2 + b2;\n        if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n          break;\n        }\n      }\n      a2=cnst3 * a2;\n    }\n    if (a2 < cnst1) {\n      tau=gam * (1 - Math.sqrt(a2)) / (1 + a2);\n    }\n else {\n      tau=s;\n    }\n  }\n else {\n    if (tType == -6) {\n      g+=0.333 * (1 - g);\n    }\n else     if (tType == -18) {\n      g=0.25 * 0.333;\n    }\n else {\n      g=0.25;\n    }\n    tau=g * dMin;\n    tType=-6;\n  }\nbreak;\ncase 1:\nif (dMin1 == dN1 && dMin2 == dN2) {\ntType=-7;\ndouble s=0.333 * dMin1;\nif (work[nn - 5] > work[nn - 7]) {\n  return;\n}\ndouble b1=work[nn - 5] / work[nn - 7];\ndouble b2=b1;\nif (b2 != 0.0) {\n  for (int i4=4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    final double oldB1=b1;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b1=b1 * (work[i4] / work[i4 - 2]);\n    b2=b2 + b1;\n    if (100 * Math.max(b1,oldB1) < b2) {\n      break;\n    }\n  }\n}\nb2=Math.sqrt(cnst3 * b2);\nfinal double a2=dMin1 / (1 + b2 * b2);\nfinal double gap2=0.5 * dMin2 - a2;\nif (gap2 > 0.0 && gap2 > b2 * a2) {\n  tau=Math.max(s,a2 * (1 - cnst2 * a2 * (b2 / gap2)* b2));\n}\n else {\n  tau=Math.max(s,a2 * (1 - cnst2 * b2));\n  tType=-8;\n}\n}\n else {\ntau=0.25 * dMin1;\nif (dMin1 == dN1) {\n  tau=0.5 * dMin1;\n}\ntType=-9;\n}\nbreak;\ncase 2:\nif (dMin2 == dN2 && 2 * work[nn - 5] < work[nn - 7]) {\ntType=-10;\nfinal double s=0.333 * dMin2;\nif (work[nn - 5] > work[nn - 7]) {\nreturn;\n}\ndouble b1=work[nn - 5] / work[nn - 7];\ndouble b2=b1;\nif (b2 != 0.0) {\nfor (int i4=4 * end - 9 + pingPong; i4 >= 4 * start + 2 + pingPong; i4-=4) {\nif (work[i4] > work[i4 - 2]) {\n  return;\n}\nb1*=work[i4] / work[i4 - 2];\nb2+=b1;\nif (100 * b1 < b2) {\n  break;\n}\n}\n}\nb2=Math.sqrt(cnst3 * b2);\nfinal double a2=dMin2 / (1 + b2 * b2);\nfinal double gap2=work[nn - 7] + work[nn - 9] - Math.sqrt(work[nn - 11]) * Math.sqrt(work[nn - 9]) - a2;\nif (gap2 > 0.0 && gap2 > b2 * a2) {\ntau=Math.max(s,a2 * (1 - cnst2 * a2 * (b2 / gap2)* b2));\n}\n else {\ntau=Math.max(s,a2 * (1 - cnst2 * b2));\n}\n}\n else {\ntau=0.25 * dMin2;\ntType=-11;\n}\nbreak;\ndefault :\ntau=0.0;\ntType=-12;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1511, 
+          "faulty": "b2=b2 * (work[i4] / work[i4 - 2]);", 
+          "type": "Delete", 
+          "seed": "for (int i=0; i < realEigenvalues.length; ++i) {\n  if ((realEigenvalues[i] == 0) && (imagEigenvalues[i] == 0)) {\n    return false;\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1621, 
+          "faulty": "tau=0.25 * dMin1;", 
+          "type": "InsertBefore", 
+          "seed": "final int upperStart=5 * main.length;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_270/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:17.910012765 -0500\n@@ -1539,26 +1539,20 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                for (int i4 = np; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n+\t\t\t\t\tif (b2 == 0.0) {\n+\t\t\t\t\t\tbreak;\n+\t\t\t\t\t}\n+\t\t\t\t\tb1 = b2;\n+\t\t\t\t\tif (work[i4] > work[i4 - 2]) {\n+\t\t\t\t\t\treturn;\n+\t\t\t\t\t}\n+\t\t\t\t\tb2 = b2 * (work[i4] / work[i4 - 2]);\n+\t\t\t\t\ta2 = a2 + b2;\n+\t\t\t\t\tif (100 * Math.max(b2, b1) < a2 || cnst1 < a2) {\n+\t\t\t\t\t\tbreak;\n+\t\t\t\t\t}\n+\t\t\t\t}\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "for (int i4=np; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n  if (b2 == 0.0) {\n    break;\n  }\n  b1=b2;\n  if (work[i4] > work[i4 - 2]) {\n    return;\n  }\n  b2=b2 * (work[i4] / work[i4 - 2]);\n  a2=a2 + b2;\n  if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n    break;\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_410/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:07:23.165408375 -0500\n@@ -1505,7 +1505,8 @@\n                             break;\n                         }\n                         b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n+                        double d = work[4 * start + pingPong] - tau;\n+\t\t\t\t\t\tif (work[i4]  >  work[i4 - 2]) {\n                             return;\n                         }\n                         b2 = b2 * (work[i4] / work[i4 - 2]);\n@@ -1539,27 +1540,6 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n-\n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n                 } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1508, 
+          "faulty": "if (work[i4] > work[i4 - 2]) {\n  return;\n}", 
+          "type": "InsertBefore", 
+          "seed": "double d=work[4 * start + pingPong] - tau;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Delete", 
+          "seed": "if (cachedV == null) {\n  if (eigenvectors == null) {\n    findEigenVectors();\n  }\n  final int m=eigenvectors.length;\n  cachedV=MatrixUtils.createRealMatrix(m,m);\n  for (int k=0; k < m; ++k) {\n    cachedV.setColumnVector(k,eigenvectors[k]);\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_13/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:00:53.752506954 -0500\n@@ -1541,7 +1541,6 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Delete", 
+          "seed": "double sum=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_554/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:10:23.300597267 -0500\n@@ -1477,7 +1477,7 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n+                        final List<Integer> list = new ArrayList<Integer>();\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Replace", 
+          "seed": "final List<Integer> list=new ArrayList<Integer>();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_37/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:01:14.647796738 -0500\n@@ -1539,27 +1539,6 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n-\n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n                 } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Delete", 
+          "seed": "return copy().mapAsinToSelf();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_93/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:02:00.455106036 -0500\n@@ -1541,7 +1541,7 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n+                    int h = 3542;\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Replace", 
+          "seed": "int h=3542;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_118/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:02:27.662946664 -0500\n@@ -1539,26 +1539,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                int dimension = 0;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "int dimension=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_276/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:19.594004320 -0500\n@@ -1500,7 +1500,8 @@\n \n                     // approximate contribution to norm squared from i < nn-1.\n                     a2 = a2 + b2;\n-                    for (int i4 = np; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n+                    dMin1 = -work[4 * start + pingPong];\n+\t\t\t\t\tfor (int i4 = np; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if(b2 == 0.0) {\n                             break;\n                         }\n@@ -1541,7 +1542,7 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n+                    double lower = Double.POSITIVE_INFINITY;\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Replace", 
+          "seed": "double lower=Double.POSITIVE_INFINITY;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1503, 
+          "faulty": "for (int i4=np; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n  if (b2 == 0.0) {\n    break;\n  }\n  b1=b2;\n  if (work[i4] > work[i4 - 2]) {\n    return;\n  }\n  b2=b2 * (work[i4] / work[i4 - 2]);\n  a2=a2 + b2;\n  if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n    break;\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "dMin1=-work[4 * start + pingPong];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_702/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:40.884003738 -0500\n@@ -1481,7 +1481,6 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n@@ -1525,8 +1524,6 @@\n                 }\n             } else if (dMin == dN2) {\n \n-                // case 5.\n-                tType = -5;\n                 double s = 0.25 * dMin;\n \n                 // compute contribution to norm squared from i > nn-2.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1529, 
+          "faulty": "tType=-5;", 
+          "type": "Delete", 
+          "seed": "return new ArrayRealVector(this,true);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "tau=(tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_293/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:32.233941253 -0500\n@@ -1539,26 +1539,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                tType = -8;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "tType=-8;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_779/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:13:52.099757433 -0500\n@@ -1539,26 +1539,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                tType = -10;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "tType=-10;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_167/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:03:27.542606453 -0500\n@@ -1541,7 +1541,7 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n+                    sigmaLow = 0;\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Replace", 
+          "seed": "sigmaLow=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_185/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:03:33.954569001 -0500\n@@ -1470,8 +1470,6 @@\n                         tType = -3;\n                     }\n                 } else {\n-                    // case 4.\n-                    tType = -4;\n                     double s = 0.25 * dMin;\n                     double gam;\n                     int np;\n@@ -1481,7 +1479,6 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "return walkInOptimizedOrder(new RealMatrixPreservingVisitor(){\n  /** \n * Sum of squared entries. \n */\n  private double sum;\n  /** \n * {@inheritDoc} \n */\n  public void start(  final int rows,  final int columns,  final int startRow,  final int endRow,  final int startColumn,  final int endColumn){\n    sum=0;\n  }\n  /** \n * {@inheritDoc} \n */\n  public void visit(  final int row,  final int column,  final double value){\n    sum+=value * value;\n  }\n  /** \n * {@inheritDoc} \n */\n  public double end(){\n    return Math.sqrt(sum);\n  }\n}\n);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1474, 
+          "faulty": "tType=-4;", 
+          "type": "Delete", 
+          "seed": "dMin=Math.min(dMin,dN);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_814/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:14:17.339685022 -0500\n@@ -1541,7 +1541,7 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n+                    int lastPos = 0;\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Replace", 
+          "seed": "int lastPos=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_642/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:01.244173180 -0500\n@@ -1478,9 +1478,6 @@\n                     if (dMin == dN) {\n                         gam = dN;\n                         a2 = 0.0;\n-                        if (work[nn - 5]  >  work[nn - 7]) {\n-                            return;\n-                        }\n                         b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n@@ -1539,27 +1536,6 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n-\n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n                 } else {\n@@ -1619,9 +1595,7 @@\n \n                 // case 9.\n                 tau = 0.25 * dMin1;\n-                if (dMin1 == dN1) {\n-                    tau = 0.5 * dMin1;\n-                }\n+                final List<Integer> list = new ArrayList<Integer>();\n                 tType = -9;\n             }\n             break;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1622, 
+          "faulty": "if (dMin1 == dN1) {\n  tau=0.5 * dMin1;\n}", 
+          "type": "Replace", 
+          "seed": "final List<Integer> list=new ArrayList<Integer>();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Delete", 
+          "seed": "dMin1=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1481, 
+          "faulty": "if (work[nn - 5] > work[nn - 7]) {\n  return;\n}", 
+          "type": "Delete", 
+          "seed": "tau=g * dMin;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_596/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:11:14.848372996 -0500\n@@ -1477,7 +1477,7 @@\n                     int np;\n                     if (dMin == dN) {\n                         gam = dN;\n-                        a2 = 0.0;\n+                        b2 = b2 + b1;\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n@@ -1619,7 +1619,8 @@\n \n                 // case 9.\n                 tau = 0.25 * dMin1;\n-                if (dMin1 == dN1) {\n+                dMin1 = dMin;\n+\t\t\t\tif (dMin1 == dN1) {\n                     tau = 0.5 * dMin1;\n                 }\n                 tType = -9;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1622, 
+          "faulty": "if (dMin1 == dN1) {\n  tau=0.5 * dMin1;\n}", 
+          "type": "InsertBefore", 
+          "seed": "dMin1=dMin;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1480, 
+          "faulty": "a2=0.0;", 
+          "type": "Replace", 
+          "seed": "b2=b2 + b1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_655/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:12:05.860153391 -0500\n@@ -1481,7 +1481,7 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n+                        tType = -4;\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Replace", 
+          "seed": "tType=-4;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_775/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:13:44.899777587 -0500\n@@ -1481,7 +1481,6 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n@@ -1619,9 +1618,6 @@\n \n                 // case 9.\n                 tau = 0.25 * dMin1;\n-                if (dMin1 == dN1) {\n-                    tau = 0.5 * dMin1;\n-                }\n                 tType = -9;\n             }\n             break;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1622, 
+          "faulty": "if (dMin1 == dN1) {\n  tau=0.5 * dMin1;\n}", 
+          "type": "Delete", 
+          "seed": "List<Number> components=new ArrayList<Number>();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "double b2=b1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_974/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:16:48.983204221 -0500\n@@ -1539,26 +1539,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                boolean infiniteFound = false;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "boolean infiniteFound=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_364/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:06:53.369548292 -0500\n@@ -1096,8 +1096,7 @@\n                         // failed twice. Play it safe.\n                         tau = 0.0;\n                     } else if (dMin1 > 0.0) {\n-                        // late failure. Gives excellent shift.\n-                        tau = (tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);\n+                        double max = 0;\n                         tType -= 11;\n                     } else {\n                         // early failure. Divide by 4.\n@@ -1541,7 +1540,6 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Delete", 
+          "seed": "tType=-2;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1100, 
+          "faulty": "tau=(tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);", 
+          "type": "Replace", 
+          "seed": "double max=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_880/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:15:23.171484819 -0500\n@@ -1541,7 +1541,6 @@\n \n                 // approximate contribution to norm squared from i < nn-2.\n                 if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n                     a2 = a2 + b2;\n                     for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n                         if (b2 == 0.0) {\n@@ -1583,47 +1582,7 @@\n             break;\n \n         case 1 : // one eigenvalue just deflated. use dMin1, dN1 for dMin and dN.\n-            if (dMin1 == dN1 && dMin2 == dN2) {\n-\n-                // cases 7 and 8.\n-                tType = -7;\n-                double s = 0.333 * dMin1;\n-                if (work[nn - 5] > work[nn - 7]) {\n-                    return;\n-                }\n-                double b1 = work[nn - 5] / work[nn - 7];\n-                double b2 = b1;\n-                if (b2 != 0.0) {\n-                    for (int i4 = 4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        final double oldB1 = b1;\n-                        if (work[i4] > work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b1 = b1 * (work[i4] / work[i4 - 2]);\n-                        b2 = b2 + b1;\n-                        if (100 * Math.max(b1, oldB1) < b2) {\n-                            break;\n-                        }\n-                    }\n-                }\n-                b2 = Math.sqrt(cnst3 * b2);\n-                final double a2 = dMin1 / (1 + b2 * b2);\n-                final double gap2 = 0.5 * dMin2 - a2;\n-                if (gap2 > 0.0 && gap2 > b2 * a2) {\n-                    tau = Math.max(s, a2 * (1 - cnst2 * a2 * (b2 / gap2) * b2));\n-                } else {\n-                    tau = Math.max(s, a2 * (1 - cnst2 * b2));\n-                    tType = -8;\n-                }\n-            } else {\n-\n-                // case 9.\n-                tau = 0.25 * dMin1;\n-                if (dMin1 == dN1) {\n-                    tau = 0.5 * dMin1;\n-                }\n-                tType = -9;\n-            }\n+            ;\n             break;\n \n         case 2 : // two realEigenvalues deflated. use dMin2, dN2 for dMin and dN.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1544, 
+          "faulty": "b2=work[nn - 13] / work[nn - 15];", 
+          "type": "Delete", 
+          "seed": "return 9;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1586, 
+          "faulty": "if (dMin1 == dN1 && dMin2 == dN2) {\n  tType=-7;\n  double s=0.333 * dMin1;\n  if (work[nn - 5] > work[nn - 7]) {\n    return;\n  }\n  double b1=work[nn - 5] / work[nn - 7];\n  double b2=b1;\n  if (b2 != 0.0) {\n    for (int i4=4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n      final double oldB1=b1;\n      if (work[i4] > work[i4 - 2]) {\n        return;\n      }\n      b1=b1 * (work[i4] / work[i4 - 2]);\n      b2=b2 + b1;\n      if (100 * Math.max(b1,oldB1) < b2) {\n        break;\n      }\n    }\n  }\n  b2=Math.sqrt(cnst3 * b2);\n  final double a2=dMin1 / (1 + b2 * b2);\n  final double gap2=0.5 * dMin2 - a2;\n  if (gap2 > 0.0 && gap2 > b2 * a2) {\n    tau=Math.max(s,a2 * (1 - cnst2 * a2 * (b2 / gap2)* b2));\n  }\n else {\n    tau=Math.max(s,a2 * (1 - cnst2 * b2));\n    tType=-8;\n  }\n}\n else {\n  tau=0.25 * dMin1;\n  if (dMin1 == dN1) {\n    tau=0.5 * dMin1;\n  }\n  tType=-9;\n}", 
+          "type": "Delete", 
+          "seed": "final double relativeTolerance=Math.sqrt(MathUtils.EPSILON);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_272/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:05:18.334010638 -0500\n@@ -1478,10 +1478,7 @@\n                     if (dMin == dN) {\n                         gam = dN;\n                         a2 = 0.0;\n-                        if (work[nn - 5]  >  work[nn - 7]) {\n-                            return;\n-                        }\n-                        b2 = work[nn - 5] / work[nn - 7];\n+                        List<Integer> splitIndices = computeSplits();\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1481, 
+          "faulty": "if (work[nn - 5] > work[nn - 7]) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "List<Integer> splitIndices=computeSplits();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "np=nn - 13;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_513/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:09:21.680869221 -0500\n@@ -1539,26 +1539,7 @@\n                 }\n                 double a2 = (work[np - 8] / b2) * (1 + work[np - 4] / b1);\n \n-                // approximate contribution to norm squared from i < nn-2.\n-                if (end - start > 2) {\n-                    b2 = work[nn - 13] / work[nn - 15];\n-                    a2 = a2 + b2;\n-                    for (int i4 = nn - 17; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        if (b2 == 0.0) {\n-                            break;\n-                        }\n-                        b1 = b2;\n-                        if (work[i4]  >  work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b2 = b2 * (work[i4] / work[i4 - 2]);\n-                        a2 = a2 + b2;\n-                        if (100 * Math.max(b2, b1) < a2 || cnst1 < a2)  {\n-                            break;\n-                        }\n-                    }\n-                    a2 = cnst3 * a2;\n-                }\n+                final int blockSize = BlockRealMatrix.BLOCK_SIZE;\n \n                 if (a2 < cnst1) {\n                     tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);\n@@ -1622,7 +1603,7 @@\n                 if (dMin1 == dN1) {\n                     tau = 0.5 * dMin1;\n                 }\n-                tType = -9;\n+                tau = 0.25 * dMin1;\n             }\n             break;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1543, 
+          "faulty": "if (end - start > 2) {\n  b2=work[nn - 13] / work[nn - 15];\n  a2=a2 + b2;\n  for (int i4=nn - 17; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n    if (b2 == 0.0) {\n      break;\n    }\n    b1=b2;\n    if (work[i4] > work[i4 - 2]) {\n      return;\n    }\n    b2=b2 * (work[i4] / work[i4 - 2]);\n    a2=a2 + b2;\n    if (100 * Math.max(b2,b1) < a2 || cnst1 < a2) {\n      break;\n    }\n  }\n  a2=cnst3 * a2;\n}", 
+          "type": "Replace", 
+          "seed": "final int blockSize=BlockRealMatrix.BLOCK_SIZE;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1625, 
+          "faulty": "tType=-9;", 
+          "type": "Replace", 
+          "seed": "tau=0.25 * dMin1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 02:59:03.224542878 -0500\n+++ /tmp/RSRepair_Defects4J_Math_81/patches_cedi/Patch_9/patched/tmp/RSRepair_Defects4J_Math_81/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\t2018-12-02 03:00:52.824542148 -0500\n@@ -1481,7 +1481,6 @@\n                         if (work[nn - 5]  >  work[nn - 7]) {\n                             return;\n                         }\n-                        b2 = work[nn - 5] / work[nn - 7];\n                         np = nn - 9;\n                     } else {\n                         np = nn - 2 * pingPong;\n@@ -1583,47 +1582,7 @@\n             break;\n \n         case 1 : // one eigenvalue just deflated. use dMin1, dN1 for dMin and dN.\n-            if (dMin1 == dN1 && dMin2 == dN2) {\n-\n-                // cases 7 and 8.\n-                tType = -7;\n-                double s = 0.333 * dMin1;\n-                if (work[nn - 5] > work[nn - 7]) {\n-                    return;\n-                }\n-                double b1 = work[nn - 5] / work[nn - 7];\n-                double b2 = b1;\n-                if (b2 != 0.0) {\n-                    for (int i4 = 4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {\n-                        final double oldB1 = b1;\n-                        if (work[i4] > work[i4 - 2]) {\n-                            return;\n-                        }\n-                        b1 = b1 * (work[i4] / work[i4 - 2]);\n-                        b2 = b2 + b1;\n-                        if (100 * Math.max(b1, oldB1) < b2) {\n-                            break;\n-                        }\n-                    }\n-                }\n-                b2 = Math.sqrt(cnst3 * b2);\n-                final double a2 = dMin1 / (1 + b2 * b2);\n-                final double gap2 = 0.5 * dMin2 - a2;\n-                if (gap2 > 0.0 && gap2 > b2 * a2) {\n-                    tau = Math.max(s, a2 * (1 - cnst2 * a2 * (b2 / gap2) * b2));\n-                } else {\n-                    tau = Math.max(s, a2 * (1 - cnst2 * b2));\n-                    tType = -8;\n-                }\n-            } else {\n-\n-                // case 9.\n-                tau = 0.25 * dMin1;\n-                if (dMin1 == dN1) {\n-                    tau = 0.5 * dMin1;\n-                }\n-                tType = -9;\n-            }\n+            this.realEigenvalues = realEigenvalues;\n             break;\n \n         case 2 : // two realEigenvalues deflated. use dMin2, dN2 for dMin and dN.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1586, 
+          "faulty": "if (dMin1 == dN1 && dMin2 == dN2) {\n  tType=-7;\n  double s=0.333 * dMin1;\n  if (work[nn - 5] > work[nn - 7]) {\n    return;\n  }\n  double b1=work[nn - 5] / work[nn - 7];\n  double b2=b1;\n  if (b2 != 0.0) {\n    for (int i4=4 * end - 10 + pingPong; i4 >= 4 * start + 2 + pingPong; i4-=4) {\n      final double oldB1=b1;\n      if (work[i4] > work[i4 - 2]) {\n        return;\n      }\n      b1=b1 * (work[i4] / work[i4 - 2]);\n      b2=b2 + b1;\n      if (100 * Math.max(b1,oldB1) < b2) {\n        break;\n      }\n    }\n  }\n  b2=Math.sqrt(cnst3 * b2);\n  final double a2=dMin1 / (1 + b2 * b2);\n  final double gap2=0.5 * dMin2 - a2;\n  if (gap2 > 0.0 && gap2 > b2 * a2) {\n    tau=Math.max(s,a2 * (1 - cnst2 * a2 * (b2 / gap2)* b2));\n  }\n else {\n    tau=Math.max(s,a2 * (1 - cnst2 * b2));\n    tType=-8;\n  }\n}\n else {\n  tau=0.25 * dMin1;\n  if (dMin1 == dN1) {\n    tau=0.5 * dMin1;\n  }\n  tType=-9;\n}", 
+          "type": "Replace", 
+          "seed": "this.realEigenvalues=realEigenvalues;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java", 
+          "line": 1484, 
+          "faulty": "b2=work[nn - 5] / work[nn - 7];", 
+          "type": "Delete", 
+          "seed": "return cachedVt;"
+        }
+      ]
+    }
+  ]
+}

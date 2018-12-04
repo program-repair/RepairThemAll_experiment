@@ -1,0 +1,192 @@
+{
+  "repair_end": "2018-12-02 09:07:30.949166", 
+  "repair_begin": "2018-12-02 08:58:44.532783", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_132/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:02:46.642444848 -0500\n@@ -196,12 +196,6 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n         }\n         \n         return new double[]{a, b};\n\n\n--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_132/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java\t2018-12-02 03:02:46.646444950 -0500\n@@ -86,17 +86,6 @@\n                     rootFindingFunction, getInitialDomain(p),\n                     lowerBound, upperBound);\n         }  catch (ConvergenceException ex) {\n-            /* \n-             * Check domain endpoints to see if one gives value that is within\n-             * the default solver's defaultAbsoluteAccuracy of 0 (will be the\n-             * case if density has bounded support and p is 0 or 1).\n-             * \n-             * TODO: expose the default solver, defaultAbsoluteAccuracy as\n-             * a constant.\n-             */ \n-            if (Math.abs(rootFindingFunction.value(lowerBound)) < 1E-6) {\n-                return lowerBound;\n-            }\n             if (Math.abs(rootFindingFunction.value(upperBound)) < 1E-6) {\n                 return upperBound;\n             }     \n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java", 
+          "line": 97, 
+          "faulty": "if (Math.abs(rootFindingFunction.value(lowerBound)) < 1E-6) {\n  return lowerBound;\n}", 
+          "type": "Delete", 
+          "seed": "return Double.MAX_VALUE;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Delete", 
+          "seed": "Complex G2=null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_27/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:00:34.743183576 -0500\n@@ -196,12 +196,6 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n         }\n         \n         return new double[]{a, b};\n\n\n--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_27/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java\t2018-12-02 03:00:34.743183576 -0500\n@@ -97,9 +97,10 @@\n             if (Math.abs(rootFindingFunction.value(lowerBound)) < 1E-6) {\n                 return lowerBound;\n             }\n-            if (Math.abs(rootFindingFunction.value(upperBound)) < 1E-6) {\n-                return upperBound;\n-            }     \n+            if (p <= 0) {\n+\t\t\t\tthrow MathRuntimeException.createIllegalArgumentException(\n+\t\t\t\t\t\t\"the Poisson mean must be positive ({0})\", p);\n+\t\t\t}     \n             // Failed bracket convergence was not because of corner solution\n             throw new MathException(ex);\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java", 
+          "line": 100, 
+          "faulty": "if (Math.abs(rootFindingFunction.value(upperBound)) < 1E-6) {\n  return upperBound;\n}", 
+          "type": "Replace", 
+          "seed": "if (p <= 0) {\n  throw MathRuntimeException.createIllegalArgumentException(\"the Poisson mean must be positive ({0})\",p);\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Delete", 
+          "seed": "if (maximumIterations <= 0) {\n  throw MathRuntimeException.createIllegalArgumentException(\"bad value for maximum iterations number: {0}\",maximumIterations);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_264/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:04:39.463814435 -0500\n@@ -196,12 +196,6 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n         }\n         \n         return new double[]{a, b};\n\n\n--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-02 02:58:30.627180744 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_264/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-02 03:04:39.463814435 -0500\n@@ -178,7 +178,15 @@\n         if (p < .5) {\n             ret = -Double.MAX_VALUE;\n         } else {\n-            ret = getMean();\n+            if (p < 0.0 || p > 1.0) {\n+\t\t\t\tthrow MathRuntimeException.createIllegalArgumentException(\n+\t\t\t\t\t\t\"{0} out of [{1}, {2}] range\", p, 0.0, 1.0);\n+\t\t\t} else if (p == 1.0) {\n+\t\t\t\tret = Double.POSITIVE_INFINITY;\n+\t\t\t} else {\n+\t\t\t\tret = -getMean() * Math.log(1.0 - p);\n+\t\t\t}\n+\t\t\tret = getMean();\n         }\n         \n         return ret;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Delete", 
+          "seed": "setResult(initial,0);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java", 
+          "line": 181, 
+          "faulty": "ret=getMean();", 
+          "type": "InsertBefore", 
+          "seed": "if (p < 0.0 || p > 1.0) {\n  throw MathRuntimeException.createIllegalArgumentException(\"{0} out of [{1}, {2}] range\",p,0.0,1.0);\n}\n else if (p == 1.0) {\n  ret=Double.POSITIVE_INFINITY;\n}\n else {\n  ret=-getMean() * Math.log(1.0 - p);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_213/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:03:54.395323931 -0500\n@@ -196,12 +196,7 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n+            fa = function.value(a);\n         }\n         \n         return new double[]{a, b};\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Replace", 
+          "seed": "fa=function.value(a);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_52/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:00:52.399183979 -0500\n@@ -196,12 +196,7 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n+            double ret = Double.NaN;\n         }\n         \n         return new double[]{a, b};\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Replace", 
+          "seed": "double ret=Double.NaN;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_234/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:04:13.743535620 -0500\n@@ -196,12 +196,6 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n         }\n         \n         return new double[]{a, b};\n\n\n--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-02 02:58:30.627180744 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_234/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-02 03:04:13.743535620 -0500\n@@ -178,7 +178,8 @@\n         if (p < .5) {\n             ret = -Double.MAX_VALUE;\n         } else {\n-            ret = getMean();\n+            ret = -getMean() * Math.log(1.0 - p);\n+\t\t\tret = getMean();\n         }\n         \n         return ret;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Delete", 
+          "seed": "return bracket(function,initial,lowerBound,upperBound,Integer.MAX_VALUE);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java", 
+          "line": 181, 
+          "faulty": "ret=getMean();", 
+          "type": "InsertBefore", 
+          "seed": "ret=-getMean() * Math.log(1.0 - p);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_67/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:01:12.755184444 -0500\n@@ -196,12 +196,13 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n+            if (initial < lowerBound || initial > upperBound\n+\t\t\t\t\t|| lowerBound >= upperBound) {\n+\t\t\t\tthrow MathRuntimeException\n+\t\t\t\t\t\t.createIllegalArgumentException(\n+\t\t\t\t\t\t\t\t\"invalid bracketing parameters:  lower bound={0},  initial={1}, upper bound={2}\",\n+\t\t\t\t\t\t\t\tlowerBound, initial, upperBound);\n+\t\t\t}\n         }\n         \n         return new double[]{a, b};\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Replace", 
+          "seed": "if (initial < lowerBound || initial > upperBound || lowerBound >= upperBound) {\n  throw MathRuntimeException.createIllegalArgumentException(\"invalid bracketing parameters:  lower bound={0},  initial={1}, upper bound={2}\",lowerBound,initial,upperBound);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_42/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:00:45.439183820 -0500\n@@ -196,12 +196,6 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n         }\n         \n         return new double[]{a, b};\n\n\n--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_42/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java\t2018-12-02 03:00:45.439183820 -0500\n@@ -99,9 +99,7 @@\n             }\n             if (Math.abs(rootFindingFunction.value(upperBound)) < 1E-6) {\n                 return upperBound;\n-            }     \n-            // Failed bracket convergence was not because of corner solution\n-            throw new MathException(ex);\n+            }\n         }\n \n         // find root\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java", 
+          "line": 104, 
+          "faulty": "throw new MathException(ex);", 
+          "type": "Delete", 
+          "seed": "int x1=getDomainUpperBound(p);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Delete", 
+          "seed": "numIterations++;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_13/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:00:14.175183107 -0500\n@@ -196,12 +196,7 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n+            UnivariateRealSolver solver = LazyHolder.FACTORY.newDefaultSolver();\n         }\n         \n         return new double[]{a, b};\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Replace", 
+          "seed": "UnivariateRealSolver solver=LazyHolder.FACTORY.newDefaultSolver();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_343/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:06:27.308957011 -0500\n@@ -196,12 +196,6 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n         }\n         \n         return new double[]{a, b};\n\n\n--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_343/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java\t2018-12-02 03:06:27.308957011 -0500\n@@ -86,17 +86,9 @@\n                     rootFindingFunction, getInitialDomain(p),\n                     lowerBound, upperBound);\n         }  catch (ConvergenceException ex) {\n-            /* \n-             * Check domain endpoints to see if one gives value that is within\n-             * the default solver's defaultAbsoluteAccuracy of 0 (will be the\n-             * case if density has bounded support and p is 0 or 1).\n-             * \n-             * TODO: expose the default solver, defaultAbsoluteAccuracy as\n-             * a constant.\n-             */ \n-            if (Math.abs(rootFindingFunction.value(lowerBound)) < 1E-6) {\n-                return lowerBound;\n-            }\n+            if (p == 0) {\n+\t\t\t\treturn 0d;\n+\t\t\t}\n             if (Math.abs(rootFindingFunction.value(upperBound)) < 1E-6) {\n                 return upperBound;\n             }     \n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java", 
+          "line": 97, 
+          "faulty": "if (Math.abs(rootFindingFunction.value(lowerBound)) < 1E-6) {\n  return lowerBound;\n}", 
+          "type": "Replace", 
+          "seed": "if (p == 0) {\n  return 0d;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Delete", 
+          "seed": "double a=initial;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_4/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:00:08.107182968 -0500\n@@ -196,12 +196,6 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n         }\n         \n         return new double[]{a, b};\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Delete", 
+          "seed": "if (fa * fb >= 0.0) {\n  throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 02:58:34.231180826 -0500\n+++ /tmp/RSRepair_Defects4J_Math_85/patches_xvmy/Patch_114/patched/tmp/RSRepair_Defects4J_Math_85/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:02:18.029438952 -0500\n@@ -196,12 +196,10 @@\n                 ((a > lowerBound) || (b < upperBound)));\n    \n         if (fa * fb >= 0.0 ) {\n-            throw new ConvergenceException(\n-                      \"number of iterations={0}, maximum iterations={1}, \" +\n-                      \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" +\n-                      \"final b value={6}, f(a)={7}, f(b)={8}\",\n-                      numIterations, maximumIterations, initial,\n-                      lowerBound, upperBound, a, b, fa, fb);\n+            if (function == null) {\n+\t\t\t\tthrow MathRuntimeException\n+\t\t\t\t\t\t.createIllegalArgumentException(\"function is null\");\n+\t\t\t}\n         }\n         \n         return new double[]{a, b};\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
+          "line": 199, 
+          "faulty": "throw new ConvergenceException(\"number of iterations={0}, maximum iterations={1}, \" + \"initial={2}, lower bound={3}, upper bound={4}, final a value={5}, \" + \"final b value={6}, f(a)={7}, f(b)={8}\",numIterations,maximumIterations,initial,lowerBound,upperBound,a,b,fa,fb);", 
+          "type": "Replace", 
+          "seed": "if (function == null) {\n  throw MathRuntimeException.createIllegalArgumentException(\"function is null\");\n}"
+        }
+      ]
+    }
+  ]
+}

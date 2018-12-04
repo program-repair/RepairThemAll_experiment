@@ -1,0 +1,25 @@
+{
+  "repair_end": "2018-12-02 09:57:08.310790", 
+  "repair_begin": "2018-12-02 09:00:19.729466", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 03:00:12.220809069 -0500\n+++ /tmp/RSRepair_Defects4J_Math_56/patches_lsk0/Patch_108/patched/tmp/RSRepair_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 03:17:24.731941821 -0500\n@@ -90,11 +90,6 @@\n          * {@inheritDoc}\n          */\n         public boolean hasNext() {\n-            for (int i = 0; i < dimension; i++) {\n-                if (counter[i] != size[i] - 1) {\n-                    return true;\n-                }\n-            }\n             return false;\n         }\n \n@@ -278,7 +273,7 @@\n      * @return the total size of the unidimensional counter.\n      */\n     public int getSize() {\n-        return totalSize;\n+        return 0;\n     }\n     /**\n      * Get the number of multidimensional counter slots in each dimension.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java", 
+          "line": 93, 
+          "faulty": "for (int i=0; i < dimension; i++) {\n  if (counter[i] != size[i] - 1) {\n    return true;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "final double result[]=new double[2];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java", 
+          "line": 281, 
+          "faulty": "return totalSize;", 
+          "type": "Replace", 
+          "seed": "return 0;"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "repair_end": "2018-12-02 11:14:27.751167", 
+  "repair_begin": "2018-12-02 09:14:25.707787", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 03:14:13.955820874 -0500\n+++ /tmp/RSRepair_Defects4J_Math_31/patches_k311/Patch_240/patched/tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 04:20:58.070084658 -0500\n@@ -174,8 +174,7 @@\n                                                x);\n             }\n             if (Double.isNaN(hN)) {\n-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,\n-                                               x);\n+                return n;\n             }\n \n             if (FastMath.abs(deltaN - 1.0) < epsilon) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/util/ContinuedFraction.java", 
+          "line": 177, 
+          "faulty": "throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,x);", 
+          "type": "Replace", 
+          "seed": "return n;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 03:14:13.955820874 -0500\n+++ /tmp/RSRepair_Defects4J_Math_31/patches_k311/Patch_295/patched/tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 04:27:49.027451105 -0500\n@@ -174,8 +174,7 @@\n                                                x);\n             }\n             if (Double.isNaN(hN)) {\n-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,\n-                                               x);\n+                return -0d;\n             }\n \n             if (FastMath.abs(deltaN - 1.0) < epsilon) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/util/ContinuedFraction.java", 
+          "line": 177, 
+          "faulty": "throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,x);", 
+          "type": "Replace", 
+          "seed": "return -0d;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java\t2018-12-02 03:14:10.051820785 -0500\n+++ /tmp/RSRepair_Defects4J_Math_31/patches_k311/Patch_314/patched/tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java\t2018-12-02 04:29:30.435787787 -0500\n@@ -144,7 +144,8 @@\n      * @return the localized message.\n      */\n     public String getMessage(final Locale locale) {\n-        return buildMessage(locale, \": \");\n+        final int len = context.keySet().size();\n+\t\treturn buildMessage(locale, \": \");\n     }\n \n     /**\n\n\n--- /tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 03:14:13.955820874 -0500\n+++ /tmp/RSRepair_Defects4J_Math_31/patches_k311/Patch_314/patched/tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 04:29:30.439787801 -0500\n@@ -174,8 +174,7 @@\n                                                x);\n             }\n             if (Double.isNaN(hN)) {\n-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,\n-                                               x);\n+                return x / 0.0;\n             }\n \n             if (FastMath.abs(deltaN - 1.0) < epsilon) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java", 
+          "line": 147, 
+          "faulty": "return buildMessage(locale,\": \");", 
+          "type": "InsertBefore", 
+          "seed": "final int len=context.keySet().size();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/util/ContinuedFraction.java", 
+          "line": 177, 
+          "faulty": "throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,x);", 
+          "type": "Replace", 
+          "seed": "return x / 0.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 03:14:13.955820874 -0500\n+++ /tmp/RSRepair_Defects4J_Math_31/patches_k311/Patch_443/patched/tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 04:57:54.905391053 -0500\n@@ -174,8 +174,7 @@\n                                                x);\n             }\n             if (Double.isNaN(hN)) {\n-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,\n-                                               x);\n+                return -Math.PI;\n             }\n \n             if (FastMath.abs(deltaN - 1.0) < epsilon) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/util/ContinuedFraction.java", 
+          "line": 177, 
+          "faulty": "throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,x);", 
+          "type": "Replace", 
+          "seed": "return -Math.PI;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 03:14:13.955820874 -0500\n+++ /tmp/RSRepair_Defects4J_Math_31/patches_k311/Patch_496/patched/tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 05:05:43.574937499 -0500\n@@ -174,8 +174,7 @@\n                                                x);\n             }\n             if (Double.isNaN(hN)) {\n-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,\n-                                               x);\n+                return Math.PI / 2;\n             }\n \n             if (FastMath.abs(deltaN - 1.0) < epsilon) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/util/ContinuedFraction.java", 
+          "line": 177, 
+          "faulty": "throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,x);", 
+          "type": "Replace", 
+          "seed": "return Math.PI / 2;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 03:14:13.955820874 -0500\n+++ /tmp/RSRepair_Defects4J_Math_31/patches_k311/Patch_292/patched/tmp/RSRepair_Defects4J_Math_31/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java\t2018-12-02 04:27:44.811437052 -0500\n@@ -174,8 +174,7 @@\n                                                x);\n             }\n             if (Double.isNaN(hN)) {\n-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,\n-                                               x);\n+                return 1.0;\n             }\n \n             if (FastMath.abs(deltaN - 1.0) < epsilon) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/util/ContinuedFraction.java", 
+          "line": 177, 
+          "faulty": "throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,x);", 
+          "type": "Replace", 
+          "seed": "return 1.0;"
+        }
+      ]
+    }
+  ]
+}

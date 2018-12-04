@@ -1,0 +1,18 @@
+{
+  "repair_end": "2018-12-02 09:12:26.354878", 
+  "repair_begin": "2018-12-02 09:00:37.425194", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_68/src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java\t2018-12-02 03:00:30.049365470 -0500\n+++ /tmp/RSRepair_Defects4J_Math_68/patches_xrdd/Patch_1046/patched/tmp/RSRepair_Defects4J_Math_68/src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java\t2018-12-02 03:11:54.959169242 -0500\n@@ -402,7 +402,12 @@\n                     cost = previousCost;\n                     for (int j = 0; j < solvedCols; ++j) {\n                         int pj = permutation[j];\n-                        point[pj] = oldX[pj];\n+                        if (((Math.abs(actRed) <= costRelativeTolerance)\n+\t\t\t\t\t\t\t\t&& (preRed <= costRelativeTolerance) && (ratio <= 2.0))\n+\t\t\t\t\t\t\t\t|| (delta <= parRelativeTolerance * xNorm)) {\n+\t\t\t\t\t\t\treturn new VectorialPointValuePair(point, objective);\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\tpoint[pj] = oldX[pj];\n                     }\n                     tmpVec    = residuals;\n                     residuals = oldRes;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java", 
+          "line": 405, 
+          "faulty": "point[pj]=oldX[pj];", 
+          "type": "InsertBefore", 
+          "seed": "if (((Math.abs(actRed) <= costRelativeTolerance) && (preRed <= costRelativeTolerance) && (ratio <= 2.0)) || (delta <= parRelativeTolerance * xNorm)) {\n  return new VectorialPointValuePair(point,objective);\n}"
+        }
+      ]
+    }
+  ]
+}

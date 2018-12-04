@@ -1,0 +1,867 @@
+{
+  "repair_end": "2018-12-01 11:25:24.499765", 
+  "repair_begin": "2018-12-01 11:12:28.477174", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1479/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:22:59.626502406 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -633,7 +636,10 @@\n             }\n         } else if (index > upper) {\n             result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n+            if (StringUtils.isEmpty(str)) {\n+\t\t\t\treturn null;\n+\t\t\t}\n+\t\t\tresult.append(StringUtils.defaultString(appendToEnd));\n         } else {\n             result.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_899/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:37.198365810 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -635,7 +638,10 @@\n             result.append(str.substring(0, upper));\n             result.append(StringUtils.defaultString(appendToEnd));\n         } else {\n-            result.append(str.substring(0, index));\n+            if (StringUtils.isEmpty(str)) {\n+\t\t\t\treturn str;\n+\t\t\t}\n+\t\t\tresult.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n         }\n         return result.toString();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 638, 
+          "faulty": "result.append(str.substring(0,index));", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return str;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1768/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:24:42.480603826 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -633,7 +636,9 @@\n             }\n         } else if (index > upper) {\n             result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n+            if (str.length() == 0) {\n+\t\t\t\treturn str;\n+\t\t\t}\n         } else {\n             result.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "Replace", 
+          "seed": "if (str.length() == 0) {\n  return str;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1727/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:24:28.568319598 -0500\n@@ -611,7 +611,10 @@\n             return StringUtils.EMPTY;\n         }\n \n-        // if the lower value is greater than the length of the string,\n+        if (StringUtils.isEmpty(str)) {\n+\t\t\tthrow new IllegalArgumentException(\"The String must not be empty\");\n+\t\t}\n+\t\t// if the lower value is greater than the length of the string,\n         // set to the length of the string\n         // if the upper value is -1 (i.e. no limit) or is greater\n         // than the length of the string, set to the length of the string\n@@ -624,7 +627,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -633,7 +639,10 @@\n             }\n         } else if (index > upper) {\n             result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n+            if (StringUtils.isEmpty(str)) {\n+\t\t\t\treturn null;\n+\t\t\t}\n+\t\t\tresult.append(StringUtils.defaultString(appendToEnd));\n         } else {\n             result.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 618, 
+          "faulty": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  throw new IllegalArgumentException(\"The String must not be empty\");\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:12:17.417374951 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_838/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:19:16.949951977 -0500\n@@ -851,10 +851,7 @@\n         if (str == null || searchStr == null) {\n             return -1;\n         }\n-        // JDK1.2/JDK1.3 have a bug, when startPos > str.length for \"\", hence\n-        if (searchStr.length() == 0 && startPos >= str.length()) {\n-            return str.length();\n-        }\n+        str = str.toLowerCase();\n         return str.indexOf(searchStr, startPos);\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_838/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:16.953952058 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -632,7 +635,10 @@\n                 result.append(StringUtils.defaultString(appendToEnd));\n             }\n         } else if (index > upper) {\n-            result.append(str.substring(0, upper));\n+            if (str == null) {\n+\t\t\t\treturn null;\n+\t\t\t}\n+\t\t\tresult.append(str.substring(0, upper));\n             result.append(StringUtils.defaultString(appendToEnd));\n         } else {\n             result.append(str.substring(0, index));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/StringUtils.java", 
+          "line": 855, 
+          "faulty": "if (searchStr.length() == 0 && startPos >= str.length()) {\n  return str.length();\n}", 
+          "type": "Replace", 
+          "seed": "str=str.toLowerCase();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 635, 
+          "faulty": "result.append(str.substring(0,upper));", 
+          "type": "InsertBefore", 
+          "seed": "if (str == null) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1838/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:25:07.153107875 -0500\n@@ -608,7 +608,6 @@\n             return null;\n         }\n         if (str.length() == 0) {\n-            return StringUtils.EMPTY;\n         }\n \n         // if the lower value is greater than the length of the string,\n@@ -624,7 +623,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -633,7 +635,6 @@\n             }\n         } else if (index > upper) {\n             result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n         } else {\n             result.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "Delete", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 611, 
+          "faulty": "return StringUtils.EMPTY;", 
+          "type": "Delete", 
+          "seed": "upper=lower;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1174/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:21:15.464373997 -0500\n@@ -605,7 +605,7 @@\n     public static String abbreviate(String str, int lower, int upper, String appendToEnd) {\n         // initial parameter checks\n         if (str == null) {\n-            return null;\n+            return CharSetUtils.delete(str, \" \\t\\r\\n\\b\");\n         }\n         if (str.length() == 0) {\n             return StringUtils.EMPTY;\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 608, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "return CharSetUtils.delete(str,\" \\t\\r\\n\\b\");"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1181/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:21:17.184409145 -0500\n@@ -611,7 +611,10 @@\n             return StringUtils.EMPTY;\n         }\n \n-        // if the lower value is greater than the length of the string,\n+        if (StringUtils.isEmpty(str)) {\n+\t\t\tthrow new IllegalArgumentException(\"The String must not be empty\");\n+\t\t}\n+\t\t// if the lower value is greater than the length of the string,\n         // set to the length of the string\n         // if the upper value is -1 (i.e. no limit) or is greater\n         // than the length of the string, set to the length of the string\n@@ -624,7 +627,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 618, 
+          "faulty": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  throw new IllegalArgumentException(\"The String must not be empty\");\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1255/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:21:41.604908168 -0500\n@@ -624,9 +624,15 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n-            result.append(str.substring(0, upper));\n+            if (str.length() == 0) {\n+\t\t\t\treturn StringUtils.EMPTY;\n+\t\t\t}\n+\t\t\tresult.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n             if (upper != str.length()) {\n                 result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 629, 
+          "faulty": "result.append(str.substring(0,upper));", 
+          "type": "InsertBefore", 
+          "seed": "if (str.length() == 0) {\n  return StringUtils.EMPTY;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_933/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:49.758622509 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -633,7 +636,6 @@\n             }\n         } else if (index > upper) {\n             result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n         } else {\n             result.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "Delete", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_806/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:06.509738597 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -633,9 +636,11 @@\n             }\n         } else if (index > upper) {\n             result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n         } else {\n-            result.append(str.substring(0, index));\n+            if (StringUtils.isEmpty(str)) {\n+\t\t\t\treturn str;\n+\t\t\t}\n+\t\t\tresult.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n         }\n         return result.toString();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 638, 
+          "faulty": "result.append(str.substring(0,index));", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return str;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "Delete", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:12:17.417374951 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1734/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:24:30.848366179 -0500\n@@ -851,10 +851,9 @@\n         if (str == null || searchStr == null) {\n             return -1;\n         }\n-        // JDK1.2/JDK1.3 have a bug, when startPos > str.length for \"\", hence\n-        if (searchStr.length() == 0 && startPos >= str.length()) {\n-            return str.length();\n-        }\n+        if (str == null || searchStr == null) {\n+\t\t\treturn -1;\n+\t\t}\n         return str.indexOf(searchStr, startPos);\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1734/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:24:30.848366179 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/StringUtils.java", 
+          "line": 855, 
+          "faulty": "if (searchStr.length() == 0 && startPos >= str.length()) {\n  return str.length();\n}", 
+          "type": "Replace", 
+          "seed": "if (str == null || searchStr == null) {\n  return -1;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_880/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:30.550229938 -0500\n@@ -608,7 +608,8 @@\n             return null;\n         }\n         if (str.length() == 0) {\n-            return StringUtils.EMPTY;\n+            upper = lower;\n+\t\t\treturn StringUtils.EMPTY;\n         }\n \n         // if the lower value is greater than the length of the string,\n@@ -624,7 +625,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 611, 
+          "faulty": "return StringUtils.EMPTY;", 
+          "type": "InsertBefore", 
+          "seed": "upper=lower;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:12:17.417374951 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1225/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:21:31.912710113 -0500\n@@ -851,7 +851,10 @@\n         if (str == null || searchStr == null) {\n             return -1;\n         }\n-        // JDK1.2/JDK1.3 have a bug, when startPos > str.length for \"\", hence\n+        if (searchStr.length() == 0 && startPos >= str.length()) {\n+\t\t\treturn str.length();\n+\t\t}\n+\t\t// JDK1.2/JDK1.3 have a bug, when startPos > str.length for \"\", hence\n         if (searchStr.length() == 0 && startPos >= str.length()) {\n             return str.length();\n         }\n\n\n--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1225/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:21:31.912710113 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/StringUtils.java", 
+          "line": 855, 
+          "faulty": "if (searchStr.length() == 0 && startPos >= str.length()) {\n  return str.length();\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (searchStr.length() == 0 && startPos >= str.length()) {\n  return str.length();\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_860/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:24.166099460 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -635,7 +638,8 @@\n             result.append(str.substring(0, upper));\n             result.append(StringUtils.defaultString(appendToEnd));\n         } else {\n-            result.append(str.substring(0, index));\n+            upper = str.length();\n+\t\t\tresult.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n         }\n         return result.toString();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 638, 
+          "faulty": "result.append(str.substring(0,index));", 
+          "type": "InsertBefore", 
+          "seed": "upper=str.length();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_579/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:17:48.072135374 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:12:17.417374951 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_795/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:19:02.861664036 -0500\n@@ -851,10 +851,7 @@\n         if (str == null || searchStr == null) {\n             return -1;\n         }\n-        // JDK1.2/JDK1.3 have a bug, when startPos > str.length for \"\", hence\n-        if (searchStr.length() == 0 && startPos >= str.length()) {\n-            return str.length();\n-        }\n+        str = str.toLowerCase();\n         return str.indexOf(searchStr, startPos);\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_795/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:02.861664036 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/StringUtils.java", 
+          "line": 855, 
+          "faulty": "if (searchStr.length() == 0 && startPos >= str.length()) {\n  return str.length();\n}", 
+          "type": "Replace", 
+          "seed": "str=str.toLowerCase();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_870/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:27.210161674 -0500\n@@ -608,6 +608,9 @@\n             return null;\n         }\n         if (str.length() == 0) {\n+\t\t\treturn StringUtils.EMPTY;\n+\t\t}\n+\t\tif (str.length() == 0) {\n             return StringUtils.EMPTY;\n         }\n \n@@ -624,7 +627,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 610, 
+          "faulty": "if (str.length() == 0) {\n  return StringUtils.EMPTY;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (str.length() == 0) {\n  return StringUtils.EMPTY;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:12:17.417374951 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_981/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:20:06.218958908 -0500\n@@ -851,7 +851,8 @@\n         if (str == null || searchStr == null) {\n             return -1;\n         }\n-        // JDK1.2/JDK1.3 have a bug, when startPos > str.length for \"\", hence\n+        str = str.toLowerCase();\n+\t\t// JDK1.2/JDK1.3 have a bug, when startPos > str.length for \"\", hence\n         if (searchStr.length() == 0 && startPos >= str.length()) {\n             return str.length();\n         }\n\n\n--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_981/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:20:06.222958991 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/StringUtils.java", 
+          "line": 855, 
+          "faulty": "if (searchStr.length() == 0 && startPos >= str.length()) {\n  return str.length();\n}", 
+          "type": "InsertBefore", 
+          "seed": "str=str.toLowerCase();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1464/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:22:54.846404737 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -633,7 +636,9 @@\n             }\n         } else if (index > upper) {\n             result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n+            if (upper != str.length()) {\n+\t\t\t\tresult.append(StringUtils.defaultString(appendToEnd));\n+\t\t\t}\n         } else {\n             result.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "Replace", 
+          "seed": "if (upper != str.length()) {\n  result.append(StringUtils.defaultString(appendToEnd));\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1500/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:23:06.666646252 -0500\n@@ -616,7 +616,10 @@\n         // if the upper value is -1 (i.e. no limit) or is greater\n         // than the length of the string, set to the length of the string\n         if (upper == -1 || upper > str.length()) {\n-            upper = str.length();\n+            if (StringUtils.isEmpty(str)) {\n+\t\t\t\treturn null;\n+\t\t\t}\n+\t\t\tupper = str.length();\n         }\n         // if upper is less than lower, raise it to lower\n         if (upper < lower) {\n@@ -624,7 +627,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 619, 
+          "faulty": "upper=str.length();", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1596/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:23:40.763342906 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -635,7 +638,10 @@\n             result.append(str.substring(0, upper));\n             result.append(StringUtils.defaultString(appendToEnd));\n         } else {\n-            result.append(str.substring(0, index));\n+            if (str == null) {\n+\t\t\t\treturn null;\n+\t\t\t}\n+\t\t\tresult.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n         }\n         return result.toString();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 638, 
+          "faulty": "result.append(str.substring(0,index));", 
+          "type": "InsertBefore", 
+          "seed": "if (str == null) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_956/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:57.570782166 -0500\n@@ -605,13 +605,16 @@\n     public static String abbreviate(String str, int lower, int upper, String appendToEnd) {\n         // initial parameter checks\n         if (str == null) {\n-            return null;\n+            return str;\n         }\n         if (str.length() == 0) {\n             return StringUtils.EMPTY;\n         }\n \n-        // if the lower value is greater than the length of the string,\n+        if (StringUtils.isEmpty(str)) {\n+\t\t\tthrow new IllegalArgumentException(\"The String must not be empty\");\n+\t\t}\n+\t\t// if the lower value is greater than the length of the string,\n         // set to the length of the string\n         // if the upper value is -1 (i.e. no limit) or is greater\n         // than the length of the string, set to the length of the string\n@@ -624,7 +627,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 608, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "return str;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 618, 
+          "faulty": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  throw new IllegalArgumentException(\"The String must not be empty\");\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1575/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:23:33.287190158 -0500\n@@ -611,7 +611,8 @@\n             return StringUtils.EMPTY;\n         }\n \n-        // if the lower value is greater than the length of the string,\n+        str = str.toLowerCase();\n+\t\t// if the lower value is greater than the length of the string,\n         // set to the length of the string\n         // if the upper value is -1 (i.e. no limit) or is greater\n         // than the length of the string, set to the length of the string\n@@ -624,7 +625,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 618, 
+          "faulty": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}", 
+          "type": "InsertBefore", 
+          "seed": "str=str.toLowerCase();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_863/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:24.918114830 -0500\n@@ -603,7 +603,10 @@\n      * @since 2.4\n      */\n     public static String abbreviate(String str, int lower, int upper, String appendToEnd) {\n-        // initial parameter checks\n+        if (str == null) {\n+\t\t\treturn null;\n+\t\t}\n+\t\t// initial parameter checks\n         if (str == null) {\n             return null;\n         }\n@@ -624,7 +627,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 607, 
+          "faulty": "if (str == null) {\n  return null;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (str == null) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_655/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:18:14.772681139 -0500\n@@ -608,7 +608,6 @@\n             return null;\n         }\n         if (str.length() == 0) {\n-            return StringUtils.EMPTY;\n         }\n \n         // if the lower value is greater than the length of the string,\n@@ -624,7 +623,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 611, 
+          "faulty": "return StringUtils.EMPTY;", 
+          "type": "Delete", 
+          "seed": "return str.toLowerCase();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:12:17.417374951 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_691/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:18:27.236935904 -0500\n@@ -851,10 +851,6 @@\n         if (str == null || searchStr == null) {\n             return -1;\n         }\n-        // JDK1.2/JDK1.3 have a bug, when startPos > str.length for \"\", hence\n-        if (searchStr.length() == 0 && startPos >= str.length()) {\n-            return str.length();\n-        }\n         return str.indexOf(searchStr, startPos);\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_691/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:18:27.240935985 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/StringUtils.java", 
+          "line": 855, 
+          "faulty": "if (searchStr.length() == 0 && startPos >= str.length()) {\n  return str.length();\n}", 
+          "type": "Delete", 
+          "seed": "str=strip(str,null);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_914/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:42.106466119 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -632,7 +635,18 @@\n                 result.append(StringUtils.defaultString(appendToEnd));\n             }\n         } else if (index > upper) {\n-            result.append(str.substring(0, upper));\n+            if (index == -1) {\n+\t\t\t\tresult.append(str.substring(0, upper));\n+\t\t\t\tif (upper != str.length()) {\n+\t\t\t\t\tresult.append(StringUtils.defaultString(appendToEnd));\n+\t\t\t\t}\n+\t\t\t} else if (index > upper) {\n+\t\t\t\tresult.append(str.substring(0, upper));\n+\t\t\t\tresult.append(StringUtils.defaultString(appendToEnd));\n+\t\t\t} else {\n+\t\t\t\tresult.append(str.substring(0, index));\n+\t\t\t\tresult.append(StringUtils.defaultString(appendToEnd));\n+\t\t\t}\n             result.append(StringUtils.defaultString(appendToEnd));\n         } else {\n             result.append(str.substring(0, index));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 635, 
+          "faulty": "result.append(str.substring(0,upper));", 
+          "type": "Replace", 
+          "seed": "if (index == -1) {\n  result.append(str.substring(0,upper));\n  if (upper != str.length()) {\n    result.append(StringUtils.defaultString(appendToEnd));\n  }\n}\n else if (index > upper) {\n  result.append(str.substring(0,upper));\n  result.append(StringUtils.defaultString(appendToEnd));\n}\n else {\n  result.append(str.substring(0,index));\n  result.append(StringUtils.defaultString(appendToEnd));\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_748/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:18:46.773335211 -0500\n@@ -608,7 +608,6 @@\n             return null;\n         }\n         if (str.length() == 0) {\n-            return StringUtils.EMPTY;\n         }\n \n         // if the lower value is greater than the length of the string,\n@@ -624,7 +623,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -633,7 +635,9 @@\n             }\n         } else if (index > upper) {\n             result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n+            if (StringUtils.isEmpty(str)) {\n+\t\t\t\treturn null;\n+\t\t\t}\n         } else {\n             result.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "Replace", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 611, 
+          "faulty": "return StringUtils.EMPTY;", 
+          "type": "Delete", 
+          "seed": "return StringUtils.replace(str,\"'\",\"''\");"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1245/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:21:38.464844003 -0500\n@@ -607,9 +607,9 @@\n         if (str == null) {\n             return null;\n         }\n-        if (str.length() == 0) {\n-            return StringUtils.EMPTY;\n-        }\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n \n         // if the lower value is greater than the length of the string,\n         // set to the length of the string\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 610, 
+          "faulty": "if (str.length() == 0) {\n  return StringUtils.EMPTY;\n}", 
+          "type": "Replace", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_708/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:18:32.933052328 -0500\n@@ -620,11 +620,17 @@\n         }\n         // if upper is less than lower, raise it to lower\n         if (upper < lower) {\n-            upper = lower;\n+            if (StringUtils.isEmpty(str)) {\n+\t\t\t\treturn str;\n+\t\t\t}\n+\t\t\tupper = lower;\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 623, 
+          "faulty": "upper=lower;", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return str;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1101/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:20:49.967852969 -0500\n@@ -607,10 +607,6 @@\n         if (str == null) {\n             return null;\n         }\n-        if (str.length() == 0) {\n-            return StringUtils.EMPTY;\n-        }\n-\n         // if the lower value is greater than the length of the string,\n         // set to the length of the string\n         // if the upper value is -1 (i.e. no limit) or is greater\n@@ -624,7 +620,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 610, 
+          "faulty": "if (str.length() == 0) {\n  return StringUtils.EMPTY;\n}", 
+          "type": "Delete", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  throw new IllegalArgumentException(\"The String must not be empty\");\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_818/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:10.253815120 -0500\n@@ -605,7 +605,7 @@\n     public static String abbreviate(String str, int lower, int upper, String appendToEnd) {\n         // initial parameter checks\n         if (str == null) {\n-            return null;\n+            return uncapitalize(str);\n         }\n         if (str.length() == 0) {\n             return StringUtils.EMPTY;\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 608, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "return uncapitalize(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_946/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:54.690723306 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -633,7 +636,9 @@\n             }\n         } else if (index > upper) {\n             result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n+            if (StringUtils.isEmpty(str)) {\n+\t\t\t\treturn null;\n+\t\t\t}\n         } else {\n             result.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "Replace", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1211/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:21:27.380617502 -0500\n@@ -616,7 +616,10 @@\n         // if the upper value is -1 (i.e. no limit) or is greater\n         // than the length of the string, set to the length of the string\n         if (upper == -1 || upper > str.length()) {\n-            upper = str.length();\n+            if (StringUtils.isEmpty(str)) {\n+\t\t\t\treturn str;\n+\t\t\t}\n+\t\t\tupper = str.length();\n         }\n         // if upper is less than lower, raise it to lower\n         if (upper < lower) {\n@@ -624,7 +627,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -633,7 +639,9 @@\n             }\n         } else if (index > upper) {\n             result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n+            if (StringUtils.isEmpty(str)) {\n+\t\t\t\treturn null;\n+\t\t\t}\n         } else {\n             result.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "Replace", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 619, 
+          "faulty": "upper=str.length();", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return str;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1316/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:22:02.881342931 -0500\n@@ -624,9 +624,15 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n-            result.append(str.substring(0, upper));\n+            if (str.length() == 0) {\n+\t\t\t\treturn str;\n+\t\t\t}\n+\t\t\tresult.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n             if (upper != str.length()) {\n                 result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 629, 
+          "faulty": "result.append(str.substring(0,upper));", 
+          "type": "InsertBefore", 
+          "seed": "if (str.length() == 0) {\n  return str;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:12:17.417374951 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1670/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/StringUtils.java\t2018-12-01 05:24:07.963898641 -0500\n@@ -851,10 +851,7 @@\n         if (str == null || searchStr == null) {\n             return -1;\n         }\n-        // JDK1.2/JDK1.3 have a bug, when startPos > str.length for \"\", hence\n-        if (searchStr.length() == 0 && startPos >= str.length()) {\n-            return str.length();\n-        }\n+        str = str.toLowerCase();\n         return str.indexOf(searchStr, startPos);\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1670/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:24:07.979898968 -0500\n@@ -605,7 +605,7 @@\n     public static String abbreviate(String str, int lower, int upper, String appendToEnd) {\n         // initial parameter checks\n         if (str == null) {\n-            return null;\n+            return str;\n         }\n         if (str.length() == 0) {\n             return StringUtils.EMPTY;\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/StringUtils.java", 
+          "line": 855, 
+          "faulty": "if (searchStr.length() == 0 && startPos >= str.length()) {\n  return str.length();\n}", 
+          "type": "Replace", 
+          "seed": "str=str.toLowerCase();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 608, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "return str;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1038/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:20:27.223388164 -0500\n@@ -624,8 +624,14 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n-        if (index == -1) {\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n+        if (StringUtils.isEmpty(str)) {\n+\t\t\treturn str;\n+\t\t}\n+\t\tif (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n             if (upper != str.length()) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 628, 
+          "faulty": "if (index == -1) {\n  result.append(str.substring(0,upper));\n  if (upper != str.length()) {\n    result.append(StringUtils.defaultString(appendToEnd));\n  }\n}\n else if (index > upper) {\n  result.append(str.substring(0,upper));\n  result.append(StringUtils.defaultString(appendToEnd));\n}\n else {\n  result.append(str.substring(0,index));\n  result.append(StringUtils.defaultString(appendToEnd));\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return str;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_816/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:09.913808170 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -632,7 +635,10 @@\n                 result.append(StringUtils.defaultString(appendToEnd));\n             }\n         } else if (index > upper) {\n-            result.append(str.substring(0, upper));\n+            if (str == null) {\n+\t\t\t\treturn null;\n+\t\t\t}\n+\t\t\tresult.append(str.substring(0, upper));\n             result.append(StringUtils.defaultString(appendToEnd));\n         } else {\n             result.append(str.substring(0, index));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 635, 
+          "faulty": "result.append(str.substring(0,upper));", 
+          "type": "InsertBefore", 
+          "seed": "if (str == null) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_854/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:22.242060137 -0500\n@@ -605,7 +605,7 @@\n     public static String abbreviate(String str, int lower, int upper, String appendToEnd) {\n         // initial parameter checks\n         if (str == null) {\n-            return null;\n+            return str;\n         }\n         if (str.length() == 0) {\n             return StringUtils.EMPTY;\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 608, 
+          "faulty": "return null;", 
+          "type": "Replace", 
+          "seed": "return str;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_1178/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:21:16.508395331 -0500\n@@ -611,7 +611,10 @@\n             return StringUtils.EMPTY;\n         }\n \n-        // if the lower value is greater than the length of the string,\n+        if (StringUtils.isEmpty(str)) {\n+\t\t\tthrow new IllegalArgumentException(\"The String must not be empty\");\n+\t\t}\n+\t\t// if the lower value is greater than the length of the string,\n         // set to the length of the string\n         // if the upper value is -1 (i.e. no limit) or is greater\n         // than the length of the string, set to the length of the string\n@@ -624,7 +627,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -632,7 +638,10 @@\n                 result.append(StringUtils.defaultString(appendToEnd));\n             }\n         } else if (index > upper) {\n-            result.append(str.substring(0, upper));\n+            if (str == null) {\n+\t\t\t\treturn null;\n+\t\t\t}\n+\t\t\tresult.append(str.substring(0, upper));\n             result.append(StringUtils.defaultString(appendToEnd));\n         } else {\n             result.append(str.substring(0, index));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 635, 
+          "faulty": "result.append(str.substring(0,upper));", 
+          "type": "InsertBefore", 
+          "seed": "if (str == null) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 618, 
+          "faulty": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  throw new IllegalArgumentException(\"The String must not be empty\");\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:12:20.869445549 -0500\n+++ /tmp/Arja_Defects4J_Lang_45/patches_id71/Patch_950/patched/tmp/Arja_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-01 05:19:55.754745052 -0500\n@@ -624,7 +624,10 @@\n         }\n \n         StringBuffer result = new StringBuffer();\n-        int index = StringUtils.indexOf(str, \" \", lower);\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tint index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n             // only if abbreviation has occured do we append the appendToEnd value\n@@ -632,8 +635,10 @@\n                 result.append(StringUtils.defaultString(appendToEnd));\n             }\n         } else if (index > upper) {\n-            result.append(str.substring(0, upper));\n-            result.append(StringUtils.defaultString(appendToEnd));\n+            if (str == null) {\n+\t\t\t\treturn null;\n+\t\t\t}\n+\t\t\tresult.append(str.substring(0, upper));\n         } else {\n             result.append(str.substring(0, index));\n             result.append(StringUtils.defaultString(appendToEnd));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 635, 
+          "faulty": "result.append(str.substring(0,upper));", 
+          "type": "InsertBefore", 
+          "seed": "if (str == null) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 636, 
+          "faulty": "result.append(StringUtils.defaultString(appendToEnd));", 
+          "type": "Delete", 
+          "seed": "if (StringUtils.isEmpty(str)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/WordUtils.java", 
+          "line": 627, 
+          "faulty": "int index=StringUtils.indexOf(str,\" \",lower);", 
+          "type": "InsertBefore", 
+          "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
+        }
+      ]
+    }
+  ]
+}

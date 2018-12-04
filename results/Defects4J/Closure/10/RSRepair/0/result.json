@@ -1,0 +1,223 @@
+{
+  "repair_end": "2018-12-02 17:13:45.741032", 
+  "repair_begin": "2018-12-02 16:56:31.979763", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_119/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:05:47.326630988 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        ;\n       default:\n         return p.apply(n);\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/PeepholeFoldConstants.java\t2018-12-02 10:56:09.327768535 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_119/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/PeepholeFoldConstants.java\t2018-12-02 11:05:47.330631283 -0500\n@@ -813,9 +813,6 @@\n         left.removeChild(valueToCombine);\n         // Replace the left op with the remaining child.\n         n.replaceChild(left, left.removeFirstChild());\n-        // New \"-Infinity\" node need location info explicitly\n-        // added.\n-        replacement.copyInformationFromForTree(right);\n         n.replaceChild(right, replacement);\n         reportCodeChange();\n       }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Delete", 
+          "seed": "return toDot(n,null);"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/PeepholeFoldConstants.java", 
+          "line": 818, 
+          "faulty": "replacement.copyInformationFromForTree(right);", 
+          "type": "Delete", 
+          "seed": "final String PARAM_NAME=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_157/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:06:20.237031109 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        ;\n       default:\n         return p.apply(n);\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/PeepholeFoldConstants.java\t2018-12-02 10:56:09.327768535 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_157/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/PeepholeFoldConstants.java\t2018-12-02 11:06:20.241031397 -0500\n@@ -249,7 +249,7 @@\n         return;\n       case Token.HOOK:\n         tryConvertToNumber(n.getChildAtIndex(1));\n-        tryConvertToNumber(n.getLastChild());\n+        ;\n         return;\n       case Token.NAME:\n         if (!NodeUtil.isUndefined(n)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Delete", 
+          "seed": "JSType type=n.getJSType();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/PeepholeFoldConstants.java", 
+          "line": 252, 
+          "faulty": "tryConvertToNumber(n.getLastChild());", 
+          "type": "Delete", 
+          "seed": "final String PARAM_NAME=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_530/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:12:02.864447459 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        ;\n       default:\n         return p.apply(n);\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/PeepholeFoldConstants.java\t2018-12-02 10:56:09.327768535 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_530/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/PeepholeFoldConstants.java\t2018-12-02 11:12:02.864447459 -0500\n@@ -797,7 +797,8 @@\n     // other values are converted to numbers elsewhere.\n     Double rightValObj = NodeUtil.getNumberValue(right);\n     if (rightValObj != null && left.getType() == opType) {\n-      Preconditions.checkState(left.getChildCount() == 2);\n+      final String PARAM_NAME = \"jscomp_throw_param\";\n+\tPreconditions.checkState(left.getChildCount() == 2);\n \n       Node ll = left.getFirstChild();\n       Node lr = ll.getNext();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/PeepholeFoldConstants.java", 
+          "line": 800, 
+          "faulty": "Preconditions.checkState(left.getChildCount() == 2);", 
+          "type": "InsertBefore", 
+          "seed": "final String PARAM_NAME=\"jscomp_throw_param\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_4/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:03:59.183440099 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        int type = n.getType();\n       default:\n         return p.apply(n);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Replace", 
+          "seed": "int type=n.getType();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_559/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:12:27.514522595 -0500\n@@ -317,7 +317,7 @@\n         break;\n \n       case Token.STRING:\n-        return getStringNumberValue(n.getString());\n+        ;\n \n       case Token.ARRAYLIT:\n       case Token.OBJECTLIT:\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        int index = -1;\n       default:\n         return p.apply(n);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 320, 
+          "faulty": "return getStringNumberValue(n.getString());", 
+          "type": "Delete", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_600/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:13:07.237767572 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        JSType type = n.getJSType();\n       default:\n         return p.apply(n);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Replace", 
+          "seed": "JSType type=n.getJSType();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_384/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:09:51.463494254 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        final String PARAM_NAME = \"jscomp_throw_param\";\n       default:\n         return p.apply(n);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Replace", 
+          "seed": "final String PARAM_NAME=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/rhino/Node.java\t2018-12-02 10:56:09.347769702 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_553/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/rhino/Node.java\t2018-12-02 11:12:22.714122388 -0500\n@@ -1459,7 +1459,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1462, 
+          "faulty": "return res;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_509/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:11:43.314764352 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        int start = 0;\n       default:\n         return p.apply(n);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_543/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:12:14.265413499 -0500\n@@ -317,7 +317,7 @@\n         break;\n \n       case Token.STRING:\n-        return getStringNumberValue(n.getString());\n+        return null;\n \n       case Token.ARRAYLIT:\n       case Token.OBJECTLIT:\n\n\n--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/PeepholeFoldConstants.java\t2018-12-02 10:56:09.327768535 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_543/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/PeepholeFoldConstants.java\t2018-12-02 11:12:14.269413836 -0500\n@@ -806,7 +806,6 @@\n       Node replacement = performArithmeticOp(opType, valueToCombine, right);\n       if (replacement == null) {\n         valueToCombine = lr;\n-        replacement = performArithmeticOp(opType, valueToCombine, right);\n       }\n       if (replacement != null) {\n         // Remove the child that has been combined\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 320, 
+          "faulty": "return getStringNumberValue(n.getString());", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/PeepholeFoldConstants.java", 
+          "line": 809, 
+          "faulty": "replacement=performArithmeticOp(opType,valueToCombine,right);", 
+          "type": "Delete", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_502/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:11:39.126465015 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        ;\n       default:\n         return p.apply(n);\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/rhino/Token.java\t2018-12-02 10:56:09.347769702 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_502/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/rhino/Token.java\t2018-12-02 11:11:39.130465271 -0500\n@@ -188,7 +188,10 @@\n           case NE:              return \"NE\";\n           case LT:              return \"LT\";\n           case LE:              return \"LE\";\n-          case GT:              return \"GT\";\n+          case GT:              {\n+\t\t\t\tint c = 0;\n+\t\t\t\treturn \"GT\";\n+\t\t\t}\n           case GE:              return \"GE\";\n           case LSH:             return \"LSH\";\n           case RSH:             return \"RSH\";\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Delete", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Token.java", 
+          "line": 191, 
+          "faulty": "return \"GT\";", 
+          "type": "InsertBefore", 
+          "seed": "int c=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_22/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:04:18.628585766 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        ;\n       default:\n         return p.apply(n);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Delete", 
+          "seed": "return 0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_506/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:11:41.634625832 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        StringBuilder builder = new StringBuilder();\n       default:\n         return p.apply(n);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 10:56:12.575958159 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_440/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/jscomp/NodeUtil.java\t2018-12-02 11:10:44.538953941 -0500\n@@ -1268,8 +1268,7 @@\n         return allResultsMatch(n.getFirstChild(), p)\n             && allResultsMatch(n.getLastChild(), p);\n       case Token.HOOK:\n-        return allResultsMatch(n.getFirstChild().getNext(), p)\n-            && allResultsMatch(n.getLastChild(), p);\n+        ;\n       default:\n         return p.apply(n);\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/rhino/Token.java\t2018-12-02 10:56:09.347769702 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_10/patches_vho4/Patch_440/patched/tmp/RSRepair_Defects4J_Closure_10/src/com/google/javascript/rhino/Token.java\t2018-12-02 11:10:44.538953941 -0500\n@@ -188,7 +188,7 @@\n           case NE:              return \"NE\";\n           case LT:              return \"LT\";\n           case LE:              return \"LE\";\n-          case GT:              return \"GT\";\n+          case GT:              Node block = new Node(Token.SCRIPT);\n           case GE:              return \"GE\";\n           case LSH:             return \"LSH\";\n           case RSH:             return \"RSH\";\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/NodeUtil.java", 
+          "line": 1271, 
+          "faulty": "return allResultsMatch(n.getFirstChild().getNext(),p) && allResultsMatch(n.getLastChild(),p);", 
+          "type": "Delete", 
+          "seed": "return 0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Token.java", 
+          "line": 191, 
+          "faulty": "return \"GT\";", 
+          "type": "Replace", 
+          "seed": "Node block=new Node(Token.SCRIPT);"
+        }
+      ]
+    }
+  ]
+}

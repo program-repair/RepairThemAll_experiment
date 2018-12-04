@@ -1,0 +1,679 @@
+{
+  "repair_end": "2018-12-02 11:34:35.493994", 
+  "repair_begin": "2018-12-02 11:18:09.984998", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_617/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:30:14.273345550 -0500\n@@ -174,7 +174,7 @@\n             // Dive down the right side of the assign.\n             parent = next;\n             next = leftSide.getNext();\n-            break;\n+            return false;\n           } else {\n             return false;\n           }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 177, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_396/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:27:05.984740469 -0500\n@@ -168,16 +168,7 @@\n           // To protect against this, we simply only inline when the left side\n           // is guaranteed to evaluate to the same L-value no matter what.\n           Node leftSide = next.getFirstChild();\n-          if (leftSide.isName() ||\n-              leftSide.isGetProp() &&\n-              leftSide.getFirstChild().isThis()) {\n-            // Dive down the right side of the assign.\n-            parent = next;\n-            next = leftSide.getNext();\n-            break;\n-          } else {\n-            return false;\n-          }\n+          final String paramName = \"jscomp_throw_param\";\n \n         default:\n           if (NodeUtil.isImmutableValue(next)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 171, 
+          "faulty": "if (leftSide.isName() || leftSide.isGetProp() && leftSide.getFirstChild().isThis()) {\n  parent=next;\n  next=leftSide.getNext();\n  break;\n}\n else {\n  return false;\n}", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_820/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:32:37.709805785 -0500\n@@ -135,22 +135,7 @@\n         case Token.NAME:\n           if (next.isQualifiedName()) {\n             String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n+            return false;\n           }\n           return false;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 138, 
+          "faulty": "if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n  if (!isSafeReplacement(next,assign)) {\n    return false;\n  }\n  exprParent.removeChild(expr);\n  expr.removeChild(assign);\n  parent.replaceChild(next,assign);\n  return true;\n}", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_322/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:26:18.548587852 -0500\n@@ -121,7 +121,7 @@\n           // Dive down the left side\n           parent = next;\n           next = next.getFirstChild();\n-          break;\n+          final String paramName = \"jscomp_throw_param\";\n \n         case Token.VAR:\n           if (next.getFirstChild().hasChildren()) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 124, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_506/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:28:34.025023531 -0500\n@@ -147,7 +147,7 @@\n               }\n \n               exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n+              StringBuilder builder = new StringBuilder();\n               parent.replaceChild(next, assign);\n               return true;\n             }\n@@ -174,7 +174,6 @@\n             // Dive down the right side of the assign.\n             parent = next;\n             next = leftSide.getNext();\n-            break;\n           } else {\n             return false;\n           }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 150, 
+          "faulty": "expr.removeChild(assign);", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 177, 
+          "faulty": "break;", 
+          "type": "Delete", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_385/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:27:00.776723718 -0500\n@@ -168,16 +168,7 @@\n           // To protect against this, we simply only inline when the left side\n           // is guaranteed to evaluate to the same L-value no matter what.\n           Node leftSide = next.getFirstChild();\n-          if (leftSide.isName() ||\n-              leftSide.isGetProp() &&\n-              leftSide.getFirstChild().isThis()) {\n-            // Dive down the right side of the assign.\n-            parent = next;\n-            next = leftSide.getNext();\n-            break;\n-          } else {\n-            return false;\n-          }\n+          return false;\n \n         default:\n           if (NodeUtil.isImmutableValue(next)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 171, 
+          "faulty": "if (leftSide.isName() || leftSide.isGetProp() && leftSide.getFirstChild().isThis()) {\n  parent=next;\n  next=leftSide.getNext();\n  break;\n}\n else {\n  return false;\n}", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_753/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:31:47.705645406 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          ;\n           return false;\n \n         case Token.ASSIGN:\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 149, 
+          "faulty": "exprParent.removeChild(expr);", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_73/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:23:04.447962573 -0500\n@@ -174,7 +174,7 @@\n             // Dive down the right side of the assign.\n             parent = next;\n             next = leftSide.getNext();\n-            break;\n+            int start = 0;\n           } else {\n             return false;\n           }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 177, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_727/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:31:29.937588402 -0500\n@@ -118,8 +118,7 @@\n         case Token.IF:\n         case Token.RETURN:\n         case Token.EXPR_RESULT:\n-          // Dive down the left side\n-          parent = next;\n+          ;\n           next = next.getFirstChild();\n           break;\n \n@@ -133,25 +132,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          StringBuilder builder = new StringBuilder();\n           return false;\n \n         case Token.ASSIGN:\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 122, 
+          "faulty": "parent=next;", 
+          "type": "Delete", 
+          "seed": "return new DefaultCodingConvention();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_592/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:29:56.237287637 -0500\n@@ -155,29 +155,8 @@\n           return false;\n \n         case Token.ASSIGN:\n-          // Assigns are really tricky. In lots of cases, we want to inline\n-          // into the right side of the assign. But the left side of the\n-          // assign is evaluated first, and it may have convoluted logic:\n-          //   a = null;\n-          //   (a = b).c = null;\n-          // We don't want to exploit the first assign. Similarly:\n-          //   a.b = null;\n-          //   a.b.c = null;\n-          // We don't want to exploit the first assign either.\n-          //\n-          // To protect against this, we simply only inline when the left side\n-          // is guaranteed to evaluate to the same L-value no matter what.\n-          Node leftSide = next.getFirstChild();\n-          if (leftSide.isName() ||\n-              leftSide.isGetProp() &&\n-              leftSide.getFirstChild().isThis()) {\n-            // Dive down the right side of the assign.\n-            parent = next;\n-            next = leftSide.getNext();\n-            break;\n-          } else {\n-            return false;\n-          }\n+          ;\n+          ;\n \n         default:\n           if (NodeUtil.isImmutableValue(next)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 170, 
+          "faulty": "Node leftSide=next.getFirstChild();", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 171, 
+          "faulty": "if (leftSide.isName() || leftSide.isGetProp() && leftSide.getFirstChild().isThis()) {\n  parent=next;\n  next=leftSide.getNext();\n  break;\n}\n else {\n  return false;\n}", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_340/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:26:27.328616106 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          StringBuilder builder = new StringBuilder();\n           return false;\n \n         case Token.ASSIGN:\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_368/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:26:47.060679594 -0500\n@@ -168,16 +168,7 @@\n           // To protect against this, we simply only inline when the left side\n           // is guaranteed to evaluate to the same L-value no matter what.\n           Node leftSide = next.getFirstChild();\n-          if (leftSide.isName() ||\n-              leftSide.isGetProp() &&\n-              leftSide.getFirstChild().isThis()) {\n-            // Dive down the right side of the assign.\n-            parent = next;\n-            next = leftSide.getNext();\n-            break;\n-          } else {\n-            return false;\n-          }\n+          ;\n \n         default:\n           if (NodeUtil.isImmutableValue(next)\n@@ -208,9 +199,7 @@\n     if (node.isName()) {\n       return true;\n     }\n-    Preconditions.checkArgument(node.isGetProp());\n-\n-      node = node.getFirstChild();\n+    node = node.getFirstChild();\n     if (node.isName()\n         && isNameAssignedTo(node.getString(), replacement)) {\n       return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 171, 
+          "faulty": "if (leftSide.isName() || leftSide.isGetProp() && leftSide.getFirstChild().isThis()) {\n  parent=next;\n  next=leftSide.getNext();\n  break;\n}\n else {\n  return false;\n}", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 211, 
+          "faulty": "Preconditions.checkArgument(node.isGetProp());", 
+          "type": "Delete", 
+          "seed": "return 0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_6/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:22:15.531804782 -0500\n@@ -52,7 +52,7 @@\n       reportCodeChange();\n     } else if (isCollapsibleValue(rightValue, false) &&\n         collapseAssignEqualTo(expr, exprParent, rightValue)) {\n-      reportCodeChange();\n+      StringBuilder builder = new StringBuilder();\n     } else if (rightValue.isAssign()) {\n       // Recursively deal with nested assigns.\n       collapseAssign(rightValue, expr, exprParent);\n@@ -168,16 +168,7 @@\n           // To protect against this, we simply only inline when the left side\n           // is guaranteed to evaluate to the same L-value no matter what.\n           Node leftSide = next.getFirstChild();\n-          if (leftSide.isName() ||\n-              leftSide.isGetProp() &&\n-              leftSide.getFirstChild().isThis()) {\n-            // Dive down the right side of the assign.\n-            parent = next;\n-            next = leftSide.getNext();\n-            break;\n-          } else {\n-            return false;\n-          }\n+          ;\n \n         default:\n           if (NodeUtil.isImmutableValue(next)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 55, 
+          "faulty": "reportCodeChange();", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 171, 
+          "faulty": "if (leftSide.isName() || leftSide.isGetProp() && leftSide.getFirstChild().isThis()) {\n  parent=next;\n  next=leftSide.getNext();\n  break;\n}\n else {\n  return false;\n}", 
+          "type": "Delete", 
+          "seed": "return new DefaultCodingConvention();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_21/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:22:23.347830000 -0500\n@@ -152,7 +152,7 @@\n               return true;\n             }\n           }\n-          return false;\n+          ;\n \n         case Token.ASSIGN:\n           // Assigns are really tricky. In lots of cases, we want to inline\n@@ -174,7 +174,7 @@\n             // Dive down the right side of the assign.\n             parent = next;\n             next = leftSide.getNext();\n-            break;\n+            StringBuilder builder = new StringBuilder();\n           } else {\n             return false;\n           }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 155, 
+          "faulty": "return false;", 
+          "type": "Delete", 
+          "seed": "formatPreamble();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 177, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_809/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:32:32.805790060 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          ;\n           return false;\n \n         case Token.ASSIGN:\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return this;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 152, 
+          "faulty": "return true;", 
+          "type": "Delete", 
+          "seed": "int keyParent=key(parent);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_3/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:22:14.471801361 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          int start = 0;\n           return false;\n \n         case Token.ASSIGN:\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_267/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:25:30.160432096 -0500\n@@ -135,22 +135,7 @@\n         case Token.NAME:\n           if (next.isQualifiedName()) {\n             String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n+            int start = 0;\n           }\n           return false;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 138, 
+          "faulty": "if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n  if (!isSafeReplacement(next,assign)) {\n    return false;\n  }\n  exprParent.removeChild(expr);\n  expr.removeChild(assign);\n  parent.replaceChild(next,assign);\n  return true;\n}", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_51/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:22:42.847892908 -0500\n@@ -216,7 +216,7 @@\n       return false;\n     }\n \n-    return true;\n+    return false;\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 219, 
+          "faulty": "return true;", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_259/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:25:21.092402898 -0500\n@@ -121,7 +121,7 @@\n           // Dive down the left side\n           parent = next;\n           next = next.getFirstChild();\n-          break;\n+          int start = 0;\n \n         case Token.VAR:\n           if (next.getFirstChild().hasChildren()) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 124, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_403/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:27:08.912749888 -0500\n@@ -168,16 +168,7 @@\n           // To protect against this, we simply only inline when the left side\n           // is guaranteed to evaluate to the same L-value no matter what.\n           Node leftSide = next.getFirstChild();\n-          if (leftSide.isName() ||\n-              leftSide.isGetProp() &&\n-              leftSide.getFirstChild().isThis()) {\n-            // Dive down the right side of the assign.\n-            parent = next;\n-            next = leftSide.getNext();\n-            break;\n-          } else {\n-            return false;\n-          }\n+          int index = -1;\n \n         default:\n           if (NodeUtil.isImmutableValue(next)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 171, 
+          "faulty": "if (leftSide.isName() || leftSide.isGetProp() && leftSide.getFirstChild().isThis()) {\n  parent=next;\n  next=leftSide.getNext();\n  break;\n}\n else {\n  return false;\n}", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_584/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:29:52.601275961 -0500\n@@ -135,22 +135,7 @@\n         case Token.NAME:\n           if (next.isQualifiedName()) {\n             String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n+            int index = -1;\n           }\n           return false;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 138, 
+          "faulty": "if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n  if (!isSafeReplacement(next,assign)) {\n    return false;\n  }\n  exprParent.removeChild(expr);\n  expr.removeChild(assign);\n  parent.replaceChild(next,assign);\n  return true;\n}", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_343/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:26:28.272619144 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          ;\n           return false;\n \n         case Token.ASSIGN:\n@@ -204,10 +186,7 @@\n    * @return Whether the replacement can be made.\n    */\n   private boolean isSafeReplacement(Node node, Node replacement) {\n-    // No checks are needed for simple names.\n-    if (node.isName()) {\n-      return true;\n-    }\n+    final String paramName = \"jscomp_throw_param\";\n     Preconditions.checkArgument(node.isGetProp());\n \n       node = node.getFirstChild();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 208, 
+          "faulty": "if (node.isName()) {\n  return true;\n}", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_637/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:30:23.381374792 -0500\n@@ -52,7 +52,6 @@\n       reportCodeChange();\n     } else if (isCollapsibleValue(rightValue, false) &&\n         collapseAssignEqualTo(expr, exprParent, rightValue)) {\n-      reportCodeChange();\n     } else if (rightValue.isAssign()) {\n       // Recursively deal with nested assigns.\n       collapseAssign(rightValue, expr, exprParent);\n@@ -174,7 +173,6 @@\n             // Dive down the right side of the assign.\n             parent = next;\n             next = leftSide.getNext();\n-            break;\n           } else {\n             return false;\n           }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 55, 
+          "faulty": "reportCodeChange();", 
+          "type": "Delete", 
+          "seed": "int index=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 177, 
+          "faulty": "break;", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_634/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:30:22.429371736 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          ;\n           return false;\n \n         case Token.ASSIGN:\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 145, 
+          "faulty": "if (!isSafeReplacement(next,assign)) {\n  return false;\n}", 
+          "type": "Replace", 
+          "seed": "formatPreamble();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_183/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:24:21.288210265 -0500\n@@ -121,7 +121,7 @@\n           // Dive down the left side\n           parent = next;\n           next = next.getFirstChild();\n-          break;\n+          return false;\n \n         case Token.VAR:\n           if (next.getFirstChild().hasChildren()) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 124, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_904/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:33:30.529975121 -0500\n@@ -174,7 +174,7 @@\n             // Dive down the right side of the assign.\n             parent = next;\n             next = leftSide.getNext();\n-            break;\n+            return false;\n           } else {\n             return false;\n           }\n@@ -208,7 +208,7 @@\n     if (node.isName()) {\n       return true;\n     }\n-    Preconditions.checkArgument(node.isGetProp());\n+    final String paramName = \"jscomp_throw_param\";\n \n       node = node.getFirstChild();\n     if (node.isName()\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 177, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 211, 
+          "faulty": "Preconditions.checkArgument(node.isGetProp());", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_150/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:23:59.520140117 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          final String paramName = \"jscomp_throw_param\";\n           return false;\n \n         case Token.ASSIGN:\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_270/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:25:31.100435122 -0500\n@@ -168,16 +168,7 @@\n           // To protect against this, we simply only inline when the left side\n           // is guaranteed to evaluate to the same L-value no matter what.\n           Node leftSide = next.getFirstChild();\n-          if (leftSide.isName() ||\n-              leftSide.isGetProp() &&\n-              leftSide.getFirstChild().isThis()) {\n-            // Dive down the right side of the assign.\n-            parent = next;\n-            next = leftSide.getNext();\n-            break;\n-          } else {\n-            return false;\n-          }\n+          int start = 0;\n \n         default:\n           if (NodeUtil.isImmutableValue(next)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 171, 
+          "faulty": "if (leftSide.isName() || leftSide.isGetProp() && leftSide.getFirstChild().isThis()) {\n  parent=next;\n  next=leftSide.getNext();\n  break;\n}\n else {\n  return false;\n}", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_48/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:22:41.687889166 -0500\n@@ -52,7 +52,7 @@\n       reportCodeChange();\n     } else if (isCollapsibleValue(rightValue, false) &&\n         collapseAssignEqualTo(expr, exprParent, rightValue)) {\n-      reportCodeChange();\n+      int start = 0;\n     } else if (rightValue.isAssign()) {\n       // Recursively deal with nested assigns.\n       collapseAssign(rightValue, expr, exprParent);\n@@ -135,22 +135,6 @@\n         case Token.NAME:\n           if (next.isQualifiedName()) {\n             String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n           }\n           return false;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 55, 
+          "faulty": "reportCodeChange();", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 138, 
+          "faulty": "if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n  if (!isSafeReplacement(next,assign)) {\n    return false;\n  }\n  exprParent.removeChild(expr);\n  expr.removeChild(assign);\n  parent.replaceChild(next,assign);\n  return true;\n}", 
+          "type": "Delete", 
+          "seed": "formatPreamble();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_86/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:23:10.915983431 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          ;\n           return false;\n \n         case Token.ASSIGN:\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_717/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:31:25.633574593 -0500\n@@ -135,22 +135,6 @@\n         case Token.NAME:\n           if (next.isQualifiedName()) {\n             String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n           }\n           return false;\n \n@@ -204,7 +188,8 @@\n    * @return Whether the replacement can be made.\n    */\n   private boolean isSafeReplacement(Node node, Node replacement) {\n-    // No checks are needed for simple names.\n+    StringBuilder builder = new StringBuilder();\n+\t// No checks are needed for simple names.\n     if (node.isName()) {\n       return true;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 138, 
+          "faulty": "if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n  if (!isSafeReplacement(next,assign)) {\n    return false;\n  }\n  exprParent.removeChild(expr);\n  expr.removeChild(assign);\n  parent.replaceChild(next,assign);\n  return true;\n}", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 208, 
+          "faulty": "if (node.isName()) {\n  return true;\n}", 
+          "type": "InsertBefore", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_381/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:26:59.368719188 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          int index = -1;\n           return false;\n \n         case Token.ASSIGN:\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_26/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:22:25.679837524 -0500\n@@ -135,22 +135,7 @@\n         case Token.NAME:\n           if (next.isQualifiedName()) {\n             String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n+            final String paramName = \"jscomp_throw_param\";\n           }\n           return false;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 138, 
+          "faulty": "if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n  if (!isSafeReplacement(next,assign)) {\n    return false;\n  }\n  exprParent.removeChild(expr);\n  expr.removeChild(assign);\n  parent.replaceChild(next,assign);\n  return true;\n}", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_118/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:23:37.872070341 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          ;\n           return false;\n \n         case Token.ASSIGN:\n@@ -211,11 +193,6 @@\n     Preconditions.checkArgument(node.isGetProp());\n \n       node = node.getFirstChild();\n-    if (node.isName()\n-        && isNameAssignedTo(node.getString(), replacement)) {\n-      return false;\n-    }\n-\n     return true;\n   }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 214, 
+          "faulty": "if (node.isName() && isNameAssignedTo(node.getString(),replacement)) {\n  return false;\n}", 
+          "type": "Delete", 
+          "seed": "return this;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_526/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:28:49.385072890 -0500\n@@ -168,16 +168,7 @@\n           // To protect against this, we simply only inline when the left side\n           // is guaranteed to evaluate to the same L-value no matter what.\n           Node leftSide = next.getFirstChild();\n-          if (leftSide.isName() ||\n-              leftSide.isGetProp() &&\n-              leftSide.getFirstChild().isThis()) {\n-            // Dive down the right side of the assign.\n-            parent = next;\n-            next = leftSide.getNext();\n-            break;\n-          } else {\n-            return false;\n-          }\n+          StringBuilder builder = new StringBuilder();\n \n         default:\n           if (NodeUtil.isImmutableValue(next)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 171, 
+          "faulty": "if (leftSide.isName() || leftSide.isGetProp() && leftSide.getFirstChild().isThis()) {\n  parent=next;\n  next=leftSide.getNext();\n  break;\n}\n else {\n  return false;\n}", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_449/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:27:54.508896512 -0500\n@@ -135,22 +135,7 @@\n         case Token.NAME:\n           if (next.isQualifiedName()) {\n             String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n+            StringBuilder builder = new StringBuilder();\n           }\n           return false;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 138, 
+          "faulty": "if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n  if (!isSafeReplacement(next,assign)) {\n    return false;\n  }\n  exprParent.removeChild(expr);\n  expr.removeChild(assign);\n  parent.replaceChild(next,assign);\n  return true;\n}", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_746/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:31:39.065617689 -0500\n@@ -141,7 +141,8 @@\n               // qualified name, and that qualified name is used again\n               // shortly, then we can exploit the assign here.\n \n-              // Verify the assignment doesn't change its own value.\n+              int start = 0;\n+\t\t\t// Verify the assignment doesn't change its own value.\n               if (!isSafeReplacement(next, assign)) {\n                 return false;\n               }\n@@ -174,7 +175,7 @@\n             // Dive down the right side of the assign.\n             parent = next;\n             next = leftSide.getNext();\n-            break;\n+            int index = -1;\n           } else {\n             return false;\n           }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 145, 
+          "faulty": "if (!isSafeReplacement(next,assign)) {\n  return false;\n}", 
+          "type": "InsertBefore", 
+          "seed": "int start=0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 177, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_213/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:24:52.444310636 -0500\n@@ -174,7 +174,7 @@\n             // Dive down the right side of the assign.\n             parent = next;\n             next = leftSide.getNext();\n-            break;\n+            int index = -1;\n           } else {\n             return false;\n           }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 177, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_12/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:22:19.007815998 -0500\n@@ -174,7 +174,6 @@\n             // Dive down the right side of the assign.\n             parent = next;\n             next = leftSide.getNext();\n-            break;\n           } else {\n             return false;\n           }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 177, 
+          "faulty": "break;", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_648/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:30:28.701391871 -0500\n@@ -133,25 +133,7 @@\n \n         case Token.GETPROP:\n         case Token.NAME:\n-          if (next.isQualifiedName()) {\n-            String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n-          }\n+          ;\n           return false;\n \n         case Token.ASSIGN:\n\n\n--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:54.590945193 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_648/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:30:28.705391884 -0500\n@@ -1425,7 +1425,8 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        PropListItem x = propListHead;\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 136, 
+          "faulty": "if (next.isQualifiedName()) {\n  String nextName=next.getQualifiedName();\n  if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n    if (!isSafeReplacement(next,assign)) {\n      return false;\n    }\n    exprParent.removeChild(expr);\n    expr.removeChild(assign);\n    parent.replaceChild(next,assign);\n    return true;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1428, 
+          "faulty": "return \"Node tree inequality:\" + \"\\nTree1:\\n\" + toStringTree() + \"\\n\\nTree2:\\n\"+ node2.toStringTree()+ \"\\n\\nSubtree1: \"+ diff.nodeA.toStringTree()+ \"\\n\\nSubtree2: \"+ diff.nodeB.toStringTree();", 
+          "type": "InsertBefore", 
+          "seed": "PropListItem x=propListHead;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_282/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:25:36.196451530 -0500\n@@ -118,8 +118,7 @@\n         case Token.IF:\n         case Token.RETURN:\n         case Token.EXPR_RESULT:\n-          // Dive down the left side\n-          parent = next;\n+          ;\n           next = next.getFirstChild();\n           break;\n \n@@ -135,22 +134,6 @@\n         case Token.NAME:\n           if (next.isQualifiedName()) {\n             String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n           }\n           return false;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 122, 
+          "faulty": "parent=next;", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 138, 
+          "faulty": "if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n  if (!isSafeReplacement(next,assign)) {\n    return false;\n  }\n  exprParent.removeChild(expr);\n  expr.removeChild(assign);\n  parent.replaceChild(next,assign);\n  return true;\n}", 
+          "type": "Delete", 
+          "seed": "return new DefaultCodingConvention();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 151, 
+          "faulty": "parent.replaceChild(next,assign);", 
+          "type": "Delete", 
+          "seed": "int keyParent=key(parent);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_200/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:24:46.176290446 -0500\n@@ -121,7 +121,7 @@\n           // Dive down the left side\n           parent = next;\n           next = next.getFirstChild();\n-          break;\n+          ;\n \n         case Token.VAR:\n           if (next.getFirstChild().hasChildren()) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 124, 
+          "faulty": "break;", 
+          "type": "Delete", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_32/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:22:28.571846854 -0500\n@@ -135,22 +135,6 @@\n         case Token.NAME:\n           if (next.isQualifiedName()) {\n             String nextName = next.getQualifiedName();\n-            if (value.isQualifiedName() &&\n-                nextName.equals(value.getQualifiedName())) {\n-              // If the previous expression evaluates to value of a\n-              // qualified name, and that qualified name is used again\n-              // shortly, then we can exploit the assign here.\n-\n-              // Verify the assignment doesn't change its own value.\n-              if (!isSafeReplacement(next, assign)) {\n-                return false;\n-              }\n-\n-              exprParent.removeChild(expr);\n-              expr.removeChild(assign);\n-              parent.replaceChild(next, assign);\n-              return true;\n-            }\n           }\n           return false;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 138, 
+          "faulty": "if (value.isQualifiedName() && nextName.equals(value.getQualifiedName())) {\n  if (!isSafeReplacement(next,assign)) {\n    return false;\n  }\n  exprParent.removeChild(expr);\n  expr.removeChild(assign);\n  parent.replaceChild(next,assign);\n  return true;\n}", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_43/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:22:39.595882418 -0500\n@@ -168,16 +168,7 @@\n           // To protect against this, we simply only inline when the left side\n           // is guaranteed to evaluate to the same L-value no matter what.\n           Node leftSide = next.getFirstChild();\n-          if (leftSide.isName() ||\n-              leftSide.isGetProp() &&\n-              leftSide.getFirstChild().isThis()) {\n-            // Dive down the right side of the assign.\n-            parent = next;\n-            next = leftSide.getNext();\n-            break;\n-          } else {\n-            return false;\n-          }\n+          ;\n \n         default:\n           if (NodeUtil.isImmutableValue(next)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 171, 
+          "faulty": "if (leftSide.isName() || leftSide.isGetProp() && leftSide.getFirstChild().isThis()) {\n  parent=next;\n  next=leftSide.getNext();\n  break;\n}\n else {\n  return false;\n}", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:17:57.266954096 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_124/patches_b4al/Patch_280/patched/tmp/RSRepair_Defects4J_Closure_124/src/com/google/javascript/jscomp/ExploitAssigns.java\t2018-12-02 05:25:35.716449984 -0500\n@@ -121,7 +121,7 @@\n           // Dive down the left side\n           parent = next;\n           next = next.getFirstChild();\n-          break;\n+          int index = -1;\n \n         case Token.VAR:\n           if (next.getFirstChild().hasChildren()) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/ExploitAssigns.java", 
+          "line": 124, 
+          "faulty": "break;", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }
+  ]
+}

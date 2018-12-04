@@ -1,0 +1,642 @@
+{
+  "repair_end": "2018-12-01 14:26:39.226044", 
+  "repair_begin": "2018-12-01 14:18:47.726520", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1017/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:23:44.045108543 -0500\n@@ -314,7 +314,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 205, 
+          "faulty": "return (TimePeriodValue)this.data.get(index);", 
+          "type": "Replace", 
+          "seed": "return (TimePeriodValue)this.data.get(index);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1287/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:24:40.305189911 -0500\n@@ -293,7 +293,19 @@\n             }\n         }\n         else {\n-            this.minMiddleIndex = index;\n+            if (this.minMiddleIndex >= 0) {\n+\t\t\t\tlong s = getDataItem(this.minMiddleIndex).getPeriod()\n+\t\t\t\t\t\t.getStart().getTime();\n+\t\t\t\tlong e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n+\t\t\t\t\t\t.getTime();\n+\t\t\t\tlong minMiddle = s + (e - s) / 2;\n+\t\t\t\tif (middle < minMiddle) {\n+\t\t\t\t\tthis.minMiddleIndex = index;\n+\t\t\t\t}\n+\t\t\t} else {\n+\t\t\t\tthis.minMiddleIndex = index;\n+\t\t\t}\n+\t\t\tthis.minMiddleIndex = index;\n         }\n         \n         if (this.maxMiddleIndex >= 0) {\n@@ -314,7 +326,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 296, 
+          "faulty": "this.minMiddleIndex=index;", 
+          "type": "InsertBefore", 
+          "seed": "if (this.minMiddleIndex >= 0) {\n  long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();\n  long e=getDataItem(this.minMiddleIndex).getPeriod().getEnd().getTime();\n  long minMiddle=s + (e - s) / 2;\n  if (middle < minMiddle) {\n    this.minMiddleIndex=index;\n  }\n}\n else {\n  this.minMiddleIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_973/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:23:35.253095210 -0500\n@@ -299,7 +299,8 @@\n         if (this.maxMiddleIndex >= 0) {\n             long s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n                 .getTime();\n-            long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n+            fireSeriesChanged();\n+\t\t\tlong e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n                 .getTime();\n             long maxMiddle = s + (e - s) / 2;\n             if (middle > maxMiddle) {\n@@ -314,7 +315,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 302, 
+          "faulty": "long e=getDataItem(this.minMiddleIndex).getPeriod().getEnd().getTime();", 
+          "type": "InsertBefore", 
+          "seed": "fireSeriesChanged();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1104/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:24:02.133135421 -0500\n@@ -299,7 +299,8 @@\n         if (this.maxMiddleIndex >= 0) {\n             long s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n                 .getTime();\n-            long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n+            fireSeriesChanged();\n+\t\t\tlong e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n                 .getTime();\n             long maxMiddle = s + (e - s) / 2;\n             if (middle > maxMiddle) {\n@@ -314,7 +315,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 302, 
+          "faulty": "long e=getDataItem(this.minMiddleIndex).getPeriod().getEnd().getTime();", 
+          "type": "InsertBefore", 
+          "seed": "fireSeriesChanged();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 205, 
+          "faulty": "return (TimePeriodValue)this.data.get(index);", 
+          "type": "Replace", 
+          "seed": "return (TimePeriodValue)this.data.get(index);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_679/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:22:35.052998646 -0500\n@@ -310,11 +310,20 @@\n             this.maxMiddleIndex = index;\n         }\n         \n-        if (this.minEndIndex >= 0) {\n+        if (this.maxStartIndex >= 0) {\n+\t\t\tlong maxStart = getDataItem(this.maxStartIndex).getPeriod()\n+\t\t\t\t\t.getStart().getTime();\n+\t\t\tif (start > maxStart) {\n+\t\t\t\tthis.maxStartIndex = index;\n+\t\t\t}\n+\t\t} else {\n+\t\t\tthis.maxStartIndex = index;\n+\t\t}\n+\t\tif (this.minEndIndex >= 0) {\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 313, 
+          "faulty": "if (this.minEndIndex >= 0) {\n  long minEnd=getDataItem(this.minEndIndex).getPeriod().getEnd().getTime();\n  if (end < minEnd) {\n    this.minEndIndex=index;\n  }\n}\n else {\n  this.minEndIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.maxStartIndex >= 0) {\n  long maxStart=getDataItem(this.maxStartIndex).getPeriod().getStart().getTime();\n  if (start > maxStart) {\n    this.maxStartIndex=index;\n  }\n}\n else {\n  this.maxStartIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1800/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:26:28.761331304 -0500\n@@ -296,7 +296,16 @@\n             this.minMiddleIndex = index;\n         }\n         \n-        if (this.maxMiddleIndex >= 0) {\n+        if (this.minStartIndex >= 0) {\n+\t\t\tlong minStart = getDataItem(this.minStartIndex).getPeriod()\n+\t\t\t\t\t.getStart().getTime();\n+\t\t\tif (start < minStart) {\n+\t\t\t\tthis.minStartIndex = index;\n+\t\t\t}\n+\t\t} else {\n+\t\t\tthis.minStartIndex = index;\n+\t\t}\n+\t\tif (this.maxMiddleIndex >= 0) {\n             long s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n                 .getTime();\n             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n@@ -314,7 +323,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 299, 
+          "faulty": "if (this.maxMiddleIndex >= 0) {\n  long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();\n  long e=getDataItem(this.minMiddleIndex).getPeriod().getEnd().getTime();\n  long maxMiddle=s + (e - s) / 2;\n  if (middle > maxMiddle) {\n    this.maxMiddleIndex=index;\n  }\n}\n else {\n  this.maxMiddleIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.minStartIndex >= 0) {\n  long minStart=getDataItem(this.minStartIndex).getPeriod().getStart().getTime();\n  if (start < minStart) {\n    this.minStartIndex=index;\n  }\n}\n else {\n  this.minStartIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_976/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:23:35.709095905 -0500\n@@ -268,7 +268,8 @@\n             }\n         }\n         else {\n-            this.minStartIndex = index;\n+            this.maxStartIndex = -1;\n+\t\t\tthis.minStartIndex = index;\n         }\n         \n         if (this.maxStartIndex >= 0) {\n@@ -314,7 +315,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 271, 
+          "faulty": "this.minStartIndex=index;", 
+          "type": "InsertBefore", 
+          "seed": "this.maxStartIndex=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_770/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:22:53.401029118 -0500\n@@ -283,7 +283,16 @@\n         }\n         \n         if (this.minMiddleIndex >= 0) {\n-            long s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n+            if (this.minStartIndex >= 0) {\n+\t\t\t\tlong minStart = getDataItem(this.minStartIndex).getPeriod()\n+\t\t\t\t\t\t.getStart().getTime();\n+\t\t\t\tif (start < minStart) {\n+\t\t\t\t\tthis.minStartIndex = index;\n+\t\t\t\t}\n+\t\t\t} else {\n+\t\t\t\tthis.minStartIndex = index;\n+\t\t\t}\n+\t\t\tlong s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n                 .getTime();\n             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n                 .getTime();\n@@ -314,7 +323,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 286, 
+          "faulty": "long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();", 
+          "type": "InsertBefore", 
+          "seed": "if (this.minStartIndex >= 0) {\n  long minStart=getDataItem(this.minStartIndex).getPeriod().getStart().getTime();\n  if (start < minStart) {\n    this.minStartIndex=index;\n  }\n}\n else {\n  this.minStartIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1399/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:25:04.289222752 -0500\n@@ -243,7 +243,8 @@\n         if (item == null) {\n             throw new IllegalArgumentException(\"Null item not allowed.\");\n         }\n-        this.data.add(item);\n+        this.domain = domain;\n+\t\tthis.data.add(item);\n         updateBounds(item.getPeriod(), this.data.size() - 1);\n         fireSeriesChanged();\n     }\n@@ -314,7 +315,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 246, 
+          "faulty": "this.data.add(item);", 
+          "type": "InsertBefore", 
+          "seed": "this.domain=domain;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1575/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:25:41.393271689 -0500\n@@ -282,7 +282,16 @@\n             this.maxStartIndex = index;\n         }\n         \n-        if (this.minMiddleIndex >= 0) {\n+        if (this.minStartIndex >= 0) {\n+\t\t\tlong minStart = getDataItem(this.minStartIndex).getPeriod()\n+\t\t\t\t\t.getStart().getTime();\n+\t\t\tif (start < minStart) {\n+\t\t\t\tthis.minStartIndex = index;\n+\t\t\t}\n+\t\t} else {\n+\t\t\tthis.minStartIndex = index;\n+\t\t}\n+\t\tif (this.minMiddleIndex >= 0) {\n             long s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n                 .getTime();\n             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n@@ -314,7 +323,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 285, 
+          "faulty": "if (this.minMiddleIndex >= 0) {\n  long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();\n  long e=getDataItem(this.minMiddleIndex).getPeriod().getEnd().getTime();\n  long minMiddle=s + (e - s) / 2;\n  if (middle < minMiddle) {\n    this.minMiddleIndex=index;\n  }\n}\n else {\n  this.minMiddleIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.minStartIndex >= 0) {\n  long minStart=getDataItem(this.minStartIndex).getPeriod().getStart().getTime();\n  if (start < minStart) {\n    this.minStartIndex=index;\n  }\n}\n else {\n  this.minStartIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1266/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:24:36.125184083 -0500\n@@ -314,7 +314,8 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);\n+\t\t\t\tthis.minEndIndex = index;           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "InsertBefore", 
+          "seed": "this.data.remove(index);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_380/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:21:33.300896559 -0500\n@@ -314,7 +314,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1011/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:23:43.065107065 -0500\n@@ -302,7 +302,16 @@\n             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n                 .getTime();\n             long maxMiddle = s + (e - s) / 2;\n-            if (middle > maxMiddle) {\n+            if (this.maxStartIndex >= 0) {\n+\t\t\t\tlong maxStart = getDataItem(this.maxStartIndex).getPeriod()\n+\t\t\t\t\t\t.getStart().getTime();\n+\t\t\t\tif (start > maxStart) {\n+\t\t\t\t\tthis.maxStartIndex = index;\n+\t\t\t\t}\n+\t\t\t} else {\n+\t\t\t\tthis.maxStartIndex = index;\n+\t\t\t}\n+\t\t\tif (middle > maxMiddle) {\n                 this.maxMiddleIndex = index;           \n             }\n         }\n@@ -314,7 +323,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 305, 
+          "faulty": "if (middle > maxMiddle) {\n  this.maxMiddleIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.maxStartIndex >= 0) {\n  long maxStart=getDataItem(this.maxStartIndex).getPeriod().getStart().getTime();\n  if (start > maxStart) {\n    this.maxStartIndex=index;\n  }\n}\n else {\n  this.maxStartIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_939/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:23:28.145084297 -0500\n@@ -293,7 +293,8 @@\n             }\n         }\n         else {\n-            this.minMiddleIndex = index;\n+            this.maxEndIndex = index;\n+\t\t\tthis.minMiddleIndex = index;\n         }\n         \n         if (this.maxMiddleIndex >= 0) {\n@@ -314,7 +315,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 296, 
+          "faulty": "this.minMiddleIndex=index;", 
+          "type": "InsertBefore", 
+          "seed": "this.maxEndIndex=index;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1496/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:25:25.077250432 -0500\n@@ -275,7 +275,8 @@\n             long maxStart = getDataItem(this.maxStartIndex).getPeriod()\n                 .getStart().getTime();\n             if (start > maxStart) {\n-                this.maxStartIndex = index;           \n+                this.minEndIndex = -1;\n+\t\t\t\tthis.maxStartIndex = index;           \n             }\n         }\n         else {\n@@ -314,7 +315,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 278, 
+          "faulty": "this.maxStartIndex=index;", 
+          "type": "InsertBefore", 
+          "seed": "this.minEndIndex=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_788/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:22:57.113035167 -0500\n@@ -297,7 +297,8 @@\n         }\n         \n         if (this.maxMiddleIndex >= 0) {\n-            long s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n+            fireSeriesChanged();\n+\t\t\tlong s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n                 .getTime();\n             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n                 .getTime();\n@@ -314,7 +315,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 300, 
+          "faulty": "long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();", 
+          "type": "InsertBefore", 
+          "seed": "fireSeriesChanged();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1566/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:25:39.633269415 -0500\n@@ -288,7 +288,10 @@\n             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n                 .getTime();\n             long minMiddle = s + (e - s) / 2;\n-            if (middle < minMiddle) {\n+            if (start > end) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Requires start <= end.\");\n+\t\t\t}\n+\t\t\tif (middle < minMiddle) {\n                 this.minMiddleIndex = index;           \n             }\n         }\n@@ -310,11 +313,20 @@\n             this.maxMiddleIndex = index;\n         }\n         \n-        if (this.minEndIndex >= 0) {\n+        if (this.maxStartIndex >= 0) {\n+\t\t\tlong maxStart = getDataItem(this.maxStartIndex).getPeriod()\n+\t\t\t\t\t.getStart().getTime();\n+\t\t\tif (start > maxStart) {\n+\t\t\t\tthis.maxStartIndex = index;\n+\t\t\t}\n+\t\t} else {\n+\t\t\tthis.maxStartIndex = index;\n+\t\t}\n+\t\tif (this.minEndIndex >= 0) {\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 313, 
+          "faulty": "if (this.minEndIndex >= 0) {\n  long minEnd=getDataItem(this.minEndIndex).getPeriod().getEnd().getTime();\n  if (end < minEnd) {\n    this.minEndIndex=index;\n  }\n}\n else {\n  this.minEndIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.maxStartIndex >= 0) {\n  long maxStart=getDataItem(this.maxStartIndex).getPeriod().getStart().getTime();\n  if (start > maxStart) {\n    this.maxStartIndex=index;\n  }\n}\n else {\n  this.maxStartIndex=index;\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 291, 
+          "faulty": "if (middle < minMiddle) {\n  this.minMiddleIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (start > end) {\n  throw new IllegalArgumentException(\"Requires start <= end.\");\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_592/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:22:17.312968224 -0500\n@@ -261,7 +261,19 @@\n         long middle = start + ((end - start) / 2);\n \n         if (this.minStartIndex >= 0) {\n-            long minStart = getDataItem(this.minStartIndex).getPeriod()\n+            if (this.minMiddleIndex >= 0) {\n+\t\t\t\tlong s = getDataItem(this.minMiddleIndex).getPeriod()\n+\t\t\t\t\t\t.getStart().getTime();\n+\t\t\t\tlong e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n+\t\t\t\t\t\t.getTime();\n+\t\t\t\tlong minMiddle = s + (e - s) / 2;\n+\t\t\t\tif (middle < minMiddle) {\n+\t\t\t\t\tthis.minMiddleIndex = index;\n+\t\t\t\t}\n+\t\t\t} else {\n+\t\t\t\tthis.minMiddleIndex = index;\n+\t\t\t}\n+\t\t\tlong minStart = getDataItem(this.minStartIndex).getPeriod()\n                 .getStart().getTime();\n             if (start < minStart) {\n                 this.minStartIndex = index;           \n@@ -314,7 +326,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 264, 
+          "faulty": "long minStart=getDataItem(this.minStartIndex).getPeriod().getStart().getTime();", 
+          "type": "InsertBefore", 
+          "seed": "if (this.minMiddleIndex >= 0) {\n  long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();\n  long e=getDataItem(this.minMiddleIndex).getPeriod().getEnd().getTime();\n  long minMiddle=s + (e - s) / 2;\n  if (middle < minMiddle) {\n    this.minMiddleIndex=index;\n  }\n}\n else {\n  this.minMiddleIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_797/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:22:58.829037950 -0500\n@@ -274,7 +274,10 @@\n         if (this.maxStartIndex >= 0) {\n             long maxStart = getDataItem(this.maxStartIndex).getPeriod()\n                 .getStart().getTime();\n-            if (start > maxStart) {\n+            if (start > end) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Requires start <= end.\");\n+\t\t\t}\n+\t\t\tif (start > maxStart) {\n                 this.maxStartIndex = index;           \n             }\n         }\n@@ -314,7 +317,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 277, 
+          "faulty": "if (start > maxStart) {\n  this.maxStartIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (start > end) {\n  throw new IllegalArgumentException(\"Requires start <= end.\");\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_642/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:22:27.760986259 -0500\n@@ -289,7 +289,10 @@\n                 .getTime();\n             long minMiddle = s + (e - s) / 2;\n             if (middle < minMiddle) {\n-                this.minMiddleIndex = index;           \n+                if (middle < minMiddle) {\n+\t\t\t\t\tthis.minMiddleIndex = index;\n+\t\t\t\t}\n+\t\t\t\tthis.minMiddleIndex = index;           \n             }\n         }\n         else {\n@@ -314,7 +317,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 292, 
+          "faulty": "this.minMiddleIndex=index;", 
+          "type": "InsertBefore", 
+          "seed": "if (middle < minMiddle) {\n  this.minMiddleIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1812/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:26:31.161334247 -0500\n@@ -288,7 +288,8 @@\n             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n                 .getTime();\n             long minMiddle = s + (e - s) / 2;\n-            if (middle < minMiddle) {\n+            fireSeriesChanged();\n+\t\t\tif (middle < minMiddle) {\n                 this.minMiddleIndex = index;           \n             }\n         }\n@@ -314,7 +315,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 291, 
+          "faulty": "if (middle < minMiddle) {\n  this.minMiddleIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "fireSeriesChanged();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1789/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:26:26.581328623 -0500\n@@ -268,7 +268,16 @@\n             }\n         }\n         else {\n-            this.minStartIndex = index;\n+            if (this.minEndIndex >= 0) {\n+\t\t\t\tlong minEnd = getDataItem(this.minEndIndex).getPeriod()\n+\t\t\t\t\t\t.getEnd().getTime();\n+\t\t\t\tif (end < minEnd) {\n+\t\t\t\t\tthis.minEndIndex = index;\n+\t\t\t\t}\n+\t\t\t} else {\n+\t\t\t\tthis.minEndIndex = index;\n+\t\t\t}\n+\t\t\tthis.minStartIndex = index;\n         }\n         \n         if (this.maxStartIndex >= 0) {\n@@ -314,7 +323,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 271, 
+          "faulty": "this.minStartIndex=index;", 
+          "type": "InsertBefore", 
+          "seed": "if (this.minEndIndex >= 0) {\n  long minEnd=getDataItem(this.minEndIndex).getPeriod().getEnd().getTime();\n  if (end < minEnd) {\n    this.minEndIndex=index;\n  }\n}\n else {\n  this.minEndIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_716/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:22:42.577011260 -0500\n@@ -279,7 +279,6 @@\n             }\n         }\n         else {\n-            this.maxStartIndex = index;\n         }\n         \n         if (this.minMiddleIndex >= 0) {\n@@ -310,11 +309,20 @@\n             this.maxMiddleIndex = index;\n         }\n         \n-        if (this.minEndIndex >= 0) {\n+        if (this.maxStartIndex >= 0) {\n+\t\t\tlong maxStart = getDataItem(this.maxStartIndex).getPeriod()\n+\t\t\t\t\t.getStart().getTime();\n+\t\t\tif (start > maxStart) {\n+\t\t\t\tthis.maxStartIndex = index;\n+\t\t\t}\n+\t\t} else {\n+\t\t\tthis.maxStartIndex = index;\n+\t\t}\n+\t\tif (this.minEndIndex >= 0) {\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 313, 
+          "faulty": "if (this.minEndIndex >= 0) {\n  long minEnd=getDataItem(this.minEndIndex).getPeriod().getEnd().getTime();\n  if (end < minEnd) {\n    this.minEndIndex=index;\n  }\n}\n else {\n  this.minEndIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.maxStartIndex >= 0) {\n  long maxStart=getDataItem(this.maxStartIndex).getPeriod().getStart().getTime();\n  if (start > maxStart) {\n    this.maxStartIndex=index;\n  }\n}\n else {\n  this.maxStartIndex=index;\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 282, 
+          "faulty": "this.maxStartIndex=index;", 
+          "type": "Delete", 
+          "seed": "this.data=new java.util.ArrayList();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1083/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:23:57.857129131 -0500\n@@ -282,13 +282,25 @@\n             this.maxStartIndex = index;\n         }\n         \n-        if (this.minMiddleIndex >= 0) {\n+        if (this.minStartIndex >= 0) {\n+\t\t\tlong minStart = getDataItem(this.minStartIndex).getPeriod()\n+\t\t\t\t\t.getStart().getTime();\n+\t\t\tif (start < minStart) {\n+\t\t\t\tthis.minStartIndex = index;\n+\t\t\t}\n+\t\t} else {\n+\t\t\tthis.minStartIndex = index;\n+\t\t}\n+\t\tif (this.minMiddleIndex >= 0) {\n             long s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n                 .getTime();\n             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n                 .getTime();\n             long minMiddle = s + (e - s) / 2;\n-            if (middle < minMiddle) {\n+            if (start > end) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Requires start <= end.\");\n+\t\t\t}\n+\t\t\tif (middle < minMiddle) {\n                 this.minMiddleIndex = index;           \n             }\n         }\n@@ -314,7 +326,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 285, 
+          "faulty": "if (this.minMiddleIndex >= 0) {\n  long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();\n  long e=getDataItem(this.minMiddleIndex).getPeriod().getEnd().getTime();\n  long minMiddle=s + (e - s) / 2;\n  if (middle < minMiddle) {\n    this.minMiddleIndex=index;\n  }\n}\n else {\n  this.minMiddleIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.minStartIndex >= 0) {\n  long minStart=getDataItem(this.minStartIndex).getPeriod().getStart().getTime();\n  if (start < minStart) {\n    this.minStartIndex=index;\n  }\n}\n else {\n  this.minStartIndex=index;\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 291, 
+          "faulty": "if (middle < minMiddle) {\n  this.minMiddleIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (start > end) {\n  throw new IllegalArgumentException(\"Requires start <= end.\");\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_506/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:21:59.652936933 -0500\n@@ -260,7 +260,16 @@\n         long end = period.getEnd().getTime();\n         long middle = start + ((end - start) / 2);\n \n-        if (this.minStartIndex >= 0) {\n+        if (this.maxEndIndex >= 0) {\n+\t\t\tlong maxEnd = getDataItem(this.maxEndIndex).getPeriod().getEnd()\n+\t\t\t\t\t.getTime();\n+\t\t\tif (end > maxEnd) {\n+\t\t\t\tthis.maxEndIndex = index;\n+\t\t\t}\n+\t\t} else {\n+\t\t\tthis.maxEndIndex = index;\n+\t\t}\n+\t\tif (this.minStartIndex >= 0) {\n             long minStart = getDataItem(this.minStartIndex).getPeriod()\n                 .getStart().getTime();\n             if (start < minStart) {\n@@ -314,7 +323,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n@@ -372,7 +381,8 @@\n      * @param value  the value (<code>null</code> permitted).\n      */\n     public void add(TimePeriod period, Number value) {\n-        TimePeriodValue item = new TimePeriodValue(period, value);\n+        this.domain = domain;\n+\t\tTimePeriodValue item = new TimePeriodValue(period, value);\n         add(item);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 263, 
+          "faulty": "if (this.minStartIndex >= 0) {\n  long minStart=getDataItem(this.minStartIndex).getPeriod().getStart().getTime();\n  if (start < minStart) {\n    this.minStartIndex=index;\n  }\n}\n else {\n  this.minStartIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.maxEndIndex >= 0) {\n  long maxEnd=getDataItem(this.maxEndIndex).getPeriod().getEnd().getTime();\n  if (end > maxEnd) {\n    this.maxEndIndex=index;\n  }\n}\n else {\n  this.maxEndIndex=index;\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 375, 
+          "faulty": "TimePeriodValue item=new TimePeriodValue(period,value);", 
+          "type": "InsertBefore", 
+          "seed": "this.domain=domain;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_675/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:22:34.396997538 -0500\n@@ -260,7 +260,8 @@\n         long end = period.getEnd().getTime();\n         long middle = start + ((end - start) / 2);\n \n-        if (this.minStartIndex >= 0) {\n+        this.domain = domain;\n+\t\tif (this.minStartIndex >= 0) {\n             long minStart = getDataItem(this.minStartIndex).getPeriod()\n                 .getStart().getTime();\n             if (start < minStart) {\n@@ -314,7 +315,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 263, 
+          "faulty": "if (this.minStartIndex >= 0) {\n  long minStart=getDataItem(this.minStartIndex).getPeriod().getStart().getTime();\n  if (start < minStart) {\n    this.minStartIndex=index;\n  }\n}\n else {\n  this.minStartIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.domain=domain;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_739/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:22:47.093018752 -0500\n@@ -240,7 +240,8 @@\n      * @param item  the item (<code>null</code> not permitted).\n      */\n     public void add(TimePeriodValue item) {\n-        if (item == null) {\n+        this.domain = domain;\n+\t\tif (item == null) {\n             throw new IllegalArgumentException(\"Null item not allowed.\");\n         }\n         this.data.add(item);\n@@ -261,7 +262,19 @@\n         long middle = start + ((end - start) / 2);\n \n         if (this.minStartIndex >= 0) {\n-            long minStart = getDataItem(this.minStartIndex).getPeriod()\n+            if (this.minMiddleIndex >= 0) {\n+\t\t\t\tlong s = getDataItem(this.minMiddleIndex).getPeriod()\n+\t\t\t\t\t\t.getStart().getTime();\n+\t\t\t\tlong e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n+\t\t\t\t\t\t.getTime();\n+\t\t\t\tlong minMiddle = s + (e - s) / 2;\n+\t\t\t\tif (middle < minMiddle) {\n+\t\t\t\t\tthis.minMiddleIndex = index;\n+\t\t\t\t}\n+\t\t\t} else {\n+\t\t\t\tthis.minMiddleIndex = index;\n+\t\t\t}\n+\t\t\tlong minStart = getDataItem(this.minStartIndex).getPeriod()\n                 .getStart().getTime();\n             if (start < minStart) {\n                 this.minStartIndex = index;           \n@@ -314,7 +327,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 243, 
+          "faulty": "if (item == null) {\n  throw new IllegalArgumentException(\"Null item not allowed.\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.domain=domain;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 264, 
+          "faulty": "long minStart=getDataItem(this.minStartIndex).getPeriod().getStart().getTime();", 
+          "type": "InsertBefore", 
+          "seed": "if (this.minMiddleIndex >= 0) {\n  long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();\n  long e=getDataItem(this.minMiddleIndex).getPeriod().getEnd().getTime();\n  long minMiddle=s + (e - s) / 2;\n  if (middle < minMiddle) {\n    this.minMiddleIndex=index;\n  }\n}\n else {\n  this.minMiddleIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_721/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:22:43.465012738 -0500\n@@ -260,7 +260,19 @@\n         long end = period.getEnd().getTime();\n         long middle = start + ((end - start) / 2);\n \n-        if (this.minStartIndex >= 0) {\n+        if (this.minMiddleIndex >= 0) {\n+\t\t\tlong s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n+\t\t\t\t\t.getTime();\n+\t\t\tlong e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n+\t\t\t\t\t.getTime();\n+\t\t\tlong minMiddle = s + (e - s) / 2;\n+\t\t\tif (middle < minMiddle) {\n+\t\t\t\tthis.minMiddleIndex = index;\n+\t\t\t}\n+\t\t} else {\n+\t\t\tthis.minMiddleIndex = index;\n+\t\t}\n+\t\tif (this.minStartIndex >= 0) {\n             long minStart = getDataItem(this.minStartIndex).getPeriod()\n                 .getStart().getTime();\n             if (start < minStart) {\n@@ -314,7 +326,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 263, 
+          "faulty": "if (this.minStartIndex >= 0) {\n  long minStart=getDataItem(this.minStartIndex).getPeriod().getStart().getTime();\n  if (start < minStart) {\n    this.minStartIndex=index;\n  }\n}\n else {\n  this.minStartIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.minMiddleIndex >= 0) {\n  long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();\n  long e=getDataItem(this.minMiddleIndex).getPeriod().getEnd().getTime();\n  long minMiddle=s + (e - s) / 2;\n  if (middle < minMiddle) {\n    this.minMiddleIndex=index;\n  }\n}\n else {\n  this.minMiddleIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_821/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:23:03.377045286 -0500\n@@ -275,7 +275,19 @@\n             long maxStart = getDataItem(this.maxStartIndex).getPeriod()\n                 .getStart().getTime();\n             if (start > maxStart) {\n-                this.maxStartIndex = index;           \n+                if (this.maxMiddleIndex >= 0) {\n+\t\t\t\t\tlong s = getDataItem(this.minMiddleIndex).getPeriod()\n+\t\t\t\t\t\t\t.getStart().getTime();\n+\t\t\t\t\tlong e = getDataItem(this.minMiddleIndex).getPeriod()\n+\t\t\t\t\t\t\t.getEnd().getTime();\n+\t\t\t\t\tlong maxMiddle = s + (e - s) / 2;\n+\t\t\t\t\tif (middle > maxMiddle) {\n+\t\t\t\t\t\tthis.maxMiddleIndex = index;\n+\t\t\t\t\t}\n+\t\t\t\t} else {\n+\t\t\t\t\tthis.maxMiddleIndex = index;\n+\t\t\t\t}\n+\t\t\t\tthis.maxStartIndex = index;           \n             }\n         }\n         else {\n@@ -314,7 +326,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 278, 
+          "faulty": "this.maxStartIndex=index;", 
+          "type": "InsertBefore", 
+          "seed": "if (this.maxMiddleIndex >= 0) {\n  long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();\n  long e=getDataItem(this.minMiddleIndex).getPeriod().getEnd().getTime();\n  long maxMiddle=s + (e - s) / 2;\n  if (middle > maxMiddle) {\n    this.maxMiddleIndex=index;\n  }\n}\n else {\n  this.maxMiddleIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_811/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:23:01.529042312 -0500\n@@ -288,7 +288,10 @@\n             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n                 .getTime();\n             long minMiddle = s + (e - s) / 2;\n-            if (middle < minMiddle) {\n+            if (start > end) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Requires start <= end.\");\n+\t\t\t}\n+\t\t\tif (middle < minMiddle) {\n                 this.minMiddleIndex = index;           \n             }\n         }\n@@ -314,7 +317,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 291, 
+          "faulty": "if (middle < minMiddle) {\n  this.minMiddleIndex=index;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (start > end) {\n  throw new IllegalArgumentException(\"Requires start <= end.\");\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1359/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:24:55.837211293 -0500\n@@ -293,7 +293,16 @@\n             }\n         }\n         else {\n-            this.minMiddleIndex = index;\n+            if (this.minStartIndex >= 0) {\n+\t\t\t\tlong minStart = getDataItem(this.minStartIndex).getPeriod()\n+\t\t\t\t\t\t.getStart().getTime();\n+\t\t\t\tif (start < minStart) {\n+\t\t\t\t\tthis.minStartIndex = index;\n+\t\t\t\t}\n+\t\t\t} else {\n+\t\t\t\tthis.minStartIndex = index;\n+\t\t\t}\n+\t\t\tthis.minMiddleIndex = index;\n         }\n         \n         if (this.maxMiddleIndex >= 0) {\n@@ -314,7 +323,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 296, 
+          "faulty": "this.minMiddleIndex=index;", 
+          "type": "InsertBefore", 
+          "seed": "if (this.minStartIndex >= 0) {\n  long minStart=getDataItem(this.minStartIndex).getPeriod().getStart().getTime();\n  if (start < minStart) {\n    this.minStartIndex=index;\n  }\n}\n else {\n  this.minStartIndex=index;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:18:41.580888616 -0500\n+++ /tmp/Arja_Defects4J_Chart_7/patches_f8u6/Patch_1538/patched/tmp/Arja_Defects4J_Chart_7/source/org/jfree/data/time/TimePeriodValues.java\t2018-12-01 08:25:33.809261858 -0500\n@@ -283,7 +283,10 @@\n         }\n         \n         if (this.minMiddleIndex >= 0) {\n-            long s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n+            if (start > end) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Requires start <= end.\");\n+\t\t\t}\n+\t\t\tlong s = getDataItem(this.minMiddleIndex).getPeriod().getStart()\n                 .getTime();\n             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()\n                 .getTime();\n@@ -314,7 +317,7 @@\n             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()\n                 .getTime();\n             if (end < minEnd) {\n-                this.minEndIndex = index;           \n+                this.data.remove(index);           \n             }\n         }\n         else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 317, 
+          "faulty": "this.minEndIndex=index;", 
+          "type": "Replace", 
+          "seed": "this.data.remove(index);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimePeriodValues.java", 
+          "line": 286, 
+          "faulty": "long s=getDataItem(this.minMiddleIndex).getPeriod().getStart().getTime();", 
+          "type": "InsertBefore", 
+          "seed": "if (start > end) {\n  throw new IllegalArgumentException(\"Requires start <= end.\");\n}"
+        }
+      ]
+    }
+  ]
+}

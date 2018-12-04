@@ -1,0 +1,497 @@
+{
+  "repair_end": "2018-12-02 09:12:50.468108", 
+  "repair_begin": "2018-12-02 08:51:03.737527", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1415/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:11:45.273695319 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n@@ -117,7 +112,8 @@\n \n         // create the linearly transformed simplex\n         simplex = new RealPointValuePair[n + 1];\n-        simplex[0] = original[0];\n+        simplex = new RealPointValuePair[n + 1];\n+\t\tsimplex[0] = original[0];\n         for (int i = 1; i <= n; ++i) {\n             final double[] xOriginal    = original[i].getPointRef();\n             final double[] xTransformed = new double[n];\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 120, 
+          "faulty": "simplex[0]=original[0];", 
+          "type": "InsertBefore", 
+          "seed": "simplex=new RealPointValuePair[n + 1];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1225/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:10:01.140660867 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n@@ -117,7 +112,8 @@\n \n         // create the linearly transformed simplex\n         simplex = new RealPointValuePair[n + 1];\n-        simplex[0] = original[0];\n+        incrementIterationsCounter();\n+\t\tsimplex[0] = original[0];\n         for (int i = 1; i <= n; ++i) {\n             final double[] xOriginal    = original[i].getPointRef();\n             final double[] xTransformed = new double[n];\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 120, 
+          "faulty": "simplex[0]=original[0];", 
+          "type": "InsertBefore", 
+          "seed": "incrementIterationsCounter();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1217/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:09:59.180641087 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n@@ -117,7 +112,8 @@\n \n         // create the linearly transformed simplex\n         simplex = new RealPointValuePair[n + 1];\n-        simplex[0] = original[0];\n+        setMaxIterations(Integer.MAX_VALUE);\n+\t\tsimplex[0] = original[0];\n         for (int i = 1; i <= n; ++i) {\n             final double[] xOriginal    = original[i].getPointRef();\n             final double[] xTransformed = new double[n];\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 120, 
+          "faulty": "simplex[0]=original[0];", 
+          "type": "InsertBefore", 
+          "seed": "setMaxIterations(Integer.MAX_VALUE);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1247/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:10:07.100720933 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 132, 
+          "faulty": "return simplex[0];", 
+          "type": "Replace", 
+          "seed": "return simplex[0];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1252/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:10:08.220732206 -0500\n@@ -71,7 +71,8 @@\n \n             // perform a reflection step\n             final RealPointValuePair reflected = evaluateNewSimplex(original, 1.0, comparator);\n-            if (comparator.compare(reflected, best) < 0) {\n+            evaluateSimplex(comparator);\n+\t\t\tif (comparator.compare(reflected, best) < 0) {\n \n                 // compute the expanded simplex\n                 final RealPointValuePair[] reflectedSimplex = simplex;\n@@ -87,12 +88,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 74, 
+          "faulty": "if (comparator.compare(reflected,best) < 0) {\n  final RealPointValuePair[] reflectedSimplex=simplex;\n  final RealPointValuePair expanded=evaluateNewSimplex(original,khi,comparator);\n  if (comparator.compare(reflected,expanded) <= 0) {\n    simplex=reflectedSimplex;\n  }\n  return;\n}", 
+          "type": "InsertBefore", 
+          "seed": "evaluateSimplex(comparator);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 02:50:50.072251602 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1441/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 03:12:15.053986193 -0500\n@@ -144,11 +144,6 @@\n         for (int i = 0; i < n; ++i) {\n             final double[] vertexI = startConfiguration[i];\n             for (int j = 0; j < i + 1; ++j) {\n-                if (steps[j] == 0.0) {\n-                    throw MathRuntimeException.createIllegalArgumentException(\n-                            \"equals vertices {0} and {1} in simplex configuration\",\n-                            j, j + 1);\n-                }\n                 System.arraycopy(steps, 0, vertexI, 0, j + 1);\n             }\n         }\n\n\n--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1441/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:12:15.053986193 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n@@ -112,7 +107,8 @@\n                                               final Comparator<RealPointValuePair> comparator)\n         throws FunctionEvaluationException, OptimizationException {\n \n-        final double[] xSmallest = original[0].getPointRef();\n+        incrementIterationsCounter();\n+\t\tfinal double[] xSmallest = original[0].getPointRef();\n         final int n = xSmallest.length;\n \n         // create the linearly transformed simplex\n@@ -120,7 +116,8 @@\n         simplex[0] = original[0];\n         for (int i = 1; i <= n; ++i) {\n             final double[] xOriginal    = original[i].getPointRef();\n-            final double[] xTransformed = new double[n];\n+            setMaxEvaluations(Integer.MAX_VALUE);\n+\t\t\tfinal double[] xTransformed = new double[n];\n             for (int j = 0; j < n; ++j) {\n                 xTransformed[j] = xSmallest[j] + coeff * (xSmallest[j] - xOriginal[j]);\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java", 
+          "line": 147, 
+          "faulty": "if (steps[j] == 0.0) {\n  throw MathRuntimeException.createIllegalArgumentException(\"equals vertices {0} and {1} in simplex configuration\",j,j + 1);\n}", 
+          "type": "Delete", 
+          "seed": "evaluations=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 123, 
+          "faulty": "final double[] xTransformed=new double[n];", 
+          "type": "InsertBefore", 
+          "seed": "setMaxEvaluations(Integer.MAX_VALUE);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 115, 
+          "faulty": "final double[] xSmallest=original[0].getPointRef();", 
+          "type": "InsertBefore", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_938/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:06:07.614456108 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            return;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "return;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1098/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:08:51.943989603 -0500\n@@ -69,7 +69,8 @@\n             final RealPointValuePair[] original = simplex;\n             final RealPointValuePair best = original[0];\n \n-            // perform a reflection step\n+            evaluateSimplex(comparator);\n+\t\t\t// perform a reflection step\n             final RealPointValuePair reflected = evaluateNewSimplex(original, 1.0, comparator);\n             if (comparator.compare(reflected, best) < 0) {\n \n@@ -87,12 +88,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 73, 
+          "faulty": "final RealPointValuePair reflected=evaluateNewSimplex(original,1.0,comparator);", 
+          "type": "InsertBefore", 
+          "seed": "evaluateSimplex(comparator);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1119/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:09:09.100148623 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n@@ -112,7 +107,8 @@\n                                               final Comparator<RealPointValuePair> comparator)\n         throws FunctionEvaluationException, OptimizationException {\n \n-        final double[] xSmallest = original[0].getPointRef();\n+        incrementIterationsCounter();\n+\t\tfinal double[] xSmallest = original[0].getPointRef();\n         final int n = xSmallest.length;\n \n         // create the linearly transformed simplex\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 115, 
+          "faulty": "final double[] xSmallest=original[0].getPointRef();", 
+          "type": "InsertBefore", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 02:50:50.072251602 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1062/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 03:08:07.803579679 -0500\n@@ -317,7 +317,8 @@\n     protected void incrementIterationsCounter()\n         throws OptimizationException {\n         if (++iterations > maxIterations) {\n-            throw new OptimizationException(new MaxIterationsExceededException(maxIterations));\n+            throw new OptimizationException(new MaxIterationsExceededException(\n+\t\t\t\t\tmaxIterations));\n         }\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1062/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:08:07.803579679 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            return;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "return;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java", 
+          "line": 320, 
+          "faulty": "throw new OptimizationException(new MaxIterationsExceededException(maxIterations));", 
+          "type": "Replace", 
+          "seed": "throw new OptimizationException(new MaxIterationsExceededException(maxIterations));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_977/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:06:41.298772289 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            return;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "return;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 94, 
+          "faulty": "return;", 
+          "type": "InsertBefore", 
+          "seed": "this.khi=2.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 02:50:50.072251602 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1178/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 03:09:42.804475310 -0500\n@@ -144,11 +144,6 @@\n         for (int i = 0; i < n; ++i) {\n             final double[] vertexI = startConfiguration[i];\n             for (int j = 0; j < i + 1; ++j) {\n-                if (steps[j] == 0.0) {\n-                    throw MathRuntimeException.createIllegalArgumentException(\n-                            \"equals vertices {0} and {1} in simplex configuration\",\n-                            j, j + 1);\n-                }\n                 System.arraycopy(steps, 0, vertexI, 0, j + 1);\n             }\n         }\n\n\n--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1178/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:09:42.804475310 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n@@ -112,7 +107,8 @@\n                                               final Comparator<RealPointValuePair> comparator)\n         throws FunctionEvaluationException, OptimizationException {\n \n-        final double[] xSmallest = original[0].getPointRef();\n+        incrementIterationsCounter();\n+\t\tfinal double[] xSmallest = original[0].getPointRef();\n         final int n = xSmallest.length;\n \n         // create the linearly transformed simplex\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java", 
+          "line": 147, 
+          "faulty": "if (steps[j] == 0.0) {\n  throw MathRuntimeException.createIllegalArgumentException(\"equals vertices {0} and {1} in simplex configuration\",j,j + 1);\n}", 
+          "type": "Delete", 
+          "seed": "evaluations=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 115, 
+          "faulty": "final double[] xSmallest=original[0].getPointRef();", 
+          "type": "InsertBefore", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1267/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:10:17.900829479 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 94, 
+          "faulty": "return;", 
+          "type": "InsertBefore", 
+          "seed": "if (comparator.compare(reflected,best) < 0) {\n  final RealPointValuePair[] reflectedSimplex=simplex;\n  final RealPointValuePair expanded=evaluateNewSimplex(original,khi,comparator);\n  if (comparator.compare(reflected,expanded) <= 0) {\n    simplex=reflectedSimplex;\n  }\n  return;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 02:50:50.072251602 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_859/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 03:04:31.133543112 -0500\n@@ -317,7 +317,8 @@\n     protected void incrementIterationsCounter()\n         throws OptimizationException {\n         if (++iterations > maxIterations) {\n-            throw new OptimizationException(new MaxIterationsExceededException(maxIterations));\n+            throw new OptimizationException(new MaxIterationsExceededException(\n+\t\t\t\t\tmaxIterations));\n         }\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_859/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:04:31.137543150 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java", 
+          "line": 320, 
+          "faulty": "throw new OptimizationException(new MaxIterationsExceededException(maxIterations));", 
+          "type": "Replace", 
+          "seed": "throw new OptimizationException(new MaxIterationsExceededException(maxIterations));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_378/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:57:21.333490245 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1493/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:12:46.514291553 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n@@ -117,7 +112,8 @@\n \n         // create the linearly transformed simplex\n         simplex = new RealPointValuePair[n + 1];\n-        simplex[0] = original[0];\n+        incrementIterationsCounter();\n+\t\tsimplex[0] = original[0];\n         for (int i = 1; i <= n; ++i) {\n             final double[] xOriginal    = original[i].getPointRef();\n             final double[] xTransformed = new double[n];\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 120, 
+          "faulty": "simplex[0]=original[0];", 
+          "type": "InsertBefore", 
+          "seed": "incrementIterationsCounter();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 132, 
+          "faulty": "return simplex[0];", 
+          "type": "Replace", 
+          "seed": "return simplex[0];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1047/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:07:46.519381561 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n@@ -119,7 +114,8 @@\n         simplex = new RealPointValuePair[n + 1];\n         simplex[0] = original[0];\n         for (int i = 1; i <= n; ++i) {\n-            final double[] xOriginal    = original[i].getPointRef();\n+            simplex[0] = original[0];\n+\t\t\tfinal double[] xOriginal    = original[i].getPointRef();\n             final double[] xTransformed = new double[n];\n             for (int j = 0; j < n; ++j) {\n                 xTransformed[j] = xSmallest[j] + coeff * (xSmallest[j] - xOriginal[j]);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 122, 
+          "faulty": "final double[] xOriginal=original[i].getPointRef();", 
+          "type": "InsertBefore", 
+          "seed": "simplex[0]=original[0];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 02:50:50.072251602 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1044/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 03:07:45.955376306 -0500\n@@ -317,7 +317,8 @@\n     protected void incrementIterationsCounter()\n         throws OptimizationException {\n         if (++iterations > maxIterations) {\n-            throw new OptimizationException(new MaxIterationsExceededException(maxIterations));\n+            throw new OptimizationException(new MaxIterationsExceededException(\n+\t\t\t\t\tmaxIterations));\n         }\n     }\n \n\n\n--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1044/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:07:45.955376306 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n@@ -112,7 +107,8 @@\n                                               final Comparator<RealPointValuePair> comparator)\n         throws FunctionEvaluationException, OptimizationException {\n \n-        final double[] xSmallest = original[0].getPointRef();\n+        incrementIterationsCounter();\n+\t\tfinal double[] xSmallest = original[0].getPointRef();\n         final int n = xSmallest.length;\n \n         // create the linearly transformed simplex\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java", 
+          "line": 320, 
+          "faulty": "throw new OptimizationException(new MaxIterationsExceededException(maxIterations));", 
+          "type": "Replace", 
+          "seed": "throw new OptimizationException(new MaxIterationsExceededException(maxIterations));"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 115, 
+          "faulty": "final double[] xSmallest=original[0].getPointRef();", 
+          "type": "InsertBefore", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1198/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:09:54.088589640 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 94, 
+          "faulty": "return;", 
+          "type": "InsertBefore", 
+          "seed": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1310/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:10:52.853178321 -0500\n@@ -71,7 +71,8 @@\n \n             // perform a reflection step\n             final RealPointValuePair reflected = evaluateNewSimplex(original, 1.0, comparator);\n-            if (comparator.compare(reflected, best) < 0) {\n+            setMaxIterations(Integer.MAX_VALUE);\n+\t\t\tif (comparator.compare(reflected, best) < 0) {\n \n                 // compute the expanded simplex\n                 final RealPointValuePair[] reflectedSimplex = simplex;\n@@ -87,12 +88,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 74, 
+          "faulty": "if (comparator.compare(reflected,best) < 0) {\n  final RealPointValuePair[] reflectedSimplex=simplex;\n  final RealPointValuePair expanded=evaluateNewSimplex(original,khi,comparator);\n  if (comparator.compare(reflected,expanded) <= 0) {\n    simplex=reflectedSimplex;\n  }\n  return;\n}", 
+          "type": "InsertBefore", 
+          "seed": "setMaxIterations(Integer.MAX_VALUE);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 02:50:50.072251602 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1080/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 03:08:29.867784736 -0500\n@@ -144,11 +144,6 @@\n         for (int i = 0; i < n; ++i) {\n             final double[] vertexI = startConfiguration[i];\n             for (int j = 0; j < i + 1; ++j) {\n-                if (steps[j] == 0.0) {\n-                    throw MathRuntimeException.createIllegalArgumentException(\n-                            \"equals vertices {0} and {1} in simplex configuration\",\n-                            j, j + 1);\n-                }\n                 System.arraycopy(steps, 0, vertexI, 0, j + 1);\n             }\n         }\n\n\n--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1080/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:08:29.871784772 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java", 
+          "line": 147, 
+          "faulty": "if (steps[j] == 0.0) {\n  throw MathRuntimeException.createIllegalArgumentException(\"equals vertices {0} and {1} in simplex configuration\",j,j + 1);\n}", 
+          "type": "Delete", 
+          "seed": "evaluations=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 02:50:50.072251602 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1424/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java\t2018-12-02 03:11:53.277773683 -0500\n@@ -144,11 +144,6 @@\n         for (int i = 0; i < n; ++i) {\n             final double[] vertexI = startConfiguration[i];\n             for (int j = 0; j < i + 1; ++j) {\n-                if (steps[j] == 0.0) {\n-                    throw MathRuntimeException.createIllegalArgumentException(\n-                            \"equals vertices {0} and {1} in simplex configuration\",\n-                            j, j + 1);\n-                }\n                 System.arraycopy(steps, 0, vertexI, 0, j + 1);\n             }\n         }\n\n\n--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1424/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:11:53.277773683 -0500\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java", 
+          "line": 147, 
+          "faulty": "if (steps[j] == 0.0) {\n  throw MathRuntimeException.createIllegalArgumentException(\"equals vertices {0} and {1} in simplex configuration\",j,j + 1);\n}", 
+          "type": "Delete", 
+          "seed": "evaluations=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 132, 
+          "faulty": "return simplex[0];", 
+          "type": "Replace", 
+          "seed": "return simplex[0];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1002/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:07:05.346997356 -0500\n@@ -67,7 +67,7 @@\n \n             // save the original vertex\n             final RealPointValuePair[] original = simplex;\n-            final RealPointValuePair best = original[0];\n+            final RealPointValuePair best = simplex[0];\n \n             // perform a reflection step\n             final RealPointValuePair reflected = evaluateNewSimplex(original, 1.0, comparator);\n@@ -87,12 +87,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 70, 
+          "faulty": "final RealPointValuePair best=original[0];", 
+          "type": "Replace", 
+          "seed": "final RealPointValuePair best=simplex[0];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 02:50:53.636433660 -0500\n+++ /tmp/Arja_Defects4J_Math_84/patches_l8im/Patch_1449/patched/tmp/Arja_Defects4J_Math_84/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java\t2018-12-02 03:12:17.062005739 -0500\n@@ -69,7 +69,8 @@\n             final RealPointValuePair[] original = simplex;\n             final RealPointValuePair best = original[0];\n \n-            // perform a reflection step\n+            evaluateSimplex(comparator);\n+\t\t\t// perform a reflection step\n             final RealPointValuePair reflected = evaluateNewSimplex(original, 1.0, comparator);\n             if (comparator.compare(reflected, best) < 0) {\n \n@@ -87,12 +88,7 @@\n \n             // compute the contracted simplex\n             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);\n-            if (comparator.compare(contracted, best) < 0) {\n-                // accept the contracted simplex\n-\n-            // check convergence\n-                return;\n-            }\n+            break;\n \n         }\n \n@@ -119,7 +115,8 @@\n         simplex = new RealPointValuePair[n + 1];\n         simplex[0] = original[0];\n         for (int i = 1; i <= n; ++i) {\n-            final double[] xOriginal    = original[i].getPointRef();\n+            simplex[0] = original[0];\n+\t\t\tfinal double[] xOriginal    = original[i].getPointRef();\n             final double[] xTransformed = new double[n];\n             for (int j = 0; j < n; ++j) {\n                 xTransformed[j] = xSmallest[j] + coeff * (xSmallest[j] - xOriginal[j]);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 122, 
+          "faulty": "final double[] xOriginal=original[i].getPointRef();", 
+          "type": "InsertBefore", 
+          "seed": "simplex[0]=original[0];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 90, 
+          "faulty": "if (comparator.compare(contracted,best) < 0) {\n  return;\n}", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java", 
+          "line": 73, 
+          "faulty": "final RealPointValuePair reflected=evaluateNewSimplex(original,1.0,comparator);", 
+          "type": "InsertBefore", 
+          "seed": "evaluateSimplex(comparator);"
+        }
+      ]
+    }
+  ]
+}

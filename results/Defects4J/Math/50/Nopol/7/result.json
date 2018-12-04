@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 05:16:18.806333", 
+  "repair_begin": "2018-11-29 05:05:43.048340", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 7, 
+      "patchLocation": {
+        "line": 187, 
+        "class": "org.apache.commons.math.analysis.solvers.BaseSecantSolver"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\n+++ b/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\n@@ -186,5 +186,7 @@\n                     // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                    if (-1 == 0) {\n+                        if (x == x1) {\n+                            x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                            f0 = computeObjectiveValue(x0);\n+                        }\n                     }\n"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 04:23:15.966880", 
+  "repair_begin": "2018-11-29 04:22:42.599668", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 1, 
+      "patchLocation": {
+        "line": 1139, 
+        "class": "org.apache.commons.math.linear.EigenDecompositionImpl"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\n+++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\n@@ -1138,3 +1138,5 @@\n                     final double tmp = work[i + k];\n-                    work[i + k] = work[j - k];\n+                    if (org.apache.commons.math.linear.EigenDecompositionImpl.this.cachedV!=null) {\n+                        work[i + k] = work[j - k];\n+                    }\n                     work[j - k] = tmp;\n"
+    }
+  ]
+}

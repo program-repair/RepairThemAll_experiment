@@ -1,0 +1,1351 @@
+{
+  "repair_end": "2018-12-01 14:55:57.516034", 
+  "repair_begin": "2018-12-01 14:25:31.223646", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1253/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:45:47.492696538 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -664,7 +665,8 @@\n     public void add(RegularTimePeriod period, double value, boolean notify) {\n         // defer argument checking...\n         TimeSeriesDataItem item = new TimeSeriesDataItem(period, value);\n-        add(item, notify);\n+        fireSeriesChanged();\n+\t\tadd(item, notify);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 667, 
+          "faulty": "add(item,notify);", 
+          "type": "InsertBefore", 
+          "seed": "fireSeriesChanged();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_713/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:37:57.226073721 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_713/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:37:57.226073721 -0500\n@@ -242,7 +242,6 @@\n \n         Series clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n-        clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 245, 
+          "faulty": "clone.propertyChangeSupport=new PropertyChangeSupport(clone);", 
+          "type": "Delete", 
+          "seed": "notifyListeners(new SeriesChangeEvent(this));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_604/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:36:29.410467954 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1071, 
+          "faulty": "return copy;", 
+          "type": "Replace", 
+          "seed": "return copy;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_585/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:36:15.522529265 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_585/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:36:15.522529265 -0500\n@@ -240,9 +240,11 @@\n      */\n     public Object clone() throws CloneNotSupportedException {\n \n-        Series clone = (Series) super.clone();\n+        notifyListeners(new SeriesChangeEvent(this));\n+\t\tSeries clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n-        clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n+        notifyListeners(new SeriesChangeEvent(this));\n+\t\tclone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 243, 
+          "faulty": "Series clone=(Series)super.clone();", 
+          "type": "InsertBefore", 
+          "seed": "notifyListeners(new SeriesChangeEvent(this));"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 245, 
+          "faulty": "clone.propertyChangeSupport=new PropertyChangeSupport(clone);", 
+          "type": "InsertBefore", 
+          "seed": "notifyListeners(new SeriesChangeEvent(this));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1102/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:43:36.015709185 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -580,17 +581,19 @@\n         Class c = item.getPeriod().getClass();\n         if (this.timePeriodClass == null) {\n             this.timePeriodClass = c;\n-        }\n-        else if (!this.timePeriodClass.equals(c)) {\n-            StringBuffer b = new StringBuffer();\n-            b.append(\"You are trying to add data where the time period class \");\n-            b.append(\"is \");\n-            b.append(item.getPeriod().getClass().getName());\n-            b.append(\", but the TimeSeries is expecting an instance of \");\n-            b.append(this.timePeriodClass.getName());\n-            b.append(\".\");\n-            throw new SeriesException(b.toString());\n-        }\n+        } else {\n+\t\t\tupdateBoundsForRemovedItem(item);\n+\t\t\tif (!this.timePeriodClass.equals(c)) {\n+\t\t\t\tStringBuffer b = new StringBuffer();\n+\t\t\t\tb.append(\"You are trying to add data where the time period class \");\n+\t\t\t\tb.append(\"is \");\n+\t\t\t\tb.append(item.getPeriod().getClass().getName());\n+\t\t\t\tb.append(\", but the TimeSeries is expecting an instance of \");\n+\t\t\t\tb.append(this.timePeriodClass.getName());\n+\t\t\t\tb.append(\".\");\n+\t\t\t\tthrow new SeriesException(b.toString());\n+\t\t\t}\n+\t\t}\n \n         // make the change (if it's not a duplicate time period)...\n         boolean added = false;\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 584, 
+          "faulty": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_614/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:36:37.638431483 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_614/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:36:37.638431483 -0500\n@@ -240,7 +240,10 @@\n      */\n     public Object clone() throws CloneNotSupportedException {\n \n-        Series clone = (Series) super.clone();\n+        if (key == null) {\n+\t\t\tthrow new IllegalArgumentException(\"Null 'key' argument.\");\n+\t\t}\n+\t\tSeries clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n         clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 243, 
+          "faulty": "Series clone=(Series)super.clone();", 
+          "type": "InsertBefore", 
+          "seed": "if (key == null) {\n  throw new IllegalArgumentException(\"Null 'key' argument.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_547/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:35:44.506664975 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1054,7 +1055,8 @@\n             throw new IllegalArgumentException(\"Requires start <= end.\");\n         }\n         TimeSeries copy = (TimeSeries) super.clone();\n-        copy.data = new java.util.ArrayList();\n+        fireSeriesChanged();\n+\t\tcopy.data = new java.util.ArrayList();\n         if (this.data.size() > 0) {\n             for (int index = start; index <= end; index++) {\n                 TimeSeriesDataItem item\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1057, 
+          "faulty": "copy.data=new java.util.ArrayList();", 
+          "type": "InsertBefore", 
+          "seed": "fireSeriesChanged();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_482/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:34:50.842895273 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -580,17 +581,8 @@\n         Class c = item.getPeriod().getClass();\n         if (this.timePeriodClass == null) {\n             this.timePeriodClass = c;\n-        }\n-        else if (!this.timePeriodClass.equals(c)) {\n-            StringBuffer b = new StringBuffer();\n-            b.append(\"You are trying to add data where the time period class \");\n-            b.append(\"is \");\n-            b.append(item.getPeriod().getClass().getName());\n-            b.append(\", but the TimeSeries is expecting an instance of \");\n-            b.append(this.timePeriodClass.getName());\n-            b.append(\".\");\n-            throw new SeriesException(b.toString());\n-        }\n+        } else\n+\t\t\t;\n \n         // make the change (if it's not a duplicate time period)...\n         boolean added = false;\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 584, 
+          "faulty": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}", 
+          "type": "Delete", 
+          "seed": "if (getItemCount() > this.maximumItemCount) {\n  TimeSeriesDataItem d=(TimeSeriesDataItem)this.data.remove(0);\n  updateBoundsForRemovedItem(d);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1757/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:53:19.625967347 -0500\n@@ -580,17 +580,22 @@\n         Class c = item.getPeriod().getClass();\n         if (this.timePeriodClass == null) {\n             this.timePeriodClass = c;\n-        }\n-        else if (!this.timePeriodClass.equals(c)) {\n-            StringBuffer b = new StringBuffer();\n-            b.append(\"You are trying to add data where the time period class \");\n-            b.append(\"is \");\n-            b.append(item.getPeriod().getClass().getName());\n-            b.append(\", but the TimeSeries is expecting an instance of \");\n-            b.append(this.timePeriodClass.getName());\n-            b.append(\".\");\n-            throw new SeriesException(b.toString());\n-        }\n+        } else {\n+\t\t\tif (getItemCount() > this.maximumItemCount) {\n+\t\t\t\tTimeSeriesDataItem d = (TimeSeriesDataItem) this.data.remove(0);\n+\t\t\t\tupdateBoundsForRemovedItem(d);\n+\t\t\t}\n+\t\t\tif (!this.timePeriodClass.equals(c)) {\n+\t\t\t\tStringBuffer b = new StringBuffer();\n+\t\t\t\tb.append(\"You are trying to add data where the time period class \");\n+\t\t\t\tb.append(\"is \");\n+\t\t\t\tb.append(item.getPeriod().getClass().getName());\n+\t\t\t\tb.append(\", but the TimeSeries is expecting an instance of \");\n+\t\t\t\tb.append(this.timePeriodClass.getName());\n+\t\t\t\tb.append(\".\");\n+\t\t\t\tthrow new SeriesException(b.toString());\n+\t\t\t}\n+\t\t}\n \n         // make the change (if it's not a duplicate time period)...\n         boolean added = false;\n@@ -603,7 +608,8 @@\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n-                added = true;\n+                findBoundsByIteration();\n+\t\t\t\tadded = true;\n             }\n             else {\n                 int index = Collections.binarySearch(this.data, item);\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 606, 
+          "faulty": "added=true;", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 584, 
+          "faulty": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (getItemCount() > this.maximumItemCount) {\n  TimeSeriesDataItem d=(TimeSeriesDataItem)this.data.remove(0);\n  updateBoundsForRemovedItem(d);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1126/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:43:56.787834285 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -601,7 +602,10 @@\n         }\n         else {\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n-            if (item.getPeriod().compareTo(last) > 0) {\n+            if (item == null) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Null item not allowed.\");\n+\t\t\t}\n+\t\t\tif (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n                 added = true;\n             }\n@@ -676,7 +680,8 @@\n      * @param value  the value (<code>null</code> permitted).\n      */\n     public void add(RegularTimePeriod period, Number value) {\n-        // defer argument checking...\n+        this.maximumItemAge = Long.MAX_VALUE;\n+\t\t// defer argument checking...\n         add(period, value, true);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 680, 
+          "faulty": "add(period,value,true);", 
+          "type": "InsertBefore", 
+          "seed": "this.maximumItemAge=Long.MAX_VALUE;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 604, 
+          "faulty": "if (item.getPeriod().compareTo(last) > 0) {\n  this.data.add(item);\n  added=true;\n}\n else {\n  int index=Collections.binarySearch(this.data,item);\n  if (index < 0) {\n    this.data.add(-index - 1,item);\n    added=true;\n  }\n else {\n    StringBuffer b=new StringBuffer();\n    b.append(\"You are attempting to add an observation for \");\n    b.append(\"the time period \");\n    b.append(item.getPeriod().toString());\n    b.append(\" but the series already contains an observation\");\n    b.append(\" for that time period. Duplicates are not \");\n    b.append(\"permitted.  Try using the addOrUpdate() method.\");\n    throw new SeriesException(b.toString());\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (item == null) {\n  throw new IllegalArgumentException(\"Null item not allowed.\");\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_440/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:34:16.907037467 -0500\n@@ -580,17 +580,19 @@\n         Class c = item.getPeriod().getClass();\n         if (this.timePeriodClass == null) {\n             this.timePeriodClass = c;\n-        }\n-        else if (!this.timePeriodClass.equals(c)) {\n-            StringBuffer b = new StringBuffer();\n-            b.append(\"You are trying to add data where the time period class \");\n-            b.append(\"is \");\n-            b.append(item.getPeriod().getClass().getName());\n-            b.append(\", but the TimeSeries is expecting an instance of \");\n-            b.append(this.timePeriodClass.getName());\n-            b.append(\".\");\n-            throw new SeriesException(b.toString());\n-        }\n+        } else {\n+\t\t\tupdateBoundsForRemovedItem(item);\n+\t\t\tif (!this.timePeriodClass.equals(c)) {\n+\t\t\t\tStringBuffer b = new StringBuffer();\n+\t\t\t\tb.append(\"You are trying to add data where the time period class \");\n+\t\t\t\tb.append(\"is \");\n+\t\t\t\tb.append(item.getPeriod().getClass().getName());\n+\t\t\t\tb.append(\", but the TimeSeries is expecting an instance of \");\n+\t\t\t\tb.append(this.timePeriodClass.getName());\n+\t\t\t\tb.append(\".\");\n+\t\t\t\tthrow new SeriesException(b.toString());\n+\t\t\t}\n+\t\t}\n \n         // make the change (if it's not a duplicate time period)...\n         boolean added = false;\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 584, 
+          "faulty": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_124/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:29:40.032281767 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_813/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:39:19.613855578 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -601,7 +602,10 @@\n         }\n         else {\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n-            if (item.getPeriod().compareTo(last) > 0) {\n+            if (this.data.isEmpty()) {\n+\t\t\t\treturn;\n+\t\t\t}\n+\t\t\tif (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n                 added = true;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 604, 
+          "faulty": "if (item.getPeriod().compareTo(last) > 0) {\n  this.data.add(item);\n  added=true;\n}\n else {\n  int index=Collections.binarySearch(this.data,item);\n  if (index < 0) {\n    this.data.add(-index - 1,item);\n    added=true;\n  }\n else {\n    StringBuffer b=new StringBuffer();\n    b.append(\"You are attempting to add an observation for \");\n    b.append(\"the time period \");\n    b.append(item.getPeriod().toString());\n    b.append(\" but the series already contains an observation\");\n    b.append(\" for that time period. Duplicates are not \");\n    b.append(\"permitted.  Try using the addOrUpdate() method.\");\n    throw new SeriesException(b.toString());\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.data.isEmpty()) {\n  return;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_665/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:37:18.466249012 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -882,7 +883,10 @@\n                 this.data.remove(0);\n                 removed = true;\n             }\n-            if (removed) {\n+            if (this.data.isEmpty()) {\n+\t\t\t\tthis.timePeriodClass = null;\n+\t\t\t}\n+\t\t\tif (removed) {\n                 findBoundsByIteration();\n                 if (notify) {\n                     fireSeriesChanged();\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 885, 
+          "faulty": "if (removed) {\n  findBoundsByIteration();\n  if (notify) {\n    fireSeriesChanged();\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.data.isEmpty()) {\n  this.timePeriodClass=null;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_747/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:38:25.073946704 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1047,7 +1048,8 @@\n      */\n     public TimeSeries createCopy(int start, int end)\n             throws CloneNotSupportedException {\n-        if (start < 0) {\n+        findBoundsByIteration();\n+\t\tif (start < 0) {\n             throw new IllegalArgumentException(\"Requires start >= 0.\");\n         }\n         if (end < start) {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1050, 
+          "faulty": "if (start < 0) {\n  throw new IllegalArgumentException(\"Requires start >= 0.\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_360/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:33:06.803320818 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -601,8 +602,10 @@\n         }\n         else {\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n-            if (item.getPeriod().compareTo(last) > 0) {\n-                this.data.add(item);\n+            this.domain = domain;\n+\t\t\tif (item.getPeriod().compareTo(last) > 0) {\n+                this.timePeriodClass = c;\n+\t\t\t\tthis.data.add(item);\n                 added = true;\n             }\n             else {\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_360/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:33:06.803320818 -0500\n@@ -241,7 +241,7 @@\n     public Object clone() throws CloneNotSupportedException {\n \n         Series clone = (Series) super.clone();\n-        clone.listeners = new EventListenerList();\n+        this.key = key;\n         clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 605, 
+          "faulty": "this.data.add(item);", 
+          "type": "InsertBefore", 
+          "seed": "this.timePeriodClass=c;"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 244, 
+          "faulty": "clone.listeners=new EventListenerList();", 
+          "type": "Replace", 
+          "seed": "this.key=key;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 604, 
+          "faulty": "if (item.getPeriod().compareTo(last) > 0) {\n  this.data.add(item);\n  added=true;\n}\n else {\n  int index=Collections.binarySearch(this.data,item);\n  if (index < 0) {\n    this.data.add(-index - 1,item);\n    added=true;\n  }\n else {\n    StringBuffer b=new StringBuffer();\n    b.append(\"You are attempting to add an observation for \");\n    b.append(\"the time period \");\n    b.append(item.getPeriod().toString());\n    b.append(\" but the series already contains an observation\");\n    b.append(\" for that time period. Duplicates are not \");\n    b.append(\"permitted.  Try using the addOrUpdate() method.\");\n    throw new SeriesException(b.toString());\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.domain=domain;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1477/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:49:06.737744011 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -601,7 +602,8 @@\n         }\n         else {\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n-            if (item.getPeriod().compareTo(last) > 0) {\n+            this.domain = domain;\n+\t\t\tif (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n                 added = true;\n             }\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1477/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:49:06.749744043 -0500\n@@ -242,7 +242,8 @@\n \n         Series clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n-        clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n+        this.listeners = new EventListenerList();\n+\t\tclone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 245, 
+          "faulty": "clone.propertyChangeSupport=new PropertyChangeSupport(clone);", 
+          "type": "InsertBefore", 
+          "seed": "this.listeners=new EventListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 604, 
+          "faulty": "if (item.getPeriod().compareTo(last) > 0) {\n  this.data.add(item);\n  added=true;\n}\n else {\n  int index=Collections.binarySearch(this.data,item);\n  if (index < 0) {\n    this.data.add(-index - 1,item);\n    added=true;\n  }\n else {\n    StringBuffer b=new StringBuffer();\n    b.append(\"You are attempting to add an observation for \");\n    b.append(\"the time period \");\n    b.append(item.getPeriod().toString());\n    b.append(\" but the series already contains an observation\");\n    b.append(\" for that time period. Duplicates are not \");\n    b.append(\"permitted.  Try using the addOrUpdate() method.\");\n    throw new SeriesException(b.toString());\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.domain=domain;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_377/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:33:21.375263212 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_377/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:33:21.375263212 -0500\n@@ -241,7 +241,7 @@\n     public Object clone() throws CloneNotSupportedException {\n \n         Series clone = (Series) super.clone();\n-        clone.listeners = new EventListenerList();\n+        this.description = description;\n         clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 244, 
+          "faulty": "clone.listeners=new EventListenerList();", 
+          "type": "Replace", 
+          "seed": "this.description=description;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_577/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:36:10.030553420 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        removeAgedItems(false);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -580,17 +581,19 @@\n         Class c = item.getPeriod().getClass();\n         if (this.timePeriodClass == null) {\n             this.timePeriodClass = c;\n-        }\n-        else if (!this.timePeriodClass.equals(c)) {\n-            StringBuffer b = new StringBuffer();\n-            b.append(\"You are trying to add data where the time period class \");\n-            b.append(\"is \");\n-            b.append(item.getPeriod().getClass().getName());\n-            b.append(\", but the TimeSeries is expecting an instance of \");\n-            b.append(this.timePeriodClass.getName());\n-            b.append(\".\");\n-            throw new SeriesException(b.toString());\n-        }\n+        } else {\n+\t\t\tupdateBoundsForRemovedItem(item);\n+\t\t\tif (!this.timePeriodClass.equals(c)) {\n+\t\t\t\tStringBuffer b = new StringBuffer();\n+\t\t\t\tb.append(\"You are trying to add data where the time period class \");\n+\t\t\t\tb.append(\"is \");\n+\t\t\t\tb.append(item.getPeriod().getClass().getName());\n+\t\t\t\tb.append(\", but the TimeSeries is expecting an instance of \");\n+\t\t\t\tb.append(this.timePeriodClass.getName());\n+\t\t\t\tb.append(\".\");\n+\t\t\t\tthrow new SeriesException(b.toString());\n+\t\t\t}\n+\t\t}\n \n         // make the change (if it's not a duplicate time period)...\n         boolean added = false;\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 584, 
+          "faulty": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1071, 
+          "faulty": "return copy;", 
+          "type": "Replace", 
+          "seed": "return copy;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "removeAgedItems(false);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1554/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:50:15.457887379 -0500\n@@ -580,17 +580,19 @@\n         Class c = item.getPeriod().getClass();\n         if (this.timePeriodClass == null) {\n             this.timePeriodClass = c;\n-        }\n-        else if (!this.timePeriodClass.equals(c)) {\n-            StringBuffer b = new StringBuffer();\n-            b.append(\"You are trying to add data where the time period class \");\n-            b.append(\"is \");\n-            b.append(item.getPeriod().getClass().getName());\n-            b.append(\", but the TimeSeries is expecting an instance of \");\n-            b.append(this.timePeriodClass.getName());\n-            b.append(\".\");\n-            throw new SeriesException(b.toString());\n-        }\n+        } else {\n+\t\t\tupdateBoundsForRemovedItem(item);\n+\t\t\tif (!this.timePeriodClass.equals(c)) {\n+\t\t\t\tStringBuffer b = new StringBuffer();\n+\t\t\t\tb.append(\"You are trying to add data where the time period class \");\n+\t\t\t\tb.append(\"is \");\n+\t\t\t\tb.append(item.getPeriod().getClass().getName());\n+\t\t\t\tb.append(\", but the TimeSeries is expecting an instance of \");\n+\t\t\t\tb.append(this.timePeriodClass.getName());\n+\t\t\t\tb.append(\".\");\n+\t\t\t\tthrow new SeriesException(b.toString());\n+\t\t\t}\n+\t\t}\n \n         // make the change (if it's not a duplicate time period)...\n         boolean added = false;\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1554/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:50:15.457887379 -0500\n@@ -242,7 +242,8 @@\n \n         Series clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n-        clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n+        notifyListeners(new SeriesChangeEvent(this));\n+\t\tclone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 584, 
+          "faulty": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 245, 
+          "faulty": "clone.propertyChangeSupport=new PropertyChangeSupport(clone);", 
+          "type": "InsertBefore", 
+          "seed": "notifyListeners(new SeriesChangeEvent(this));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1293/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:46:21.564965001 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -600,7 +601,17 @@\n             added = true;\n         }\n         else {\n-            RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n+            if (!this.timePeriodClass.equals(c)) {\n+\t\t\t\tStringBuffer b = new StringBuffer();\n+\t\t\t\tb.append(\"You are trying to add data where the time period class \");\n+\t\t\t\tb.append(\"is \");\n+\t\t\t\tb.append(item.getPeriod().getClass().getName());\n+\t\t\t\tb.append(\", but the TimeSeries is expecting an instance of \");\n+\t\t\t\tb.append(this.timePeriodClass.getName());\n+\t\t\t\tb.append(\".\");\n+\t\t\t\tthrow new SeriesException(b.toString());\n+\t\t\t}\n+\t\t\tRegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n                 added = true;\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 603, 
+          "faulty": "RegularTimePeriod last=getTimePeriod(getItemCount() - 1);", 
+          "type": "InsertBefore", 
+          "seed": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_839/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:39:41.369993801 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1054,7 +1055,8 @@\n             throw new IllegalArgumentException(\"Requires start <= end.\");\n         }\n         TimeSeries copy = (TimeSeries) super.clone();\n-        copy.data = new java.util.ArrayList();\n+        fireSeriesChanged();\n+\t\tcopy.data = new java.util.ArrayList();\n         if (this.data.size() > 0) {\n             for (int index = start; index <= end; index++) {\n                 TimeSeriesDataItem item\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_839/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:39:41.373993825 -0500\n@@ -242,7 +242,8 @@\n \n         Series clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n-        clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n+        this.listeners = new EventListenerList();\n+\t\tclone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 245, 
+          "faulty": "clone.propertyChangeSupport=new PropertyChangeSupport(clone);", 
+          "type": "InsertBefore", 
+          "seed": "this.listeners=new EventListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1057, 
+          "faulty": "copy.data=new java.util.ArrayList();", 
+          "type": "InsertBefore", 
+          "seed": "fireSeriesChanged();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_775/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:38:47.289844798 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_775/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:38:47.289844798 -0500\n@@ -241,7 +241,7 @@\n     public Object clone() throws CloneNotSupportedException {\n \n         Series clone = (Series) super.clone();\n-        clone.listeners = new EventListenerList();\n+        this.key = key;\n         clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 244, 
+          "faulty": "clone.listeners=new EventListenerList();", 
+          "type": "Replace", 
+          "seed": "this.key=key;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1071, 
+          "faulty": "return copy;", 
+          "type": "Replace", 
+          "seed": "return copy;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1502/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:49:27.617796233 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -603,7 +604,8 @@\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n-                added = true;\n+                updateBoundsForRemovedItem(item);\n+\t\t\t\tadded = true;\n             }\n             else {\n                 int index = Collections.binarySearch(this.data, item);\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 606, 
+          "faulty": "added=true;", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1733/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:52:59.513974401 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        removeAgedItems(false);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -603,7 +604,8 @@\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n-                added = true;\n+                findBoundsByIteration();\n+\t\t\t\tadded = true;\n             }\n             else {\n                 int index = Collections.binarySearch(this.data, item);\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 606, 
+          "faulty": "added=true;", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "removeAgedItems(false);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_593/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:36:20.658506628 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1054,7 +1055,8 @@\n             throw new IllegalArgumentException(\"Requires start <= end.\");\n         }\n         TimeSeries copy = (TimeSeries) super.clone();\n-        copy.data = new java.util.ArrayList();\n+        fireSeriesChanged();\n+\t\tcopy.data = new java.util.ArrayList();\n         if (this.data.size() > 0) {\n             for (int index = start; index <= end; index++) {\n                 TimeSeriesDataItem item\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_593/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:36:20.662506610 -0500\n@@ -241,7 +241,7 @@\n     public Object clone() throws CloneNotSupportedException {\n \n         Series clone = (Series) super.clone();\n-        clone.listeners = new EventListenerList();\n+        this.key = key;\n         clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 244, 
+          "faulty": "clone.listeners=new EventListenerList();", 
+          "type": "Replace", 
+          "seed": "this.key=key;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1057, 
+          "faulty": "copy.data=new java.util.ArrayList();", 
+          "type": "InsertBefore", 
+          "seed": "fireSeriesChanged();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_911/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:40:45.086303252 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -600,7 +601,17 @@\n             added = true;\n         }\n         else {\n-            RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n+            if (!this.timePeriodClass.equals(c)) {\n+\t\t\t\tStringBuffer b = new StringBuffer();\n+\t\t\t\tb.append(\"You are trying to add data where the time period class \");\n+\t\t\t\tb.append(\"is \");\n+\t\t\t\tb.append(item.getPeriod().getClass().getName());\n+\t\t\t\tb.append(\", but the TimeSeries is expecting an instance of \");\n+\t\t\t\tb.append(this.timePeriodClass.getName());\n+\t\t\t\tb.append(\".\");\n+\t\t\t\tthrow new SeriesException(b.toString());\n+\t\t\t}\n+\t\t\tRegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n                 added = true;\n@@ -1047,14 +1058,16 @@\n      */\n     public TimeSeries createCopy(int start, int end)\n             throws CloneNotSupportedException {\n-        if (start < 0) {\n+        this.domain = domain;\n+\t\tif (start < 0) {\n             throw new IllegalArgumentException(\"Requires start >= 0.\");\n         }\n         if (end < start) {\n             throw new IllegalArgumentException(\"Requires start <= end.\");\n         }\n         TimeSeries copy = (TimeSeries) super.clone();\n-        copy.data = new java.util.ArrayList();\n+        fireSeriesChanged();\n+\t\tcopy.data = new java.util.ArrayList();\n         if (this.data.size() > 0) {\n             for (int index = start; index <= end; index++) {\n                 TimeSeriesDataItem item\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1050, 
+          "faulty": "if (start < 0) {\n  throw new IllegalArgumentException(\"Requires start >= 0.\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.domain=domain;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 603, 
+          "faulty": "RegularTimePeriod last=getTimePeriod(getItemCount() - 1);", 
+          "type": "InsertBefore", 
+          "seed": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1057, 
+          "faulty": "copy.data=new java.util.ArrayList();", 
+          "type": "InsertBefore", 
+          "seed": "fireSeriesChanged();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1578/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:50:35.197914684 -0500\n@@ -342,7 +342,8 @@\n      * @since 1.0.14\n      */\n     public double getMinY() {\n-        return this.minY;\n+        this.maximumItemCount = Integer.MAX_VALUE;\n+\t\treturn this.minY;\n     }\n \n     /**\n@@ -561,7 +562,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 345, 
+          "faulty": "return this.minY;", 
+          "type": "InsertBefore", 
+          "seed": "this.maximumItemCount=Integer.MAX_VALUE;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1814/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:54:06.990130957 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1054,7 +1055,19 @@\n             throw new IllegalArgumentException(\"Requires start <= end.\");\n         }\n         TimeSeries copy = (TimeSeries) super.clone();\n-        copy.data = new java.util.ArrayList();\n+        if (this.data.size() > 0) {\n+\t\t\tfor (int index = start; index <= end; index++) {\n+\t\t\t\tTimeSeriesDataItem item = (TimeSeriesDataItem) this.data\n+\t\t\t\t\t\t.get(index);\n+\t\t\t\tTimeSeriesDataItem clone = (TimeSeriesDataItem) item.clone();\n+\t\t\t\ttry {\n+\t\t\t\t\tcopy.add(clone);\n+\t\t\t\t} catch (SeriesException e) {\n+\t\t\t\t\te.printStackTrace();\n+\t\t\t\t}\n+\t\t\t}\n+\t\t}\n+\t\tcopy.data = new java.util.ArrayList();\n         if (this.data.size() > 0) {\n             for (int index = start; index <= end; index++) {\n                 TimeSeriesDataItem item\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1057, 
+          "faulty": "copy.data=new java.util.ArrayList();", 
+          "type": "InsertBefore", 
+          "seed": "if (this.data.size() > 0) {\n  for (int index=start; index <= end; index++) {\n    TimeSeriesDataItem item=(TimeSeriesDataItem)this.data.get(index);\n    TimeSeriesDataItem clone=(TimeSeriesDataItem)item.clone();\n    try {\n      copy.add(clone);\n    }\n catch (    SeriesException e) {\n      e.printStackTrace();\n    }\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_579/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:36:10.942549412 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -882,7 +883,8 @@\n                 this.data.remove(0);\n                 removed = true;\n             }\n-            if (removed) {\n+            findBoundsByIteration();\n+\t\t\tif (removed) {\n                 findBoundsByIteration();\n                 if (notify) {\n                     fireSeriesChanged();\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 885, 
+          "faulty": "if (removed) {\n  findBoundsByIteration();\n  if (notify) {\n    fireSeriesChanged();\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1705/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:52:35.817978628 -0500\n@@ -603,7 +603,8 @@\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n-                added = true;\n+                findBoundsByIteration();\n+\t\t\t\tadded = true;\n             }\n             else {\n                 int index = Collections.binarySearch(this.data, item);\n@@ -1059,7 +1060,11 @@\n             for (int index = start; index <= end; index++) {\n                 TimeSeriesDataItem item\n                         = (TimeSeriesDataItem) this.data.get(index);\n-                TimeSeriesDataItem clone = (TimeSeriesDataItem) item.clone();\n+                if (item == null) {\n+\t\t\t\t\tthrow new IllegalArgumentException(\n+\t\t\t\t\t\t\t\"Null 'period' argument.\");\n+\t\t\t\t}\n+\t\t\t\tTimeSeriesDataItem clone = (TimeSeriesDataItem) item.clone();\n                 try {\n                     copy.add(clone);\n                 }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1062, 
+          "faulty": "TimeSeriesDataItem clone=(TimeSeriesDataItem)item.clone();", 
+          "type": "InsertBefore", 
+          "seed": "if (item == null) {\n  throw new IllegalArgumentException(\"Null 'period' argument.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 606, 
+          "faulty": "added=true;", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_954/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:41:25.070496611 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 463, 
+          "faulty": "return getRawDataItem(index).getPeriod();", 
+          "type": "Replace", 
+          "seed": "return getRawDataItem(index).getPeriod();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_852/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:39:51.662053009 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -603,7 +604,10 @@\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n-                added = true;\n+                if (this.data.isEmpty()) {\n+\t\t\t\t\treturn;\n+\t\t\t\t}\n+\t\t\t\tadded = true;\n             }\n             else {\n                 int index = Collections.binarySearch(this.data, item);\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 606, 
+          "faulty": "added=true;", 
+          "type": "InsertBefore", 
+          "seed": "if (this.data.isEmpty()) {\n  return;\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1207/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:45:09.600339720 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -603,7 +604,8 @@\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n-                added = true;\n+                findBoundsByIteration();\n+\t\t\t\tadded = true;\n             }\n             else {\n                 int index = Collections.binarySearch(this.data, item);\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 606, 
+          "faulty": "added=true;", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1452/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:48:44.637679474 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1053,7 +1054,10 @@\n         if (end < start) {\n             throw new IllegalArgumentException(\"Requires start <= end.\");\n         }\n-        TimeSeries copy = (TimeSeries) super.clone();\n+        if (start > end) {\n+\t\t\tthrow new IllegalArgumentException(\"Requires start <= end.\");\n+\t\t}\n+\t\tTimeSeries copy = (TimeSeries) super.clone();\n         copy.data = new java.util.ArrayList();\n         if (this.data.size() > 0) {\n             for (int index = start; index <= end; index++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1056, 
+          "faulty": "TimeSeries copy=(TimeSeries)super.clone();", 
+          "type": "InsertBefore", 
+          "seed": "if (start > end) {\n  throw new IllegalArgumentException(\"Requires start <= end.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_505/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:35:09.358816515 -0500\n@@ -603,7 +603,8 @@\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n-                added = true;\n+                findBoundsByIteration();\n+\t\t\t\tadded = true;\n             }\n             else {\n                 int index = Collections.binarySearch(this.data, item);\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 606, 
+          "faulty": "added=true;", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_633/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:36:52.378365886 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_633/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:36:52.378365886 -0500\n@@ -240,7 +240,8 @@\n      */\n     public Object clone() throws CloneNotSupportedException {\n \n-        Series clone = (Series) super.clone();\n+        notifyListeners(new SeriesChangeEvent(this));\n+\t\tSeries clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n         clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 243, 
+          "faulty": "Series clone=(Series)super.clone();", 
+          "type": "InsertBefore", 
+          "seed": "notifyListeners(new SeriesChangeEvent(this));"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1403/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:47:57.077504197 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -603,7 +604,8 @@\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n-                added = true;\n+                item = (TimeSeriesDataItem) item.clone();\n+\t\t\t\tadded = true;\n             }\n             else {\n                 int index = Collections.binarySearch(this.data, item);\n@@ -882,7 +884,8 @@\n                 this.data.remove(0);\n                 removed = true;\n             }\n-            if (removed) {\n+            findBoundsByIteration();\n+\t\t\tif (removed) {\n                 findBoundsByIteration();\n                 if (notify) {\n                     fireSeriesChanged();\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 606, 
+          "faulty": "added=true;", 
+          "type": "InsertBefore", 
+          "seed": "item=(TimeSeriesDataItem)item.clone();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 885, 
+          "faulty": "if (removed) {\n  findBoundsByIteration();\n  if (notify) {\n    fireSeriesChanged();\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1877/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:54:59.838518865 -0500\n@@ -580,17 +580,19 @@\n         Class c = item.getPeriod().getClass();\n         if (this.timePeriodClass == null) {\n             this.timePeriodClass = c;\n-        }\n-        else if (!this.timePeriodClass.equals(c)) {\n-            StringBuffer b = new StringBuffer();\n-            b.append(\"You are trying to add data where the time period class \");\n-            b.append(\"is \");\n-            b.append(item.getPeriod().getClass().getName());\n-            b.append(\", but the TimeSeries is expecting an instance of \");\n-            b.append(this.timePeriodClass.getName());\n-            b.append(\".\");\n-            throw new SeriesException(b.toString());\n-        }\n+        } else {\n+\t\t\tupdateBoundsForRemovedItem(item);\n+\t\t\tif (!this.timePeriodClass.equals(c)) {\n+\t\t\t\tStringBuffer b = new StringBuffer();\n+\t\t\t\tb.append(\"You are trying to add data where the time period class \");\n+\t\t\t\tb.append(\"is \");\n+\t\t\t\tb.append(item.getPeriod().getClass().getName());\n+\t\t\t\tb.append(\", but the TimeSeries is expecting an instance of \");\n+\t\t\t\tb.append(this.timePeriodClass.getName());\n+\t\t\t\tb.append(\".\");\n+\t\t\t\tthrow new SeriesException(b.toString());\n+\t\t\t}\n+\t\t}\n \n         // make the change (if it's not a duplicate time period)...\n         boolean added = false;\n@@ -875,7 +877,10 @@\n         // check if there are any values earlier than specified by the history\n         // count...\n         if (getItemCount() > 1) {\n-            long latest = getTimePeriod(getItemCount() - 1).getSerialIndex();\n+            if (this.data.isEmpty()) {\n+\t\t\t\treturn;\n+\t\t\t}\n+\t\t\tlong latest = getTimePeriod(getItemCount() - 1).getSerialIndex();\n             boolean removed = false;\n             while ((latest - getTimePeriod(0).getSerialIndex())\n                     > this.maximumItemAge) {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 584, 
+          "faulty": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 878, 
+          "faulty": "long latest=getTimePeriod(getItemCount() - 1).getSerialIndex();", 
+          "type": "InsertBefore", 
+          "seed": "if (this.data.isEmpty()) {\n  return;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1835/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:54:24.302264639 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1835/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:54:24.306264669 -0500\n@@ -240,9 +240,11 @@\n      */\n     public Object clone() throws CloneNotSupportedException {\n \n-        Series clone = (Series) super.clone();\n+        this.notify = true;\n+\t\tSeries clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n-        clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n+        notifyListeners(new SeriesChangeEvent(this));\n+\t\tclone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 243, 
+          "faulty": "Series clone=(Series)super.clone();", 
+          "type": "InsertBefore", 
+          "seed": "this.notify=true;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 245, 
+          "faulty": "clone.propertyChangeSupport=new PropertyChangeSupport(clone);", 
+          "type": "InsertBefore", 
+          "seed": "notifyListeners(new SeriesChangeEvent(this));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1140/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:44:09.459903367 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -664,7 +665,21 @@\n     public void add(RegularTimePeriod period, double value, boolean notify) {\n         // defer argument checking...\n         TimeSeriesDataItem item = new TimeSeriesDataItem(period, value);\n-        add(item, notify);\n+        if (getItemCount() > 1) {\n+\t\t\tlong latest = getTimePeriod(getItemCount() - 1).getSerialIndex();\n+\t\t\tboolean removed = false;\n+\t\t\twhile ((latest - getTimePeriod(0).getSerialIndex()) > this.maximumItemAge) {\n+\t\t\t\tthis.data.remove(0);\n+\t\t\t\tremoved = true;\n+\t\t\t}\n+\t\t\tif (removed) {\n+\t\t\t\tfindBoundsByIteration();\n+\t\t\t\tif (notify) {\n+\t\t\t\t\tfireSeriesChanged();\n+\t\t\t\t}\n+\t\t\t}\n+\t\t}\n+\t\tadd(item, notify);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 667, 
+          "faulty": "add(item,notify);", 
+          "type": "InsertBefore", 
+          "seed": "if (getItemCount() > 1) {\n  long latest=getTimePeriod(getItemCount() - 1).getSerialIndex();\n  boolean removed=false;\n  while ((latest - getTimePeriod(0).getSerialIndex()) > this.maximumItemAge) {\n    this.data.remove(0);\n    removed=true;\n  }\n  if (removed) {\n    findBoundsByIteration();\n    if (notify) {\n      fireSeriesChanged();\n    }\n  }\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_727/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:38:08.646021735 -0500\n@@ -580,17 +580,19 @@\n         Class c = item.getPeriod().getClass();\n         if (this.timePeriodClass == null) {\n             this.timePeriodClass = c;\n-        }\n-        else if (!this.timePeriodClass.equals(c)) {\n-            StringBuffer b = new StringBuffer();\n-            b.append(\"You are trying to add data where the time period class \");\n-            b.append(\"is \");\n-            b.append(item.getPeriod().getClass().getName());\n-            b.append(\", but the TimeSeries is expecting an instance of \");\n-            b.append(this.timePeriodClass.getName());\n-            b.append(\".\");\n-            throw new SeriesException(b.toString());\n-        }\n+        } else {\n+\t\t\tupdateBoundsForRemovedItem(item);\n+\t\t\tif (!this.timePeriodClass.equals(c)) {\n+\t\t\t\tStringBuffer b = new StringBuffer();\n+\t\t\t\tb.append(\"You are trying to add data where the time period class \");\n+\t\t\t\tb.append(\"is \");\n+\t\t\t\tb.append(item.getPeriod().getClass().getName());\n+\t\t\t\tb.append(\", but the TimeSeries is expecting an instance of \");\n+\t\t\t\tb.append(this.timePeriodClass.getName());\n+\t\t\t\tb.append(\".\");\n+\t\t\t\tthrow new SeriesException(b.toString());\n+\t\t\t}\n+\t\t}\n \n         // make the change (if it's not a duplicate time period)...\n         boolean added = false;\n@@ -1047,7 +1049,8 @@\n      */\n     public TimeSeries createCopy(int start, int end)\n             throws CloneNotSupportedException {\n-        if (start < 0) {\n+        removeAgedItems(true);\n+\t\tif (start < 0) {\n             throw new IllegalArgumentException(\"Requires start >= 0.\");\n         }\n         if (end < start) {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1050, 
+          "faulty": "if (start < 0) {\n  throw new IllegalArgumentException(\"Requires start >= 0.\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "removeAgedItems(true);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 584, 
+          "faulty": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_700/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:37:46.182123854 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1059,7 +1060,11 @@\n             for (int index = start; index <= end; index++) {\n                 TimeSeriesDataItem item\n                         = (TimeSeriesDataItem) this.data.get(index);\n-                TimeSeriesDataItem clone = (TimeSeriesDataItem) item.clone();\n+                if (item == null) {\n+\t\t\t\t\tthrow new IllegalArgumentException(\n+\t\t\t\t\t\t\t\"Null 'period' argument.\");\n+\t\t\t\t}\n+\t\t\t\tTimeSeriesDataItem clone = (TimeSeriesDataItem) item.clone();\n                 try {\n                     copy.add(clone);\n                 }\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_700/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:37:46.182123854 -0500\n@@ -241,7 +241,7 @@\n     public Object clone() throws CloneNotSupportedException {\n \n         Series clone = (Series) super.clone();\n-        clone.listeners = new EventListenerList();\n+        this.key = key;\n         clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1062, 
+          "faulty": "TimeSeriesDataItem clone=(TimeSeriesDataItem)item.clone();", 
+          "type": "InsertBefore", 
+          "seed": "if (item == null) {\n  throw new IllegalArgumentException(\"Null 'period' argument.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 244, 
+          "faulty": "clone.listeners=new EventListenerList();", 
+          "type": "Replace", 
+          "seed": "this.key=key;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1939/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:55:54.382926980 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1267,11 +1268,10 @@\n         }\n         else {\n             if (Double.isNaN(b)) {\n-                return a;\n-            }\n-            else {\n-                return Math.min(a, b);\n-            }\n+\t\t\t\treturn a;\n+\t\t\t} else {\n+\t\t\t\treturn Math.min(a, b);\n+\t\t\t}\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1269, 
+          "faulty": "if (Double.isNaN(b)) {\n  return a;\n}\n else {\n  return Math.min(a,b);\n}", 
+          "type": "Replace", 
+          "seed": "if (Double.isNaN(b)) {\n  return a;\n}\n else {\n  return Math.min(a,b);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1942/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:55:56.202938983 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -601,7 +602,8 @@\n         }\n         else {\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n-            if (item.getPeriod().compareTo(last) > 0) {\n+            this.domain = domain;\n+\t\t\tif (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n                 added = true;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 604, 
+          "faulty": "if (item.getPeriod().compareTo(last) > 0) {\n  this.data.add(item);\n  added=true;\n}\n else {\n  int index=Collections.binarySearch(this.data,item);\n  if (index < 0) {\n    this.data.add(-index - 1,item);\n    added=true;\n  }\n else {\n    StringBuffer b=new StringBuffer();\n    b.append(\"You are attempting to add an observation for \");\n    b.append(\"the time period \");\n    b.append(item.getPeriod().toString());\n    b.append(\" but the series already contains an observation\");\n    b.append(\" for that time period. Duplicates are not \");\n    b.append(\"permitted.  Try using the addOrUpdate() method.\");\n    throw new SeriesException(b.toString());\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.domain=domain;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1490/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:49:17.705772458 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1059,7 +1060,8 @@\n             for (int index = start; index <= end; index++) {\n                 TimeSeriesDataItem item\n                         = (TimeSeriesDataItem) this.data.get(index);\n-                TimeSeriesDataItem clone = (TimeSeriesDataItem) item.clone();\n+                findBoundsByIteration();\n+\t\t\t\tTimeSeriesDataItem clone = (TimeSeriesDataItem) item.clone();\n                 try {\n                     copy.add(clone);\n                 }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1062, 
+          "faulty": "TimeSeriesDataItem clone=(TimeSeriesDataItem)item.clone();", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1335/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:46:55.425188998 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -601,7 +602,10 @@\n         }\n         else {\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n-            if (item.getPeriod().compareTo(last) > 0) {\n+            if (item == null) {\n+\t\t\t\tthrow new IllegalArgumentException(\"Null item not allowed.\");\n+\t\t\t}\n+\t\t\tif (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n                 added = true;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 604, 
+          "faulty": "if (item.getPeriod().compareTo(last) > 0) {\n  this.data.add(item);\n  added=true;\n}\n else {\n  int index=Collections.binarySearch(this.data,item);\n  if (index < 0) {\n    this.data.add(-index - 1,item);\n    added=true;\n  }\n else {\n    StringBuffer b=new StringBuffer();\n    b.append(\"You are attempting to add an observation for \");\n    b.append(\"the time period \");\n    b.append(item.getPeriod().toString());\n    b.append(\" but the series already contains an observation\");\n    b.append(\" for that time period. Duplicates are not \");\n    b.append(\"permitted.  Try using the addOrUpdate() method.\");\n    throw new SeriesException(b.toString());\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (item == null) {\n  throw new IllegalArgumentException(\"Null item not allowed.\");\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_525/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:35:26.402743348 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_525/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:35:26.402743348 -0500\n@@ -242,7 +242,8 @@\n \n         Series clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n-        clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n+        notifyListeners(new SeriesChangeEvent(this));\n+\t\tclone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 245, 
+          "faulty": "clone.propertyChangeSupport=new PropertyChangeSupport(clone);", 
+          "type": "InsertBefore", 
+          "seed": "notifyListeners(new SeriesChangeEvent(this));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_982/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:41:48.990782482 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -602,7 +603,11 @@\n         else {\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n-                this.data.add(item);\n+                if (item == null) {\n+\t\t\t\t\tthrow new IllegalArgumentException(\n+\t\t\t\t\t\t\t\"Null 'period' argument.\");\n+\t\t\t\t}\n+\t\t\t\tthis.data.add(item);\n                 added = true;\n             }\n             else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 605, 
+          "faulty": "this.data.add(item);", 
+          "type": "InsertBefore", 
+          "seed": "if (item == null) {\n  throw new IllegalArgumentException(\"Null 'period' argument.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_649/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:37:04.814310292 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 429, 
+          "faulty": "return (TimeSeriesDataItem)this.data.get(index);", 
+          "type": "Replace", 
+          "seed": "return (TimeSeriesDataItem)this.data.get(index);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_146/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:29:59.220045263 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_146/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:29:59.224045223 -0500\n@@ -241,7 +241,7 @@\n     public Object clone() throws CloneNotSupportedException {\n \n         Series clone = (Series) super.clone();\n-        clone.listeners = new EventListenerList();\n+        this.key = key;\n         clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 244, 
+          "faulty": "clone.listeners=new EventListenerList();", 
+          "type": "Replace", 
+          "seed": "this.key=key;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_644/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:37:01.494325155 -0500\n@@ -882,7 +882,8 @@\n                 this.data.remove(0);\n                 removed = true;\n             }\n-            if (removed) {\n+            findBoundsByIteration();\n+\t\t\tif (removed) {\n                 findBoundsByIteration();\n                 if (notify) {\n                     fireSeriesChanged();\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 885, 
+          "faulty": "if (removed) {\n  findBoundsByIteration();\n  if (notify) {\n    fireSeriesChanged();\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1785/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:53:42.725955648 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1054,7 +1055,8 @@\n             throw new IllegalArgumentException(\"Requires start <= end.\");\n         }\n         TimeSeries copy = (TimeSeries) super.clone();\n-        copy.data = new java.util.ArrayList();\n+        removeAgedItems(false);\n+\t\tcopy.data = new java.util.ArrayList();\n         if (this.data.size() > 0) {\n             for (int index = start; index <= end; index++) {\n                 TimeSeriesDataItem item\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1057, 
+          "faulty": "copy.data=new java.util.ArrayList();", 
+          "type": "InsertBefore", 
+          "seed": "removeAgedItems(false);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_685/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:37:34.538176553 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        item = (TimeSeriesDataItem) item.clone();\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -882,7 +883,8 @@\n                 this.data.remove(0);\n                 removed = true;\n             }\n-            if (removed) {\n+            findBoundsByIteration();\n+\t\t\tif (removed) {\n                 findBoundsByIteration();\n                 if (notify) {\n                     fireSeriesChanged();\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_685/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:37:34.538176553 -0500\n@@ -241,7 +241,8 @@\n     public Object clone() throws CloneNotSupportedException {\n \n         Series clone = (Series) super.clone();\n-        clone.listeners = new EventListenerList();\n+        this.key = key;\n+\t\tclone.listeners = new EventListenerList();\n         clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 244, 
+          "faulty": "clone.listeners=new EventListenerList();", 
+          "type": "InsertBefore", 
+          "seed": "this.key=key;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "item=(TimeSeriesDataItem)item.clone();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 885, 
+          "faulty": "if (removed) {\n  findBoundsByIteration();\n  if (notify) {\n    fireSeriesChanged();\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_320/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:32:32.483453420 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -689,7 +690,8 @@\n      * @param notify  notify listeners?\n      */\n     public void add(RegularTimePeriod period, Number value, boolean notify) {\n-        // defer argument checking...\n+        this.maximumItemAge = Long.MAX_VALUE;\n+\t\t// defer argument checking...\n         TimeSeriesDataItem item = new TimeSeriesDataItem(period, value);\n         add(item, notify);\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 693, 
+          "faulty": "TimeSeriesDataItem item=new TimeSeriesDataItem(period,value);", 
+          "type": "InsertBefore", 
+          "seed": "this.maximumItemAge=Long.MAX_VALUE;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1218/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:45:17.508419689 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -602,7 +603,8 @@\n         else {\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n-                this.data.add(item);\n+                this.timePeriodClass = c;\n+\t\t\t\tthis.data.add(item);\n                 added = true;\n             }\n             else {\n@@ -882,7 +884,10 @@\n                 this.data.remove(0);\n                 removed = true;\n             }\n-            if (removed) {\n+            if (this.data.isEmpty()) {\n+\t\t\t\tthis.timePeriodClass = null;\n+\t\t\t}\n+\t\t\tif (removed) {\n                 findBoundsByIteration();\n                 if (notify) {\n                     fireSeriesChanged();\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 605, 
+          "faulty": "this.data.add(item);", 
+          "type": "InsertBefore", 
+          "seed": "this.timePeriodClass=c;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 885, 
+          "faulty": "if (removed) {\n  findBoundsByIteration();\n  if (notify) {\n    fireSeriesChanged();\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (this.data.isEmpty()) {\n  this.timePeriodClass=null;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_468/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:34:39.814941798 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -603,7 +604,8 @@\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n-                added = true;\n+                item = (TimeSeriesDataItem) item.clone();\n+\t\t\t\tadded = true;\n             }\n             else {\n                 int index = Collections.binarySearch(this.data, item);\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 606, 
+          "faulty": "added=true;", 
+          "type": "InsertBefore", 
+          "seed": "item=(TimeSeriesDataItem)item.clone();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1316/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:46:39.781090455 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -602,7 +603,8 @@\n         else {\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n             if (item.getPeriod().compareTo(last) > 0) {\n-                this.data.add(item);\n+                updateBoundsForAddedItem(item);\n+\t\t\t\tthis.data.add(item);\n                 added = true;\n             }\n             else {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 605, 
+          "faulty": "this.data.add(item);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForAddedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_587/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:36:16.434525248 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_587/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:36:16.434525248 -0500\n@@ -242,7 +242,8 @@\n \n         Series clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n-        clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n+        this.listeners = new EventListenerList();\n+\t\tclone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 245, 
+          "faulty": "clone.propertyChangeSupport=new PropertyChangeSupport(clone);", 
+          "type": "InsertBefore", 
+          "seed": "this.listeners=new EventListenerList();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_697/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:37:44.334132229 -0500\n@@ -426,7 +426,11 @@\n      * @since 1.0.14\n      */\n     TimeSeriesDataItem getRawDataItem(int index) {\n-        return (TimeSeriesDataItem) this.data.get(index);\n+        if (index >= 0) {\n+\t\t\treturn getDataItem(index);\n+\t\t} else {\n+\t\t\treturn null;\n+\t\t}\n     }\n \n     /**\n@@ -561,7 +565,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 429, 
+          "faulty": "return (TimeSeriesDataItem)this.data.get(index);", 
+          "type": "Replace", 
+          "seed": "if (index >= 0) {\n  return getDataItem(index);\n}\n else {\n  return null;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1212/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:45:12.936373830 -0500\n@@ -426,7 +426,11 @@\n      * @since 1.0.14\n      */\n     TimeSeriesDataItem getRawDataItem(int index) {\n-        return (TimeSeriesDataItem) this.data.get(index);\n+        if (index >= 0) {\n+\t\t\treturn getDataItem(index);\n+\t\t} else {\n+\t\t\treturn null;\n+\t\t}\n     }\n \n     /**\n@@ -561,7 +565,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -580,17 +585,8 @@\n         Class c = item.getPeriod().getClass();\n         if (this.timePeriodClass == null) {\n             this.timePeriodClass = c;\n-        }\n-        else if (!this.timePeriodClass.equals(c)) {\n-            StringBuffer b = new StringBuffer();\n-            b.append(\"You are trying to add data where the time period class \");\n-            b.append(\"is \");\n-            b.append(item.getPeriod().getClass().getName());\n-            b.append(\", but the TimeSeries is expecting an instance of \");\n-            b.append(this.timePeriodClass.getName());\n-            b.append(\".\");\n-            throw new SeriesException(b.toString());\n-        }\n+        } else\n+\t\t\t;\n \n         // make the change (if it's not a duplicate time period)...\n         boolean added = false;\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1212/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:45:12.936373830 -0500\n@@ -242,7 +242,8 @@\n \n         Series clone = (Series) super.clone();\n         clone.listeners = new EventListenerList();\n-        clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n+        this.listeners = new EventListenerList();\n+\t\tclone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 584, 
+          "faulty": "if (!this.timePeriodClass.equals(c)) {\n  StringBuffer b=new StringBuffer();\n  b.append(\"You are trying to add data where the time period class \");\n  b.append(\"is \");\n  b.append(item.getPeriod().getClass().getName());\n  b.append(\", but the TimeSeries is expecting an instance of \");\n  b.append(this.timePeriodClass.getName());\n  b.append(\".\");\n  throw new SeriesException(b.toString());\n}", 
+          "type": "Delete", 
+          "seed": "this.maxY=Double.NaN;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 245, 
+          "faulty": "clone.propertyChangeSupport=new PropertyChangeSupport(clone);", 
+          "type": "InsertBefore", 
+          "seed": "this.listeners=new EventListenerList();"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 429, 
+          "faulty": "return (TimeSeriesDataItem)this.data.get(index);", 
+          "type": "Replace", 
+          "seed": "if (index >= 0) {\n  return getDataItem(index);\n}\n else {\n  return null;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1602/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:50:57.477939074 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        findBoundsByIteration();\n+\t\tadd(item, true);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_498/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:35:03.886839871 -0500\n@@ -882,7 +882,8 @@\n                 this.data.remove(0);\n                 removed = true;\n             }\n-            if (removed) {\n+            findBoundsByIteration();\n+\t\t\tif (removed) {\n                 findBoundsByIteration();\n                 if (notify) {\n                     fireSeriesChanged();\n\n\n--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:25:14.714940505 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_498/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/general/Series.java\t2018-12-01 08:35:03.886839871 -0500\n@@ -241,7 +241,7 @@\n     public Object clone() throws CloneNotSupportedException {\n \n         Series clone = (Series) super.clone();\n-        clone.listeners = new EventListenerList();\n+        this.key = key;\n         clone.propertyChangeSupport = new PropertyChangeSupport(clone);\n         return clone;\n \n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/general/Series.java", 
+          "line": 244, 
+          "faulty": "clone.listeners=new EventListenerList();", 
+          "type": "Replace", 
+          "seed": "this.key=key;"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 885, 
+          "faulty": "if (removed) {\n  findBoundsByIteration();\n  if (notify) {\n    fireSeriesChanged();\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "findBoundsByIteration();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1282/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:46:12.584898674 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1047,7 +1048,12 @@\n      */\n     public TimeSeries createCopy(int start, int end)\n             throws CloneNotSupportedException {\n-        if (start < 0) {\n+        if (getItemCount() > this.maximumItemCount) {\n+\t\t\t\t\tTimeSeriesDataItem d = (TimeSeriesDataItem) this.data\n+\t\t\t\t\t\t\t.remove(0);\n+\t\t\t\t\tupdateBoundsForRemovedItem(d);\n+\t\t\t\t}\n+\t\tif (start < 0) {\n             throw new IllegalArgumentException(\"Requires start >= 0.\");\n         }\n         if (end < start) {\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1050, 
+          "faulty": "if (start < 0) {\n  throw new IllegalArgumentException(\"Requires start >= 0.\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (getItemCount() > this.maximumItemCount) {\n  TimeSeriesDataItem d=(TimeSeriesDataItem)this.data.remove(0);\n  updateBoundsForRemovedItem(d);\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_1571/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:50:29.733907681 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -601,7 +602,8 @@\n         }\n         else {\n             RegularTimePeriod last = getTimePeriod(getItemCount() - 1);\n-            if (item.getPeriod().compareTo(last) > 0) {\n+            fireSeriesChanged();\n+\t\t\tif (item.getPeriod().compareTo(last) > 0) {\n                 this.data.add(item);\n                 added = true;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 604, 
+          "faulty": "if (item.getPeriod().compareTo(last) > 0) {\n  this.data.add(item);\n  added=true;\n}\n else {\n  int index=Collections.binarySearch(this.data,item);\n  if (index < 0) {\n    this.data.add(-index - 1,item);\n    added=true;\n  }\n else {\n    StringBuffer b=new StringBuffer();\n    b.append(\"You are attempting to add an observation for \");\n    b.append(\"the time period \");\n    b.append(item.getPeriod().toString());\n    b.append(\" but the series already contains an observation\");\n    b.append(\" for that time period. Duplicates are not \");\n    b.append(\"permitted.  Try using the addOrUpdate() method.\");\n    throw new SeriesException(b.toString());\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "fireSeriesChanged();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:25:21.026940649 -0500\n+++ /tmp/Arja_Defects4J_Chart_3/patches_24th/Patch_539/patched/tmp/Arja_Defects4J_Chart_3/source/org/jfree/data/time/TimeSeries.java\t2018-12-01 08:35:38.414691420 -0500\n@@ -561,7 +561,8 @@\n      *              permitted).\n      */\n     public void add(TimeSeriesDataItem item) {\n-        add(item, true);\n+        updateBoundsForRemovedItem(item);\n+\t\tadd(item, true);\n     }\n \n     /**\n@@ -1059,7 +1060,11 @@\n             for (int index = start; index <= end; index++) {\n                 TimeSeriesDataItem item\n                         = (TimeSeriesDataItem) this.data.get(index);\n-                TimeSeriesDataItem clone = (TimeSeriesDataItem) item.clone();\n+                if (item == null) {\n+\t\t\t\t\tthrow new IllegalArgumentException(\n+\t\t\t\t\t\t\t\"Null 'period' argument.\");\n+\t\t\t\t}\n+\t\t\t\tTimeSeriesDataItem clone = (TimeSeriesDataItem) item.clone();\n                 try {\n                     copy.add(clone);\n                 }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 1062, 
+          "faulty": "TimeSeriesDataItem clone=(TimeSeriesDataItem)item.clone();", 
+          "type": "InsertBefore", 
+          "seed": "if (item == null) {\n  throw new IllegalArgumentException(\"Null 'period' argument.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/data/time/TimeSeries.java", 
+          "line": 564, 
+          "faulty": "add(item,true);", 
+          "type": "InsertBefore", 
+          "seed": "updateBoundsForRemovedItem(item);"
+        }
+      ]
+    }
+  ]
+}

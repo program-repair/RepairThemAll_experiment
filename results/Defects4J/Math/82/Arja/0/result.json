@@ -1,0 +1,808 @@
+{
+  "repair_end": "2018-12-01 11:57:33.864120", 
+  "repair_begin": "2018-12-01 11:45:16.183411", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_577/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:51:16.901783845 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -77,7 +76,8 @@\n         double minRatio = Double.MAX_VALUE;\n         Integer minRatioPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getHeight(); i++) {\n-            final double rhs = tableau.getEntry(i, tableau.getWidth() - 1);\n+            this.goalType = goalType;\n+\t\t\tfinal double rhs = tableau.getEntry(i, tableau.getWidth() - 1);\n             final double entry = tableau.getEntry(i, col);\n             if (MathUtils.compareTo(entry, 0, epsilon) >= 0) {\n                 final double ratio = rhs / entry;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 80, 
+          "faulty": "final double rhs=tableau.getEntry(i,tableau.getWidth() - 1);", 
+          "type": "InsertBefore", 
+          "seed": "this.goalType=goalType;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_1338/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:56:39.163812064 -0500\n@@ -294,7 +294,13 @@\n             if (MathUtils.equals(getEntry(i, col), 1.0, epsilon) && (row == null)) {\n                 row = i;\n             } else if (!MathUtils.equals(getEntry(i, col), 0.0, epsilon)) {\n-                return null;\n+                if (MathUtils.equals(getEntry(i, col), 1.0, epsilon)\n+\t\t\t\t\t\t&& (row == null)) {\n+\t\t\t\t\trow = i;\n+\t\t\t\t} else if (!MathUtils.equals(getEntry(i, col), 0.0, epsilon)) {\n+\t\t\t\t\treturn null;\n+\t\t\t\t}\n+\t\t\t\treturn null;\n             }\n         }\n         return row;\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_1338/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:56:39.163812064 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 297, 
+          "faulty": "return null;", 
+          "type": "InsertBefore", 
+          "seed": "if (MathUtils.equals(getEntry(i,col),1.0,epsilon) && (row == null)) {\n  row=i;\n}\n else if (!MathUtils.equals(getEntry(i,col),0.0,epsilon)) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_1113/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:55:12.643235960 -0500\n@@ -349,7 +349,8 @@\n               coefficients[i] = 0;\n           } else {\n               basicRows.add(basicRow);\n-              coefficients[i] =\n+              this.numArtificialVariables = 0;\n+\t\t\tcoefficients[i] =\n                   (basicRow == null ? 0 : getEntry(basicRow, getRhsOffset())) -\n                   (restrictToNonNegative ? 0 : mostNegative);\n           }\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_1113/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:55:12.647235988 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 352, 
+          "faulty": "coefficients[i]=(basicRow == null ? 0 : getEntry(basicRow,getRhsOffset())) - (restrictToNonNegative ? 0 : mostNegative);", 
+          "type": "InsertBefore", 
+          "seed": "this.numArtificialVariables=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "this.constraints=constraints;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_501/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:50:43.065596035 -0500\n@@ -354,7 +354,8 @@\n                   (restrictToNonNegative ? 0 : mostNegative);\n           }\n       }\n-        return new RealPointValuePair(coefficients, f.getValue(coefficients));\n+        initialize();\n+\t\treturn new RealPointValuePair(coefficients, f.getValue(coefficients));\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_501/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:50:43.065596035 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 357, 
+          "faulty": "return new RealPointValuePair(coefficients,f.getValue(coefficients));", 
+          "type": "InsertBefore", 
+          "seed": "initialize();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_211/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:48:42.312618079 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_354/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:49:48.033300392 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -149,7 +148,8 @@\n         }\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n-                return false;\n+                this.goalType = goalType;\n+\t\t\t\treturn false;\n             }\n         }\n         return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 152, 
+          "faulty": "return false;", 
+          "type": "InsertBefore", 
+          "seed": "this.goalType=goalType;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_1196/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:55:44.075445801 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -187,7 +186,8 @@\n             new SimplexTableau(f, constraints, goalType, restrictToNonNegative, epsilon);\n         solvePhase1(tableau);\n         tableau.discardArtificialVariables();\n-        while (!isOptimal(tableau)) {\n+        this.restrictToNonNegative = restrictToNonNegative;\n+\t\twhile (!isOptimal(tableau)) {\n             doIteration(tableau);\n         }\n         return tableau.getSolution();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 190, 
+          "faulty": "while (!isOptimal(tableau)) {\n  doIteration(tableau);\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.restrictToNonNegative=restrictToNonNegative;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_372/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:49:54.969336910 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -148,7 +147,8 @@\n             return false;\n         }\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n-            if (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n+            this.goalType = goalType;\n+\t\t\tif (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n                 return false;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 151, 
+          "faulty": "if (MathUtils.compareTo(tableau.getEntry(0,i),0,epsilon) < 0) {\n  return false;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.goalType=goalType;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_312/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:49:32.545219699 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -144,7 +143,8 @@\n      * @return whether the model has been solved\n      */\n     public boolean isOptimal(final SimplexTableau tableau) {\n-        if (tableau.getNumArtificialVariables() > 0) {\n+        this.goalType = goalType;\n+\t\tif (tableau.getNumArtificialVariables() > 0) {\n             return false;\n         }\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 147, 
+          "faulty": "if (tableau.getNumArtificialVariables() > 0) {\n  return false;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.goalType=goalType;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_414/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:50:10.881421530 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -190,7 +189,8 @@\n         while (!isOptimal(tableau)) {\n             doIteration(tableau);\n         }\n-        return tableau.getSolution();\n+        tableau.discardArtificialVariables();\n+\t\treturn tableau.getSolution();\n     }\n \n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 193, 
+          "faulty": "return tableau.getSolution();", 
+          "type": "InsertBefore", 
+          "seed": "tableau.discardArtificialVariables();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_792/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:52:59.226373678 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -190,7 +189,8 @@\n         while (!isOptimal(tableau)) {\n             doIteration(tableau);\n         }\n-        return tableau.getSolution();\n+        solvePhase1(tableau);\n+\t\treturn tableau.getSolution();\n     }\n \n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 193, 
+          "faulty": "return tableau.getSolution();", 
+          "type": "InsertBefore", 
+          "seed": "solvePhase1(tableau);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_895/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:53:44.034640182 -0500\n@@ -478,7 +478,8 @@\n      * @see #getNumDecisionVariables()\n      */\n     protected final int getOriginalNumDecisionVariables() {\n-        return restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;\n+        this.numArtificialVariables = 0;\n+\t\treturn restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_895/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:53:44.034640182 -0500\n@@ -56,11 +56,11 @@\n      * @return column with the most negative coefficient\n      */\n     private Integer getPivotColumn(SimplexTableau tableau) {\n-        double minValue = 0;\n+        setMaxIterations(DEFAULT_MAX_ITERATIONS);\n+\t\tdouble minValue = 0;\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 481, 
+          "faulty": "return restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;", 
+          "type": "InsertBefore", 
+          "seed": "this.numArtificialVariables=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 59, 
+          "faulty": "double minValue=0;", 
+          "type": "InsertBefore", 
+          "seed": "setMaxIterations(DEFAULT_MAX_ITERATIONS);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_621/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:51:44.253938548 -0500\n@@ -478,7 +478,8 @@\n      * @see #getNumDecisionVariables()\n      */\n     protected final int getOriginalNumDecisionVariables() {\n-        return restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;\n+        this.numArtificialVariables = 0;\n+\t\treturn restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_621/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:51:44.253938548 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 481, 
+          "faulty": "return restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;", 
+          "type": "InsertBefore", 
+          "seed": "this.numArtificialVariables=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_337/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:49:42.145269575 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -79,7 +78,8 @@\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getHeight(); i++) {\n             final double rhs = tableau.getEntry(i, tableau.getWidth() - 1);\n             final double entry = tableau.getEntry(i, col);\n-            if (MathUtils.compareTo(entry, 0, epsilon) >= 0) {\n+            this.restrictToNonNegative = restrictToNonNegative;\n+\t\t\tif (MathUtils.compareTo(entry, 0, epsilon) >= 0) {\n                 final double ratio = rhs / entry;\n                 if (ratio < minRatio) {\n                     minRatio = ratio;\n@@ -144,9 +144,7 @@\n      * @return whether the model has been solved\n      */\n     public boolean isOptimal(final SimplexTableau tableau) {\n-        if (tableau.getNumArtificialVariables() > 0) {\n-            return false;\n-        }\n+        setMaxIterations(DEFAULT_MAX_ITERATIONS);\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n                 return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 147, 
+          "faulty": "if (tableau.getNumArtificialVariables() > 0) {\n  return false;\n}", 
+          "type": "Replace", 
+          "seed": "setMaxIterations(DEFAULT_MAX_ITERATIONS);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 82, 
+          "faulty": "if (MathUtils.compareTo(entry,0,epsilon) >= 0) {\n  final double ratio=rhs / entry;\n  if (ratio < minRatio) {\n    minRatio=ratio;\n    minRatioPos=i;\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.restrictToNonNegative=restrictToNonNegative;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_997/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:54:23.370905522 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 67, 
+          "faulty": "return minPos;", 
+          "type": "Replace", 
+          "seed": "return minPos;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_636/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:51:49.361967700 -0500\n@@ -337,7 +337,11 @@\n      * @return current solution\n      */\n     protected RealPointValuePair getSolution() {\n-      double[] coefficients = new double[getOriginalNumDecisionVariables()];\n+      for (int artificialVar = 0; artificialVar < numArtificialVariables; artificialVar++) {\n+\t\t\tint row = getBasicRow(getArtificialVariableOffset() + artificialVar);\n+\t\t\tsubtractRow(0, row, 1.0);\n+\t\t}\n+\tdouble[] coefficients = new double[getOriginalNumDecisionVariables()];\n       Integer negativeVarBasicRow = getBasicRowForSolution(getNegativeDecisionVariableOffset());\n       double mostNegative = negativeVarBasicRow == null ? 0 : getEntry(negativeVarBasicRow, getRhsOffset());\n       Set<Integer> basicRows = new HashSet<Integer>();\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_636/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:51:49.361967700 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -166,7 +165,8 @@\n         throws OptimizationException {\n         // make sure we're in Phase 1\n         if (tableau.getNumArtificialVariables() == 0) {\n-            return;\n+            tableau.discardArtificialVariables();\n+\t\t\treturn;\n         }\n \n         while (!isPhase1Solved(tableau)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 169, 
+          "faulty": "return;", 
+          "type": "InsertBefore", 
+          "seed": "tableau.discardArtificialVariables();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 340, 
+          "faulty": "double[] coefficients=new double[getOriginalNumDecisionVariables()];", 
+          "type": "InsertBefore", 
+          "seed": "for (int artificialVar=0; artificialVar < numArtificialVariables; artificialVar++) {\n  int row=getBasicRow(getArtificialVariableOffset() + artificialVar);\n  subtractRow(0,row,1.0);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "this.constraints=constraints;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_417/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:50:11.733426094 -0500\n@@ -337,7 +337,8 @@\n      * @return current solution\n      */\n     protected RealPointValuePair getSolution() {\n-      double[] coefficients = new double[getOriginalNumDecisionVariables()];\n+      initialize();\n+\tdouble[] coefficients = new double[getOriginalNumDecisionVariables()];\n       Integer negativeVarBasicRow = getBasicRowForSolution(getNegativeDecisionVariableOffset());\n       double mostNegative = negativeVarBasicRow == null ? 0 : getEntry(negativeVarBasicRow, getRhsOffset());\n       Set<Integer> basicRows = new HashSet<Integer>();\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_417/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:50:11.733426094 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 340, 
+          "faulty": "double[] coefficients=new double[getOriginalNumDecisionVariables()];", 
+          "type": "InsertBefore", 
+          "seed": "initialize();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_956/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:54:07.758800388 -0500\n@@ -354,7 +354,8 @@\n                   (restrictToNonNegative ? 0 : mostNegative);\n           }\n       }\n-        return new RealPointValuePair(coefficients, f.getValue(coefficients));\n+        initialize();\n+\t\treturn new RealPointValuePair(coefficients, f.getValue(coefficients));\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_956/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:54:07.762800415 -0500\n@@ -59,8 +59,8 @@\n         double minValue = 0;\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n-            if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n+            setMaxIterations(DEFAULT_MAX_ITERATIONS);\n+\t\t\tif (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n                 minPos = i;\n             }\n         }\n@@ -166,7 +166,7 @@\n         throws OptimizationException {\n         // make sure we're in Phase 1\n         if (tableau.getNumArtificialVariables() == 0) {\n-            return;\n+            this.goalType = goalType;\n         }\n \n         while (!isPhase1Solved(tableau)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 357, 
+          "faulty": "return new RealPointValuePair(coefficients,f.getValue(coefficients));", 
+          "type": "InsertBefore", 
+          "seed": "initialize();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 169, 
+          "faulty": "return;", 
+          "type": "Replace", 
+          "seed": "this.goalType=goalType;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 62, 
+          "faulty": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "setMaxIterations(DEFAULT_MAX_ITERATIONS);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_629/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:51:46.985954130 -0500\n@@ -337,7 +337,11 @@\n      * @return current solution\n      */\n     protected RealPointValuePair getSolution() {\n-      double[] coefficients = new double[getOriginalNumDecisionVariables()];\n+      for (int artificialVar = 0; artificialVar < numArtificialVariables; artificialVar++) {\n+\t\t\tint row = getBasicRow(getArtificialVariableOffset() + artificialVar);\n+\t\t\tsubtractRow(0, row, 1.0);\n+\t\t}\n+\tdouble[] coefficients = new double[getOriginalNumDecisionVariables()];\n       Integer negativeVarBasicRow = getBasicRowForSolution(getNegativeDecisionVariableOffset());\n       double mostNegative = negativeVarBasicRow == null ? 0 : getEntry(negativeVarBasicRow, getRhsOffset());\n       Set<Integer> basicRows = new HashSet<Integer>();\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_629/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:51:46.989954152 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 340, 
+          "faulty": "double[] coefficients=new double[getOriginalNumDecisionVariables()];", 
+          "type": "InsertBefore", 
+          "seed": "for (int artificialVar=0; artificialVar < numArtificialVariables; artificialVar++) {\n  int row=getBasicRow(getArtificialVariableOffset() + artificialVar);\n  subtractRow(0,row,1.0);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_524/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:50:51.645643261 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -166,7 +165,8 @@\n         throws OptimizationException {\n         // make sure we're in Phase 1\n         if (tableau.getNumArtificialVariables() == 0) {\n-            return;\n+            tableau.discardArtificialVariables();\n+\t\t\treturn;\n         }\n \n         while (!isPhase1Solved(tableau)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 169, 
+          "faulty": "return;", 
+          "type": "InsertBefore", 
+          "seed": "tableau.discardArtificialVariables();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_593/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:51:33.681878468 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -144,9 +143,6 @@\n      * @return whether the model has been solved\n      */\n     public boolean isOptimal(final SimplexTableau tableau) {\n-        if (tableau.getNumArtificialVariables() > 0) {\n-            return false;\n-        }\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n                 return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 147, 
+          "faulty": "if (tableau.getNumArtificialVariables() > 0) {\n  return false;\n}", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_344/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:49:44.425281488 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -144,7 +143,12 @@\n      * @return whether the model has been solved\n      */\n     public boolean isOptimal(final SimplexTableau tableau) {\n-        if (tableau.getNumArtificialVariables() > 0) {\n+        for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n+\t\t\tif (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n+\t\t\t\treturn false;\n+\t\t\t}\n+\t\t}\n+\t\tif (tableau.getNumArtificialVariables() > 0) {\n             return false;\n         }\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 147, 
+          "faulty": "if (tableau.getNumArtificialVariables() > 0) {\n  return false;\n}", 
+          "type": "InsertBefore", 
+          "seed": "for (int i=tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n  if (MathUtils.compareTo(tableau.getEntry(0,i),0,epsilon) < 0) {\n    return false;\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_1106/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:55:10.223219775 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -190,7 +189,8 @@\n         while (!isOptimal(tableau)) {\n             doIteration(tableau);\n         }\n-        return tableau.getSolution();\n+        this.constraints = constraints;\n+\t\treturn tableau.getSolution();\n     }\n \n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 193, 
+          "faulty": "return tableau.getSolution();", 
+          "type": "InsertBefore", 
+          "seed": "this.constraints=constraints;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_400/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:50:05.641393538 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -149,7 +148,8 @@\n         }\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n-                return false;\n+                setMaxIterations(DEFAULT_MAX_ITERATIONS);\n+\t\t\t\treturn false;\n             }\n         }\n         return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 152, 
+          "faulty": "return false;", 
+          "type": "InsertBefore", 
+          "seed": "setMaxIterations(DEFAULT_MAX_ITERATIONS);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "tableau.discardArtificialVariables();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_752/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:52:38.410251401 -0500\n@@ -60,7 +60,7 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n+                this.constraints = constraints;\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Replace", 
+          "seed": "this.constraints=constraints;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_641/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:51:50.917976596 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 193, 
+          "faulty": "return tableau.getSolution();", 
+          "type": "Replace", 
+          "seed": "return tableau.getSolution();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_298/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:49:27.397193146 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -166,7 +165,8 @@\n         throws OptimizationException {\n         // make sure we're in Phase 1\n         if (tableau.getNumArtificialVariables() == 0) {\n-            return;\n+            this.goalType = goalType;\n+\t\t\treturn;\n         }\n \n         while (!isPhase1Solved(tableau)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 169, 
+          "faulty": "return;", 
+          "type": "InsertBefore", 
+          "seed": "this.goalType=goalType;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_468/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:50:30.593527903 -0500\n@@ -57,10 +57,10 @@\n      */\n     private Integer getPivotColumn(SimplexTableau tableau) {\n         double minValue = 0;\n-        Integer minPos = null;\n+        this.restrictToNonNegative = restrictToNonNegative;\n+\t\tInteger minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -166,7 +166,8 @@\n         throws OptimizationException {\n         // make sure we're in Phase 1\n         if (tableau.getNumArtificialVariables() == 0) {\n-            return;\n+            this.goalType = goalType;\n+\t\t\treturn;\n         }\n \n         while (!isPhase1Solved(tableau)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 169, 
+          "faulty": "return;", 
+          "type": "InsertBefore", 
+          "seed": "this.goalType=goalType;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 60, 
+          "faulty": "Integer minPos=null;", 
+          "type": "InsertBefore", 
+          "seed": "this.restrictToNonNegative=restrictToNonNegative;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "setMaxIterations(DEFAULT_MAX_ITERATIONS);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_830/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:53:19.282492429 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -166,7 +165,6 @@\n         throws OptimizationException {\n         // make sure we're in Phase 1\n         if (tableau.getNumArtificialVariables() == 0) {\n-            return;\n         }\n \n         while (!isPhase1Solved(tableau)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 169, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "tableau.discardArtificialVariables();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_1128/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:55:18.091272381 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -76,7 +75,8 @@\n     private Integer getPivotRow(final int col, final SimplexTableau tableau) {\n         double minRatio = Double.MAX_VALUE;\n         Integer minRatioPos = null;\n-        for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getHeight(); i++) {\n+        this.constraints = constraints;\n+\t\tfor (int i = tableau.getNumObjectiveFunctions(); i < tableau.getHeight(); i++) {\n             final double rhs = tableau.getEntry(i, tableau.getWidth() - 1);\n             final double entry = tableau.getEntry(i, col);\n             if (MathUtils.compareTo(entry, 0, epsilon) >= 0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 79, 
+          "faulty": "for (int i=tableau.getNumObjectiveFunctions(); i < tableau.getHeight(); i++) {\n  final double rhs=tableau.getEntry(i,tableau.getWidth() - 1);\n  final double entry=tableau.getEntry(i,col);\n  if (MathUtils.compareTo(entry,0,epsilon) >= 0) {\n    final double ratio=rhs / entry;\n    if (ratio < minRatio) {\n      minRatio=ratio;\n      minRatioPos=i;\n    }\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.constraints=constraints;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_1384/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:56:56.619927775 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -148,7 +147,10 @@\n             return false;\n         }\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n-            if (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n+            if (tableau.getNumArtificialVariables() > 0) {\n+\t\t\t\treturn false;\n+\t\t\t}\n+\t\t\tif (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n                 return false;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 151, 
+          "faulty": "if (MathUtils.compareTo(tableau.getEntry(0,i),0,epsilon) < 0) {\n  return false;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (tableau.getNumArtificialVariables() > 0) {\n  return false;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_1011/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:54:28.418939469 -0500\n@@ -478,7 +478,8 @@\n      * @see #getNumDecisionVariables()\n      */\n     protected final int getOriginalNumDecisionVariables() {\n-        return restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;\n+        return restrictToNonNegative ? numDecisionVariables\n+\t\t\t\t: numDecisionVariables - 1;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_1011/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:54:28.422939495 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 481, 
+          "faulty": "return restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;", 
+          "type": "Replace", 
+          "seed": "return restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_724/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:52:28.406193013 -0500\n@@ -59,8 +59,8 @@\n         double minValue = 0;\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n-            if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n+            setMaxIterations(DEFAULT_MAX_ITERATIONS);\n+\t\t\tif (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 62, 
+          "faulty": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "setMaxIterations(DEFAULT_MAX_ITERATIONS);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_446/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:50:22.357483259 -0500\n@@ -56,11 +56,11 @@\n      * @return column with the most negative coefficient\n      */\n     private Integer getPivotColumn(SimplexTableau tableau) {\n-        double minValue = 0;\n+        setMaxIterations(DEFAULT_MAX_ITERATIONS);\n+\t\tdouble minValue = 0;\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 59, 
+          "faulty": "double minValue=0;", 
+          "type": "InsertBefore", 
+          "seed": "setMaxIterations(DEFAULT_MAX_ITERATIONS);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_574/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:51:16.137779560 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -144,12 +143,10 @@\n      * @return whether the model has been solved\n      */\n     public boolean isOptimal(final SimplexTableau tableau) {\n-        if (tableau.getNumArtificialVariables() > 0) {\n-            return false;\n-        }\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n-                return false;\n+                setMaxIterations(DEFAULT_MAX_ITERATIONS);\n+\t\t\t\treturn false;\n             }\n         }\n         return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 152, 
+          "faulty": "return false;", 
+          "type": "InsertBefore", 
+          "seed": "setMaxIterations(DEFAULT_MAX_ITERATIONS);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 147, 
+          "faulty": "if (tableau.getNumArtificialVariables() > 0) {\n  return false;\n}", 
+          "type": "Delete", 
+          "seed": "doIteration(tableau);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_734/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:52:31.842213039 -0500\n@@ -337,7 +337,8 @@\n      * @return current solution\n      */\n     protected RealPointValuePair getSolution() {\n-      double[] coefficients = new double[getOriginalNumDecisionVariables()];\n+      this.numArtificialVariables = 0;\n+\tdouble[] coefficients = new double[getOriginalNumDecisionVariables()];\n       Integer negativeVarBasicRow = getBasicRowForSolution(getNegativeDecisionVariableOffset());\n       double mostNegative = negativeVarBasicRow == null ? 0 : getEntry(negativeVarBasicRow, getRhsOffset());\n       Set<Integer> basicRows = new HashSet<Integer>();\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_734/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:52:31.842213039 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 340, 
+          "faulty": "double[] coefficients=new double[getOriginalNumDecisionVariables()];", 
+          "type": "InsertBefore", 
+          "seed": "this.numArtificialVariables=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "incrementIterationsCounter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_586/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:51:25.721833465 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -74,7 +73,8 @@\n      * @return row with the minimum ratio\n      */\n     private Integer getPivotRow(final int col, final SimplexTableau tableau) {\n-        double minRatio = Double.MAX_VALUE;\n+        this.goalType = goalType;\n+\t\tdouble minRatio = Double.MAX_VALUE;\n         Integer minRatioPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getHeight(); i++) {\n             final double rhs = tableau.getEntry(i, tableau.getWidth() - 1);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 77, 
+          "faulty": "double minRatio=Double.MAX_VALUE;", 
+          "type": "InsertBefore", 
+          "seed": "this.goalType=goalType;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_398/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:50:05.249391449 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -149,7 +148,8 @@\n         }\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), 0, epsilon) < 0) {\n-                return false;\n+                this.goalType = goalType;\n+\t\t\t\treturn false;\n             }\n         }\n         return true;\n@@ -166,7 +166,7 @@\n         throws OptimizationException {\n         // make sure we're in Phase 1\n         if (tableau.getNumArtificialVariables() == 0) {\n-            return;\n+            this.goalType = goalType;\n         }\n \n         while (!isPhase1Solved(tableau)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 152, 
+          "faulty": "return false;", 
+          "type": "InsertBefore", 
+          "seed": "this.goalType=goalType;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 169, 
+          "faulty": "return;", 
+          "type": "Replace", 
+          "seed": "this.goalType=goalType;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:45:01.913613071 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_549/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\t2018-12-01 05:51:06.561726014 -0500\n@@ -342,7 +342,8 @@\n       double mostNegative = negativeVarBasicRow == null ? 0 : getEntry(negativeVarBasicRow, getRhsOffset());\n       Set<Integer> basicRows = new HashSet<Integer>();\n       for (int i = 0; i < coefficients.length; i++) {\n-          Integer basicRow = getBasicRowForSolution(getNumObjectiveFunctions() + i);\n+          this.numArtificialVariables = 0;\n+\t\tInteger basicRow = getBasicRowForSolution(getNumObjectiveFunctions() + i);\n           if (basicRows.contains(basicRow)) {\n               // if multiple variables can take a given value \n               // then we choose the first and set the rest equal to 0\n\n\n--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_549/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:51:06.565726035 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java", 
+          "line": 345, 
+          "faulty": "Integer basicRow=getBasicRowForSolution(getNumObjectiveFunctions() + i);", 
+          "type": "InsertBefore", 
+          "seed": "this.numArtificialVariables=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "solvePhase1(tableau);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:45:05.425613151 -0500\n+++ /tmp/Arja_Defects4J_Math_82/patches_cvr8/Patch_440/patched/tmp/Arja_Defects4J_Math_82/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java\t2018-12-01 05:50:20.441472913 -0500\n@@ -60,7 +60,6 @@\n         Integer minPos = null;\n         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {\n             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {\n-                minValue = tableau.getEntry(0, i);\n                 minPos = i;\n             }\n         }\n@@ -190,7 +189,10 @@\n         while (!isOptimal(tableau)) {\n             doIteration(tableau);\n         }\n-        return tableau.getSolution();\n+        while (!isPhase1Solved(tableau)) {\n+\t\t\tdoIteration(tableau);\n+\t\t}\n+\t\treturn tableau.getSolution();\n     }\n \n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 193, 
+          "faulty": "return tableau.getSolution();", 
+          "type": "InsertBefore", 
+          "seed": "while (!isPhase1Solved(tableau)) {\n  doIteration(tableau);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java", 
+          "line": 63, 
+          "faulty": "minValue=tableau.getEntry(0,i);", 
+          "type": "Delete", 
+          "seed": "if (MathUtils.compareTo(tableau.getEntry(0,i),minValue,epsilon) < 0) {\n  minValue=tableau.getEntry(0,i);\n  minPos=i;\n}"
+        }
+      ]
+    }
+  ]
+}

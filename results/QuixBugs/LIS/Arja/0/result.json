@@ -1,98 +1,41 @@
 {
+  "repair_end": "2018-12-02 11:42:46.076056", 
+  "repair_begin": "2018-12-02 11:37:24.439289", 
   "patches": [
     {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_865/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:40:03.683088658 -0500\n@@ -20,15 +20,25 @@\n             ArrayList<Integer> prefix_lengths = new ArrayList<Integer>(100);\n             for (int j=1; j < longest+1; j++) {\n                 if (arr[ends.get(j)] < val) {\n-                    prefix_lengths.add(j);\n+                    if (arr[ends.get(j)] < val) {\n+\t\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t\t}\n                 }\n             }\n \n             int length = !prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;\n \n-            if (length == longest || val < arr[ends.get(length+1)]) {\n+            for (int j = 1; j < longest + 1; j++) {\n+\t\t\t\tif (arr[ends.get(j)] < val) {\n+\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tif (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
       "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 23, 
+          "faulty": "prefix_lengths.add(j);", 
+          "type": "Replace", 
+          "seed": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}"
+        }, 
         {
           "path": "src/main/java/LIS.java", 
           "line": 29, 
           "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
           "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 30, 
-          "faulty": "ends.put(length + 1,i);", 
-          "type": "Replace", 
           "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "Replace", 
-          "seed": "ends.put(length + 1,i);"
         }, 
         {
           "path": "src/main/java/LIS.java", 
-          "line": 34, 
-          "faulty": "i++;", 
-          "type": "InsertBefore", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
           "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_364/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:38:34.566570253 -0500\n@@ -28,7 +28,10 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 36, 
-          "faulty": "return longest;", 
-          "type": "InsertBefore", 
-          "seed": "i++;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 36, 
-          "faulty": "return longest;", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
           "type": "Replace", 
-          "seed": "return longest;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 21, 
-          "faulty": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}", 
-          "type": "InsertBefore", 
-          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 34, 
-          "faulty": "i++;", 
-          "type": "InsertBefore", 
           "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
         }, 
         {
@@ -105,6 +48,71 @@
       ]
     }, 
     {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_146/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:55.890229808 -0500\n@@ -20,7 +20,9 @@\n             ArrayList<Integer> prefix_lengths = new ArrayList<Integer>(100);\n             for (int j=1; j < longest+1; j++) {\n                 if (arr[ends.get(j)] < val) {\n-                    prefix_lengths.add(j);\n+                    if (arr[ends.get(j)] < val) {\n+\t\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t\t}\n                 }\n             }\n \n@@ -28,7 +30,10 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 23, 
+          "faulty": "prefix_lengths.add(j);", 
+          "type": "Replace", 
+          "seed": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_331/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:38:28.782483553 -0500\n@@ -28,10 +28,17 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n-            i++;\n+            if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\tends.put(length + 1, i);\n+\t\t\t\tlongest = length + 1;\n+\t\t\t}\n+\t\t\ti++;\n         }\n         return longest;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 34, 
+          "faulty": "i++;", 
+          "type": "InsertBefore", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_776/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:39:47.791041364 -0500\n@@ -28,10 +28,13 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n             }\n \n-            i++;\n+            if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\tends.put(length + 1, i);\n+\t\t\t\tlongest = length + 1;\n+\t\t\t}\n+\t\t\ti++;\n         }\n         return longest;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Delete", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 34, 
+          "faulty": "i++;", 
+          "type": "InsertBefore", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 36, 
+          "faulty": "return longest;", 
+          "type": "Replace", 
+          "seed": "return longest;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_1333/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:41:26.767323458 -0500\n@@ -24,11 +24,19 @@\n                 }\n             }\n \n-            int length = !prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;\n+            for (int j = 1; j < longest + 1; j++) {\n+\t\t\t\tif (arr[ends.get(j)] < val) {\n+\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tint length = !prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/LIS.java", 
@@ -115,333 +123,15 @@
         }, 
         {
           "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 27, 
-          "faulty": "int length=!prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;", 
-          "type": "InsertBefore", 
-          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
           "line": 31, 
           "faulty": "longest=length + 1;", 
-          "type": "InsertBefore", 
-          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 34, 
-          "faulty": "i++;", 
-          "type": "InsertBefore", 
-          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 36, 
-          "faulty": "return longest;", 
-          "type": "Replace", 
-          "seed": "return longest;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 31, 
-          "faulty": "longest=length + 1;", 
-          "type": "InsertBefore", 
-          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 31, 
-          "faulty": "longest=length + 1;", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 36, 
-          "faulty": "return longest;", 
-          "type": "Replace", 
-          "seed": "return longest;"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 30, 
-          "faulty": "ends.put(length + 1,i);", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 34, 
-          "faulty": "i++;", 
-          "type": "InsertBefore", 
-          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 31, 
-          "faulty": "longest=length + 1;", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 34, 
-          "faulty": "i++;", 
-          "type": "InsertBefore", 
-          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 23, 
-          "faulty": "prefix_lengths.add(j);", 
-          "type": "Replace", 
-          "seed": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 23, 
-          "faulty": "prefix_lengths.add(j);", 
-          "type": "InsertBefore", 
-          "seed": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 34, 
-          "faulty": "i++;", 
-          "type": "InsertBefore", 
-          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 30, 
-          "faulty": "ends.put(length + 1,i);", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 30, 
-          "faulty": "ends.put(length + 1,i);", 
-          "type": "Delete", 
-          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 21, 
-          "faulty": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}", 
-          "type": "InsertBefore", 
-          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 30, 
-          "faulty": "ends.put(length + 1,i);", 
-          "type": "InsertBefore", 
-          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 30, 
-          "faulty": "ends.put(length + 1,i);", 
           "type": "Replace", 
           "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
         }
       ]
     }, 
     {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 23, 
-          "faulty": "prefix_lengths.add(j);", 
-          "type": "Replace", 
-          "seed": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 30, 
-          "faulty": "ends.put(length + 1,i);", 
-          "type": "Delete", 
-          "seed": "for (int val : arr) {\n  ArrayList<Integer> prefix_lengths=new ArrayList<Integer>(100);\n  for (int j=1; j < longest + 1; j++) {\n    if (arr[ends.get(j)] < val) {\n      prefix_lengths.add(j);\n    }\n  }\n  int length=!prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;\n  if (length == longest || val < arr[ends.get(length + 1)]) {\n    ends.put(length + 1,i);\n    longest=length + 1;\n  }\n  i++;\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 23, 
-          "faulty": "prefix_lengths.add(j);", 
-          "type": "InsertBefore", 
-          "seed": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}"
-        }, 
-        {
-          "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
-        }
-      ]
-    }, 
-    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_540/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:39:05.894869024 -0500\n@@ -20,6 +20,9 @@\n             ArrayList<Integer> prefix_lengths = new ArrayList<Integer>(100);\n             for (int j=1; j < longest+1; j++) {\n                 if (arr[ends.get(j)] < val) {\n+\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t}\n+\t\t\t\tif (arr[ends.get(j)] < val) {\n                     prefix_lengths.add(j);\n                 }\n             }\n@@ -28,7 +31,10 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/LIS.java", 
@@ -452,14 +142,53 @@
         }, 
         {
           "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_1091/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:40:44.031205109 -0500\n@@ -21,6 +21,7 @@\n             for (int j=1; j < longest+1; j++) {\n                 if (arr[ends.get(j)] < val) {\n                     prefix_lengths.add(j);\n+\t\t\t\t\tprefix_lengths.add(j);\n                 }\n             }\n \n@@ -28,7 +29,10 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 23, 
+          "faulty": "prefix_lengths.add(j);", 
+          "type": "InsertBefore", 
+          "seed": "prefix_lengths.add(j);"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_718/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:39:37.583010520 -0500\n@@ -27,8 +27,16 @@\n             int length = !prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n-                ends.put(length+1, i);\n-                longest = length + 1;\n+                for (int j = 1; j < longest + 1; j++) {\n+\t\t\t\t\tif (arr[ends.get(j)] < val) {\n+\t\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t\t}\n+\t\t\t\t}\n+\t\t\t\tends.put(length+1, i);\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 30, 
+          "faulty": "ends.put(length + 1,i);", 
+          "type": "InsertBefore", 
+          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_1207/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:41:04.375262038 -0500\n@@ -26,9 +26,13 @@\n \n             int length = !prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;\n \n-            if (length == longest || val < arr[ends.get(length+1)]) {\n+            ends.put(length + 1, i);\n+\t\t\tif (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/LIS.java", 
@@ -472,19 +201,110 @@
           "path": "src/main/java/LIS.java", 
           "line": 31, 
           "faulty": "longest=length + 1;", 
-          "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_323/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:38:27.474461305 -0500\n@@ -18,17 +18,22 @@\n         for (int val : arr) {\n \n             ArrayList<Integer> prefix_lengths = new ArrayList<Integer>(100);\n-            for (int j=1; j < longest+1; j++) {\n-                if (arr[ends.get(j)] < val) {\n-                    prefix_lengths.add(j);\n-                }\n+            for (int j = 1; j < longest + 1; j++) {\n+\t\t\t\tif (arr[ends.get(j)] < val) {\n+\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tfor (int j=1; j < longest+1; j++) {\n             }\n \n             int length = !prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/LIS.java", 
-          "line": 29, 
-          "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
+          "line": 21, 
+          "faulty": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}", 
           "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
+          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 22, 
+          "faulty": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}", 
+          "type": "Delete", 
+          "seed": "prefix_lengths.add(j);"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_276/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:38:19.426309095 -0500\n@@ -20,7 +20,10 @@\n             ArrayList<Integer> prefix_lengths = new ArrayList<Integer>(100);\n             for (int j=1; j < longest+1; j++) {\n                 if (arr[ends.get(j)] < val) {\n-                    prefix_lengths.add(j);\n+                    if (arr[ends.get(j)] < val) {\n+\t\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t\t}\n+\t\t\t\t\tprefix_lengths.add(j);\n                 }\n             }\n \n@@ -28,7 +31,10 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 23, 
+          "faulty": "prefix_lengths.add(j);", 
+          "type": "InsertBefore", 
+          "seed": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_2/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:28.886230633 -0500\n@@ -28,7 +28,10 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_1097/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:40:44.943207685 -0500\n@@ -20,7 +20,12 @@\n             ArrayList<Integer> prefix_lengths = new ArrayList<Integer>(100);\n             for (int j=1; j < longest+1; j++) {\n                 if (arr[ends.get(j)] < val) {\n-                    prefix_lengths.add(j);\n+\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t}\n+\t\t\t\tif (arr[ends.get(j)] < val) {\n+                    if (arr[ends.get(j)] < val) {\n+\t\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t\t}\n                 }\n             }\n \n@@ -28,7 +33,10 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 22, 
+          "faulty": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 23, 
+          "faulty": "prefix_lengths.add(j);", 
+          "type": "Replace", 
+          "seed": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_1731/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:42:37.659510498 -0500\n@@ -20,7 +20,9 @@\n             ArrayList<Integer> prefix_lengths = new ArrayList<Integer>(100);\n             for (int j=1; j < longest+1; j++) {\n                 if (arr[ends.get(j)] < val) {\n-                    prefix_lengths.add(j);\n+                    if (arr[ends.get(j)] < val) {\n+\t\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t\t}\n                 }\n             }\n \n@@ -28,10 +30,17 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n-            i++;\n+            if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\tends.put(length + 1, i);\n+\t\t\t\tlongest = length + 1;\n+\t\t\t}\n+\t\t\ti++;\n         }\n         return longest;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 23, 
+          "faulty": "prefix_lengths.add(j);", 
+          "type": "Replace", 
+          "seed": "if (arr[ends.get(j)] < val) {\n  prefix_lengths.add(j);\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
         }, 
         {
           "path": "src/main/java/LIS.java", 
@@ -496,13 +316,40 @@
       ]
     }, 
     {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_115/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:50.398229976 -0500\n@@ -26,9 +26,17 @@\n \n             int length = !prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;\n \n-            if (length == longest || val < arr[ends.get(length+1)]) {\n+            for (int j = 1; j < longest + 1; j++) {\n+\t\t\t\tif (arr[ends.get(j)] < val) {\n+\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tif (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/LIS.java", 
           "line": 29, 
           "faulty": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}", 
           "type": "InsertBefore", 
-          "seed": "ends.put(length + 1,i);"
+          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:37:18.902230939 -0500\n+++ /tmp/Arja_QuixBugs_LIS_/patches_nmk9/Patch_303/patched/tmp/Arja_QuixBugs_LIS_/src/main/java/LIS.java\t2018-12-02 05:38:24.066401397 -0500\n@@ -18,7 +18,12 @@\n         for (int val : arr) {\n \n             ArrayList<Integer> prefix_lengths = new ArrayList<Integer>(100);\n-            for (int j=1; j < longest+1; j++) {\n+            for (int j = 1; j < longest + 1; j++) {\n+\t\t\t\tif (arr[ends.get(j)] < val) {\n+\t\t\t\t\tprefix_lengths.add(j);\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tfor (int j=1; j < longest+1; j++) {\n                 if (arr[ends.get(j)] < val) {\n                     prefix_lengths.add(j);\n                 }\n@@ -28,7 +33,10 @@\n \n             if (length == longest || val < arr[ends.get(length+1)]) {\n                 ends.put(length+1, i);\n-                longest = length + 1;\n+                if (length == longest || val < arr[ends.get(length + 1)]) {\n+\t\t\t\t\tends.put(length + 1, i);\n+\t\t\t\t\tlongest = length + 1;\n+\t\t\t\t}\n             }\n \n             i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 21, 
+          "faulty": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "for (int j=1; j < longest + 1; j++) {\n  if (arr[ends.get(j)] < val) {\n    prefix_lengths.add(j);\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/LIS.java", 
+          "line": 31, 
+          "faulty": "longest=length + 1;", 
+          "type": "Replace", 
+          "seed": "if (length == longest || val < arr[ends.get(length + 1)]) {\n  ends.put(length + 1,i);\n  longest=length + 1;\n}"
         }
       ]
     }

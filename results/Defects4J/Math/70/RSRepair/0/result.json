@@ -1,0 +1,30 @@
+{
+  "repair_end": "2018-12-02 09:02:48.458976", 
+  "repair_begin": "2018-12-02 08:59:45.670770", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-02 02:59:38.292128321 -0500\n+++ /tmp/RSRepair_Defects4J_Math_70/patches_acbg/Patch_120/patched/tmp/RSRepair_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-02 03:01:22.832543693 -0500\n@@ -69,7 +69,8 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        this.f = f;\n+\t\treturn solve(min, max);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "this.f=f;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-02 02:59:38.292128321 -0500\n+++ /tmp/RSRepair_Defects4J_Math_70/patches_acbg/Patch_188/patched/tmp/RSRepair_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-02 03:01:34.852591442 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }
+      ]
+    }
+  ]
+}

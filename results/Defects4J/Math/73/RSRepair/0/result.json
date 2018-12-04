@@ -1,0 +1,73 @@
+{
+  "repair_end": "2018-12-02 09:50:34.241303", 
+  "repair_begin": "2018-12-02 08:59:25.046179", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_73/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 02:59:14.663477620 -0500\n+++ /tmp/RSRepair_Defects4J_Math_73/patches_iucc/Patch_443/patched/tmp/RSRepair_Defects4J_Math_73/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 03:24:36.821453784 -0500\n@@ -128,7 +128,8 @@\n             return result;\n         }\n \n-        // reduce interval if initial and max bracket the root\n+        verifyBracketing(min, max, f);\n+\t\t// reduce interval if initial and max bracket the root\n         if (yInitial * yMax < 0) {\n             return solve(f, initial, yInitial, max, yMax, initial, yInitial);\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 132, 
+          "faulty": "if (yInitial * yMax < 0) {\n  return solve(f,initial,yInitial,max,yMax,initial,yInitial);\n}", 
+          "type": "InsertBefore", 
+          "seed": "verifyBracketing(min,max,f);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_73/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 02:59:14.663477620 -0500\n+++ /tmp/RSRepair_Defects4J_Math_73/patches_iucc/Patch_454/patched/tmp/RSRepair_Defects4J_Math_73/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 03:25:06.637630084 -0500\n@@ -111,10 +111,7 @@\n \n         // return the first endpoint if it is good enough\n         double yMin = f.value(min);\n-        if (Math.abs(yMin) <= functionValueAccuracy) {\n-            setResult(yMin, 0);\n-            return result;\n-        }\n+        verifyBracketing(min, max, f);\n \n         // reduce interval if min and initial bracket the root\n         if (yInitial * yMin < 0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 114, 
+          "faulty": "if (Math.abs(yMin) <= functionValueAccuracy) {\n  setResult(yMin,0);\n  return result;\n}", 
+          "type": "Replace", 
+          "seed": "verifyBracketing(min,max,f);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_73/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 02:59:14.663477620 -0500\n+++ /tmp/RSRepair_Defects4J_Math_73/patches_iucc/Patch_344/patched/tmp/RSRepair_Defects4J_Math_73/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 03:19:19.111648817 -0500\n@@ -111,17 +111,15 @@\n \n         // return the first endpoint if it is good enough\n         double yMin = f.value(min);\n-        if (Math.abs(yMin) <= functionValueAccuracy) {\n-            setResult(yMin, 0);\n-            return result;\n-        }\n+        double x1 = max;\n \n         // reduce interval if min and initial bracket the root\n         if (yInitial * yMin < 0) {\n             return solve(f, min, yMin, initial, yInitial, min, yMin);\n         }\n \n-        // return the second endpoint if it is good enough\n+        verifyBracketing(min, max, f);\n+\t\t// return the second endpoint if it is good enough\n         double yMax = f.value(max);\n         if (Math.abs(yMax) <= functionValueAccuracy) {\n             setResult(yMax, 0);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 114, 
+          "faulty": "if (Math.abs(yMin) <= functionValueAccuracy) {\n  setResult(yMin,0);\n  return result;\n}", 
+          "type": "Replace", 
+          "seed": "double x1=max;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 125, 
+          "faulty": "double yMax=f.value(max);", 
+          "type": "InsertBefore", 
+          "seed": "verifyBracketing(min,max,f);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_73/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 02:59:14.663477620 -0500\n+++ /tmp/RSRepair_Defects4J_Math_73/patches_iucc/Patch_874/patched/tmp/RSRepair_Defects4J_Math_73/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 03:47:32.377258543 -0500\n@@ -123,10 +123,7 @@\n \n         // return the second endpoint if it is good enough\n         double yMax = f.value(max);\n-        if (Math.abs(yMax) <= functionValueAccuracy) {\n-            setResult(yMax, 0);\n-            return result;\n-        }\n+        verifyBracketing(min, max, f);\n \n         // reduce interval if initial and max bracket the root\n         if (yInitial * yMax < 0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 126, 
+          "faulty": "if (Math.abs(yMax) <= functionValueAccuracy) {\n  setResult(yMax,0);\n  return result;\n}", 
+          "type": "Replace", 
+          "seed": "verifyBracketing(min,max,f);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_73/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 02:59:14.663477620 -0500\n+++ /tmp/RSRepair_Defects4J_Math_73/patches_iucc/Patch_674/patched/tmp/RSRepair_Defects4J_Math_73/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 03:36:53.481685660 -0500\n@@ -134,8 +134,8 @@\n         }\n \n \n-        // full Brent algorithm starting with provided initial guess\n-        return solve(f, min, yMin, max, yMax, initial, yInitial);\n+        throw MathRuntimeException.createIllegalArgumentException(\n+\t\t\t\tNON_BRACKETING_MESSAGE, min, max, yMin, yMax);\n \n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 138, 
+          "faulty": "return solve(f,min,yMin,max,yMax,initial,yInitial);", 
+          "type": "Replace", 
+          "seed": "throw MathRuntimeException.createIllegalArgumentException(NON_BRACKETING_MESSAGE,min,max,yMin,yMax);"
+        }
+      ]
+    }
+  ]
+}

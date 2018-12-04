@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 04:21:18.094307", 
+  "repair_begin": "2018-11-29 04:20:42.277545", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 4, 
+      "patchLocation": {
+        "line": 1586, 
+        "class": "org.apache.commons.math.linear.EigenDecompositionImpl"
+      }, 
+      "patchType": "CONDITIONAL", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\n+++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java\n@@ -1585,4 +1585,4 @@\n         case 1 : // one eigenvalue just deflated. use dMin1, dN1 for dMin and dN.\n-            if (dMin1 == dN1 && dMin2 == dN2) {\n-\n+            if (org.apache.commons.math.linear.EigenDecompositionImpl.this.main!=null) {\n+                \n                 // cases 7 and 8.\n@@ -1618,3 +1618,3 @@\n             } else {\n-\n+                \n                 // case 9.\n"
+    }
+  ]
+}

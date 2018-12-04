@@ -1,0 +1,92 @@
+{
+  "repair_end": "2018-12-02 14:22:31.004003", 
+  "repair_begin": "2018-12-02 14:06:35.421028", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:06:18.805965104 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_78/patches_j6j0/Patch_99/patched/tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:13:16.259933956 -0500\n@@ -51,7 +51,7 @@\n    */\n   protected void error(DiagnosticType diagnostic, Node n) {\n     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());\n-    currentTraversal.getCompiler().report(error);\n+    Node parameterName = Node.newString(Token.NAME, \"jscomp_throw_param\");\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java", 
+          "line": 54, 
+          "faulty": "currentTraversal.getCompiler().report(error);", 
+          "type": "Replace", 
+          "seed": "Node parameterName=Node.newString(Token.NAME,\"jscomp_throw_param\");"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:06:18.805965104 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_78/patches_j6j0/Patch_554/patched/tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:19:30.850835643 -0500\n@@ -51,7 +51,6 @@\n    */\n   protected void error(DiagnosticType diagnostic, Node n) {\n     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());\n-    currentTraversal.getCompiler().report(error);\n   }\n \n   /**\n\n\n--- /tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/PeepholeFoldConstants.java\t2018-12-02 08:06:20.425965179 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_78/patches_j6j0/Patch_554/patched/tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/PeepholeFoldConstants.java\t2018-12-02 08:19:30.854835887 -0500\n@@ -809,9 +809,7 @@\n     } else {\n       // Try arithmetic add\n       Node result = tryFoldArithmeticOp(node, left, right);\n-      if (result != node) {\n-        return result;\n-      }\n+      int start = 0;\n       return tryFoldLeftChildOp(node, left, right);\n     }\n   }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/PeepholeFoldConstants.java", 
+          "line": 812, 
+          "faulty": "if (result != node) {\n  return result;\n}", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java", 
+          "line": 54, 
+          "faulty": "currentTraversal.getCompiler().report(error);", 
+          "type": "Delete", 
+          "seed": "formatPreamble();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:06:18.805965104 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_78/patches_j6j0/Patch_139/patched/tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:13:48.105784758 -0500\n@@ -51,7 +51,7 @@\n    */\n   protected void error(DiagnosticType diagnostic, Node n) {\n     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());\n-    currentTraversal.getCompiler().report(error);\n+    StringBuilder builder = new StringBuilder();\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java", 
+          "line": 54, 
+          "faulty": "currentTraversal.getCompiler().report(error);", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:06:18.805965104 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_78/patches_j6j0/Patch_70/patched/tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:12:53.358726239 -0500\n@@ -51,7 +51,6 @@\n    */\n   protected void error(DiagnosticType diagnostic, Node n) {\n     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());\n-    currentTraversal.getCompiler().report(error);\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java", 
+          "line": 54, 
+          "faulty": "currentTraversal.getCompiler().report(error);", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:06:18.805965104 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_78/patches_j6j0/Patch_639/patched/tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:20:39.167120927 -0500\n@@ -51,7 +51,7 @@\n    */\n   protected void error(DiagnosticType diagnostic, Node n) {\n     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());\n-    currentTraversal.getCompiler().report(error);\n+    int start = 0;\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java", 
+          "line": 54, 
+          "faulty": "currentTraversal.getCompiler().report(error);", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:06:18.805965104 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_78/patches_j6j0/Patch_399/patched/tmp/RSRepair_Defects4J_Closure_78/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java\t2018-12-02 08:17:22.955020673 -0500\n@@ -50,8 +50,7 @@\n    * @param n The node for which the error should be reported\n    */\n   protected void error(DiagnosticType diagnostic, Node n) {\n-    JSError error = currentTraversal.makeError(n, diagnostic, n.toString());\n-    currentTraversal.getCompiler().report(error);\n+    int type = n.getType();\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java", 
+          "line": 53, 
+          "faulty": "JSError error=currentTraversal.makeError(n,diagnostic,n.toString());", 
+          "type": "Delete", 
+          "seed": "JSType type=n.getJSType();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java", 
+          "line": 54, 
+          "faulty": "currentTraversal.getCompiler().report(error);", 
+          "type": "Replace", 
+          "seed": "int type=n.getType();"
+        }
+      ]
+    }
+  ]
+}

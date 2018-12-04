@@ -1,0 +1,149 @@
+{
+  "repair_end": "2018-12-02 10:40:39.108431", 
+  "repair_begin": "2018-12-02 08:58:25.542721", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/nonstiff/AdaptiveStepsizeIntegrator.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_670/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/nonstiff/AdaptiveStepsizeIntegrator.java\t2018-12-02 04:01:48.713784116 -0500\n@@ -150,7 +150,8 @@\n     if ((initialStepSize < minStep) || (initialStepSize > maxStep)) {\n       initialStep = -1.0;\n     } else {\n-      initialStep = initialStepSize;\n+      double hNew = stepSize;\n+\tinitialStep = initialStepSize;\n     }\n   }\n \n\n\n--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_670/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 04:01:48.717784150 -0500\n@@ -227,26 +227,28 @@\n                     solver.setAbsoluteAccuracy(convergence);\n                     solver.setMaximalIterationCount(maxIterationCount);\n                     final double root = (ta <= tb) ? solver.solve(f, ta, tb) : solver.solve(f, tb, ta);\n-                    if ((Math.abs(root - ta) <= convergence) &&\n+                    interpolator.setInterpolatedTime(ta);\n+\t\t\t\t\tif ((Math.abs(root - ta) <= convergence) &&\n                          (Math.abs(root - previousEventTime) <= convergence)) {\n                         // we have either found nothing or found (again ?) a past event, we simply ignore it\n                         ta = tb;\n                         ga = gb;\n-                    } else if (Double.isNaN(previousEventTime) ||\n-                               (Math.abs(previousEventTime - root) > convergence)) {\n-                        pendingEventTime = root;\n-                        if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n-                            // we were already waiting for this event which was\n-                            // found during a previous call for a step that was\n-                            // rejected, this step must now be accepted since it\n-                            // properly ends exactly at the event occurrence\n-                            return false;\n-                        }\n-                        // either we were not waiting for the event or it has\n-                        // moved in such a way the step cannot be accepted\n-                        pendingEvent = true;\n-                        return true;\n-                    }\n+                    } else {\n+\t\t\t\t\t\tif (pendingEvent\n+\t\t\t\t\t\t\t\t&& (Math.abs(t1 - pendingEventTime) <= convergence)) {\n+\t\t\t\t\t\t\treturn false;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\tif (Double.isNaN(previousEventTime)\n+\t\t\t\t\t\t\t\t|| (Math.abs(previousEventTime - root) > convergence)) {\n+\t\t\t\t\t\t\tpendingEventTime = root;\n+\t\t\t\t\t\t\tif (pendingEvent\n+\t\t\t\t\t\t\t\t\t&& (Math.abs(t1 - pendingEventTime) <= convergence)) {\n+\t\t\t\t\t\t\t\treturn false;\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t\tpendingEvent = true;\n+\t\t\t\t\t\t\treturn true;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t}\n \n                 } else {\n                     // no sign change: there is no event for now\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/events/EventState.java", 
+          "line": 235, 
+          "faulty": "if (Double.isNaN(previousEventTime) || (Math.abs(previousEventTime - root) > convergence)) {\n  pendingEventTime=root;\n  if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n    return false;\n  }\n  pendingEvent=true;\n  return true;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n  return false;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/events/EventState.java", 
+          "line": 230, 
+          "faulty": "if ((Math.abs(root - ta) <= convergence) && (Math.abs(root - previousEventTime) <= convergence)) {\n  ta=tb;\n  ga=gb;\n}\n else if (Double.isNaN(previousEventTime) || (Math.abs(previousEventTime - root) > convergence)) {\n  pendingEventTime=root;\n  if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n    return false;\n  }\n  pendingEvent=true;\n  return true;\n}", 
+          "type": "InsertBefore", 
+          "seed": "interpolator.setInterpolatedTime(ta);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/nonstiff/AdaptiveStepsizeIntegrator.java", 
+          "line": 153, 
+          "faulty": "initialStep=initialStepSize;", 
+          "type": "InsertBefore", 
+          "seed": "double hNew=stepSize;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_1055/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 04:36:17.566972109 -0500\n@@ -224,7 +224,11 @@\n                         }\n                     };\n                     final BrentSolver solver = new BrentSolver();\n-                    solver.setAbsoluteAccuracy(convergence);\n+                    if (pendingEvent\n+\t\t\t\t\t\t\t&& (Math.abs(t1 - pendingEventTime) <= convergence)) {\n+\t\t\t\t\t\treturn false;\n+\t\t\t\t\t}\n+\t\t\t\t\tsolver.setAbsoluteAccuracy(convergence);\n                     solver.setMaximalIterationCount(maxIterationCount);\n                     final double root = (ta <= tb) ? solver.solve(f, ta, tb) : solver.solve(f, tb, ta);\n                     if ((Math.abs(root - ta) <= convergence) &&\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/events/EventState.java", 
+          "line": 227, 
+          "faulty": "solver.setAbsoluteAccuracy(convergence);", 
+          "type": "InsertBefore", 
+          "seed": "if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n  return false;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_210/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 03:19:48.072723356 -0500\n@@ -211,7 +211,11 @@\n                     // variation direction, with respect to the integration direction\n                     increasing = gb >= ga;\n \n-                    final UnivariateRealFunction f = new UnivariateRealFunction() {\n+                    if (pendingEvent\n+\t\t\t\t\t\t\t&& (Math.abs(t1 - pendingEventTime) <= convergence)) {\n+\t\t\t\t\t\treturn false;\n+\t\t\t\t\t}\n+\t\t\t\t\tfinal UnivariateRealFunction f = new UnivariateRealFunction() {\n                         public double value(final double t) throws FunctionEvaluationException {\n                             try {\n                                 interpolator.setInterpolatedTime(t);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/events/EventState.java", 
+          "line": 214, 
+          "faulty": "final UnivariateRealFunction f=new UnivariateRealFunction(){\n  public double value(  final double t) throws FunctionEvaluationException {\n    try {\n      interpolator.setInterpolatedTime(t);\n      return handler.g(t,interpolator.getInterpolatedState());\n    }\n catch (    DerivativeException e) {\n      throw new FunctionEvaluationException(e,t);\n    }\ncatch (    EventException e) {\n      throw new FunctionEvaluationException(e,t);\n    }\n  }\n}\n;", 
+          "type": "InsertBefore", 
+          "seed": "if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n  return false;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_433/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 03:40:11.418957730 -0500\n@@ -225,7 +225,11 @@\n                     };\n                     final BrentSolver solver = new BrentSolver();\n                     solver.setAbsoluteAccuracy(convergence);\n-                    solver.setMaximalIterationCount(maxIterationCount);\n+                    if (pendingEvent\n+\t\t\t\t\t\t\t&& (Math.abs(t1 - pendingEventTime) <= convergence)) {\n+\t\t\t\t\t\treturn false;\n+\t\t\t\t\t}\n+\t\t\t\t\tsolver.setMaximalIterationCount(maxIterationCount);\n                     final double root = (ta <= tb) ? solver.solve(f, ta, tb) : solver.solve(f, tb, ta);\n                     if ((Math.abs(root - ta) <= convergence) &&\n                          (Math.abs(root - previousEventTime) <= convergence)) {\n\n\n--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 02:58:11.577856152 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_433/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-02 03:40:11.418957730 -0500\n@@ -333,9 +333,12 @@\n                 x1 = x1 + delta;\n             } else if (dx > 0.0) {\n                 x1 = x1 + 0.5 * tolerance;\n-            } else if (dx <= 0.0) {\n-                x1 = x1 - 0.5 * tolerance;\n-            }\n+            } else {\n+\t\t\t\tfunctionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\t\t\tif (dx <= 0.0) {\n+\t\t\t\t\tx1 = x1 - 0.5 * tolerance;\n+\t\t\t\t}\n+\t\t\t}\n             y1 = f.value(x1);\n             if ((y1 > 0) == (y2 > 0)) {\n                 x2 = x0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/events/EventState.java", 
+          "line": 228, 
+          "faulty": "solver.setMaximalIterationCount(maxIterationCount);", 
+          "type": "InsertBefore", 
+          "seed": "if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n  return false;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 336, 
+          "faulty": "if (dx <= 0.0) {\n  x1=x1 - 0.5 * tolerance;\n}", 
+          "type": "InsertBefore", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/nonstiff/AdaptiveStepsizeIntegrator.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_869/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/nonstiff/AdaptiveStepsizeIntegrator.java\t2018-12-02 04:19:36.694663446 -0500\n@@ -150,7 +150,7 @@\n     if ((initialStepSize < minStep) || (initialStepSize > maxStep)) {\n       initialStep = -1.0;\n     } else {\n-      initialStep = initialStepSize;\n+      resetEvaluations();\n     }\n   }\n \n\n\n--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_869/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 04:19:36.694663446 -0500\n@@ -227,7 +227,11 @@\n                     solver.setAbsoluteAccuracy(convergence);\n                     solver.setMaximalIterationCount(maxIterationCount);\n                     final double root = (ta <= tb) ? solver.solve(f, ta, tb) : solver.solve(f, tb, ta);\n-                    if ((Math.abs(root - ta) <= convergence) &&\n+                    if (pendingEvent\n+\t\t\t\t\t\t\t&& (Math.abs(t1 - pendingEventTime) <= convergence)) {\n+\t\t\t\t\t\treturn false;\n+\t\t\t\t\t}\n+\t\t\t\t\tif ((Math.abs(root - ta) <= convergence) &&\n                          (Math.abs(root - previousEventTime) <= convergence)) {\n                         // we have either found nothing or found (again ?) a past event, we simply ignore it\n                         ta = tb;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/events/EventState.java", 
+          "line": 230, 
+          "faulty": "if ((Math.abs(root - ta) <= convergence) && (Math.abs(root - previousEventTime) <= convergence)) {\n  ta=tb;\n  ga=gb;\n}\n else if (Double.isNaN(previousEventTime) || (Math.abs(previousEventTime - root) > convergence)) {\n  pendingEventTime=root;\n  if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n    return false;\n  }\n  pendingEvent=true;\n  return true;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n  return false;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/nonstiff/AdaptiveStepsizeIntegrator.java", 
+          "line": 153, 
+          "faulty": "initialStep=initialStepSize;", 
+          "type": "Replace", 
+          "seed": "resetEvaluations();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_466/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 03:43:07.164426294 -0500\n@@ -245,7 +245,16 @@\n                         // either we were not waiting for the event or it has\n                         // moved in such a way the step cannot be accepted\n                         pendingEvent = true;\n-                        return true;\n+                        if (Double.isNaN(previousEventTime)\n+\t\t\t\t\t\t\t\t|| (Math.abs(previousEventTime - root) > convergence)) {\n+\t\t\t\t\t\t\tpendingEventTime = root;\n+\t\t\t\t\t\t\tif (pendingEvent\n+\t\t\t\t\t\t\t\t\t&& (Math.abs(t1 - pendingEventTime) <= convergence)) {\n+\t\t\t\t\t\t\t\treturn false;\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t\tpendingEvent = true;\n+\t\t\t\t\t\t\treturn true;\n+\t\t\t\t\t\t}\n                     }\n \n                 } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/events/EventState.java", 
+          "line": 248, 
+          "faulty": "return true;", 
+          "type": "Replace", 
+          "seed": "if (Double.isNaN(previousEventTime) || (Math.abs(previousEventTime - root) > convergence)) {\n  pendingEventTime=root;\n  if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n    return false;\n  }\n  pendingEvent=true;\n  return true;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_633/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 03:58:31.516142703 -0500\n@@ -245,7 +245,21 @@\n                         // either we were not waiting for the event or it has\n                         // moved in such a way the step cannot be accepted\n                         pendingEvent = true;\n-                        return true;\n+                        if ((Math.abs(root - ta) <= convergence)\n+\t\t\t\t\t\t\t\t&& (Math.abs(root - previousEventTime) <= convergence)) {\n+\t\t\t\t\t\t\tta = tb;\n+\t\t\t\t\t\t\tga = gb;\n+\t\t\t\t\t\t} else if (Double.isNaN(previousEventTime)\n+\t\t\t\t\t\t\t\t|| (Math.abs(previousEventTime - root) > convergence)) {\n+\t\t\t\t\t\t\tpendingEventTime = root;\n+\t\t\t\t\t\t\tif (pendingEvent\n+\t\t\t\t\t\t\t\t\t&& (Math.abs(t1 - pendingEventTime) <= convergence)) {\n+\t\t\t\t\t\t\t\treturn false;\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t\tpendingEvent = true;\n+\t\t\t\t\t\t\treturn true;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\treturn true;\n                     }\n \n                 } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/events/EventState.java", 
+          "line": 248, 
+          "faulty": "return true;", 
+          "type": "InsertBefore", 
+          "seed": "if ((Math.abs(root - ta) <= convergence) && (Math.abs(root - previousEventTime) <= convergence)) {\n  ta=tb;\n  ga=gb;\n}\n else if (Double.isNaN(previousEventTime) || (Math.abs(previousEventTime - root) > convergence)) {\n  pendingEventTime=root;\n  if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n    return false;\n  }\n  pendingEvent=true;\n  return true;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_844/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 04:17:24.397565851 -0500\n@@ -223,7 +223,11 @@\n                             }\n                         }\n                     };\n-                    final BrentSolver solver = new BrentSolver();\n+                    if (pendingEvent\n+\t\t\t\t\t\t\t&& (Math.abs(t1 - pendingEventTime) <= convergence)) {\n+\t\t\t\t\t\treturn false;\n+\t\t\t\t\t}\n+\t\t\t\t\tfinal BrentSolver solver = new BrentSolver();\n                     solver.setAbsoluteAccuracy(convergence);\n                     solver.setMaximalIterationCount(maxIterationCount);\n                     final double root = (ta <= tb) ? solver.solve(f, ta, tb) : solver.solve(f, tb, ta);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/events/EventState.java", 
+          "line": 226, 
+          "faulty": "final BrentSolver solver=new BrentSolver();", 
+          "type": "InsertBefore", 
+          "seed": "if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n  return false;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java\t2018-12-02 02:58:15.205886607 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_831/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java\t2018-12-02 04:16:22.297050695 -0500\n@@ -292,12 +292,6 @@\n           if (manager.evaluateStep(interpolator)) {\n               final double dt = manager.getEventTime() - stepStart;\n               if (Math.abs(dt) <= Math.ulp(stepStart)) {\n-                  // we cannot simply truncate the step, reject the current computation\n-                  // and let the loop compute another state with the truncated step.\n-                  // it is so small (much probably exactly 0 due to limited accuracy)\n-                  // that the code above would fail handling it.\n-                  // So we set up an artificial 0 size step by copying states\n-                  loop     = false;\n               } else {\n                   // reject the step to match exactly the next switch time\n                   hNew = dt;\n\n\n--- /tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 02:58:11.597856320 -0500\n+++ /tmp/RSRepair_Defects4J_Math_71/patches_qzqe/Patch_831/patched/tmp/RSRepair_Defects4J_Math_71/src/main/java/org/apache/commons/math/ode/events/EventState.java\t2018-12-02 04:16:22.297050695 -0500\n@@ -227,7 +227,11 @@\n                     solver.setAbsoluteAccuracy(convergence);\n                     solver.setMaximalIterationCount(maxIterationCount);\n                     final double root = (ta <= tb) ? solver.solve(f, ta, tb) : solver.solve(f, tb, ta);\n-                    if ((Math.abs(root - ta) <= convergence) &&\n+                    if (pendingEvent\n+\t\t\t\t\t\t\t&& (Math.abs(t1 - pendingEventTime) <= convergence)) {\n+\t\t\t\t\t\treturn false;\n+\t\t\t\t\t}\n+\t\t\t\t\tif ((Math.abs(root - ta) <= convergence) &&\n                          (Math.abs(root - previousEventTime) <= convergence)) {\n                         // we have either found nothing or found (again ?) a past event, we simply ignore it\n                         ta = tb;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java", 
+          "line": 300, 
+          "faulty": "loop=false;", 
+          "type": "Delete", 
+          "seed": "for (StepHandler handler : stepHandlers) {\n  handler.handleStep(interpolator,lastStep);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/events/EventState.java", 
+          "line": 230, 
+          "faulty": "if ((Math.abs(root - ta) <= convergence) && (Math.abs(root - previousEventTime) <= convergence)) {\n  ta=tb;\n  ga=gb;\n}\n else if (Double.isNaN(previousEventTime) || (Math.abs(previousEventTime - root) > convergence)) {\n  pendingEventTime=root;\n  if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n    return false;\n  }\n  pendingEvent=true;\n  return true;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (pendingEvent && (Math.abs(t1 - pendingEventTime) <= convergence)) {\n  return false;\n}"
+        }
+      ]
+    }
+  ]
+}

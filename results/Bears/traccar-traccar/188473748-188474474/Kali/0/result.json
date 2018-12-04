@@ -1,11 +1,14 @@
 {
+  "repair_end": "2018-12-03 07:46:02.515192", 
+  "repair_begin": "2018-12-03 07:45:47.895653", 
   "patches": [
     {
+      "diff": "--- /tmp/Kali_Bears_traccar-traccar_188473748-188474474/src/org/traccar/protocol/GoSafeProtocolDecoder.java\t2018-12-03 01:45:06.328882436 -0500\n+++ /tmp/Kali_Bears_traccar-traccar_188473748-188474474/patches_wyh1/Patch_2/patched/tmp/Kali_Bears_traccar-traccar_188473748-188474474/src/org/traccar/protocol/GoSafeProtocolDecoder.java\t2018-12-03 01:46:02.148881143 -0500\n@@ -166,7 +166,7 @@\n         position.set(Position.KEY_POWER, parser.next());\n         position.set(Position.KEY_BATTERY, parser.next());\n \n-        if (parser.hasNext(6)) {\n+        if (false) {\n             long status = parser.nextLong(16);\n             position.set(Position.KEY_IGNITION, BitUtil.check(status, 13));\n             position.set(Position.KEY_STATUS, status);\n\n\n", 
       "edits": [
         {
           "path": "src/org/traccar/protocol/GoSafeProtocolDecoder.java", 
-          "line": 159, 
-          "faulty": "if (parser.hasNext(4)) {\n  position.setNetwork(new Network(CellTower.from(parser.nextInt(),parser.nextInt(),parser.nextInt(16),parser.nextInt(16),parser.nextInt())));\n}", 
+          "line": 169, 
+          "faulty": "if (parser.hasNext(6)) {\n  long status=parser.nextLong(16);\n  position.set(Position.KEY_IGNITION,BitUtil.check(status,13));\n  position.set(Position.KEY_STATUS,status);\n  position.set(\"ioStatus\",parser.next());\n  position.set(Position.KEY_GEOFENCE,parser.next() + parser.next());\n  position.set(\"eventStatus\",parser.next());\n  position.set(\"packetType\",parser.next());\n}", 
           "type": "RedirectBranch false"
         }
       ]

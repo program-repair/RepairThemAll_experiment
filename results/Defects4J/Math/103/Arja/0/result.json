@@ -1,0 +1,579 @@
+{
+  "repair_end": "2018-12-01 12:11:33.585537", 
+  "repair_begin": "2018-12-01 11:42:24.523189", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_566/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:52:49.507820325 -0500\n@@ -158,7 +158,26 @@\n         if (Double.isNaN(a) || Double.isNaN(x) || (a <= 0.0) || (x < 0.0)) {\n             ret = Double.NaN;\n         } else if (x == 0.0) {\n-            ret = 0.0;\n+            if (x == 0.0) {\n+\t\t\t\tret = 0.0;\n+\t\t\t} else if (a >= 1.0 && x > a) {\n+\t\t\t\tret = 1.0 - regularizedGammaQ(a, x, epsilon, maxIterations);\n+\t\t\t} else {\n+\t\t\t\tdouble n = 0.0;\n+\t\t\t\tdouble an = 1.0 / a;\n+\t\t\t\tdouble sum = an;\n+\t\t\t\twhile (Math.abs(an) > epsilon && n < maxIterations) {\n+\t\t\t\t\tn = n + 1.0;\n+\t\t\t\t\tan = an * (x / (a + n));\n+\t\t\t\t\tsum = sum + an;\n+\t\t\t\t}\n+\t\t\t\tif (n >= maxIterations) {\n+\t\t\t\t\tthrow new MaxIterationsExceededException(maxIterations);\n+\t\t\t\t} else {\n+\t\t\t\t\tret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tret = 0.0;\n         } else if (a >= 1.0 && x > a) {\n             // use regularizedGammaQ because it should converge faster in this\n             // case.\n@@ -177,7 +196,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_566/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:52:49.511820301 -0500\n@@ -262,7 +262,11 @@\n      * @param out  the <code>PrintWriter</code> to use for output\n      */\n     public void printStackTrace(PrintWriter out) {\n-        synchronized (out) {\n+        if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n+\t\t\tout.print(\"Caused by: \");\n+\t\t\trootCause.printStackTrace(out);\n+\t\t}\n+\t\tsynchronized (out) {\n             super.printStackTrace(out);\n             if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n                 out.print(\"Caused by: \");\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 161, 
+          "faulty": "ret=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "if (x == 0.0) {\n  ret=0.0;\n}\n else if (a >= 1.0 && x > a) {\n  ret=1.0 - regularizedGammaQ(a,x,epsilon,maxIterations);\n}\n else {\n  double n=0.0;\n  double an=1.0 / a;\n  double sum=an;\n  while (Math.abs(an) > epsilon && n < maxIterations) {\n    n=n + 1.0;\n    an=an * (x / (a + n));\n    sum=sum + an;\n  }\n  if (n >= maxIterations) {\n    throw new MaxIterationsExceededException(maxIterations);\n  }\n else {\n    ret=Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n  }\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 265, 
+          "faulty": "synchronized (out) {\n  super.printStackTrace(out);\n  if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n    out.print(\"Caused by: \");\n    rootCause.printStackTrace(out);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 05:42:16.172560311 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_890/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 06:00:00.301509974 -0500\n@@ -90,7 +90,8 @@\n      * @throws IllegalArgumentException if <code>sd</code> is not positive.\n      */\n     public void setStandardDeviation(double sd) {\n-        if (sd <= 0.0) {\n+        this.mean = mean;\n+\t\tif (sd <= 0.0) {\n             throw new IllegalArgumentException(\n                 \"Standard deviation must be positive.\");\n         }       \n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_890/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 06:00:00.301509974 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java", 
+          "line": 93, 
+          "faulty": "if (sd <= 0.0) {\n  throw new IllegalArgumentException(\"Standard deviation must be positive.\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.mean=mean;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 05:42:16.172560311 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_537/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 05:52:20.324002824 -0500\n@@ -106,7 +106,8 @@\n      * convergence exception is caught and 0 or 1 is returned.\n      */\n     public double cumulativeProbability(double x) throws MathException {\n-            return 0.5 * (1.0 + Erf.erf((x - mean) /\n+            setMean(mean);\n+\t\t\treturn 0.5 * (1.0 + Erf.erf((x - mean) /\n                     (standardDeviation * Math.sqrt(2.0))));\n     }\n     \n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_537/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:52:20.328002798 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java", 
+          "line": 109, 
+          "faulty": "return 0.5 * (1.0 + Erf.erf((x - mean) / (standardDeviation * Math.sqrt(2.0))));", 
+          "type": "InsertBefore", 
+          "seed": "setMean(mean);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_305/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:48:18.997338698 -0500\n@@ -158,7 +158,26 @@\n         if (Double.isNaN(a) || Double.isNaN(x) || (a <= 0.0) || (x < 0.0)) {\n             ret = Double.NaN;\n         } else if (x == 0.0) {\n-            ret = 0.0;\n+            if (x == 0.0) {\n+\t\t\t\tret = 0.0;\n+\t\t\t} else if (a >= 1.0 && x > a) {\n+\t\t\t\tret = 1.0 - regularizedGammaQ(a, x, epsilon, maxIterations);\n+\t\t\t} else {\n+\t\t\t\tdouble n = 0.0;\n+\t\t\t\tdouble an = 1.0 / a;\n+\t\t\t\tdouble sum = an;\n+\t\t\t\twhile (Math.abs(an) > epsilon && n < maxIterations) {\n+\t\t\t\t\tn = n + 1.0;\n+\t\t\t\t\tan = an * (x / (a + n));\n+\t\t\t\t\tsum = sum + an;\n+\t\t\t\t}\n+\t\t\t\tif (n >= maxIterations) {\n+\t\t\t\t\tthrow new MaxIterationsExceededException(maxIterations);\n+\t\t\t\t} else {\n+\t\t\t\t\tret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tret = 0.0;\n         } else if (a >= 1.0 && x > a) {\n             // use regularizedGammaQ because it should converge faster in this\n             // case.\n@@ -177,7 +196,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 161, 
+          "faulty": "ret=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "if (x == 0.0) {\n  ret=0.0;\n}\n else if (a >= 1.0 && x > a) {\n  ret=1.0 - regularizedGammaQ(a,x,epsilon,maxIterations);\n}\n else {\n  double n=0.0;\n  double an=1.0 / a;\n  double sum=an;\n  while (Math.abs(an) > epsilon && n < maxIterations) {\n    n=n + 1.0;\n    an=an * (x / (a + n));\n    sum=sum + an;\n  }\n  if (n >= maxIterations) {\n    throw new MaxIterationsExceededException(maxIterations);\n  }\n else {\n    ret=Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n  }\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_167/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:46:23.254207191 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_541/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:52:21.719994024 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_541/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:52:21.723993999 -0500\n@@ -262,7 +262,11 @@\n      * @param out  the <code>PrintWriter</code> to use for output\n      */\n     public void printStackTrace(PrintWriter out) {\n-        synchronized (out) {\n+        if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n+\t\t\tout.print(\"Caused by: \");\n+\t\t\trootCause.printStackTrace(out);\n+\t\t}\n+\t\tsynchronized (out) {\n             super.printStackTrace(out);\n             if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n                 out.print(\"Caused by: \");\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 265, 
+          "faulty": "synchronized (out) {\n  super.printStackTrace(out);\n  if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n    out.print(\"Caused by: \");\n    rootCause.printStackTrace(out);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_807/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:58:00.314005800 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_807/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:58:00.314005800 -0500\n@@ -263,7 +263,13 @@\n      */\n     public void printStackTrace(PrintWriter out) {\n         synchronized (out) {\n-            super.printStackTrace(out);\n+            synchronized (out) {\n+\t\t\t\tsuper.printStackTrace(out);\n+\t\t\t\tif (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n+\t\t\t\t\tout.print(\"Caused by: \");\n+\t\t\t\t\trootCause.printStackTrace(out);\n+\t\t\t\t}\n+\t\t\t}\n             if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n                 out.print(\"Caused by: \");\n                 rootCause.printStackTrace(out);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 266, 
+          "faulty": "super.printStackTrace(out);", 
+          "type": "Replace", 
+          "seed": "synchronized (out) {\n  super.printStackTrace(out);\n  if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n    out.print(\"Caused by: \");\n    rootCause.printStackTrace(out);\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1305/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 06:09:45.418962023 -0500\n@@ -158,7 +158,24 @@\n         if (Double.isNaN(a) || Double.isNaN(x) || (a <= 0.0) || (x < 0.0)) {\n             ret = Double.NaN;\n         } else if (x == 0.0) {\n-            ret = 0.0;\n+            if (a >= 1.0 && x > a) {\n+\t\t\t\tret = 1.0 - regularizedGammaQ(a, x, epsilon, maxIterations);\n+\t\t\t} else {\n+\t\t\t\tdouble n = 0.0;\n+\t\t\t\tdouble an = 1.0 / a;\n+\t\t\t\tdouble sum = an;\n+\t\t\t\twhile (Math.abs(an) > epsilon && n < maxIterations) {\n+\t\t\t\t\tn = n + 1.0;\n+\t\t\t\t\tan = an * (x / (a + n));\n+\t\t\t\t\tsum = sum + an;\n+\t\t\t\t}\n+\t\t\t\tif (n >= maxIterations) {\n+\t\t\t\t\tthrow new MaxIterationsExceededException(maxIterations);\n+\t\t\t\t} else {\n+\t\t\t\t\tret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tret = 0.0;\n         } else if (a >= 1.0 && x > a) {\n             // use regularizedGammaQ because it should converge faster in this\n             // case.\n@@ -177,7 +194,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1305/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 06:09:45.418962023 -0500\n@@ -264,10 +264,7 @@\n     public void printStackTrace(PrintWriter out) {\n         synchronized (out) {\n             super.printStackTrace(out);\n-            if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n-                out.print(\"Caused by: \");\n-                rootCause.printStackTrace(out);\n-            }\n+            super.printStackTrace(out);\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 161, 
+          "faulty": "ret=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "if (a >= 1.0 && x > a) {\n  ret=1.0 - regularizedGammaQ(a,x,epsilon,maxIterations);\n}\n else {\n  double n=0.0;\n  double an=1.0 / a;\n  double sum=an;\n  while (Math.abs(an) > epsilon && n < maxIterations) {\n    n=n + 1.0;\n    an=an * (x / (a + n));\n    sum=sum + an;\n  }\n  if (n >= maxIterations) {\n    throw new MaxIterationsExceededException(maxIterations);\n  }\n else {\n    ret=Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n  }\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 267, 
+          "faulty": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}", 
+          "type": "Replace", 
+          "seed": "super.printStackTrace(out);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1324/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 06:10:05.806894262 -0500\n@@ -158,7 +158,26 @@\n         if (Double.isNaN(a) || Double.isNaN(x) || (a <= 0.0) || (x < 0.0)) {\n             ret = Double.NaN;\n         } else if (x == 0.0) {\n-            ret = 0.0;\n+            if (x == 0.0) {\n+\t\t\t\tret = 0.0;\n+\t\t\t} else if (a >= 1.0 && x > a) {\n+\t\t\t\tret = 1.0 - regularizedGammaQ(a, x, epsilon, maxIterations);\n+\t\t\t} else {\n+\t\t\t\tdouble n = 0.0;\n+\t\t\t\tdouble an = 1.0 / a;\n+\t\t\t\tdouble sum = an;\n+\t\t\t\twhile (Math.abs(an) > epsilon && n < maxIterations) {\n+\t\t\t\t\tn = n + 1.0;\n+\t\t\t\t\tan = an * (x / (a + n));\n+\t\t\t\t\tsum = sum + an;\n+\t\t\t\t}\n+\t\t\t\tif (n >= maxIterations) {\n+\t\t\t\t\tthrow new MaxIterationsExceededException(maxIterations);\n+\t\t\t\t} else {\n+\t\t\t\t\tret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tret = 0.0;\n         } else if (a >= 1.0 && x > a) {\n             // use regularizedGammaQ because it should converge faster in this\n             // case.\n@@ -177,7 +196,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1324/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 06:10:05.806894262 -0500\n@@ -264,10 +264,6 @@\n     public void printStackTrace(PrintWriter out) {\n         synchronized (out) {\n             super.printStackTrace(out);\n-            if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n-                out.print(\"Caused by: \");\n-                rootCause.printStackTrace(out);\n-            }\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 161, 
+          "faulty": "ret=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "if (x == 0.0) {\n  ret=0.0;\n}\n else if (a >= 1.0 && x > a) {\n  ret=1.0 - regularizedGammaQ(a,x,epsilon,maxIterations);\n}\n else {\n  double n=0.0;\n  double an=1.0 / a;\n  double sum=an;\n  while (Math.abs(an) > epsilon && n < maxIterations) {\n    n=n + 1.0;\n    an=an * (x / (a + n));\n    sum=sum + an;\n  }\n  if (n >= maxIterations) {\n    throw new MaxIterationsExceededException(maxIterations);\n  }\n else {\n    ret=Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n  }\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 267, 
+          "faulty": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}", 
+          "type": "Delete", 
+          "seed": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1257/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 06:08:45.039189726 -0500\n@@ -158,7 +158,24 @@\n         if (Double.isNaN(a) || Double.isNaN(x) || (a <= 0.0) || (x < 0.0)) {\n             ret = Double.NaN;\n         } else if (x == 0.0) {\n-            ret = 0.0;\n+            if (a >= 1.0 && x > a) {\n+\t\t\t\tret = 1.0 - regularizedGammaQ(a, x, epsilon, maxIterations);\n+\t\t\t} else {\n+\t\t\t\tdouble n = 0.0;\n+\t\t\t\tdouble an = 1.0 / a;\n+\t\t\t\tdouble sum = an;\n+\t\t\t\twhile (Math.abs(an) > epsilon && n < maxIterations) {\n+\t\t\t\t\tn = n + 1.0;\n+\t\t\t\t\tan = an * (x / (a + n));\n+\t\t\t\t\tsum = sum + an;\n+\t\t\t\t}\n+\t\t\t\tif (n >= maxIterations) {\n+\t\t\t\t\tthrow new MaxIterationsExceededException(maxIterations);\n+\t\t\t\t} else {\n+\t\t\t\t\tret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tret = 0.0;\n         } else if (a >= 1.0 && x > a) {\n             // use regularizedGammaQ because it should converge faster in this\n             // case.\n@@ -177,7 +194,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1257/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 06:08:45.043189713 -0500\n@@ -263,7 +263,13 @@\n      */\n     public void printStackTrace(PrintWriter out) {\n         synchronized (out) {\n-            super.printStackTrace(out);\n+            synchronized (out) {\n+\t\t\t\tsuper.printStackTrace(out);\n+\t\t\t\tif (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n+\t\t\t\t\tout.print(\"Caused by: \");\n+\t\t\t\t\trootCause.printStackTrace(out);\n+\t\t\t\t}\n+\t\t\t}\n             if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n                 out.print(\"Caused by: \");\n                 rootCause.printStackTrace(out);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 161, 
+          "faulty": "ret=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "if (a >= 1.0 && x > a) {\n  ret=1.0 - regularizedGammaQ(a,x,epsilon,maxIterations);\n}\n else {\n  double n=0.0;\n  double an=1.0 / a;\n  double sum=an;\n  while (Math.abs(an) > epsilon && n < maxIterations) {\n    n=n + 1.0;\n    an=an * (x / (a + n));\n    sum=sum + an;\n  }\n  if (n >= maxIterations) {\n    throw new MaxIterationsExceededException(maxIterations);\n  }\n else {\n    ret=Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n  }\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 266, 
+          "faulty": "super.printStackTrace(out);", 
+          "type": "Replace", 
+          "seed": "synchronized (out) {\n  super.printStackTrace(out);\n  if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n    out.print(\"Caused by: \");\n    rootCause.printStackTrace(out);\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 05:42:16.172560311 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_510/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 05:51:40.840254945 -0500\n@@ -106,8 +106,8 @@\n      * convergence exception is caught and 0 or 1 is returned.\n      */\n     public double cumulativeProbability(double x) throws MathException {\n-            return 0.5 * (1.0 + Erf.erf((x - mean) /\n-                    (standardDeviation * Math.sqrt(2.0))));\n+            return 0.5 * (1.0 + Erf.erf((x - mean)\n+\t\t\t\t\t/ (standardDeviation * Math.sqrt(2.0))));\n     }\n     \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_510/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:51:40.840254945 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_510/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:51:40.840254945 -0500\n@@ -264,10 +264,6 @@\n     public void printStackTrace(PrintWriter out) {\n         synchronized (out) {\n             super.printStackTrace(out);\n-            if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n-                out.print(\"Caused by: \");\n-                rootCause.printStackTrace(out);\n-            }\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java", 
+          "line": 109, 
+          "faulty": "return 0.5 * (1.0 + Erf.erf((x - mean) / (standardDeviation * Math.sqrt(2.0))));", 
+          "type": "Replace", 
+          "seed": "return 0.5 * (1.0 + Erf.erf((x - mean) / (standardDeviation * Math.sqrt(2.0))));"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 267, 
+          "faulty": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}", 
+          "type": "Delete", 
+          "seed": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Erf.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1179/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Erf.java\t2018-12-01 06:07:01.959580148 -0500\n@@ -55,8 +55,10 @@\n     public static double erf(double x) throws MathException {\n         double ret = Gamma.regularizedGammaP(0.5, x * x, 1.0e-15, 10000);\n         if (x < 0) {\n-            ret = -ret;\n         }\n-        return ret;\n+        if (x < 0) {\n+\t\t\tret = -ret;\n+\t\t}\n+\t\treturn ret;\n     }\n }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1179/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 06:07:01.963580128 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Erf.java", 
+          "line": 58, 
+          "faulty": "ret=-ret;", 
+          "type": "Delete", 
+          "seed": "if (x < 0) {\n  ret=-ret;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Erf.java", 
+          "line": 60, 
+          "faulty": "return ret;", 
+          "type": "InsertBefore", 
+          "seed": "if (x < 0) {\n  ret=-ret;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Erf.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_640/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Erf.java\t2018-12-01 05:54:29.979212215 -0500\n@@ -55,7 +55,9 @@\n     public static double erf(double x) throws MathException {\n         double ret = Gamma.regularizedGammaP(0.5, x * x, 1.0e-15, 10000);\n         if (x < 0) {\n-            ret = -ret;\n+            if (x < 0) {\n+\t\t\t\tret = -ret;\n+\t\t\t}\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_640/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:54:29.983212191 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_640/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:54:29.987212168 -0500\n@@ -264,10 +264,7 @@\n     public void printStackTrace(PrintWriter out) {\n         synchronized (out) {\n             super.printStackTrace(out);\n-            if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n-                out.print(\"Caused by: \");\n-                rootCause.printStackTrace(out);\n-            }\n+            super.printStackTrace(out);\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Erf.java", 
+          "line": 58, 
+          "faulty": "ret=-ret;", 
+          "type": "Replace", 
+          "seed": "if (x < 0) {\n  ret=-ret;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 267, 
+          "faulty": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}", 
+          "type": "Replace", 
+          "seed": "super.printStackTrace(out);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_863/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:59:26.433642129 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 235, 
+          "faulty": "return rootCause;", 
+          "type": "Replace", 
+          "seed": "return rootCause;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_830/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:58:43.809799861 -0500\n@@ -158,7 +158,26 @@\n         if (Double.isNaN(a) || Double.isNaN(x) || (a <= 0.0) || (x < 0.0)) {\n             ret = Double.NaN;\n         } else if (x == 0.0) {\n-            ret = 0.0;\n+            if (x == 0.0) {\n+\t\t\t\tret = 0.0;\n+\t\t\t} else if (a >= 1.0 && x > a) {\n+\t\t\t\tret = 1.0 - regularizedGammaQ(a, x, epsilon, maxIterations);\n+\t\t\t} else {\n+\t\t\t\tdouble n = 0.0;\n+\t\t\t\tdouble an = 1.0 / a;\n+\t\t\t\tdouble sum = an;\n+\t\t\t\twhile (Math.abs(an) > epsilon && n < maxIterations) {\n+\t\t\t\t\tn = n + 1.0;\n+\t\t\t\t\tan = an * (x / (a + n));\n+\t\t\t\t\tsum = sum + an;\n+\t\t\t\t}\n+\t\t\t\tif (n >= maxIterations) {\n+\t\t\t\t\tthrow new MaxIterationsExceededException(maxIterations);\n+\t\t\t\t} else {\n+\t\t\t\t\tret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tret = 0.0;\n         } else if (a >= 1.0 && x > a) {\n             // use regularizedGammaQ because it should converge faster in this\n             // case.\n@@ -177,7 +196,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_830/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:58:43.813799846 -0500\n@@ -263,11 +263,14 @@\n      */\n     public void printStackTrace(PrintWriter out) {\n         synchronized (out) {\n+\t\t\tsuper.printStackTrace(out);\n+\t\t\tif (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n+\t\t\t\tout.print(\"Caused by: \");\n+\t\t\t\trootCause.printStackTrace(out);\n+\t\t\t}\n+\t\t}\n+\t\tsynchronized (out) {\n             super.printStackTrace(out);\n-            if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n-                out.print(\"Caused by: \");\n-                rootCause.printStackTrace(out);\n-            }\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 161, 
+          "faulty": "ret=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "if (x == 0.0) {\n  ret=0.0;\n}\n else if (a >= 1.0 && x > a) {\n  ret=1.0 - regularizedGammaQ(a,x,epsilon,maxIterations);\n}\n else {\n  double n=0.0;\n  double an=1.0 / a;\n  double sum=an;\n  while (Math.abs(an) > epsilon && n < maxIterations) {\n    n=n + 1.0;\n    an=an * (x / (a + n));\n    sum=sum + an;\n  }\n  if (n >= maxIterations) {\n    throw new MaxIterationsExceededException(maxIterations);\n  }\n else {\n    ret=Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n  }\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 265, 
+          "faulty": "synchronized (out) {\n  super.printStackTrace(out);\n  if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n    out.print(\"Caused by: \");\n    rootCause.printStackTrace(out);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "synchronized (out) {\n  super.printStackTrace(out);\n  if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n    out.print(\"Caused by: \");\n    rootCause.printStackTrace(out);\n  }\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 267, 
+          "faulty": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}", 
+          "type": "Delete", 
+          "seed": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1051/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 06:04:06.860425109 -0500\n@@ -158,7 +158,25 @@\n         if (Double.isNaN(a) || Double.isNaN(x) || (a <= 0.0) || (x < 0.0)) {\n             ret = Double.NaN;\n         } else if (x == 0.0) {\n-            ret = 0.0;\n+            if (x == 0.0) {\n+\t\t\t\tret = 0.0;\n+\t\t\t} else if (a >= 1.0 && x > a) {\n+\t\t\t\tret = 1.0 - regularizedGammaQ(a, x, epsilon, maxIterations);\n+\t\t\t} else {\n+\t\t\t\tdouble n = 0.0;\n+\t\t\t\tdouble an = 1.0 / a;\n+\t\t\t\tdouble sum = an;\n+\t\t\t\twhile (Math.abs(an) > epsilon && n < maxIterations) {\n+\t\t\t\t\tn = n + 1.0;\n+\t\t\t\t\tan = an * (x / (a + n));\n+\t\t\t\t\tsum = sum + an;\n+\t\t\t\t}\n+\t\t\t\tif (n >= maxIterations) {\n+\t\t\t\t\tthrow new MaxIterationsExceededException(maxIterations);\n+\t\t\t\t} else {\n+\t\t\t\t\tret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n+\t\t\t\t}\n+\t\t\t}\n         } else if (a >= 1.0 && x > a) {\n             // use regularizedGammaQ because it should converge faster in this\n             // case.\n@@ -177,7 +195,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 161, 
+          "faulty": "ret=0.0;", 
+          "type": "Replace", 
+          "seed": "if (x == 0.0) {\n  ret=0.0;\n}\n else if (a >= 1.0 && x > a) {\n  ret=1.0 - regularizedGammaQ(a,x,epsilon,maxIterations);\n}\n else {\n  double n=0.0;\n  double an=1.0 / a;\n  double sum=an;\n  while (Math.abs(an) > epsilon && n < maxIterations) {\n    n=n + 1.0;\n    an=an * (x / (a + n));\n    sum=sum + an;\n  }\n  if (n >= maxIterations) {\n    throw new MaxIterationsExceededException(maxIterations);\n  }\n else {\n    ret=Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n  }\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_410/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:49:53.216889778 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_410/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:49:53.216889778 -0500\n@@ -264,10 +264,6 @@\n     public void printStackTrace(PrintWriter out) {\n         synchronized (out) {\n             super.printStackTrace(out);\n-            if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n-                out.print(\"Caused by: \");\n-                rootCause.printStackTrace(out);\n-            }\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 267, 
+          "faulty": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}", 
+          "type": "Delete", 
+          "seed": "this.pattern=null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Erf.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_513/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Erf.java\t2018-12-01 05:51:41.736249151 -0500\n@@ -55,7 +55,9 @@\n     public static double erf(double x) throws MathException {\n         double ret = Gamma.regularizedGammaP(0.5, x * x, 1.0e-15, 10000);\n         if (x < 0) {\n-            ret = -ret;\n+            if (x < 0) {\n+\t\t\t\tret = -ret;\n+\t\t\t}\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_513/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:51:41.736249151 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Erf.java", 
+          "line": 58, 
+          "faulty": "ret=-ret;", 
+          "type": "Replace", 
+          "seed": "if (x < 0) {\n  ret=-ret;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_415/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:49:55.072880770 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_415/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:49:55.072880770 -0500\n@@ -264,10 +264,7 @@\n     public void printStackTrace(PrintWriter out) {\n         synchronized (out) {\n             super.printStackTrace(out);\n-            if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n-                out.print(\"Caused by: \");\n-                rootCause.printStackTrace(out);\n-            }\n+            super.printStackTrace(out);\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 267, 
+          "faulty": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}", 
+          "type": "Replace", 
+          "seed": "super.printStackTrace(out);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Erf.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_888/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Erf.java\t2018-12-01 05:59:59.849511774 -0500\n@@ -55,7 +55,9 @@\n     public static double erf(double x) throws MathException {\n         double ret = Gamma.regularizedGammaP(0.5, x * x, 1.0e-15, 10000);\n         if (x < 0) {\n-            ret = -ret;\n+            if (x < 0) {\n+\t\t\t\tret = -ret;\n+\t\t\t}\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_888/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:59:59.849511774 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_888/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:59:59.849511774 -0500\n@@ -262,7 +262,11 @@\n      * @param out  the <code>PrintWriter</code> to use for output\n      */\n     public void printStackTrace(PrintWriter out) {\n-        synchronized (out) {\n+        if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n+\t\t\tout.print(\"Caused by: \");\n+\t\t\trootCause.printStackTrace(out);\n+\t\t}\n+\t\tsynchronized (out) {\n             super.printStackTrace(out);\n             if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n                 out.print(\"Caused by: \");\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Erf.java", 
+          "line": 58, 
+          "faulty": "ret=-ret;", 
+          "type": "Replace", 
+          "seed": "if (x < 0) {\n  ret=-ret;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 265, 
+          "faulty": "synchronized (out) {\n  super.printStackTrace(out);\n  if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n    out.print(\"Caused by: \");\n    rootCause.printStackTrace(out);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 05:42:16.172560311 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1247/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 06:08:35.315225074 -0500\n@@ -106,8 +106,8 @@\n      * convergence exception is caught and 0 or 1 is returned.\n      */\n     public double cumulativeProbability(double x) throws MathException {\n-            return 0.5 * (1.0 + Erf.erf((x - mean) /\n-                    (standardDeviation * Math.sqrt(2.0))));\n+            return 0.5 * (1.0 + Erf.erf((x - mean)\n+\t\t\t\t\t/ (standardDeviation * Math.sqrt(2.0))));\n     }\n     \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1247/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 06:08:35.319225059 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1247/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 06:08:35.319225059 -0500\n@@ -263,7 +263,13 @@\n      */\n     public void printStackTrace(PrintWriter out) {\n         synchronized (out) {\n-            super.printStackTrace(out);\n+            synchronized (out) {\n+\t\t\t\tsuper.printStackTrace(out);\n+\t\t\t\tif (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n+\t\t\t\t\tout.print(\"Caused by: \");\n+\t\t\t\t\trootCause.printStackTrace(out);\n+\t\t\t\t}\n+\t\t\t}\n             if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n                 out.print(\"Caused by: \");\n                 rootCause.printStackTrace(out);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java", 
+          "line": 109, 
+          "faulty": "return 0.5 * (1.0 + Erf.erf((x - mean) / (standardDeviation * Math.sqrt(2.0))));", 
+          "type": "Replace", 
+          "seed": "return 0.5 * (1.0 + Erf.erf((x - mean) / (standardDeviation * Math.sqrt(2.0))));"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 266, 
+          "faulty": "super.printStackTrace(out);", 
+          "type": "Replace", 
+          "seed": "synchronized (out) {\n  super.printStackTrace(out);\n  if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n    out.print(\"Caused by: \");\n    rootCause.printStackTrace(out);\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Erf.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_778/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Erf.java\t2018-12-01 05:57:36.218140902 -0500\n@@ -55,7 +55,9 @@\n     public static double erf(double x) throws MathException {\n         double ret = Gamma.regularizedGammaP(0.5, x * x, 1.0e-15, 10000);\n         if (x < 0) {\n-            ret = -ret;\n+            if (x < 0) {\n+\t\t\t\tret = -ret;\n+\t\t\t}\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_778/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:57:36.218140902 -0500\n@@ -158,7 +158,26 @@\n         if (Double.isNaN(a) || Double.isNaN(x) || (a <= 0.0) || (x < 0.0)) {\n             ret = Double.NaN;\n         } else if (x == 0.0) {\n-            ret = 0.0;\n+            if (x == 0.0) {\n+\t\t\t\tret = 0.0;\n+\t\t\t} else if (a >= 1.0 && x > a) {\n+\t\t\t\tret = 1.0 - regularizedGammaQ(a, x, epsilon, maxIterations);\n+\t\t\t} else {\n+\t\t\t\tdouble n = 0.0;\n+\t\t\t\tdouble an = 1.0 / a;\n+\t\t\t\tdouble sum = an;\n+\t\t\t\twhile (Math.abs(an) > epsilon && n < maxIterations) {\n+\t\t\t\t\tn = n + 1.0;\n+\t\t\t\t\tan = an * (x / (a + n));\n+\t\t\t\t\tsum = sum + an;\n+\t\t\t\t}\n+\t\t\t\tif (n >= maxIterations) {\n+\t\t\t\t\tthrow new MaxIterationsExceededException(maxIterations);\n+\t\t\t\t} else {\n+\t\t\t\t\tret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tret = 0.0;\n         } else if (a >= 1.0 && x > a) {\n             // use regularizedGammaQ because it should converge faster in this\n             // case.\n@@ -177,7 +196,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 161, 
+          "faulty": "ret=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "if (x == 0.0) {\n  ret=0.0;\n}\n else if (a >= 1.0 && x > a) {\n  ret=1.0 - regularizedGammaQ(a,x,epsilon,maxIterations);\n}\n else {\n  double n=0.0;\n  double an=1.0 / a;\n  double sum=an;\n  while (Math.abs(an) > epsilon && n < maxIterations) {\n    n=n + 1.0;\n    an=an * (x / (a + n));\n    sum=sum + an;\n  }\n  if (n >= maxIterations) {\n    throw new MaxIterationsExceededException(maxIterations);\n  }\n else {\n    ret=Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n  }\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Erf.java", 
+          "line": 58, 
+          "faulty": "ret=-ret;", 
+          "type": "Replace", 
+          "seed": "if (x < 0) {\n  ret=-ret;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1085/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 06:04:44.604246416 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1085/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 06:04:44.604246416 -0500\n@@ -262,12 +262,13 @@\n      * @param out  the <code>PrintWriter</code> to use for output\n      */\n     public void printStackTrace(PrintWriter out) {\n-        synchronized (out) {\n+        if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n+\t\t\tout.print(\"Caused by: \");\n+\t\t\trootCause.printStackTrace(out);\n+\t\t}\n+\t\tsynchronized (out) {\n+            super.printStackTrace(out);\n             super.printStackTrace(out);\n-            if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n-                out.print(\"Caused by: \");\n-                rootCause.printStackTrace(out);\n-            }\n         }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 265, 
+          "faulty": "synchronized (out) {\n  super.printStackTrace(out);\n  if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n    out.print(\"Caused by: \");\n    rootCause.printStackTrace(out);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 267, 
+          "faulty": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}", 
+          "type": "Replace", 
+          "seed": "super.printStackTrace(out);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 05:42:16.172560311 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1276/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 06:09:10.091096535 -0500\n@@ -106,7 +106,8 @@\n      * convergence exception is caught and 0 or 1 is returned.\n      */\n     public double cumulativeProbability(double x) throws MathException {\n-            return 0.5 * (1.0 + Erf.erf((x - mean) /\n+            setMean(mean);\n+\t\t\treturn 0.5 * (1.0 + Erf.erf((x - mean) /\n                     (standardDeviation * Math.sqrt(2.0))));\n     }\n     \n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1276/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 06:09:10.091096535 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 05:42:13.740560255 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_1276/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/MathException.java\t2018-12-01 06:09:10.095096521 -0500\n@@ -262,7 +262,11 @@\n      * @param out  the <code>PrintWriter</code> to use for output\n      */\n     public void printStackTrace(PrintWriter out) {\n-        synchronized (out) {\n+        if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n+\t\t\tout.print(\"Caused by: \");\n+\t\t\trootCause.printStackTrace(out);\n+\t\t}\n+\t\tsynchronized (out) {\n             super.printStackTrace(out);\n             if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n                 out.print(\"Caused by: \");\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java", 
+          "line": 109, 
+          "faulty": "return 0.5 * (1.0 + Erf.erf((x - mean) / (standardDeviation * Math.sqrt(2.0))));", 
+          "type": "InsertBefore", 
+          "seed": "setMean(mean);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 235, 
+          "faulty": "return rootCause;", 
+          "type": "Replace", 
+          "seed": "return rootCause;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/MathException.java", 
+          "line": 265, 
+          "faulty": "synchronized (out) {\n  super.printStackTrace(out);\n  if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n    out.print(\"Caused by: \");\n    rootCause.printStackTrace(out);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (rootCause != null && JDK_SUPPORTS_NESTED == false) {\n  out.print(\"Caused by: \");\n  rootCause.printStackTrace(out);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 05:42:16.172560311 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_721/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java\t2018-12-01 05:56:08.998635754 -0500\n@@ -94,7 +94,8 @@\n             throw new IllegalArgumentException(\n                 \"Standard deviation must be positive.\");\n         }       \n-        standardDeviation = sd;\n+        setMean(mean);\n+\t\tstandardDeviation = sd;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:42:13.764560256 -0500\n+++ /tmp/Arja_Defects4J_Math_103/patches_qdd1/Patch_721/patched/tmp/Arja_Defects4J_Math_103/src/java/org/apache/commons/math/special/Gamma.java\t2018-12-01 05:56:08.998635754 -0500\n@@ -177,7 +177,7 @@\n                 sum = sum + an;\n             }\n             if (n >= maxIterations) {\n-                throw new MaxIterationsExceededException(maxIterations);\n+                ret = 1.0;\n             } else {\n                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java", 
+          "line": 97, 
+          "faulty": "standardDeviation=sd;", 
+          "type": "InsertBefore", 
+          "seed": "setMean(mean);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/special/Gamma.java", 
+          "line": 180, 
+          "faulty": "throw new MaxIterationsExceededException(maxIterations);", 
+          "type": "Replace", 
+          "seed": "ret=1.0;"
+        }
+      ]
+    }
+  ]
+}

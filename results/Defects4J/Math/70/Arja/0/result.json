@@ -1,0 +1,2263 @@
+{
+  "repair_end": "2018-12-01 12:07:40.642494", 
+  "repair_begin": "2018-12-01 12:01:16.497626", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_903/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:47.453168737 -0500\n@@ -63,20 +63,22 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        if (f.value(max) == 0.0) {\n+\t\t\t\treturn max;\n+\t\t\t}\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(max) == 0.0) {\n  return max;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "setResult(min,0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1198/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:43.448948377 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,8 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1304/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:03.512897164 -0500\n@@ -63,20 +63,23 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        if (f.value(max) == 0.0) {\n+\t\t\t\treturn max;\n+\t\t\t}\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n         verifyInterval(min,max);\n         double m;\n         double fm;\n@@ -85,7 +88,8 @@\n         int i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           verifyInterval(min, max);\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(max) == 0.0) {\n  return max;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "verifyInterval(min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1130/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:30.320982487 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -85,7 +85,8 @@\n         int i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           this.resultComputed = true;\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "this.resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_429/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:18.309994676 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,7 +83,8 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_716/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:11.841574503 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -84,7 +84,10 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            if (f.value(min) == 0.0) {\n+\t\t\t\treturn min;\n+\t\t\t}\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(min) == 0.0) {\n  return min;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_511/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:32.865840956 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -85,7 +85,8 @@\n         int i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           verifyInterval(min, max);\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "verifyInterval(min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_718/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:12.057570636 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -85,7 +85,8 @@\n         int i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           ++i;\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "++i;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1258/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:54.896919024 -0500\n@@ -63,20 +63,25 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        if (f.value(max) == 0.0) {\n+\t\t\t\treturn max;\n+\t\t\t}\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        if (f.value(min) == 0.0) {\n+\t\t\treturn min;\n+\t\t}\n         verifyInterval(min,max);\n         double m;\n         double fm;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(max) == 0.0) {\n  return max;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "if (f.value(min) == 0.0) {\n  return min;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_658/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:00.397664258 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,7 +83,8 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        ++i;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "++i;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_309/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:03:55.062279784 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,7 +83,8 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        this.defaultFunctionValueAccuracy = 1.0e-15;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.defaultFunctionValueAccuracy=1.0e-15;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_267/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:03:46.874279597 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,7 +83,8 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        resultComputed = true;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_423/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:17.306007507 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,6 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Delete", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1157/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:35.424969167 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -84,7 +84,8 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            this.iterationCount = 0;\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "this.iterationCount=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_472/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:25.985906187 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,12 +77,13 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        int i = 1;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "Replace", 
+          "seed": "int i=1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_663/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:01.201660948 -0500\n@@ -63,13 +63,14 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        setResult(min, 0);\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -82,7 +83,7 @@\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        int i = 1;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "setResult(min,0);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "Replace", 
+          "seed": "int i=1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1237/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:50.872929301 -0500\n@@ -69,14 +69,13 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n@@ -84,7 +83,8 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            iterationCount += this.iterationCount;\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "iterationCount+=this.iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_504/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:31.809850316 -0500\n@@ -63,13 +63,13 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        return solve(f, min, max, UnivariateRealSolverUtils.midpoint(min, max));\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max,UnivariateRealSolverUtils.midpoint(min,max));"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_550/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:39.989783974 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -84,7 +84,8 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            iterationCount = i;\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "iterationCount=i;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1204/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:44.564945500 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,13 +77,14 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        verifyBracketing(min, max, f);\n         double m;\n         double fm;\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        resultComputed = true;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "verifyBracketing(min,max,f);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_893/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:45.965178864 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -84,7 +84,12 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            if (Math.abs(max - min) <= absoluteAccuracy) {\n+\t\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n+\t\t\t\tsetResult(m, i);\n+\t\t\t\treturn m;\n+\t\t\t}\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (Math.abs(max - min) <= absoluteAccuracy) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  setResult(m,i);\n  return m;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1343/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:10.508879554 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -82,8 +82,9 @@\n         double fm;\n         double fmin;\n \n-        int i = 0;\n-        while (i < maximalIterationCount) {\n+        int i = 1;\n+        functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "Replace", 
+          "seed": "int i=1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_563/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:42.101769379 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,8 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        this.iterationCount = iterationCount;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "this.iterationCount=iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1290/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:01.192903031 -0500\n@@ -69,23 +69,23 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        int i = 1;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           ++i;\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "Replace", 
+          "seed": "int i=1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "++i;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_582/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:45.569745430 -0500\n@@ -69,20 +69,21 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n         verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.resultComputed = false;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.resultComputed=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1338/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:09.668881662 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,12 +77,13 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        this.iterationCount = iterationCount;\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "this.iterationCount=iterationCount;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_978/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:02.233081011 -0500\n@@ -69,14 +69,14 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        setResult(min, 0);\n         verifyInterval(min,max);\n         double m;\n         double fm;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "setResult(min,0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_463/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:24.329924108 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -82,7 +82,8 @@\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1072/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:19.489011010 -0500\n@@ -69,15 +69,13 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n-        verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "verifyBracketing(min,max,f);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Delete", 
+          "seed": "iterationCount+=this.iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1371/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:16.300865067 -0500\n@@ -69,15 +69,15 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n-        verifyInterval(min,max);\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+        this.iterationCount = iterationCount;\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "this.iterationCount=iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1122/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:28.844986352 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,8 +83,12 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+        resultComputed = true;\n+\t\twhile (i < maximalIterationCount) {\n+            if (f.value(min) == 0.0) {\n+\t\t\t\treturn min;\n+\t\t\t}\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(min) == 0.0) {\n  return min;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1017/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:09.517047206 -0500\n@@ -63,13 +63,14 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        setResult(max, 0);\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "setResult(max,0);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1321/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:06.640889274 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,7 +83,8 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_519/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:34.101830105 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,7 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        this.iterationCount = iterationCount;\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "this.iterationCount=iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_953/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:57.137108229 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,13 +77,15 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        resultComputed = true;\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n-        while (i < maximalIterationCount) {\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tint i = 0;\n+        resultComputed = true;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "resultComputed=true;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1003/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:06.769059338 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -85,7 +85,8 @@\n         int i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           this.defaultFunctionValueAccuracy = 1.0e-15;\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "this.defaultFunctionValueAccuracy=1.0e-15;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_901/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:47.213170364 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -85,7 +85,8 @@\n         int i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1417/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:25.592687131 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,8 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        iterationCount += this.iterationCount;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "iterationCount+=this.iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_447/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:21.877951697 -0500\n@@ -69,14 +69,14 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n         verifyInterval(min,max);\n         double m;\n         double fm;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_517/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:33.681833723 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,7 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        resultComputed = true;\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_771/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:21.965416781 -0500\n@@ -69,15 +69,15 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n-        verifyInterval(min,max);\n+        resultComputed = true;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "setResult(min,0);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1037/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:12.805033296 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -85,7 +85,8 @@\n         int i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           this.iterationCount = iterationCount;\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "this.iterationCount=iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_552/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:40.209782444 -0500\n@@ -69,20 +69,20 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.resultComputed = false;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "this.defaultFunctionValueAccuracy=1.0e-15;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.resultComputed=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_349/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:03.030235572 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,10 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        if (f.value(min) == 0.0) {\n+\t\t\treturn min;\n+\t\t}\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(min) == 0.0) {\n  return min;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1226/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:48.756934723 -0500\n@@ -69,14 +69,15 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        setResult(min, 0);\n+\t\tclearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "InsertBefore", 
+          "seed": "setResult(min,0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1051/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:15.497022627 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,9 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        if (f.value(min) == 0.0) {\n+\t\t\treturn min;\n+\t\t}\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "if (f.value(min) == 0.0) {\n  return min;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_735/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:15.409513600 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -84,7 +84,8 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            iterationCount += this.iterationCount;\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "iterationCount+=this.iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_774/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:22.365411632 -0500\n@@ -63,13 +63,14 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        setResult(min, 0);\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -84,7 +85,8 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            iterationCount += this.iterationCount;\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "setResult(min,0);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "iterationCount+=this.iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_539/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:37.937799094 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -84,7 +84,8 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            setResult(min, 0);\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "setResult(min,0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_497/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:30.521861732 -0500\n@@ -69,20 +69,20 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n         verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        int i = 1;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "Replace", 
+          "seed": "int i=1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1256/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:54.668919605 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -82,7 +82,8 @@\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        setResult(max, 0);\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "setResult(max,0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_737/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:15.629510125 -0500\n@@ -69,14 +69,14 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n         verifyInterval(min,max);\n         double m;\n         double fm;\n@@ -84,7 +84,8 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            iterationCount += this.iterationCount;\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "iterationCount+=this.iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_914/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:49.589154259 -0500\n@@ -69,15 +69,16 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n-        verifyInterval(min,max);\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+        resultComputed = true;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_302/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:03:53.866279757 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -82,7 +82,7 @@\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        int i = 1;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "Replace", 
+          "seed": "int i=1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_515/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:33.473835566 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,12 +77,13 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        verifyBracketing(min, max, f);\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        int i = 1;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "verifyBracketing(min,max,f);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "Replace", 
+          "seed": "int i=1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_601/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:49.201722668 -0500\n@@ -63,13 +63,13 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        return solve(f, min, max, UnivariateRealSolverUtils.midpoint(min, max));\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -82,7 +82,7 @@\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        int i = 1;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max,UnivariateRealSolverUtils.midpoint(min,max));"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "Replace", 
+          "seed": "int i=1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_890/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:45.557182037 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,9 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        if (f.value(max) == 0.0) {\n+\t\t\treturn max;\n+\t\t}\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "if (f.value(max) == 0.0) {\n  return max;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_790/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:25.509371959 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,8 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        this.defaultFunctionValueAccuracy = 1.0e-15;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "this.defaultFunctionValueAccuracy=1.0e-15;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1086/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:22.193003857 -0500\n@@ -69,20 +69,20 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.iterationCount = iterationCount;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.iterationCount=iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_745/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:17.105486910 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,7 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        verifyBracketing(min, max, f);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "verifyBracketing(min,max,f);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1022/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:10.369043499 -0500\n@@ -63,13 +63,13 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        return solve(f, min, max, UnivariateRealSolverUtils.midpoint(min, max));\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,7 +83,8 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        fmin = f.value(min);\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max,UnivariateRealSolverUtils.midpoint(min,max));"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "fmin=f.value(min);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_490/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:29.673869595 -0500\n@@ -63,13 +63,16 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        if (f.value(max) == 0.0) {\n+\t\t\t\treturn max;\n+\t\t\t}\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(max) == 0.0) {\n  return max;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_378/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:08.542136743 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,8 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        resultComputed = true;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1117/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:28.036988472 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1024/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:10.573042728 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -82,7 +82,10 @@\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        if (f.value(min) == 0.0) {\n+\t\t\treturn min;\n+\t\t}\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(min) == 0.0) {\n  return min;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1295/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:02.060900834 -0500\n@@ -69,21 +69,21 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        verifyBracketing(min, max, f);\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "verifyBracketing(min,max,f);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "verifyBracketing(min,max,f);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_410/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:15.014037840 -0500\n@@ -69,14 +69,13 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_817/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:30.801311425 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,7 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        functionValueAccuracy = defaultFunctionValueAccuracy;\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_455/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:22.913939525 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,12 +77,14 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        resultComputed = true;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.resultComputed = false;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.resultComputed=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_898/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:46.781173292 -0500\n@@ -63,13 +63,16 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        if (f.value(max) == 0.0) {\n+\t\t\t\treturn max;\n+\t\t\t}\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +80,8 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        resultComputed = true;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(max) == 0.0) {\n  return max;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1308/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:04.152895548 -0500\n@@ -69,21 +69,23 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tclearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1271/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:57.444912539 -0500\n@@ -69,14 +69,15 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tclearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_365/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:06.058179586 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,9 +83,11 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        this.iterationCount = iterationCount;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           verifyInterval(min, max);\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.iterationCount=iterationCount;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "verifyInterval(min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_558/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:41.233775373 -0500\n@@ -63,20 +63,20 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        return solve(f, min, max, UnivariateRealSolverUtils.midpoint(min, max));\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n         verifyInterval(min,max);\n         double m;\n         double fm;\n@@ -84,7 +84,12 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            if (Math.abs(max - min) <= absoluteAccuracy) {\n+\t\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n+\t\t\t\tsetResult(m, i);\n+\t\t\t\treturn m;\n+\t\t\t}\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max,UnivariateRealSolverUtils.midpoint(min,max));"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (Math.abs(max - min) <= absoluteAccuracy) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  setResult(m,i);\n  return m;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_946/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:55.901115371 -0500\n@@ -69,20 +69,21 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n         verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.iterationCount = iterationCount;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.iterationCount=iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_507/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:32.229846593 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,13 +77,15 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        resultComputed = true;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1034/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:12.389034867 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,8 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        verifyBracketing(min, max, f);\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "verifyBracketing(min,max,f);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_987/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:03.897073060 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,9 +83,11 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           ++i;\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "++i;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_196/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:03:32.354279266 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,10 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        if (f.value(max) == 0.0) {\n+\t\t\treturn max;\n+\t\t}\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(max) == 0.0) {\n  return max;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_606/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:50.029717823 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -82,7 +82,8 @@\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.iterationCount = 0;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.iterationCount=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_495/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:30.301863682 -0500\n@@ -63,13 +63,14 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        setResult(min, 0);\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "setResult(min,0);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_419/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:16.714015073 -0500\n@@ -63,13 +63,16 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        if (f.value(max) == 0.0) {\n+\t\t\t\treturn max;\n+\t\t\t}\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,7 +86,8 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        resultComputed = true;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(max) == 0.0) {\n  return max;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1300/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:02.888898740 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -84,7 +84,8 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            ++i;\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "++i;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1430/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:28.020577841 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,13 +77,15 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        verifyBracketing(min, max, f);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n-        while (i < maximalIterationCount) {\n+        this.resultComputed = false;\n+\t\tint i = 0;\n+        functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "verifyBracketing(min,max,f);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.resultComputed=false;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1141/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:32.332977227 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,10 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        if (f.value(min) == 0.0) {\n+\t\t\treturn min;\n+\t\t}\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n@@ -85,7 +88,8 @@\n         int i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           ++i;\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(min) == 0.0) {\n  return min;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "++i;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_567/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:42.713765152 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,12 +77,13 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        functionValueAccuracy = defaultFunctionValueAccuracy;\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.iterationCount = iterationCount;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.iterationCount=iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_492/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:29.877867572 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -82,7 +82,8 @@\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.resultComputed = false;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.resultComputed=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1057/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:16.533018855 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,12 +77,14 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.iterationCount = iterationCount;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.iterationCount=iterationCount;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_643/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:57.409678233 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -82,8 +82,9 @@\n         double fm;\n         double fmin;\n \n-        int i = 0;\n-        while (i < maximalIterationCount) {\n+        int i = 1;\n+        this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "Replace", 
+          "seed": "int i=1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1210/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:45.592942852 -0500\n@@ -69,14 +69,14 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        verifyBracketing(min, max, f);\n         verifyInterval(min,max);\n         double m;\n         double fm;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "verifyBracketing(min,max,f);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1169/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:37.712963220 -0500\n@@ -69,14 +69,13 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n@@ -85,7 +84,8 @@\n         int i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n-           fmin = f.value(min);\n+           verifyInterval(min, max);\n+\t\tfmin = f.value(min);\n            fm = f.value(m);\n \n             if (fm * fmin > 0.0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "checkResultComputed();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 88, 
+          "faulty": "fmin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "verifyInterval(min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_764/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:05:20.737433700 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -84,7 +84,8 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            clearResult();\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "clearResult();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_452/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:22.481944656 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,7 +77,8 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\tverifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_997/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:05.761064154 -0500\n@@ -63,13 +63,14 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        setResult(min, 0);\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -83,7 +84,8 @@\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        resultComputed = true;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "setResult(min,0);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1102/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:25.184995967 -0500\n@@ -63,13 +63,14 @@\n     @Deprecated\n     public double solve(double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(f, min, max);\n+        verifyInterval(min, max);\n+\t\treturn solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 66, 
+          "faulty": "return solve(f,min,max);", 
+          "type": "InsertBefore", 
+          "seed": "verifyInterval(min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1186/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:06:40.984954741 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -77,12 +77,13 @@\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n         clearResult();\n-        verifyInterval(min,max);\n+        verifyBracketing(min, max, f);\n         double m;\n         double fm;\n         double fmin;\n \n-        int i = 0;\n+        this.resultComputed = false;\n+\t\tint i = 0;\n         while (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 80, 
+          "faulty": "verifyInterval(min,max);", 
+          "type": "Replace", 
+          "seed": "verifyBracketing(min,max,f);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 85, 
+          "faulty": "int i=0;", 
+          "type": "InsertBefore", 
+          "seed": "this.resultComputed=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_450/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:04:22.277947078 -0500\n@@ -69,22 +69,23 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n         verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+        this.resultComputed = true;\n+\t\twhile (i < maximalIterationCount) {\n+            this.functionValueAccuracy = defaultFunctionValueAccuracy;\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Delete", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.resultComputed=true;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "this.functionValueAccuracy=defaultFunctionValueAccuracy;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_1335/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:07:09.248882717 -0500\n@@ -69,21 +69,22 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n \n-        clearResult();\n+        setResult(min, 0);\n         verifyInterval(min,max);\n         double m;\n         double fm;\n         double fmin;\n \n         int i = 0;\n-        while (i < maximalIterationCount) {\n+        resultComputed = true;\n+\t\twhile (i < maximalIterationCount) {\n             m = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 79, 
+          "faulty": "clearResult();", 
+          "type": "Replace", 
+          "seed": "setResult(min,0);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 86, 
+          "faulty": "while (i < maximalIterationCount) {\n  m=UnivariateRealSolverUtils.midpoint(min,max);\n  fmin=f.value(min);\n  fm=f.value(m);\n  if (fm * fmin > 0.0) {\n    min=m;\n  }\n else {\n    max=m;\n  }\n  if (Math.abs(max - min) <= absoluteAccuracy) {\n    m=UnivariateRealSolverUtils.midpoint(min,max);\n    setResult(m,i);\n    return m;\n  }\n  ++i;\n}", 
+          "type": "InsertBefore", 
+          "seed": "resultComputed=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_131/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:03:18.734278955 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:01:05.830275922 -0500\n+++ /tmp/Arja_Defects4J_Math_70/patches_7h0v/Patch_318/patched/tmp/Arja_Defects4J_Math_70/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java\t2018-12-01 06:03:56.798279823 -0500\n@@ -69,7 +69,7 @@\n     /** {@inheritDoc} */\n     public double solve(final UnivariateRealFunction f, double min, double max, double initial)\n         throws MaxIterationsExceededException, FunctionEvaluationException {\n-        return solve(min, max);\n+        return solve(f, min, max);\n     }\n \n     /** {@inheritDoc} */\n@@ -84,7 +84,10 @@\n \n         int i = 0;\n         while (i < maximalIterationCount) {\n-            m = UnivariateRealSolverUtils.midpoint(min, max);\n+            if (f.value(max) == 0.0) {\n+\t\t\t\treturn max;\n+\t\t\t}\n+\t\t\tm = UnivariateRealSolverUtils.midpoint(min, max);\n            fmin = f.value(min);\n            fm = f.value(m);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 72, 
+          "faulty": "return solve(min,max);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java", 
+          "line": 87, 
+          "faulty": "m=UnivariateRealSolverUtils.midpoint(min,max);", 
+          "type": "InsertBefore", 
+          "seed": "if (f.value(max) == 0.0) {\n  return max;\n}"
+        }
+      ]
+    }
+  ]
+}

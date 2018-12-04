@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 02:45:17.353874", 
+  "repair_begin": "2018-11-29 02:41:32.295274", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 2, 
+      "patchLocation": {
+        "line": 118, 
+        "class": "com.google.javascript.jscomp.CheckSideEffects"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/com/google/javascript/jscomp/CheckSideEffects.java\n+++ b/src/com/google/javascript/jscomp/CheckSideEffects.java\n@@ -117,7 +117,9 @@\n       if (n == parent.getLastChild()) {\n-        for (Node an : parent.getAncestors()) {\n-          int ancestorType = an.getType();\n-          if (ancestorType == Token.COMMA) continue;\n-          if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n-          else break;\n+        if (com.google.javascript.jscomp.CheckSideEffects.PROTECTOR_FN.length()==0) {\n+          for (Node an : parent.getAncestors()) {\n+            int ancestorType = an.getType();\n+            if (ancestorType == Token.COMMA) continue;\n+            if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;\n+            else break;\n+          }\n         }\n"
+    }
+  ]
+}

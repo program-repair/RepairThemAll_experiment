@@ -1,0 +1,453 @@
+{
+  "repair_end": "2018-12-01 11:39:31.354559", 
+  "repair_begin": "2018-12-01 11:12:42.750417", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1358/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:33:14.772395126 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1763,9 +1764,6 @@\n             return -1;\n         }\n         int strLen = str.length();\n-        if (strLen == 1) {\n-            return indexOf(str.charAt(0), startIndex);\n-        }\n         if (strLen == 0) {\n             return startIndex;\n         }\n@@ -1773,7 +1771,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = size;\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1766, 
+          "faulty": "if (strLen == 1) {\n  return indexOf(str.charAt(0),startIndex);\n}", 
+          "type": "Delete", 
+          "seed": "if (str == null) {\n  buffer=new char[CAPACITY];\n}\n else {\n  buffer=new char[str.length() + CAPACITY];\n  append(str);\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=size;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1365/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:33:17.532400895 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1199,7 +1200,12 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n@@ -1773,7 +1779,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = length();\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=length();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_708/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:24:00.303258464 -0500\n@@ -1773,10 +1773,11 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = length();\n         outer:\n         for (int i = startIndex; i < len; i++) {\n-            for (int j = 0; j < strLen; j++) {\n+            str.getChars(0, strLen, buffer, size);\n+\t\t\tfor (int j = 0; j < strLen; j++) {\n                 if (str.charAt(j) != thisBuf[i + j]) {\n                     continue outer;\n                 }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=length();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1779, 
+          "faulty": "for (int j=0; j < strLen; j++) {\n  if (str.charAt(j) != thisBuf[i + j]) {\n    continue outer;\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "str.getChars(0,strLen,buffer,size);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1025/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:28:36.911816464 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1203,7 +1204,8 @@\n         if (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n-                deleteImpl(index, index + len, len);\n+                this.nullText = nullText;\n+\t\t\t\tdeleteImpl(index, index + len, len);\n             }\n         }\n         return this;\n@@ -1773,7 +1775,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = length();\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=length();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1206, 
+          "faulty": "deleteImpl(index,index + len,len);", 
+          "type": "InsertBefore", 
+          "seed": "this.nullText=nullText;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1348/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:33:05.056374819 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1199,7 +1200,12 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n@@ -1773,7 +1779,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = size;\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=size;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_673/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:23:37.451212349 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1763,7 +1764,10 @@\n             return -1;\n         }\n         int strLen = str.length();\n-        if (strLen == 1) {\n+        if (str == null) {\n+\t\t\tstr = nullText;\n+\t\t}\n+\t\tif (strLen == 1) {\n             return indexOf(str.charAt(0), startIndex);\n         }\n         if (strLen == 0) {\n@@ -1773,7 +1777,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = length();\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1766, 
+          "faulty": "if (strLen == 1) {\n  return indexOf(str.charAt(0),startIndex);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (str == null) {\n  str=nullText;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=length();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1027/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:28:37.347817343 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1199,9 +1200,17 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            if (size == 0) {\n+\t\t\t\treturn this;\n+\t\t\t}\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "if (size == 0) {\n  return this;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_904/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:26:46.379593527 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1203,7 +1204,8 @@\n         if (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n-                deleteImpl(index, index + len, len);\n+                this.nullText = nullText;\n+\t\t\t\tdeleteImpl(index, index + len, len);\n             }\n         }\n         return this;\n@@ -1758,7 +1760,6 @@\n      * @return the first index of the string, or -1 if not found\n      */\n     public int indexOf(String str, int startIndex) {\n-        startIndex = (startIndex < 0 ? 0 : startIndex);\n         if (str == null || startIndex >= size) {\n             return -1;\n         }\n@@ -1773,7 +1774,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = length();\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=length();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1206, 
+          "faulty": "deleteImpl(index,index + len,len);", 
+          "type": "InsertBefore", 
+          "seed": "this.nullText=nullText;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1761, 
+          "faulty": "startIndex=(startIndex < 0 ? 0 : startIndex);", 
+          "type": "Delete", 
+          "seed": "buffer[size++]='l';"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1295/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:32:30.688302977 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1206,7 +1207,7 @@\n                 deleteImpl(index, index + len, len);\n             }\n         }\n-        return this;\n+        return appendNull();\n     }\n \n     //-----------------------------------------------------------------------\n@@ -1773,7 +1774,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = length();\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=length();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1209, 
+          "faulty": "return this;", 
+          "type": "Replace", 
+          "seed": "return appendNull();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_918/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:27:09.119639397 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1773,7 +1774,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = size;\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=size;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1253/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:32:06.512252430 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1206,7 +1207,8 @@\n                 deleteImpl(index, index + len, len);\n             }\n         }\n-        return this;\n+        ensureCapacity(size + 5);\n+\t\treturn this;\n     }\n \n     //-----------------------------------------------------------------------\n@@ -1773,7 +1775,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = size;\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=size;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1209, 
+          "faulty": "return this;", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1333/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:32:53.068349762 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1773,10 +1774,11 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = length();\n         outer:\n         for (int i = startIndex; i < len; i++) {\n-            for (int j = 0; j < strLen; j++) {\n+            str.getChars(0, strLen, buffer, size);\n+\t\t\tfor (int j = 0; j < strLen; j++) {\n                 if (str.charAt(j) != thisBuf[i + j]) {\n                     continue outer;\n                 }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=length();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1779, 
+          "faulty": "for (int j=0; j < strLen; j++) {\n  if (str.charAt(j) != thisBuf[i + j]) {\n    continue outer;\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "str.getChars(0,strLen,buffer,size);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_648/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:23:20.303177744 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1758,7 +1759,6 @@\n      * @return the first index of the string, or -1 if not found\n      */\n     public int indexOf(String str, int startIndex) {\n-        startIndex = (startIndex < 0 ? 0 : startIndex);\n         if (str == null || startIndex >= size) {\n             return -1;\n         }\n@@ -1773,7 +1773,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = length();\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=length();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1761, 
+          "faulty": "startIndex=(startIndex < 0 ? 0 : startIndex);", 
+          "type": "Delete", 
+          "seed": "if (startIndex < 0) {\n  throw new StringIndexOutOfBoundsException(startIndex);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_431/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:20:19.434812660 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1199,7 +1200,12 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_612/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:22:46.795110120 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1773,7 +1774,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = length();\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=length();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1124/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:30:06.612001624 -0500\n@@ -1111,7 +1111,10 @@\n      * @throws IndexOutOfBoundsException if any index is invalid\n      */\n     private void deleteImpl(int startIndex, int endIndex, int len) {\n-        System.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);\n+        if (nullText != null && nullText.length() == 0) {\n+\t\t\tnullText = null;\n+\t\t}\n+\t\tSystem.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);\n         size -= len;\n     }\n \n@@ -1183,7 +1186,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1199,7 +1203,12 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1114, 
+          "faulty": "System.arraycopy(buffer,endIndex,buffer,startIndex,size - endIndex);", 
+          "type": "InsertBefore", 
+          "seed": "if (nullText != null && nullText.length() == 0) {\n  nullText=null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1487/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:34:41.228575770 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1758,7 +1759,7 @@\n      * @return the first index of the string, or -1 if not found\n      */\n     public int indexOf(String str, int startIndex) {\n-        startIndex = (startIndex < 0 ? 0 : startIndex);\n+        ensureCapacity(size + 4);\n         if (str == null || startIndex >= size) {\n             return -1;\n         }\n@@ -1773,7 +1774,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = size;\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=size;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1761, 
+          "faulty": "startIndex=(startIndex < 0 ? 0 : startIndex);", 
+          "type": "Replace", 
+          "seed": "ensureCapacity(size + 4);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:12:35.361875133 -0500\n+++ /tmp/Arja_Defects4J_Lang_61/patches_d2sp/Patch_1795/patched/tmp/Arja_Defects4J_Lang_61/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:39:04.349124933 -0500\n@@ -1183,7 +1183,8 @@\n     public StrBuilder deleteAll(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            append(str);\n+\t\t\tint index = indexOf(str, 0);\n             while (index >= 0) {\n                 deleteImpl(index, index + len, len);\n                 index = indexOf(str, index);\n@@ -1199,7 +1200,10 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        if (str == null) {\n+\t\t\tstr = nullText;\n+\t\t}\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n@@ -1773,7 +1777,7 @@\n             return -1;\n         }\n         char[] thisBuf = buffer;\n-        int len = thisBuf.length - strLen;\n+        int len = length();\n         outer:\n         for (int i = startIndex; i < len; i++) {\n             for (int j = 0; j < strLen; j++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1186, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "append(str);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1776, 
+          "faulty": "int len=thisBuf.length - strLen;", 
+          "type": "Replace", 
+          "seed": "int len=length();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "if (str == null) {\n  str=nullText;\n}"
+        }
+      ]
+    }
+  ]
+}

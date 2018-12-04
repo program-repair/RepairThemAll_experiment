@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 04:12:21.033872", 
+  "repair_begin": "2018-11-29 04:12:00.109669", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 3, 
+      "patchLocation": {
+        "line": 339, 
+        "class": "org.apache.commons.math.optimization.linear.SimplexTableau"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\n+++ b/src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\n@@ -338,3 +338,5 @@\n                     if (tableau.getEntry(basicRow, j) == 1) {\n-                         coefficients[i] = 0;\n+                         if ((org.apache.commons.math.optimization.linear.SimplexTableau.this.constraints.size()) != (coefficients.length)) {\n+                             coefficients[i] = 0;\n+                         }\n                     }\n"
+    }
+  ]
+}

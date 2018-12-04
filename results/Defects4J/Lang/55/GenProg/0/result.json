@@ -1,0 +1,51 @@
+{
+  "repair_end": "2018-12-02 12:10:10.973142", 
+  "repair_begin": "2018-12-02 10:10:09.538702", 
+  "patches": [
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Lang_55/src/java/org/apache/commons/lang/time/StopWatch.java\t2018-12-02 04:10:02.431054548 -0500\n+++ /tmp/GenProg_Defects4J_Lang_55/patches_g457/Patch_94/patched/tmp/GenProg_Defects4J_Lang_55/src/java/org/apache/commons/lang/time/StopWatch.java\t2018-12-02 04:19:05.444564270 -0500\n@@ -115,8 +115,6 @@\n         if(this.runningState != STATE_RUNNING && this.runningState != STATE_SUSPENDED) {\n             throw new IllegalStateException(\"Stopwatch is not running. \");\n         }\n-            stopTime = System.currentTimeMillis();\n-        this.runningState = STATE_STOPPED;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/StopWatch.java", 
+          "line": 119, 
+          "faulty": "this.runningState=STATE_STOPPED;", 
+          "type": "Delete", 
+          "seed": "if (this.runningState == STATE_STOPPED) {\n  throw new IllegalStateException(\"Stopwatch must be reset before being restarted. \");\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/time/StopWatch.java", 
+          "line": 118, 
+          "faulty": "stopTime=System.currentTimeMillis();", 
+          "type": "Delete", 
+          "seed": "boolean done=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Lang_55/src/java/org/apache/commons/lang/time/StopWatch.java\t2018-12-02 04:10:02.431054548 -0500\n+++ /tmp/GenProg_Defects4J_Lang_55/patches_g457/Patch_175/patched/tmp/GenProg_Defects4J_Lang_55/src/java/org/apache/commons/lang/time/StopWatch.java\t2018-12-02 04:25:51.321622447 -0500\n@@ -93,9 +93,6 @@\n      * @throws IllegalStateException if the StopWatch is already running.\n      */\n     public void start() {\n-        if(this.runningState == STATE_STOPPED) {\n-            throw new IllegalStateException(\"Stopwatch must be reset before being restarted. \");\n-        }\n         if(this.runningState != STATE_UNSTARTED) {\n             throw new IllegalStateException(\"Stopwatch already started. \");\n         }\n@@ -115,8 +112,6 @@\n         if(this.runningState != STATE_RUNNING && this.runningState != STATE_SUSPENDED) {\n             throw new IllegalStateException(\"Stopwatch is not running. \");\n         }\n-            stopTime = System.currentTimeMillis();\n-        this.runningState = STATE_STOPPED;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/time/StopWatch.java", 
+          "line": 119, 
+          "faulty": "this.runningState=STATE_STOPPED;", 
+          "type": "Delete", 
+          "seed": "if (this.runningState == STATE_STOPPED) {\n  throw new IllegalStateException(\"Stopwatch must be reset before being restarted. \");\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/time/StopWatch.java", 
+          "line": 96, 
+          "faulty": "if (this.runningState == STATE_STOPPED) {\n  throw new IllegalStateException(\"Stopwatch must be reset before being restarted. \");\n}", 
+          "type": "Delete", 
+          "seed": "throw new UnsupportedOperationException();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/time/StopWatch.java", 
+          "line": 118, 
+          "faulty": "stopTime=System.currentTimeMillis();", 
+          "type": "Delete", 
+          "seed": "if (this.runningState != STATE_UNSTARTED) {\n  throw new IllegalStateException(\"Stopwatch already started. \");\n}"
+        }
+      ]
+    }
+  ]
+}

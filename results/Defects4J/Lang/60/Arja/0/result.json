@@ -1,0 +1,499 @@
+{
+  "repair_end": "2018-12-01 11:25:18.048561", 
+  "repair_begin": "2018-12-01 11:13:55.243020", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_816/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:20:08.956361056 -0500\n@@ -1201,12 +1201,13 @@\n     public StrBuilder deleteFirst(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            ensureCapacity(size + 5);\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n         }\n-        return this;\n+        return append(nullText);\n     }\n \n     //-----------------------------------------------------------------------\n@@ -1669,7 +1670,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1209, 
+          "faulty": "return this;", 
+          "type": "Replace", 
+          "seed": "return append(nullText);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1396/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:23:28.167574260 -0500\n@@ -1200,7 +1200,10 @@\n      */\n     public StrBuilder deleteFirst(String str) {\n         int len = (str == null ? 0 : str.length());\n-        if (len > 0) {\n+        if (size == 0) {\n+\t\t\treturn this;\n+\t\t}\n+\t\tif (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n@@ -1669,7 +1672,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1203, 
+          "faulty": "if (len > 0) {\n  int index=indexOf(str,0);\n  if (index >= 0) {\n    deleteImpl(index,index + len,len);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (size == 0) {\n  return this;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1543/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:24:21.551363670 -0500\n@@ -1200,7 +1200,8 @@\n      */\n     public StrBuilder deleteFirst(String str) {\n         int len = (str == null ? 0 : str.length());\n-        if (len > 0) {\n+        ensureCapacity(len + 1);\n+\t\tif (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n@@ -1669,7 +1670,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1203, 
+          "faulty": "if (len > 0) {\n  int index=indexOf(str,0);\n  if (index >= 0) {\n    deleteImpl(index,index + len,len);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(len + 1);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1293/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:22:53.995709117 -0500\n@@ -1206,7 +1206,7 @@\n                 deleteImpl(index, index + len, len);\n             }\n         }\n-        return this;\n+        return null;\n     }\n \n     //-----------------------------------------------------------------------\n@@ -1669,7 +1669,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1209, 
+          "faulty": "return this;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1112/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:21:51.107957412 -0500\n@@ -1200,9 +1200,15 @@\n      */\n     public StrBuilder deleteFirst(String str) {\n         int len = (str == null ? 0 : str.length());\n-        if (len > 0) {\n+        if (size == 0) {\n+\t\t\treturn this;\n+\t\t}\n+\t\tif (len > 0) {\n             int index = indexOf(str, 0);\n-            if (index >= 0) {\n+            if (nullText != null && nullText.length() == 0) {\n+\t\t\t\tnullText = null;\n+\t\t\t}\n+\t\t\tif (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n         }\n@@ -1669,7 +1675,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1203, 
+          "faulty": "if (len > 0) {\n  int index=indexOf(str,0);\n  if (index >= 0) {\n    deleteImpl(index,index + len,len);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (size == 0) {\n  return this;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1205, 
+          "faulty": "if (index >= 0) {\n  deleteImpl(index,index + len,len);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (nullText != null && nullText.length() == 0) {\n  nullText=null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_898/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:20:39.648239736 -0500\n@@ -1201,7 +1201,8 @@\n     public StrBuilder deleteFirst(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            ensureCapacity(size + 5);\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n@@ -1669,7 +1670,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1218/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:22:28.419810078 -0500\n@@ -1200,8 +1200,12 @@\n      */\n     public StrBuilder deleteFirst(String str) {\n         int len = (str == null ? 0 : str.length());\n-        if (len > 0) {\n-            int index = indexOf(str, 0);\n+        if (size == 0) {\n+\t\t\treturn this;\n+\t\t}\n+\t\tif (len > 0) {\n+            ensureCapacity(size + 5);\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n@@ -1669,7 +1673,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1203, 
+          "faulty": "if (len > 0) {\n  int index=indexOf(str,0);\n  if (index >= 0) {\n    deleteImpl(index,index + len,len);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (size == 0) {\n  return this;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_753/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:19:45.088455428 -0500\n@@ -1199,9 +1199,11 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        ensureCapacity(size + 4);\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            ensureCapacity(size + 5);\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n@@ -1669,7 +1671,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 4);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1394/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:23:27.795575728 -0500\n@@ -1199,7 +1199,8 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        ensureCapacity(size + 4);\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n@@ -1669,7 +1670,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 4);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1374/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:23:21.299601361 -0500\n@@ -1206,7 +1206,7 @@\n                 deleteImpl(index, index + len, len);\n             }\n         }\n-        return this;\n+        return append(newLine);\n     }\n \n     //-----------------------------------------------------------------------\n@@ -1669,7 +1669,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1209, 
+          "faulty": "return this;", 
+          "type": "Replace", 
+          "seed": "return append(newLine);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1090/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:21:44.015985422 -0500\n@@ -1199,9 +1199,11 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        ensureCapacity(size + 5);\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            ensureCapacity(size + 5);\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n@@ -1669,7 +1671,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1263/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:22:43.823749268 -0500\n@@ -1201,7 +1201,10 @@\n     public StrBuilder deleteFirst(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            if (nullText != null && nullText.length() == 0) {\n+\t\t\t\tnullText = null;\n+\t\t\t}\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n@@ -1669,7 +1672,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "if (nullText != null && nullText.length() == 0) {\n  nullText=null;\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1319/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:23:02.147676941 -0500\n@@ -1201,7 +1201,8 @@\n     public StrBuilder deleteFirst(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            ensureCapacity(size + 5);\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n@@ -1669,8 +1670,14 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n-        for (int i = 0; i < thisBuf.length; i++) {\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n+        ensureCapacity(size + 5);\n+\t\tfor (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1673, 
+          "faulty": "for (int i=0; i < thisBuf.length; i++) {\n  if (thisBuf[i] == ch) {\n    return true;\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1569/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:24:30.519328303 -0500\n@@ -1203,7 +1203,10 @@\n         if (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n-                deleteImpl(index, index + len, len);\n+                if (index < 0 || index > size) {\n+\t\t\t\t\tthrow new StringIndexOutOfBoundsException(index);\n+\t\t\t\t}\n+\t\t\t\tdeleteImpl(index, index + len, len);\n             }\n         }\n         return this;\n@@ -1669,7 +1672,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1206, 
+          "faulty": "deleteImpl(index,index + len,len);", 
+          "type": "InsertBefore", 
+          "seed": "if (index < 0 || index > size) {\n  throw new StringIndexOutOfBoundsException(index);\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1256/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:22:41.231759499 -0500\n@@ -1200,8 +1200,10 @@\n      */\n     public StrBuilder deleteFirst(String str) {\n         int len = (str == null ? 0 : str.length());\n-        if (len > 0) {\n-            int index = indexOf(str, 0);\n+        ensureCapacity(len + 1);\n+\t\tif (len > 0) {\n+            ensureCapacity(size + 5);\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n@@ -1669,7 +1671,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1203, 
+          "faulty": "if (len > 0) {\n  int index=indexOf(str,0);\n  if (index >= 0) {\n    deleteImpl(index,index + len,len);\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(len + 1);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1036/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:21:26.000056585 -0500\n@@ -1669,7 +1669,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1369/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:23:19.891606916 -0500\n@@ -1669,8 +1669,10 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n-        for (int i = 0; i < thisBuf.length; i++) {\n+        buffer[size++] = 'e';\n+\t\tchar[] thisBuf = buffer;\n+        buffer[size++] = 'u';\n+\t\tfor (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "buffer[size++]='e';"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1673, 
+          "faulty": "for (int i=0; i < thisBuf.length; i++) {\n  if (thisBuf[i] == ch) {\n    return true;\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "buffer[size++]='u';"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1687/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:25:12.339163416 -0500\n@@ -1199,14 +1199,15 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        ensureCapacity(size + 4);\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n             int index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n         }\n-        return this;\n+        return append(newLine);\n     }\n \n     //-----------------------------------------------------------------------\n@@ -1669,7 +1670,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 4);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1209, 
+          "faulty": "return this;", 
+          "type": "Replace", 
+          "seed": "return append(newLine);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1298/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:22:55.363703717 -0500\n@@ -1669,8 +1669,14 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n-        for (int i = 0; i < thisBuf.length; i++) {\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n+        ensureCapacity(size + 5);\n+\t\tfor (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1673, 
+          "faulty": "for (int i=0; i < thisBuf.length; i++) {\n  if (thisBuf[i] == ch) {\n    return true;\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 5);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1546/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:24:22.243360941 -0500\n@@ -1669,10 +1669,16 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n-                return true;\n+                buffer[i] = '\\0';\n+\t\t\t\treturn true;\n             }\n         }\n         return false;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1675, 
+          "faulty": "return true;", 
+          "type": "InsertBefore", 
+          "seed": "buffer[i]='\\0';"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_941/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:20:54.016182954 -0500\n@@ -1206,7 +1206,7 @@\n                 deleteImpl(index, index + len, len);\n             }\n         }\n-        return this;\n+        return append(nullText);\n     }\n \n     //-----------------------------------------------------------------------\n@@ -1669,7 +1669,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1209, 
+          "faulty": "return this;", 
+          "type": "Replace", 
+          "seed": "return append(nullText);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1000/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:21:14.112103551 -0500\n@@ -1199,9 +1199,11 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder deleteFirst(String str) {\n-        int len = (str == null ? 0 : str.length());\n+        ensureCapacity(size + 4);\n+\t\tint len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            ensureCapacity(len + 1);\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n@@ -1669,7 +1671,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1202, 
+          "faulty": "int len=(str == null ? 0 : str.length());", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(size + 4);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "ensureCapacity(len + 1);"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:13:47.825870951 -0500\n+++ /tmp/Arja_Defects4J_Lang_60/patches_earj/Patch_1094/patched/tmp/Arja_Defects4J_Lang_60/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-01 05:21:45.039981377 -0500\n@@ -1201,7 +1201,8 @@\n     public StrBuilder deleteFirst(String str) {\n         int len = (str == null ? 0 : str.length());\n         if (len > 0) {\n-            int index = indexOf(str, 0);\n+            nullText = null;\n+\t\t\tint index = indexOf(str, 0);\n             if (index >= 0) {\n                 deleteImpl(index, index + len, len);\n             }\n@@ -1669,7 +1670,12 @@\n      * @return true if the builder contains the character\n      */\n     public boolean contains(char ch) {\n-        char[] thisBuf = buffer;\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tchar[] thisBuf = buffer;\n         for (int i = 0; i < thisBuf.length; i++) {\n             if (thisBuf[i] == ch) {\n                 return true;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1204, 
+          "faulty": "int index=indexOf(str,0);", 
+          "type": "InsertBefore", 
+          "seed": "nullText=null;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
+          "line": 1672, 
+          "faulty": "char[] thisBuf=buffer;", 
+          "type": "InsertBefore", 
+          "seed": "if (buffer.length > length()) {\n  char[] old=buffer;\n  buffer=new char[length()];\n  System.arraycopy(old,0,buffer,0,size);\n}"
+        }
+      ]
+    }
+  ]
+}

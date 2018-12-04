@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-01 16:10:47.363713", 
+  "repair_begin": "2018-12-01 16:07:16.634348", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 9, 
+      "patchLocation": {
+        "line": 107, 
+        "class": "org.apache.commons.math.stat.regression.SimpleRegression"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/java/org/apache/commons/math/stat/regression/SimpleRegression.java\n+++ b/src/java/org/apache/commons/math/stat/regression/SimpleRegression.java\n@@ -106,3 +106,5 @@\n         if (n == 0) {\n-            xbar = x;\n+            if ((x <= 1) || (y <= x)) {\n+                xbar = x;\n+            }\n             ybar = y;\n"
+    }
+  ]
+}

@@ -1,21 +1,23 @@
 cd /tmp/RSRepair_Bears_INRIA-spoon_192969999-193004144;
-export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
 TZ="America/New_York"; export TZ;
 export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
 export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
-time java -Xmx4048m -cp /home/tdurieux/defects4j4repair/script/../libs/jmetal.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/arja.jar us.msu.cse.repair.Main \
+timeout 120m java -Xmx4048m -cp /home/tdurieux/defects4j4repair/script/../libs/jmetal.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/arja.jar us.msu.cse.repair.Main \
 	RSRepair \
 	-DexternalProjRoot /home/tdurieux/defects4j4repair/script/../libs/arja_external \
 	-DsrcJavaDir /tmp/RSRepair_Bears_INRIA-spoon_192969999-193004144/src/main \
 	-DbinJavaDir /tmp/RSRepair_Bears_INRIA-spoon_192969999-193004144/target/classes \
 	-DbinTestDir /tmp/RSRepair_Bears_INRIA-spoon_192969999-193004144/target/test-classes \
+	-DdiffFormat true \
+	-Dseed 0 \
 	-Ddependences /home/tdurieux/.m2/repository/org/eclipse/tycho/org.eclipse.jdt.core/3.12.0.v20160516-2131/org.eclipse.jdt.core-3.12.0.v20160516-2131.jar:/home/tdurieux/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/tdurieux/.m2/repository/com/github/stefanbirkner/system-rules/1.9.0/system-rules-1.9.0.jar:/home/tdurieux/.m2/repository/commons-io/commons-io/2.6/commons-io-2.6.jar:/home/tdurieux/.m2/repository/org/mockito/mockito-all/2.0.2-beta/mockito-all-2.0.2-beta.jar:/home/tdurieux/.m2/repository/com/martiansoftware/jsap/2.1/jsap-2.1.jar:/home/tdurieux/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/home/tdurieux/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:/home/tdurieux/.m2/repository/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar;
 	echo "\n\nNode: `hostname`\n";
 	echo "\n\nDate: `date`\n";
-Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
 Fault localization starts...
-Number of positive tests: 857
-Number of negative tests: 2
+Number of positive tests: 624
+Number of negative tests: 144
 Fault localization is finished!
 AST parsing starts...
 AST parsing is finished!
@@ -36,19 +38,16 @@ One fitness evaluation starts...
 Exception in thread "main" java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
 	at java.util.ArrayList.rangeCheck(ArrayList.java:657)
 	at java.util.ArrayList.get(ArrayList.java:433)
-	at us.msu.cse.repair.ec.problems.GenProgProblem.evaluate(GenProgProblem.java:88)
+	at us.msu.cse.repair.ec.problems.GenProgProblem.evaluate(GenProgProblem.java:89)
 	at us.msu.cse.repair.ec.algorithms.RSRepairRandomSearch.execute(RSRepairRandomSearch.java:34)
 	at us.msu.cse.repair.core.AbstractRepairAlgorithm.execute(AbstractRepairAlgorithm.java:18)
 	at us.msu.cse.repair.RSRepairMain.main(RSRepairMain.java:44)
 	at us.msu.cse.repair.Main.main(Main.java:12)
-Command exited with non-zero status 1
-481.11user 46.07system 5:05.09elapsed 172%CPU (0avgtext+0avgdata 1956916maxresident)k
-34320inputs+34960outputs (10major+1183504minor)pagefaults 0swaps
 
 
-Node: griffon-24.nancy.grid5000.fr
+Node: granduc-3.luxembourg.grid5000.fr
 
 
 
-Date: Tue Nov 27 17:33:24 EST 2018
+Date: Mon Dec  3 23:40:50 EST 2018
 

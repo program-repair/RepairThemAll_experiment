@@ -1,0 +1,721 @@
+{
+  "repair_end": "2018-12-01 15:06:38.580081", 
+  "repair_begin": "2018-12-01 14:50:35.133980", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_17/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:55:53.896912085 -0500\n@@ -156,7 +156,6 @@\n \n       if (!isDefined && !isTypedef(ref)) {\n         if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n         }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_29/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:06.740814384 -0500\n@@ -156,7 +156,6 @@\n \n       if (!isDefined && !isTypedef(ref)) {\n         if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n         }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 205, 
+          "faulty": "return false;", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_13/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:55:51.372932838 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -214,12 +211,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n     compiler.report(\n         JSError.make(ref.getSourceName(), ref.node, level,\n             UNDEFINED_NAME_WARNING, name.getFullName()));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_84/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:39.980573529 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -214,12 +211,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n     compiler.report(\n         JSError.make(ref.getSourceName(), ref.node, level,\n             UNDEFINED_NAME_WARNING, name.getFullName()));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "InsertBefore", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_41/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:14.160760250 -0500\n@@ -156,7 +156,6 @@\n \n       if (!isDefined && !isTypedef(ref)) {\n         if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n         }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n@@ -214,12 +213,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n     compiler.report(\n         JSError.make(ref.getSourceName(), ref.node, level,\n             UNDEFINED_NAME_WARNING, name.getFullName()));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_752/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 09:05:20.077448743 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -219,10 +216,6 @@\n            name.parent.globalSets + name.parent.localSets == 0) {\n       name = name.parent;\n     }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Replace", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_26/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:55:59.988863837 -0500\n@@ -156,7 +156,6 @@\n \n       if (!isDefined && !isTypedef(ref)) {\n         if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n         }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n@@ -219,10 +218,6 @@\n            name.parent.globalSets + name.parent.localSets == 0) {\n       name = name.parent;\n     }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_129/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:57:10.552355495 -0500\n@@ -156,7 +156,6 @@\n \n       if (!isDefined && !isTypedef(ref)) {\n         if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n         }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n@@ -214,12 +213,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n     compiler.report(\n         JSError.make(ref.getSourceName(), ref.node, level,\n             UNDEFINED_NAME_WARNING, name.getFullName()));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 220, 
+          "faulty": "name=name.parent;", 
+          "type": "Replace", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_88/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:42.200557588 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_360/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 09:00:08.175137688 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -219,10 +216,6 @@\n            name.parent.globalSets + name.parent.localSets == 0) {\n       name = name.parent;\n     }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "InsertBefore", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_184/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:58:00.304006844 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Replace", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_59/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:23.496692445 -0500\n@@ -156,7 +156,6 @@\n \n       if (!isDefined && !isTypedef(ref)) {\n         if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n         }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n@@ -214,15 +213,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_341/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:59:55.167224680 -0500\n@@ -214,15 +214,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 220, 
+          "faulty": "name=name.parent;", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_271/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:59:05.327560718 -0500\n@@ -214,15 +214,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 220, 
+          "faulty": "name=name.parent;", 
+          "type": "InsertBefore", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_216/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:58:27.455819369 -0500\n@@ -219,10 +219,6 @@\n            name.parent.globalSets + name.parent.localSets == 0) {\n       name = name.parent;\n     }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 205, 
+          "faulty": "return false;", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_46/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:16.828740838 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -214,12 +211,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n     compiler.report(\n         JSError.make(ref.getSourceName(), ref.node, level,\n             UNDEFINED_NAME_WARNING, name.getFullName()));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Replace", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_122/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:57:06.024387593 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -219,10 +216,6 @@\n            name.parent.globalSets + name.parent.localSets == 0) {\n       name = name.parent;\n     }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_412/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 09:01:06.362751635 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -219,10 +216,6 @@\n            name.parent.globalSets + name.parent.localSets == 0) {\n       name = name.parent;\n     }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 205, 
+          "faulty": "return false;", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_193/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:58:06.015967251 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -214,15 +211,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_602/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 09:03:22.381864364 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -214,15 +211,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_54/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:20.384715010 -0500\n@@ -214,15 +214,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_510/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 09:02:17.274286845 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -219,10 +216,6 @@\n            name.parent.globalSets + name.parent.localSets == 0) {\n       name = name.parent;\n     }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_296/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:59:22.015447690 -0500\n@@ -156,7 +156,6 @@\n \n       if (!isDefined && !isTypedef(ref)) {\n         if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n         }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n@@ -217,12 +216,7 @@\n     // grab the highest undefined ancestor to output in the warning message.\n     while (name.parent != null &&\n            name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n     }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 220, 
+          "faulty": "name=name.parent;", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_784/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 09:05:41.929571490 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n@@ -214,15 +211,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 220, 
+          "faulty": "name=name.parent;", 
+          "type": "InsertBefore", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_49/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:18.220730722 -0500\n@@ -156,7 +156,6 @@\n \n       if (!isDefined && !isTypedef(ref)) {\n         if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n         }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n@@ -219,10 +218,6 @@\n            name.parent.globalSets + name.parent.localSets == 0) {\n       name = name.parent;\n     }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 205, 
+          "faulty": "return false;", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_51/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:18.876725957 -0500\n@@ -156,7 +156,6 @@\n \n       if (!isDefined && !isTypedef(ref)) {\n         if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n         }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n@@ -214,12 +213,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n     compiler.report(\n         JSError.make(ref.getSourceName(), ref.node, level,\n             UNDEFINED_NAME_WARNING, name.getFullName()));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 220, 
+          "faulty": "name=name.parent;", 
+          "type": "InsertBefore", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_35/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:10.292788442 -0500\n@@ -156,7 +156,6 @@\n \n       if (!isDefined && !isTypedef(ref)) {\n         if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n         }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n@@ -214,12 +213,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n     compiler.report(\n         JSError.make(ref.getSourceName(), ref.node, level,\n             UNDEFINED_NAME_WARNING, name.getFullName()));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 205, 
+          "faulty": "return false;", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_100/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:50.532497917 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_81/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:56:38.588583533 -0500\n@@ -214,15 +214,6 @@\n   }\n \n   private void reportRefToUndefinedName(Name name, Ref ref) {\n-    // grab the highest undefined ancestor to output in the warning message.\n-    while (name.parent != null &&\n-           name.parent.globalSets + name.parent.localSets == 0) {\n-      name = name.parent;\n-    }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 218, 
+          "faulty": "while (name.parent != null && name.parent.globalSets + name.parent.localSets == 0) {\n  name=name.parent;\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 220, 
+          "faulty": "name=name.parent;", 
+          "type": "Replace", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_7/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:55:47.036968604 -0500\n@@ -219,10 +219,6 @@\n            name.parent.globalSets + name.parent.localSets == 0) {\n       name = name.parent;\n     }\n-\n-    compiler.report(\n-        JSError.make(ref.getSourceName(), ref.node, level,\n-            UNDEFINED_NAME_WARNING, name.getFullName()));\n   }\n \n   /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 223, 
+          "faulty": "compiler.report(JSError.make(ref.getSourceName(),ref.node,level,UNDEFINED_NAME_WARNING,name.getFullName()));", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 08:50:13.675964832 -0500\n+++ /tmp/Arja_Defects4J_Closure_119/patches_yqon/Patch_789/patched/tmp/Arja_Defects4J_Closure_119/src/com/google/javascript/jscomp/CheckGlobalNames.java\t2018-12-01 09:05:44.953586975 -0500\n@@ -155,9 +155,6 @@\n       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();\n \n       if (!isDefined && !isTypedef(ref)) {\n-        if (!isGlobalExpr) {\n-          reportRefToUndefinedName(name, ref);\n-        }\n       } else if (declaration != null &&\n           ref.getModule() != declaration.getModule() &&\n           !moduleGraph.dependsOn(\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 158, 
+          "faulty": "if (!isGlobalExpr) {\n  reportRefToUndefinedName(name,ref);\n}", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 159, 
+          "faulty": "reportRefToUndefinedName(name,ref);", 
+          "type": "Delete", 
+          "seed": "this.level=level;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/CheckGlobalNames.java", 
+          "line": 205, 
+          "faulty": "return false;", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }
+  ]
+}

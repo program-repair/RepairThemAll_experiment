@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 05:09:40.878994", 
+  "repair_begin": "2018-11-29 05:06:18.373407", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 3, 
+      "patchLocation": {
+        "line": 667, 
+        "class": "org.apache.commons.math.linear.OpenMapRealVector"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\n+++ b/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java\n@@ -666,3 +666,5 @@\n         } else if (entries.containsKey(index)) {\n-            entries.remove(index);\n+            if (org.apache.commons.math.linear.OpenMapRealVector.DEFAULT_ZERO_TOLERANCE == org.apache.commons.math.linear.OpenMapRealVector.this.epsilon) {\n+                entries.remove(index);\n+            }\n         }\n"
+    }
+  ]
+}

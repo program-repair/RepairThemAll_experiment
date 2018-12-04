@@ -1,0 +1,597 @@
+{
+  "repair_end": "2018-12-01 11:27:38.622256", 
+  "repair_begin": "2018-12-01 11:15:44.527469", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1910/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:27:37.371850220 -0500\n@@ -3295,11 +3295,14 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n-                buf.append(separator);\n+                if (noOfItems <= 0) {\n+\t\t\t\t\treturn EMPTY;\n+\t\t\t\t}\n+\t\t\t\tbuf.append(separator);\n             }\n             if (array[i] != null) {\n                 buf.append(array[i]);\n@@ -3380,7 +3383,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3302, 
+          "faulty": "buf.append(separator);", 
+          "type": "InsertBefore", 
+          "seed": "if (noOfItems <= 0) {\n  return EMPTY;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_908/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:22:09.356836523 -0500\n@@ -3295,7 +3295,7 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(32);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3380,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(32);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_945/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:22:20.816801931 -0500\n@@ -3287,15 +3287,17 @@\n      * @since 2.0\n      */\n     public static String join(Object[] array, char separator, int startIndex, int endIndex) {\n-        if (array == null) {\n-            return null;\n-        }\n-        int noOfItems = (endIndex - startIndex);\n+        sunAvailable = false;\n+        if (!java6Available || java6NormalizerFormNFD == null) {\n+\t\t\tthrow new IllegalStateException(\n+\t\t\t\t\t\"java.text.Normalizer is not available\");\n+\t\t}\n+\t\tint noOfItems = (endIndex - startIndex);\n         if (noOfItems <= 0) {\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3382,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3290, 
+          "faulty": "if (array == null) {\n  return null;\n}", 
+          "type": "Replace", 
+          "seed": "sunAvailable=false;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3293, 
+          "faulty": "int noOfItems=(endIndex - startIndex);", 
+          "type": "InsertBefore", 
+          "seed": "if (!java6Available || java6NormalizerFormNFD == null) {\n  throw new IllegalStateException(\"java.text.Normalizer is not available\");\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1577/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:25:52.884163583 -0500\n@@ -3287,15 +3287,15 @@\n      * @since 2.0\n      */\n     public static String join(Object[] array, char separator, int startIndex, int endIndex) {\n-        if (array == null) {\n-            return null;\n-        }\n+        if (startIndex < 0) {\n+\t\t\tstartIndex = 0;\n+\t\t}\n         int noOfItems = (endIndex - startIndex);\n         if (noOfItems <= 0) {\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3380,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3290, 
+          "faulty": "if (array == null) {\n  return null;\n}", 
+          "type": "Replace", 
+          "seed": "if (startIndex < 0) {\n  startIndex=0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1331/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:24:34.316399703 -0500\n@@ -3287,15 +3287,13 @@\n      * @since 2.0\n      */\n     public static String join(Object[] array, char separator, int startIndex, int endIndex) {\n-        if (array == null) {\n-            return null;\n-        }\n+        sunAvailable = false;\n         int noOfItems = (endIndex - startIndex);\n         if (noOfItems <= 0) {\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3378,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3290, 
+          "faulty": "if (array == null) {\n  return null;\n}", 
+          "type": "Replace", 
+          "seed": "sunAvailable=false;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1034/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:22:52.576706120 -0500\n@@ -3295,7 +3295,7 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(32);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3366,7 +3366,8 @@\n      * @return the joined String, {@code null} if null array input\n      */\n     public static String join(Object[] array, String separator, int startIndex, int endIndex) {\n-        if (array == null) {\n+        java6Available = true;\n+\t\tif (array == null) {\n             return null;\n         }\n         if (separator == null) {\n@@ -3380,7 +3381,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3369, 
+          "faulty": "if (array == null) {\n  return null;\n}", 
+          "type": "InsertBefore", 
+          "seed": "java6Available=true;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(32);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1049/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:22:56.964692890 -0500\n@@ -3295,7 +3295,7 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3380,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1589/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:25:56.088153963 -0500\n@@ -3290,12 +3290,16 @@\n         if (array == null) {\n             return null;\n         }\n-        int noOfItems = (endIndex - startIndex);\n+        if (!java6Available || java6NormalizerFormNFD == null) {\n+\t\t\tthrow new IllegalStateException(\n+\t\t\t\t\t\"java.text.Normalizer is not available\");\n+\t\t}\n+\t\tint noOfItems = (endIndex - startIndex);\n         if (noOfItems <= 0) {\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3332,7 +3336,8 @@\n      * @return the joined String, {@code null} if null array input\n      */\n     public static String join(Object[] array, String separator) {\n-        if (array == null) {\n+        java6Available = true;\n+\t\tif (array == null) {\n             return null;\n         }\n         return join(array, separator, 0, array.length);\n@@ -3380,7 +3385,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3293, 
+          "faulty": "int noOfItems=(endIndex - startIndex);", 
+          "type": "InsertBefore", 
+          "seed": "if (!java6Available || java6NormalizerFormNFD == null) {\n  throw new IllegalStateException(\"java.text.Normalizer is not available\");\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3335, 
+          "faulty": "if (array == null) {\n  return null;\n}", 
+          "type": "InsertBefore", 
+          "seed": "java6Available=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1366/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:24:45.176367040 -0500\n@@ -3287,15 +3287,13 @@\n      * @since 2.0\n      */\n     public static String join(Object[] array, char separator, int startIndex, int endIndex) {\n-        if (array == null) {\n-            return null;\n-        }\n+        sunAvailable = false;\n         int noOfItems = (endIndex - startIndex);\n         if (noOfItems <= 0) {\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3378,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3290, 
+          "faulty": "if (array == null) {\n  return null;\n}", 
+          "type": "Replace", 
+          "seed": "sunAvailable=false;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1849/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:27:18.595906476 -0500\n@@ -3290,12 +3290,16 @@\n         if (array == null) {\n             return null;\n         }\n-        int noOfItems = (endIndex - startIndex);\n+        if (!java6Available || java6NormalizerFormNFD == null) {\n+\t\t\tthrow new IllegalStateException(\n+\t\t\t\t\t\"java.text.Normalizer is not available\");\n+\t\t}\n+\t\tint noOfItems = (endIndex - startIndex);\n         if (noOfItems <= 0) {\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3384,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3293, 
+          "faulty": "int noOfItems=(endIndex - startIndex);", 
+          "type": "InsertBefore", 
+          "seed": "if (!java6Available || java6NormalizerFormNFD == null) {\n  throw new IllegalStateException(\"java.text.Normalizer is not available\");\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1796/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:27:02.159955740 -0500\n@@ -3295,7 +3295,7 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3366,7 +3366,8 @@\n      * @return the joined String, {@code null} if null array input\n      */\n     public static String join(Object[] array, String separator, int startIndex, int endIndex) {\n-        if (array == null) {\n+        java6Available = true;\n+\t\tif (array == null) {\n             return null;\n         }\n         if (separator == null) {\n@@ -3380,7 +3381,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3369, 
+          "faulty": "if (array == null) {\n  return null;\n}", 
+          "type": "InsertBefore", 
+          "seed": "java6Available=true;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1443/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:25:09.752293154 -0500\n@@ -3227,7 +3227,8 @@\n      * @since 3.0 Changed signature to use varargs\n      */\n     public static <T> String join(T... elements) {\n-        return join(elements, null);\n+        sunAvailable = false;\n+\t\treturn join(elements, null);\n     }\n \n     /**\n@@ -3295,7 +3296,7 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3381,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3230, 
+          "faulty": "return join(elements,null);", 
+          "type": "InsertBefore", 
+          "seed": "sunAvailable=false;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1258/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:24:11.740467632 -0500\n@@ -3291,11 +3291,11 @@\n             return null;\n         }\n         int noOfItems = (endIndex - startIndex);\n-        if (noOfItems <= 0) {\n-            return EMPTY;\n-        }\n+        if (startIndex < 0) {\n+\t\t\tstartIndex = 0;\n+\t\t}\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(32);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3380,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3294, 
+          "faulty": "if (noOfItems <= 0) {\n  return EMPTY;\n}", 
+          "type": "Replace", 
+          "seed": "if (startIndex < 0) {\n  startIndex=0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(32);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1835/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:27:14.303919339 -0500\n@@ -3295,7 +3295,7 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3366,7 +3366,8 @@\n      * @return the joined String, {@code null} if null array input\n      */\n     public static String join(Object[] array, String separator, int startIndex, int endIndex) {\n-        if (array == null) {\n+        java6Available = true;\n+\t\tif (array == null) {\n             return null;\n         }\n         if (separator == null) {\n@@ -3380,7 +3381,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(32);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3369, 
+          "faulty": "if (array == null) {\n  return null;\n}", 
+          "type": "InsertBefore", 
+          "seed": "java6Available=true;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(32);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1295/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:24:23.200433145 -0500\n@@ -3291,11 +3291,9 @@\n             return null;\n         }\n         int noOfItems = (endIndex - startIndex);\n-        if (noOfItems <= 0) {\n-            return EMPTY;\n-        }\n+        java6Available = true;\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,13 +3378,14 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n                 buf.append(separator);\n             }\n-            if (array[i] != null) {\n+            sunAvailable = false;\n+\t\t\tif (array[i] != null) {\n                 buf.append(array[i]);\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3294, 
+          "faulty": "if (noOfItems <= 0) {\n  return EMPTY;\n}", 
+          "type": "Replace", 
+          "seed": "java6Available=true;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3389, 
+          "faulty": "if (array[i] != null) {\n  buf.append(array[i]);\n}", 
+          "type": "InsertBefore", 
+          "seed": "sunAvailable=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_847/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:21:48.324900031 -0500\n@@ -3295,7 +3295,7 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3380,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1587/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:25:55.752154972 -0500\n@@ -3295,7 +3295,7 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3376,11 +3376,11 @@\n         // endIndex - startIndex > 0:   Len = NofStrings *(len(firstString) + len(separator))\n         //           (Assuming that all Strings are roughly equally long)\n         int noOfItems = (endIndex - startIndex);\n-        if (noOfItems <= 0) {\n-            return EMPTY;\n-        }\n+        if (separator == null) {\n+\t\t\tseparator = EMPTY;\n+\t\t}\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3379, 
+          "faulty": "if (noOfItems <= 0) {\n  return EMPTY;\n}", 
+          "type": "Replace", 
+          "seed": "if (separator == null) {\n  separator=EMPTY;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_947/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:22:21.144800942 -0500\n@@ -3290,12 +3290,13 @@\n         if (array == null) {\n             return null;\n         }\n-        int noOfItems = (endIndex - startIndex);\n+        java6Available = true;\n+\t\tint noOfItems = (endIndex - startIndex);\n         if (noOfItems <= 0) {\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(32);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3381,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3293, 
+          "faulty": "int noOfItems=(endIndex - startIndex);", 
+          "type": "InsertBefore", 
+          "seed": "java6Available=true;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(32);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1700/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:26:31.492047711 -0500\n@@ -3295,7 +3295,7 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3366,7 +3366,10 @@\n      * @return the joined String, {@code null} if null array input\n      */\n     public static String join(Object[] array, String separator, int startIndex, int endIndex) {\n-        if (array == null) {\n+        if (separator == null) {\n+\t\t\tseparator = EMPTY;\n+\t\t}\n+\t\tif (array == null) {\n             return null;\n         }\n         if (separator == null) {\n@@ -3380,7 +3383,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3369, 
+          "faulty": "if (array == null) {\n  return null;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (separator == null) {\n  separator=EMPTY;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1418/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:25:01.584317706 -0500\n@@ -3287,15 +3287,13 @@\n      * @since 2.0\n      */\n     public static String join(Object[] array, char separator, int startIndex, int endIndex) {\n-        if (array == null) {\n-            return null;\n-        }\n+        sunAvailable = false;\n         int noOfItems = (endIndex - startIndex);\n         if (noOfItems <= 0) {\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(32);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3378,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3290, 
+          "faulty": "if (array == null) {\n  return null;\n}", 
+          "type": "Replace", 
+          "seed": "sunAvailable=false;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(32);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1310/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:24:27.988418740 -0500\n@@ -3295,7 +3295,7 @@\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3380,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_1873/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:27:25.931884493 -0500\n@@ -3290,12 +3290,15 @@\n         if (array == null) {\n             return null;\n         }\n-        int noOfItems = (endIndex - startIndex);\n+        if (array == null) {\n+\t\t\treturn null;\n+\t\t}\n+\t\tint noOfItems = (endIndex - startIndex);\n         if (noOfItems <= 0) {\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(4);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3383,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3293, 
+          "faulty": "int noOfItems=(endIndex - startIndex);", 
+          "type": "InsertBefore", 
+          "seed": "if (array == null) {\n  return null;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(4);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:15:36.810015490 -0500\n+++ /tmp/Arja_Defects4J_Lang_20/patches_9t4x/Patch_781/patched/tmp/Arja_Defects4J_Lang_20/src/main/java/org/apache/commons/lang3/StringUtils.java\t2018-12-01 05:21:27.116964105 -0500\n@@ -3290,12 +3290,16 @@\n         if (array == null) {\n             return null;\n         }\n-        int noOfItems = (endIndex - startIndex);\n+        if (!java6Available || java6NormalizerFormNFD == null) {\n+\t\t\tthrow new IllegalStateException(\n+\t\t\t\t\t\"java.text.Normalizer is not available\");\n+\t\t}\n+\t\tint noOfItems = (endIndex - startIndex);\n         if (noOfItems <= 0) {\n             return EMPTY;\n         }\n         \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);\n+        StringBuilder buf = new StringBuilder(32);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n@@ -3380,7 +3384,7 @@\n             return EMPTY;\n         }\n \n-        StringBuilder buf = new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());\n+        StringBuilder buf = new StringBuilder(256);\n \n         for (int i = startIndex; i < endIndex; i++) {\n             if (i > startIndex) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3293, 
+          "faulty": "int noOfItems=(endIndex - startIndex);", 
+          "type": "InsertBefore", 
+          "seed": "if (!java6Available || java6NormalizerFormNFD == null) {\n  throw new IllegalStateException(\"java.text.Normalizer is not available\");\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3298, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(32);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/lang3/StringUtils.java", 
+          "line": 3383, 
+          "faulty": "StringBuilder buf=new StringBuilder((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length());", 
+          "type": "Replace", 
+          "seed": "StringBuilder buf=new StringBuilder(256);"
+        }
+      ]
+    }
+  ]
+}

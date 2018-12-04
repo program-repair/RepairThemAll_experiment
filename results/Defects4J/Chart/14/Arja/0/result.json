@@ -1,0 +1,519 @@
+{
+  "repair_end": "2018-12-01 15:16:08.542282", 
+  "repair_begin": "2018-12-01 14:16:57.754330", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1364/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:08:45.213969849 -0500\n@@ -2136,7 +2136,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn this.domainGridlinesVisible;\n     }\n \n     /**\n@@ -2375,7 +2375,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return false;\n     }\n \n     /**\n\n\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1364/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:08:45.217969874 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return false;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/Plot.java", 
+          "line": 433, 
+          "faulty": "return this.parent;", 
+          "type": "Replace", 
+          "seed": "return this.parent;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return this.domainGridlinesVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1407/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:10:14.346544387 -0500\n@@ -2103,7 +2103,8 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker) {\n-        return removeDomainMarker(marker, Layer.FOREGROUND);\n+        this.domainAxisLocations = new ObjectList();\n+\t\treturn removeDomainMarker(marker, Layer.FOREGROUND);\n     }\n \n     /**\n@@ -2136,7 +2137,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn this.domainGridlinesVisible;\n     }\n \n     /**\n@@ -2375,7 +2376,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return false;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1407/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:10:14.350544413 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return false;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2106, 
+          "faulty": "return removeDomainMarker(marker,Layer.FOREGROUND);", 
+          "type": "InsertBefore", 
+          "seed": "this.domainAxisLocations=new ObjectList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return this.domainGridlinesVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_988/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:56:03.503850834 -0500\n@@ -2136,7 +2136,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn this.domainGridlinesVisible;\n     }\n \n     /**\n@@ -2375,7 +2375,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return this.domainGridlinesVisible;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_988/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:56:03.535850743 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n@@ -2526,7 +2526,8 @@\n             markers = (ArrayList) this.backgroundRangeMarkers.get(new Integer(\n                     index));\n         }\n-        boolean removed = markers.remove(marker);\n+        this.domainAxisLocations = new ObjectList();\n+\t\tboolean removed = markers.remove(marker);\n         if (removed && notify) {\n             fireChangeEvent();\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2529, 
+          "faulty": "boolean removed=markers.remove(marker);", 
+          "type": "InsertBefore", 
+          "seed": "this.domainAxisLocations=new ObjectList();"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return this.domainGridlinesVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return this.domainGridlinesVisible;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1538/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:14:45.847597830 -0500\n@@ -2136,7 +2136,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn this.drawSharedDomainAxis;\n     }\n \n     /**\n@@ -2375,7 +2375,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return this.drawSharedDomainAxis;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1538/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:14:45.851597820 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n@@ -2462,7 +2462,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return false;\n     }\n \n     /**\n@@ -2478,7 +2478,8 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        addDomainMarker(0, marker, layer);\n+\t\treturn removeRangeMarker(0, marker, layer);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "InsertBefore", 
+          "seed": "addDomainMarker(0,marker,layer);"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2465, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return this.drawSharedDomainAxis;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return this.drawSharedDomainAxis;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/util/AbstractObjectList.java\t2018-12-01 08:16:31.132809701 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1553/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/util/AbstractObjectList.java\t2018-12-01 09:15:15.083524347 -0500\n@@ -120,7 +120,8 @@\n      * @param object  the object (<code>null</code> permitted).\n      */\n     protected void set(int index, Object object) {\n-        if (index < 0) {\n+        this.increment = increment;\n+\t\tif (index < 0) {\n             throw new IllegalArgumentException(\"Requires index >= 0.\");\n         }\n         if (index >= this.objects.length) {\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1553/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:15:15.087524338 -0500\n@@ -2136,7 +2136,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn this.domainGridlinesVisible;\n     }\n \n     /**\n@@ -2375,7 +2375,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return this.drawSharedDomainAxis;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1553/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:15:15.087524338 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return this.rangeCrosshairVisible;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/util/AbstractObjectList.java", 
+          "line": 123, 
+          "faulty": "if (index < 0) {\n  throw new IllegalArgumentException(\"Requires index >= 0.\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.increment=increment;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.rangeCrosshairVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return this.domainGridlinesVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return this.drawSharedDomainAxis;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1517/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:14:04.379731485 -0500\n@@ -2136,7 +2136,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn this.domainGridlinesVisible;\n     }\n \n     /**\n@@ -2375,7 +2375,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return this.domainGridlinesVisible;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1517/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:14:04.383731470 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return this.rangeCrosshairVisible;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.rangeCrosshairVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return this.domainGridlinesVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return this.domainGridlinesVisible;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1274/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:05:47.776956169 -0500\n@@ -2136,7 +2136,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn false;\n     }\n \n     /**\n@@ -2375,7 +2375,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return false;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1274/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:05:47.776956169 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return false;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.domainCrosshairVisible;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainCrosshairVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1075/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:59:02.111670339 -0500\n@@ -897,7 +897,11 @@\n         }\n         if (result == null) {\n             Plot parent = getParent();\n-            if (parent instanceof CategoryPlot) {\n+            if (orientation == null) {\n+\t\t\t\tthrow new IllegalArgumentException(\n+\t\t\t\t\t\t\"Null 'orientation' argument.\");\n+\t\t\t}\n+\t\t\tif (parent instanceof CategoryPlot) {\n                 CategoryPlot cp = (CategoryPlot) parent;\n                 result = cp.getRangeAxis(index);\n             }\n@@ -2136,7 +2140,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn this.rangeCrosshairVisible;\n     }\n \n     /**\n@@ -2412,7 +2416,7 @@\n      * @see #addRangeMarker(int, Marker, Layer)\n      */\n     public boolean removeRangeMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeRangeMarker(index, marker, layer, true);\n+    \treturn this.drawSharedDomainAxis;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1075/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:59:02.115670342 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.rangeCrosshairVisible;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2415, 
+          "faulty": "return removeRangeMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return this.drawSharedDomainAxis;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.rangeCrosshairVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 900, 
+          "faulty": "if (parent instanceof CategoryPlot) {\n  CategoryPlot cp=(CategoryPlot)parent;\n  result=cp.getRangeAxis(index);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (orientation == null) {\n  throw new IllegalArgumentException(\"Null 'orientation' argument.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return this.rangeCrosshairVisible;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1409/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:10:16.526558897 -0500\n@@ -897,7 +897,8 @@\n         }\n         if (result == null) {\n             Plot parent = getParent();\n-            if (parent instanceof CategoryPlot) {\n+            this.domainGridlineStroke = FastScatterPlot.DEFAULT_GRIDLINE_STROKE;\n+\t\t\tif (parent instanceof CategoryPlot) {\n                 CategoryPlot cp = (CategoryPlot) parent;\n                 result = cp.getRangeAxis(index);\n             }\n@@ -2136,7 +2137,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn false;\n     }\n \n     /**\n@@ -2375,7 +2376,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return false;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1409/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:10:16.530558923 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return false;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.domainCrosshairVisible;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainCrosshairVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 900, 
+          "faulty": "if (parent instanceof CategoryPlot) {\n  CategoryPlot cp=(CategoryPlot)parent;\n  result=cp.getRangeAxis(index);\n}", 
+          "type": "InsertBefore", 
+          "seed": "this.domainGridlineStroke=FastScatterPlot.DEFAULT_GRIDLINE_STROKE;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1420/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:10:38.146703887 -0500\n@@ -2136,7 +2136,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn false;\n     }\n \n     /**\n@@ -2375,7 +2375,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return this.domainGridlinesVisible;\n     }\n \n     /**\n@@ -2393,7 +2393,8 @@\n      * @see #addRangeMarker(Marker, Layer)\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        addRangeMarker(marker, Layer.FOREGROUND);\n+\t\treturn removeRangeMarker(0, marker, layer);\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1420/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:10:38.146703887 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n@@ -2495,7 +2495,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeRangeMarker(index, marker, layer, true);\n+    \treturn this.rangeCrosshairVisible;\n     }\n     \n     /**\n@@ -2514,9 +2514,10 @@\n      */\n     public boolean removeRangeMarker(int index, Marker marker, Layer layer,\n     \t\tboolean notify) {\n-        if (marker == null) {\n-            throw new IllegalArgumentException(\"Null 'marker' argument.\");\n-        }\n+        if (index < 0 || index >= getDatasetCount()) {\n+\t\t\tthrow new IllegalArgumentException(\"Index \" + index\n+\t\t\t\t\t+ \" out of bounds.\");\n+\t\t}\n         ArrayList markers;\n         if (layer == Layer.FOREGROUND) {\n             markers = (ArrayList) this.foregroundRangeMarkers.get(new Integer(\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2498, 
+          "faulty": "return removeRangeMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return this.rangeCrosshairVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2396, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "InsertBefore", 
+          "seed": "addRangeMarker(marker,Layer.FOREGROUND);"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2517, 
+          "faulty": "if (marker == null) {\n  throw new IllegalArgumentException(\"Null 'marker' argument.\");\n}", 
+          "type": "Replace", 
+          "seed": "if (index < 0 || index >= getDatasetCount()) {\n  throw new IllegalArgumentException(\"Index \" + index + \" out of bounds.\");\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return this.domainGridlinesVisible;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1353/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:08:24.857844141 -0500\n@@ -2136,7 +2136,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn false;\n     }\n \n     /**\n@@ -2375,7 +2375,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return false;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1353/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:08:24.861844165 -0500\n@@ -2229,7 +2229,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker) {\n-        return removeDomainMarker(marker, Layer.FOREGROUND);\n+        return this.rangeCrosshairVisible;\n     }\n \n     /**\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.domainCrosshairVisible;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainCrosshairVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2232, 
+          "faulty": "return removeDomainMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return this.rangeCrosshairVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1546/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:15:03.027552649 -0500\n@@ -2136,7 +2136,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn false;\n     }\n \n     /**\n@@ -2375,7 +2375,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return this.domainGridlinesVisible;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1546/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:15:03.031552638 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n@@ -2462,7 +2462,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return false;\n     }\n \n     /**\n@@ -2518,7 +2518,13 @@\n             throw new IllegalArgumentException(\"Null 'marker' argument.\");\n         }\n         ArrayList markers;\n-        if (layer == Layer.FOREGROUND) {\n+        for (int i = 0; i < this.rangeAxes.size(); i++) {\n+\t\t\tValueAxis axis = (ValueAxis) this.rangeAxes.get(i);\n+\t\t\tif (axis != null) {\n+\t\t\t\taxis.configure();\n+\t\t\t}\n+\t\t}\n+\t\tif (layer == Layer.FOREGROUND) {\n             markers = (ArrayList) this.foregroundRangeMarkers.get(new Integer(\n                     index));\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2465, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2521, 
+          "faulty": "if (layer == Layer.FOREGROUND) {\n  markers=(ArrayList)this.foregroundRangeMarkers.get(new Integer(index));\n}\n else {\n  markers=(ArrayList)this.backgroundRangeMarkers.get(new Integer(index));\n}", 
+          "type": "InsertBefore", 
+          "seed": "for (int i=0; i < this.rangeAxes.size(); i++) {\n  ValueAxis axis=(ValueAxis)this.rangeAxes.get(i);\n  if (axis != null) {\n    axis.configure();\n  }\n}"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return this.domainGridlinesVisible;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1143/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/CategoryPlot.java\t2018-12-01 09:01:20.567896991 -0500\n@@ -2136,7 +2136,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {\n-    \treturn removeDomainMarker(index, marker, layer, true);\n+    \treturn this.domainGridlinesVisible;\n     }\n \n     /**\n@@ -2375,7 +2375,7 @@\n      * @see #addRangeMarker(Marker)\n      */\n     public boolean removeRangeMarker(Marker marker) {\n-        return removeRangeMarker(marker, Layer.FOREGROUND);\n+        return false;\n     }\n \n     /**\n\n\n--- /tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 08:16:43.488810038 -0500\n+++ /tmp/Arja_Defects4J_Chart_14/patches_rhkx/Patch_1143/patched/tmp/Arja_Defects4J_Chart_14/source/org/jfree/chart/plot/XYPlot.java\t2018-12-01 09:01:20.571897001 -0500\n@@ -2245,7 +2245,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeDomainMarker(Marker marker, Layer layer) {\n-        return removeDomainMarker(0, marker, layer);\n+        return false;\n     }\n \n     /**\n@@ -2478,7 +2478,7 @@\n      * @since 1.0.7\n      */\n     public boolean removeRangeMarker(Marker marker, Layer layer) {\n-        return removeRangeMarker(0, marker, layer);\n+        return this.domainZeroBaselineVisible;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2481, 
+          "faulty": "return removeRangeMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return this.domainZeroBaselineVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/XYPlot.java", 
+          "line": 2248, 
+          "faulty": "return removeDomainMarker(0,marker,layer);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2139, 
+          "faulty": "return removeDomainMarker(index,marker,layer,true);", 
+          "type": "Replace", 
+          "seed": "return this.domainGridlinesVisible;"
+        }, 
+        {
+          "path": "source/org/jfree/chart/plot/CategoryPlot.java", 
+          "line": 2378, 
+          "faulty": "return removeRangeMarker(marker,Layer.FOREGROUND);", 
+          "type": "Replace", 
+          "seed": "return false;"
+        }
+      ]
+    }
+  ]
+}

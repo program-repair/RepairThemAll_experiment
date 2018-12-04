@@ -1,0 +1,882 @@
+{
+  "repair_end": "2018-12-01 11:50:37.032909", 
+  "repair_begin": "2018-12-01 11:41:39.294742", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1612/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:49:38.749691872 -0500\n@@ -986,13 +986,15 @@\n         if (v.length != this.getColumnDimension()) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final int nRows = this.getRowDimension();\n+        parity = 1;\n+\t\tfinal int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n-                sum = sum.add(data[row][i].multiply(v[i]));\n+                lu = null;\n+\t\t\t\tsum = sum.add(data[row][i].multiply(v[i]));\n             }\n             out[row] = sum;\n         }\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1612/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:49:38.749691872 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 989, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "InsertBefore", 
+          "seed": "parity=1;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 995, 
+          "faulty": "sum=sum.add(data[row][i].multiply(v[i]));", 
+          "type": "InsertBefore", 
+          "seed": "lu=null;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_363/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:44:13.523993660 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_363/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:44:13.527994617 -0500\n@@ -776,14 +776,15 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n             for (int i = 0; i < nCols; i++) {\n                 sum += dataRow[i] * v[i];\n             }\n-            out[row] = sum;\n+            parity = 1;\n+\t\t\tout[row] = sum;\n         }\n         return out;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 786, 
+          "faulty": "out[row]=sum;", 
+          "type": "InsertBefore", 
+          "seed": "parity=1;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1185/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:47:47.255764307 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1185/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:47:47.259764320 -0500\n@@ -771,12 +771,13 @@\n      * @return resulting vector\n      */\n     public double[] operate(double[] v) throws IllegalArgumentException {\n-        final int nRows = this.getRowDimension();\n+        final int nRows = getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        if (v.length != nCols) {\n+        parity = -parity;\n+\t\tif (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 774, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "Replace", 
+          "seed": "final int nRows=getRowDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 776, 
+          "faulty": "if (v.length != nCols) {\n  throw new IllegalArgumentException(\"vector has wrong length\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "parity=-parity;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_828/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:46:15.358996907 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_828/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:46:15.362997048 -0500\n@@ -771,12 +771,12 @@\n      * @return resulting vector\n      */\n     public double[] operate(double[] v) throws IllegalArgumentException {\n-        final int nRows = this.getRowDimension();\n+        final int nRows = getRowDimension();\n         final int nCols = this.getColumnDimension();\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 774, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "Replace", 
+          "seed": "final int nRows=getRowDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1519/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:49:14.565173306 -0500\n@@ -986,9 +986,9 @@\n         if (v.length != this.getColumnDimension()) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final int nRows = this.getRowDimension();\n+        final int nRows = getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1519/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:49:14.565173306 -0500\n@@ -776,14 +776,17 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n             for (int i = 0; i < nCols; i++) {\n                 sum += dataRow[i] * v[i];\n             }\n-            out[row] = sum;\n+            if (v.length != nCols) {\n+\t\t\t\tthrow new IllegalArgumentException(\"vector has wrong length\");\n+\t\t\t}\n+\t\t\tout[row] = sum;\n         }\n         return out;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 989, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "Replace", 
+          "seed": "final int nRows=getRowDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 786, 
+          "faulty": "out[row]=sum;", 
+          "type": "InsertBefore", 
+          "seed": "if (v.length != nCols) {\n  throw new IllegalArgumentException(\"vector has wrong length\");\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1457/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:48:58.272823805 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1457/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:48:58.272823805 -0500\n@@ -776,8 +776,11 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n-        for (int row = 0; row < nRows; row++) {\n+        final double[] out = new double[nRows];\n+        if (v.length != nCols) {\n+\t\t\tthrow new IllegalArgumentException(\"vector has wrong length\");\n+\t\t}\n+\t\tfor (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n             for (int i = 0; i < nCols; i++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 780, 
+          "faulty": "for (int row=0; row < nRows; row++) {\n  final double[] dataRow=data[row];\n  double sum=0;\n  for (int i=0; i < nCols; i++) {\n    sum+=dataRow[i] * v[i];\n  }\n  out[row]=sum;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (v.length != nCols) {\n  throw new IllegalArgumentException(\"vector has wrong length\");\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1037/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:47:09.819427722 -0500\n@@ -988,13 +988,14 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n                 sum = sum.add(data[row][i].multiply(v[i]));\n             }\n-            out[row] = sum;\n+            parity = 1;\n+\t\t\tout[row] = sum;\n         }\n         return out;\n     }\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1037/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:47:09.819427722 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 997, 
+          "faulty": "out[row]=sum;", 
+          "type": "InsertBefore", 
+          "seed": "parity=1;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_702/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:45:42.365462863 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_702/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:45:42.365462863 -0500\n@@ -776,9 +776,13 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n-            final double[] dataRow = data[row];\n+            if (nRows == 0) {\n+\t\t\t\tthrow new IllegalArgumentException(\n+\t\t\t\t\t\t\"Matrix must have at least one row.\");\n+\t\t\t}\n+\t\t\tfinal double[] dataRow = data[row];\n             double sum = 0;\n             for (int i = 0; i < nCols; i++) {\n                 sum += dataRow[i] * v[i];\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 781, 
+          "faulty": "final double[] dataRow=data[row];", 
+          "type": "InsertBefore", 
+          "seed": "if (nRows == 0) {\n  throw new IllegalArgumentException(\"Matrix must have at least one row.\");\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_353/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:44:11.079420490 -0500\n@@ -987,8 +987,9 @@\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n         final int nRows = this.getRowDimension();\n-        final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        parity = -parity;\n+\t\tfinal int nCols = this.getColumnDimension();\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_353/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:44:11.079420490 -0500\n@@ -776,10 +776,11 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n-            double sum = 0;\n+            lu = getData();\n+\t\t\tdouble sum = 0;\n             for (int i = 0; i < nCols; i++) {\n                 sum += dataRow[i] * v[i];\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 990, 
+          "faulty": "final int nCols=this.getColumnDimension();", 
+          "type": "InsertBefore", 
+          "seed": "parity=-parity;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 782, 
+          "faulty": "double sum=0;", 
+          "type": "InsertBefore", 
+          "seed": "lu=getData();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_556/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:45:04.098539156 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_556/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:45:04.098539156 -0500\n@@ -773,10 +773,11 @@\n     public double[] operate(double[] v) throws IllegalArgumentException {\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        if (v.length != nCols) {\n+        parity = -parity;\n+\t\tif (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 776, 
+          "faulty": "if (v.length != nCols) {\n  throw new IllegalArgumentException(\"vector has wrong length\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "parity=-parity;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_577/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:45:09.438866954 -0500\n@@ -987,8 +987,8 @@\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n         final int nRows = this.getRowDimension();\n-        final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final int nCols = getColumnDimension();\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_577/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:45:09.438866954 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 990, 
+          "faulty": "final int nCols=this.getColumnDimension();", 
+          "type": "Replace", 
+          "seed": "final int nCols=getColumnDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_841/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:46:18.559108328 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_841/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:46:18.559108328 -0500\n@@ -776,10 +776,11 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n-            double sum = 0;\n+            permutation = new int[nRows];\n+\t\t\tdouble sum = 0;\n             for (int i = 0; i < nCols; i++) {\n                 sum += dataRow[i] * v[i];\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 782, 
+          "faulty": "double sum=0;", 
+          "type": "InsertBefore", 
+          "seed": "permutation=new int[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1276/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:48:11.155974763 -0500\n@@ -988,13 +988,16 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n                 sum = sum.add(data[row][i].multiply(v[i]));\n             }\n-            out[row] = sum;\n+            if (v.length != this.getColumnDimension()) {\n+\t\t\t\tthrow new IllegalArgumentException(\"vector has wrong length\");\n+\t\t\t}\n+\t\t\tout[row] = sum;\n         }\n         return out;\n     }\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1276/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:48:11.155974763 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 997, 
+          "faulty": "out[row]=sum;", 
+          "type": "InsertBefore", 
+          "seed": "if (v.length != this.getColumnDimension()) {\n  throw new IllegalArgumentException(\"vector has wrong length\");\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1065/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:47:16.795523322 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1065/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:47:16.795523322 -0500\n@@ -772,11 +772,11 @@\n      */\n     public double[] operate(double[] v) throws IllegalArgumentException {\n         final int nRows = this.getRowDimension();\n-        final int nCols = this.getColumnDimension();\n+        final int nCols = getColumnDimension();\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 775, 
+          "faulty": "final int nCols=this.getColumnDimension();", 
+          "type": "Replace", 
+          "seed": "final int nCols=getColumnDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_110/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:43:05.894669305 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_110/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:43:05.898669305 -0500\n@@ -776,14 +776,16 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n-            double sum = 0;\n+            permutation = new int[nRows];\n+\t\t\tdouble sum = 0;\n             for (int i = 0; i < nCols; i++) {\n                 sum += dataRow[i] * v[i];\n             }\n-            out[row] = sum;\n+            parity = 1;\n+\t\t\tout[row] = sum;\n         }\n         return out;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 786, 
+          "faulty": "out[row]=sum;", 
+          "type": "InsertBefore", 
+          "seed": "parity=1;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 782, 
+          "faulty": "double sum=0;", 
+          "type": "InsertBefore", 
+          "seed": "permutation=new int[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_376/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:44:16.728723900 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_376/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:44:16.728723900 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_387/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:44:19.141231292 -0500\n@@ -986,9 +986,9 @@\n         if (v.length != this.getColumnDimension()) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final int nRows = this.getRowDimension();\n+        final int nRows = getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_387/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:44:19.141231292 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 989, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "Replace", 
+          "seed": "final int nRows=getRowDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1363/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:48:33.844322974 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1363/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:48:33.844322974 -0500\n@@ -776,9 +776,10 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n-            final double[] dataRow = data[row];\n+            parity = 1;\n+\t\t\tfinal double[] dataRow = data[row];\n             double sum = 0;\n             for (int i = 0; i < nCols; i++) {\n                 sum += dataRow[i] * v[i];\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 781, 
+          "faulty": "final double[] dataRow=data[row];", 
+          "type": "InsertBefore", 
+          "seed": "parity=1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1013/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:47:04.015357487 -0500\n@@ -986,9 +986,9 @@\n         if (v.length != this.getColumnDimension()) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final int nRows = this.getRowDimension();\n-        final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final int nRows = getRowDimension();\n+        final int nCols = getColumnDimension();\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1013/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:47:04.015357487 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 989, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "Replace", 
+          "seed": "final int nRows=getRowDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 990, 
+          "faulty": "final int nCols=this.getColumnDimension();", 
+          "type": "Replace", 
+          "seed": "final int nCols=getColumnDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_672/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:45:34.668944672 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_672/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:45:34.668944672 -0500\n@@ -771,15 +771,16 @@\n      * @return resulting vector\n      */\n     public double[] operate(double[] v) throws IllegalArgumentException {\n-        final int nRows = this.getRowDimension();\n+        final int nRows = getRowDimension();\n         final int nCols = this.getColumnDimension();\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n-            double sum = 0;\n+            permutation = new int[nRows];\n+\t\t\tdouble sum = 0;\n             for (int i = 0; i < nCols; i++) {\n                 sum += dataRow[i] * v[i];\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 774, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "Replace", 
+          "seed": "final int nRows=getRowDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 782, 
+          "faulty": "double sum=0;", 
+          "type": "InsertBefore", 
+          "seed": "permutation=new int[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1359/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:48:32.996308300 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1359/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:48:32.996308300 -0500\n@@ -776,8 +776,12 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n-        for (int row = 0; row < nRows; row++) {\n+        final double[] out = new double[nRows];\n+        if (nCols == 0) {\n+\t\t\tthrow new IllegalArgumentException(\n+\t\t\t\t\t\"Matrix must have at least one column.\");\n+\t\t}\n+\t\tfor (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n             for (int i = 0; i < nCols; i++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 780, 
+          "faulty": "for (int row=0; row < nRows; row++) {\n  final double[] dataRow=data[row];\n  double sum=0;\n  for (int i=0; i < nCols; i++) {\n    sum+=dataRow[i] * v[i];\n  }\n  out[row]=sum;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (nCols == 0) {\n  throw new IllegalArgumentException(\"Matrix must have at least one column.\");\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1101/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:47:26.067666073 -0500\n@@ -986,9 +986,10 @@\n         if (v.length != this.getColumnDimension()) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final int nRows = this.getRowDimension();\n+        lu = this.getData();\n+\t\tfinal int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1101/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:47:26.071666138 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 989, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "InsertBefore", 
+          "seed": "lu=this.getData();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1117/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:47:30.007731319 -0500\n@@ -988,9 +988,10 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n-            BigDecimal sum = ZERO;\n+            parity = -parity;\n+\t\t\tBigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n                 sum = sum.add(data[row][i].multiply(v[i]));\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1117/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:47:30.011731388 -0500\n@@ -771,12 +771,12 @@\n      * @return resulting vector\n      */\n     public double[] operate(double[] v) throws IllegalArgumentException {\n-        final int nRows = this.getRowDimension();\n+        final int nRows = getRowDimension();\n         final int nCols = this.getColumnDimension();\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 993, 
+          "faulty": "BigDecimal sum=ZERO;", 
+          "type": "InsertBefore", 
+          "seed": "parity=-parity;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 774, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "Replace", 
+          "seed": "final int nRows=getRowDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1552/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:49:23.093356200 -0500\n@@ -984,11 +984,14 @@\n      */\n     public BigDecimal[] operate(BigDecimal[] v) throws IllegalArgumentException {\n         if (v.length != this.getColumnDimension()) {\n+\t\t\tthrow new IllegalArgumentException(\"vector has wrong length\");\n+\t\t}\n+\t\tif (v.length != this.getColumnDimension()) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1552/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:49:23.097356286 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 986, 
+          "faulty": "if (v.length != this.getColumnDimension()) {\n  throw new IllegalArgumentException(\"vector has wrong length\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (v.length != this.getColumnDimension()) {\n  throw new IllegalArgumentException(\"vector has wrong length\");\n}"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1040/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:47:10.359434554 -0500\n@@ -988,11 +988,12 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n-                sum = sum.add(data[row][i].multiply(v[i]));\n+                lu = null;\n+\t\t\t\tsum = sum.add(data[row][i].multiply(v[i]));\n             }\n             out[row] = sum;\n         }\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1040/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:47:10.359434554 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 995, 
+          "faulty": "sum=sum.add(data[row][i].multiply(v[i]));", 
+          "type": "InsertBefore", 
+          "seed": "lu=null;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_378/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:44:17.000783585 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_378/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:44:17.004784428 -0500\n@@ -772,18 +772,19 @@\n      */\n     public double[] operate(double[] v) throws IllegalArgumentException {\n         final int nRows = this.getRowDimension();\n-        final int nCols = this.getColumnDimension();\n+        final int nCols = getColumnDimension();\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n             for (int i = 0; i < nCols; i++) {\n                 sum += dataRow[i] * v[i];\n             }\n-            out[row] = sum;\n+            parity = 1;\n+\t\t\tout[row] = sum;\n         }\n         return out;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 786, 
+          "faulty": "out[row]=sum;", 
+          "type": "InsertBefore", 
+          "seed": "parity=1;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 775, 
+          "faulty": "final int nCols=this.getColumnDimension();", 
+          "type": "Replace", 
+          "seed": "final int nCols=getColumnDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1025/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:47:06.923391276 -0500\n@@ -983,12 +983,13 @@\n      * @throws IllegalArgumentException if columnDimension != v.size()\n      */\n     public BigDecimal[] operate(BigDecimal[] v) throws IllegalArgumentException {\n-        if (v.length != this.getColumnDimension()) {\n+        lu = this.getData();\n+\t\tif (v.length != this.getColumnDimension()) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1025/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:47:06.923391276 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 986, 
+          "faulty": "if (v.length != this.getColumnDimension()) {\n  throw new IllegalArgumentException(\"vector has wrong length\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "lu=this.getData();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_811/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:46:11.118842440 -0500\n@@ -983,12 +983,13 @@\n      * @throws IllegalArgumentException if columnDimension != v.size()\n      */\n     public BigDecimal[] operate(BigDecimal[] v) throws IllegalArgumentException {\n-        if (v.length != this.getColumnDimension()) {\n+        lu = this.getData();\n+\t\tif (v.length != this.getColumnDimension()) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_811/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:46:11.118842440 -0500\n@@ -771,12 +771,12 @@\n      * @return resulting vector\n      */\n     public double[] operate(double[] v) throws IllegalArgumentException {\n-        final int nRows = this.getRowDimension();\n+        final int nRows = getRowDimension();\n         final int nCols = this.getColumnDimension();\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 986, 
+          "faulty": "if (v.length != this.getColumnDimension()) {\n  throw new IllegalArgumentException(\"vector has wrong length\");\n}", 
+          "type": "InsertBefore", 
+          "seed": "lu=this.getData();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 774, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "Replace", 
+          "seed": "final int nRows=getRowDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1452/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:48:57.200800803 -0500\n@@ -988,11 +988,12 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n-                sum = sum.add(data[row][i].multiply(v[i]));\n+                lu = null;\n+\t\t\t\tsum = sum.add(data[row][i].multiply(v[i]));\n             }\n             out[row] = sum;\n         }\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1452/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:48:57.204800889 -0500\n@@ -771,12 +771,12 @@\n      * @return resulting vector\n      */\n     public double[] operate(double[] v) throws IllegalArgumentException {\n-        final int nRows = this.getRowDimension();\n+        final int nRows = getRowDimension();\n         final int nCols = this.getColumnDimension();\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 995, 
+          "faulty": "sum=sum.add(data[row][i].multiply(v[i]));", 
+          "type": "InsertBefore", 
+          "seed": "lu=null;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 774, 
+          "faulty": "final int nRows=this.getRowDimension();", 
+          "type": "Replace", 
+          "seed": "final int nRows=getRowDimension();"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1125/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:47:31.899764052 -0500\n@@ -988,7 +988,7 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n             BigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1125/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:47:31.899764052 -0500\n@@ -776,8 +776,12 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n-        for (int row = 0; row < nRows; row++) {\n+        final double[] out = new double[nRows];\n+        if (nRows == 0) {\n+\t\t\tthrow new IllegalArgumentException(\n+\t\t\t\t\t\"Matrix must have at least one row.\");\n+\t\t}\n+\t\tfor (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n             for (int i = 0; i < nCols; i++) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 780, 
+          "faulty": "for (int row=0; row < nRows; row++) {\n  final double[] dataRow=data[row];\n  double sum=0;\n  for (int i=0; i < nCols; i++) {\n    sum+=dataRow[i] * v[i];\n  }\n  out[row]=sum;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (nRows == 0) {\n  throw new IllegalArgumentException(\"Matrix must have at least one row.\");\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1132/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/BigMatrixImpl.java\t2018-12-01 05:47:33.499779932 -0500\n@@ -988,9 +988,10 @@\n         }\n         final int nRows = this.getRowDimension();\n         final int nCols = this.getColumnDimension();\n-        final BigDecimal[] out = new BigDecimal[v.length];\n+        final BigDecimal[] out = new BigDecimal[nRows];\n         for (int row = 0; row < nRows; row++) {\n-            BigDecimal sum = ZERO;\n+            parity = -parity;\n+\t\t\tBigDecimal sum = ZERO;\n             for (int i = 0; i < nCols; i++) {\n                 sum = sum.add(data[row][i].multiply(v[i]));\n             }\n\n\n--- /tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:41:32.402671471 -0500\n+++ /tmp/Arja_Defects4J_Math_98/patches_pldq/Patch_1132/patched/tmp/Arja_Defects4J_Math_98/src/java/org/apache/commons/math/linear/RealMatrixImpl.java\t2018-12-01 05:47:33.499779932 -0500\n@@ -776,7 +776,7 @@\n         if (v.length != nCols) {\n             throw new IllegalArgumentException(\"vector has wrong length\");\n         }\n-        final double[] out = new double[v.length];\n+        final double[] out = new double[nRows];\n         for (int row = 0; row < nRows; row++) {\n             final double[] dataRow = data[row];\n             double sum = 0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 991, 
+          "faulty": "final BigDecimal[] out=new BigDecimal[v.length];", 
+          "type": "Replace", 
+          "seed": "final BigDecimal[] out=new BigDecimal[nRows];"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/BigMatrixImpl.java", 
+          "line": 993, 
+          "faulty": "BigDecimal sum=ZERO;", 
+          "type": "InsertBefore", 
+          "seed": "parity=-parity;"
+        }, 
+        {
+          "path": "src/java/org/apache/commons/math/linear/RealMatrixImpl.java", 
+          "line": 779, 
+          "faulty": "final double[] out=new double[v.length];", 
+          "type": "Replace", 
+          "seed": "final double[] out=new double[nRows];"
+        }
+      ]
+    }
+  ]
+}

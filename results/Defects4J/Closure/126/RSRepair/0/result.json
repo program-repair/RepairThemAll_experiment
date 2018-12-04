@@ -1,0 +1,366 @@
+{
+  "repair_end": "2018-12-02 11:28:28.756307", 
+  "repair_begin": "2018-12-02 11:17:52.807194", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_611/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:28:22.495943488 -0500\n@@ -134,14 +134,7 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n+      int index = -1;\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:37.538580767 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_93/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:22:47.767227447 -0500\n@@ -221,7 +221,7 @@\n           case SHEQ:            return \"SHEQ\";\n           case SHNE:            return \"SHNE\";\n           case REGEXP:          return \"REGEXP\";\n-          case THROW:           return \"THROW\";\n+          case THROW:           ;\n           case IN:              return \"IN\";\n           case INSTANCEOF:      return \"INSTANCEOF\";\n           case ARRAYLIT:        return \"ARRAYLIT\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_93/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:22:47.771227456 -0500\n@@ -140,7 +140,7 @@\n        */\n       if (NodeUtil.hasFinally(n)) {\n         Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n+        int start = 0;\n       }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Token.java", 
+          "line": 224, 
+          "faulty": "return \"THROW\";", 
+          "type": "Delete", 
+          "seed": "return \"BITOR\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:37.538580767 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_601/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:28:16.191930086 -0500\n@@ -221,7 +221,10 @@\n           case SHEQ:            return \"SHEQ\";\n           case SHNE:            return \"SHNE\";\n           case REGEXP:          return \"REGEXP\";\n-          case THROW:           return \"THROW\";\n+          case THROW:           {\n+\t\t\t\tint c = 0;\n+\t\t\t\treturn \"THROW\";\n+\t\t\t}\n           case IN:              return \"IN\";\n           case INSTANCEOF:      return \"INSTANCEOF\";\n           case ARRAYLIT:        return \"ARRAYLIT\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_601/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:28:16.191930086 -0500\n@@ -134,14 +134,6 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Token.java", 
+          "line": 224, 
+          "faulty": "return \"THROW\";", 
+          "type": "InsertBefore", 
+          "seed": "int c=0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Delete", 
+          "seed": "traverseNodes(n);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_488/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:27:01.819771100 -0500\n@@ -134,14 +134,7 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n+      int start = 0;\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_426/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:26:21.035683109 -0500\n@@ -139,8 +139,9 @@\n        * block. See ECMA 262 Sections 8.9 & 12.14\n        */\n       if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n+        StringBuilder builder = new StringBuilder();\n+\t\tNode finallyBlock = n.getLastChild();\n+        int type = n.getType();\n       }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 142, 
+          "faulty": "Node finallyBlock=n.getLastChild();", 
+          "type": "InsertBefore", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Replace", 
+          "seed": "int type=n.getType();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_315/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:25:09.455529307 -0500\n@@ -134,14 +134,7 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n+      int type = n.getType();\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Replace", 
+          "seed": "int type=n.getType();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_185/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:23:46.111351310 -0500\n@@ -140,7 +140,7 @@\n        */\n       if (NodeUtil.hasFinally(n)) {\n         Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n+        int index = -1;\n       }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:37.538580767 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_559/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:27:49.779873978 -0500\n@@ -226,7 +226,7 @@\n           case INSTANCEOF:      return \"INSTANCEOF\";\n           case ARRAYLIT:        return \"ARRAYLIT\";\n           case OBJECTLIT:       return \"OBJECTLIT\";\n-          case TRY:             return \"TRY\";\n+          case TRY:             int count = 0;\n           case PARAM_LIST:      return \"PARAM_LIST\";\n           case COMMA:           return \"COMMA\";\n           case ASSIGN:          return \"ASSIGN\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_559/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:27:49.779873978 -0500\n@@ -134,14 +134,6 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Delete", 
+          "seed": "return 0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Token.java", 
+          "line": 229, 
+          "faulty": "return \"TRY\";", 
+          "type": "Replace", 
+          "seed": "int count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_146/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:23:21.647299296 -0500\n@@ -140,7 +140,6 @@\n        */\n       if (NodeUtil.hasFinally(n)) {\n         Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n       }\n     }\n \n\n\n--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:37.538580767 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_146/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:23:21.647299296 -0500\n@@ -1454,7 +1454,8 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        StringBuilder s = new StringBuilder();\n+\t\treturn res;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1457, 
+          "faulty": "return res;", 
+          "type": "InsertBefore", 
+          "seed": "StringBuilder s=new StringBuilder();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Delete", 
+          "seed": "return new DotFormatter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_16/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:22:00.791128191 -0500\n@@ -134,14 +134,6 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Delete", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_119/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:23:04.139262141 -0500\n@@ -140,7 +140,7 @@\n        */\n       if (NodeUtil.hasFinally(n)) {\n         Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n+        int type = n.getType();\n       }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Replace", 
+          "seed": "int type=n.getType();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_163/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:23:33.107323649 -0500\n@@ -131,7 +131,8 @@\n       if (NodeUtil.hasCatchHandler(allCatchNodes)) {\n         Preconditions.checkState(allCatchNodes.hasOneChild());\n         Node catchNode = allCatchNodes.getFirstChild();\n-        Node catchCodeBlock = catchNode.getLastChild();\n+        int start = 0;\n+\t\tNode catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n       /* Don't try to minimize the exits of finally blocks, as this\n@@ -140,7 +141,6 @@\n        */\n       if (NodeUtil.hasFinally(n)) {\n         Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n       }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Delete", 
+          "seed": "int index=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 134, 
+          "faulty": "Node catchCodeBlock=catchNode.getLastChild();", 
+          "type": "InsertBefore", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_308/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:25:05.411520643 -0500\n@@ -140,7 +140,7 @@\n        */\n       if (NodeUtil.hasFinally(n)) {\n         Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n+        int start = 0;\n       }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:37.538580767 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_288/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:24:52.531493066 -0500\n@@ -254,7 +254,7 @@\n           case WHILE:           return \"WHILE\";\n           case DO:              return \"DO\";\n           case FOR:             return \"FOR\";\n-          case BREAK:           return \"BREAK\";\n+          case BREAK:           ;\n           case CONTINUE:        return \"CONTINUE\";\n           case VAR:             return \"VAR\";\n           case WITH:            return \"WITH\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_288/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:24:52.531493066 -0500\n@@ -134,14 +134,6 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Token.java", 
+          "line": 257, 
+          "faulty": "return \"BREAK\";", 
+          "type": "Delete", 
+          "seed": "Node block=block();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Delete", 
+          "seed": "return this;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_65/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:22:29.675189169 -0500\n@@ -140,7 +140,6 @@\n        */\n       if (NodeUtil.hasFinally(n)) {\n         Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n       }\n     }\n \n\n\n--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:37.538580767 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_65/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:22:29.679189178 -0500\n@@ -1454,7 +1454,8 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        JSDocInfo jsDocInfo = getJSDocInfo();\n+\t\treturn res;\n       }\n     }\n     return res;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1457, 
+          "faulty": "return res;", 
+          "type": "InsertBefore", 
+          "seed": "JSDocInfo jsDocInfo=getJSDocInfo();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Delete", 
+          "seed": "return 0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_46/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:22:19.355167364 -0500\n@@ -140,7 +140,7 @@\n        */\n       if (NodeUtil.hasFinally(n)) {\n         Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n+        StringBuilder builder = new StringBuilder();\n       }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_258/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:24:33.915453258 -0500\n@@ -134,14 +134,6 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Delete", 
+          "seed": "return new DefaultCodingConvention();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Delete", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_19/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:22:02.131131016 -0500\n@@ -134,14 +134,7 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n+      StringBuilder builder = new StringBuilder();\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_403/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:26:07.035652963 -0500\n@@ -134,14 +134,7 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n+      final String paramName = \"jscomp_throw_param\";\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_61/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:22:27.663184916 -0500\n@@ -129,19 +129,10 @@\n       tryMinimizeExits(tryBlock, exitType, labelName);\n       Node allCatchNodes = NodeUtil.getCatchBlock(n);\n       if (NodeUtil.hasCatchHandler(allCatchNodes)) {\n-        Preconditions.checkState(allCatchNodes.hasOneChild());\n         Node catchNode = allCatchNodes.getFirstChild();\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n     }\n \n     // Just a 'label'.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 132, 
+          "faulty": "Preconditions.checkState(allCatchNodes.hasOneChild());", 
+          "type": "Delete", 
+          "seed": "return null;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Delete", 
+          "seed": "return this;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_53/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:22:23.199175483 -0500\n@@ -134,14 +134,6 @@\n         Node catchCodeBlock = catchNode.getLastChild();\n         tryMinimizeExits(catchCodeBlock, exitType, labelName);\n       }\n-      /* Don't try to minimize the exits of finally blocks, as this\n-       * can cause problems if it changes the completion type of the finally\n-       * block. See ECMA 262 Sections 8.9 & 12.14\n-       */\n-      if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n-      }\n     }\n \n     // Just a 'label'.\n@@ -282,8 +274,6 @@\n         if (labelName == null) {\n           return !n.hasChildren();\n         } else {\n-          return n.hasChildren()\n-            && labelName.equals(n.getFirstChild().getString());\n         }\n       }\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 285, 
+          "faulty": "return n.hasChildren() && labelName.equals(n.getFirstChild().getString());", 
+          "type": "Delete", 
+          "seed": "return toDot(n,null);"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 141, 
+          "faulty": "if (NodeUtil.hasFinally(n)) {\n  Node finallyBlock=n.getLastChild();\n  tryMinimizeExits(finallyBlock,exitType,labelName);\n}", 
+          "type": "Delete", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_169/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:23:36.383330614 -0500\n@@ -139,8 +139,7 @@\n        * block. See ECMA 262 Sections 8.9 & 12.14\n        */\n       if (NodeUtil.hasFinally(n)) {\n-        Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n+        int index = -1;\n       }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 142, 
+          "faulty": "Node finallyBlock=n.getLastChild();", 
+          "type": "Delete", 
+          "seed": "formatConclusion();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:17:40.318586462 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_126/patches_76pb/Patch_10/patched/tmp/RSRepair_Defects4J_Closure_126/src/com/google/javascript/jscomp/MinimizeExitPoints.java\t2018-12-02 05:21:57.299120830 -0500\n@@ -140,7 +140,6 @@\n        */\n       if (NodeUtil.hasFinally(n)) {\n         Node finallyBlock = n.getLastChild();\n-        tryMinimizeExits(finallyBlock, exitType, labelName);\n       }\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/MinimizeExitPoints.java", 
+          "line": 143, 
+          "faulty": "tryMinimizeExits(finallyBlock,exitType,labelName);", 
+          "type": "Delete", 
+          "seed": "formatPreamble();"
+        }
+      ]
+    }
+  ]
+}

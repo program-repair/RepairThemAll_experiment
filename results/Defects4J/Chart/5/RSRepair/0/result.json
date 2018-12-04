@@ -1,0 +1,18 @@
+{
+  "repair_end": "2018-12-02 10:54:10.836799", 
+  "repair_begin": "2018-12-02 10:40:13.446792", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Chart_5/source/org/jfree/data/xy/XYSeries.java\t2018-12-02 04:40:02.749290065 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_5/patches_fppt/Patch_78/patched/tmp/RSRepair_Defects4J_Chart_5/source/org/jfree/data/xy/XYSeries.java\t2018-12-02 04:43:57.725940936 -0500\n@@ -556,16 +556,7 @@\n             existing.setY(y);\n         }\n         else {\n-            // if the series is sorted, the negative index is a result from\n-            // Collections.binarySearch() and tells us where to insert the\n-            // new item...otherwise it will be just -1 and we should just\n-            // append the value to the list...\n-            if (this.autoSort) {\n-                this.data.add(-index - 1, new XYDataItem(x, y));\n-            }\n-            else {\n-                this.data.add(new XYDataItem(x, y));\n-            }\n+            this.data.add(new XYDataItem(x, y));\n             // check if this addition will exceed the maximum item count...\n             if (getItemCount() > this.maximumItemCount) {\n                 this.data.remove(0);\n\n\n", 
+      "edits": [
+        {
+          "path": "source/org/jfree/data/xy/XYSeries.java", 
+          "line": 563, 
+          "faulty": "if (this.autoSort) {\n  this.data.add(-index - 1,new XYDataItem(x,y));\n}\n else {\n  this.data.add(new XYDataItem(x,y));\n}", 
+          "type": "Replace", 
+          "seed": "this.data.add(new XYDataItem(x,y));"
+        }
+      ]
+    }
+  ]
+}

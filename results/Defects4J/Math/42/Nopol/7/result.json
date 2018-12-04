@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-11-29 05:22:45.867081", 
+  "repair_begin": "2018-11-29 05:18:18.068942", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 16, 
+      "patchLocation": {
+        "line": 347, 
+        "class": "org.apache.commons.math.optimization.linear.SimplexTableau"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\n+++ b/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\n@@ -346,3 +346,5 @@\n           if (getBasicRow(col) == null) {\n-            columnsToDrop.add(col);\n+            if (0 < org.apache.commons.math.optimization.linear.SimplexTableau.this.numSlackVariables) {\n+                columnsToDrop.add(col);\n+            }\n           }\n"
+    }
+  ]
+}

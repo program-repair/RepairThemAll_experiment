@@ -1,51 +1,1105 @@
 {
-  "repair_end": "2018-11-28 15:43:58.488319", 
-  "repair_begin": "2018-11-28 15:36:11.677069", 
+  "repair_end": "2018-12-03 00:20:27.740066", 
+  "repair_begin": "2018-12-03 00:12:42.886558", 
   "patches": [
     {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1662/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:19:22.030230805 -0500\n@@ -61,10 +61,15 @@\n             new IntObj (), x = new IntObj ();\n         output +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n-        a.value = scanner.nextInt ();\n+        if (a.value > b.value) {\n+\t\t\tx.value = b.value;\n+\t\t} else {\n+\t\t\tx.value = a.value;\n+\t\t}\n+\t\ta.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +78,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
           "line": 64, 
           "faulty": "a.value=scanner.nextInt();", 
-          "type": "Replace", 
-          "seed": "x.value=a.value;"
+          "type": "InsertBefore", 
+          "seed": "if (a.value > b.value) {\n  x.value=b.value;\n}\n else {\n  x.value=a.value;\n}"
         }, 
         {
           "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
           "line": 67, 
           "faulty": "d.value=scanner.nextInt();", 
-          "type": "InsertBefore", 
-          "seed": "a.value=scanner.nextInt();"
-        }
-      ]
-    }, 
-    {
-      "edits": [
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
         {
           "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
-          "line": 64, 
-          "faulty": "a.value=scanner.nextInt();", 
-          "type": "Replace", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
           "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
         }, 
         {
           "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "InsertBefore", 
+          "seed": "if (a.value > b.value) {\n  x.value=b.value;\n}\n else {\n  x.value=a.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1704/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:19:31.706201678 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,10 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n-        if (true)\n-            return;;\n+        if (true) {\n+\t\t\tx.value = a.value;\n+\t\t\treturn;\n+\t\t};\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
           "line": 67, 
           "faulty": "d.value=scanner.nextInt();", 
-          "type": "InsertBefore", 
-          "seed": "a.value=scanner.nextInt();"
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "b.value=scanner.nextInt();"
         }, 
         {
           "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
           "line": 81, 
           "faulty": "return;", 
           "type": "InsertBefore", 
+          "seed": "x.value=a.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_726/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:41.583494051 -0500\n@@ -59,11 +59,11 @@\n     public void exec () throws Exception {\n         IntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n             new IntObj (), x = new IntObj ();\n-        output +=\n+        c.value = scanner.nextInt();\n+\t\toutput +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n-        c.value = scanner.nextInt ();\n         d.value = scanner.nextInt ();\n         if (a.value > b.value) {\n             x.value = b.value;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 62, 
+          "faulty": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));", 
+          "type": "InsertBefore", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 66, 
+          "faulty": "c.value=scanner.nextInt();", 
+          "type": "Delete", 
+          "seed": "x.value=a.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_422/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:14:29.935490736 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,9 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n+        if (b.value > c.value) {\n+\t\t\tx.value = c.value;\n+\t\t}\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Replace", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_262/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:13:52.403489000 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,9 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;a.value = scanner.nextInt();\n+\t\t\t;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "InsertBefore", 
+          "seed": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
+          "type": "InsertBefore", 
+          "seed": "a.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1449/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:18:31.998384850 -0500\n@@ -64,18 +64,19 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n-            x.value = a.value;\n+            if (a.value > b.value) {\n+\t\t\t\tx.value = b.value;\n+\t\t\t} else {\n+\t\t\t\tx.value = a.value;\n+\t\t\t}\n         }\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 71, 
+          "faulty": "x.value=a.value;", 
+          "type": "Replace", 
+          "seed": "if (a.value > b.value) {\n  x.value=b.value;\n}\n else {\n  x.value=a.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Delete", 
+          "seed": "if (a.value > b.value) {\n  x.value=b.value;\n}\n else {\n  x.value=a.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1290/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:17:54.558504405 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "x.value=b.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "InsertBefore", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1469/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:18:36.570370517 -0500\n@@ -61,10 +61,11 @@\n             new IntObj (), x = new IntObj ();\n         output +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n-        a.value = scanner.nextInt ();\n+        x.value = a.value;\n+\t\ta.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +74,8 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+\t\t\t;;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 64, 
+          "faulty": "a.value=scanner.nextInt();", 
+          "type": "InsertBefore", 
+          "seed": "x.value=a.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "x.value=c.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_430/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:14:31.639490815 -0500\n@@ -61,10 +61,11 @@\n             new IntObj (), x = new IntObj ();\n         output +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n-        a.value = scanner.nextInt ();\n+        x.value = c.value;\n+\t\ta.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +74,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 64, 
+          "faulty": "a.value=scanner.nextInt();", 
+          "type": "InsertBefore", 
+          "seed": "x.value=c.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "x.value=a.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1226/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:17:39.402553991 -0500\n@@ -59,12 +59,15 @@\n     public void exec () throws Exception {\n         IntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n             new IntObj (), x = new IntObj ();\n-        output +=\n+        if (b.value > c.value) {\n+\t\t\tx.value = c.value;\n+\t\t}\n+\t\toutput +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +76,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 62, 
+          "faulty": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));", 
+          "type": "InsertBefore", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "x.value=b.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_669/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:28.607493451 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,12 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n+        if (b.value > c.value) {\n+\t\t\tx.value = c.value;\n+\t\t}\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;output += (String.format(\"%d is the smallest\\n\", x.value));\n+\t\t\t;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Replace", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
+          "type": "InsertBefore", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1798/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:19:53.338135402 -0500\n@@ -59,12 +59,13 @@\n     public void exec () throws Exception {\n         IntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n             new IntObj (), x = new IntObj ();\n-        output +=\n+        x.value = b.value;\n+\t\toutput +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +74,8 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+\t\t\t;;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 62, 
+          "faulty": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));", 
+          "type": "InsertBefore", 
+          "seed": "x.value=b.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1534/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:18:51.898322854 -0500\n@@ -59,12 +59,12 @@\n     public void exec () throws Exception {\n         IntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n             new IntObj (), x = new IntObj ();\n-        output +=\n+        b.value = scanner.nextInt();\n+\t\toutput +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n         a.value = scanner.nextInt ();\n-        b.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 62, 
+          "faulty": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));", 
+          "type": "InsertBefore", 
+          "seed": "b.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 65, 
+          "faulty": "b.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Delete", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_178/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:13:32.455488078 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,9 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n+        if (b.value > c.value) {\n+\t\t\tx.value = c.value;\n+\t\t}\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Replace", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Replace", 
+          "seed": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_626/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:18.675492991 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -74,7 +74,6 @@\n             x.value = c.value;\n         }\n         if (c.value > d.value) {\n-            x.value = d.value;\n         }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Delete", 
+          "seed": "x.value=b.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1896/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:20:16.538064295 -0500\n@@ -59,12 +59,13 @@\n     public void exec () throws Exception {\n         IntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n             new IntObj (), x = new IntObj ();\n-        output +=\n+        x.value = b.value;\n+\t\toutput +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +74,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 62, 
+          "faulty": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));", 
+          "type": "InsertBefore", 
+          "seed": "x.value=b.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Delete", 
+          "seed": "x.value=c.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1756/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:19:43.470166026 -0500\n@@ -57,14 +57,15 @@\n     }\n \n     public void exec () throws Exception {\n-        IntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n+        output += (String\n+\t\t\t\t.format(\"Please enter 4 numbers separated by spaces > \"));\n+\t\tIntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n             new IntObj (), x = new IntObj ();\n-        output +=\n-            (String.format (\"Please enter 4 numbers separated by spaces > \"));\n+        x.value = b.value;\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +74,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 60, 
+          "faulty": "IntObj a=new IntObj(), b=new IntObj(), c=new IntObj(), d=new IntObj(), x=new IntObj();", 
+          "type": "InsertBefore", 
+          "seed": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 62, 
+          "faulty": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));", 
+          "type": "Replace", 
+          "seed": "x.value=b.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_693/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:33.891493695 -0500\n@@ -64,18 +64,20 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n             x.value = a.value;\n         }\n-        if (b.value > c.value) {\n+        if (a.value > b.value) {\n+\t\t\tx.value = b.value;\n+\t\t} else {\n+\t\t\tx.value = a.value;\n+\t\t}\n+\t\tif (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 73, 
+          "faulty": "if (b.value > c.value) {\n  x.value=c.value;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (a.value > b.value) {\n  x.value=b.value;\n}\n else {\n  x.value=a.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "b.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_798/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:57.875494804 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,9 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;a.value = scanner.nextInt();\n+\t\t\t;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "x.value=b.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
+          "type": "InsertBefore", 
+          "seed": "a.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1698/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:19:30.506205279 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,13 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;if (a.value > b.value) {\n+\t\t\tx.value = b.value;\n+\t\t} else {\n+\t\t\tx.value = a.value;\n+\t\t}\n+\t\t\t;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
+          "type": "InsertBefore", 
+          "seed": "if (a.value > b.value) {\n  x.value=b.value;\n}\n else {\n  x.value=a.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1737/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:19:39.362178768 -0500\n@@ -59,12 +59,13 @@\n     public void exec () throws Exception {\n         IntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n             new IntObj (), x = new IntObj ();\n-        output +=\n+        x.value = a.value;\n+\t\toutput +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +74,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 62, 
+          "faulty": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));", 
+          "type": "InsertBefore", 
+          "seed": "x.value=a.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_819/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:16:02.399495014 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "x.value=c.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Replace", 
+          "seed": "x.value=b.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_205/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:13:38.971488379 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_231/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:13:45.071488661 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Delete", 
+          "seed": "x.value=b.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_508/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:14:50.175491673 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,9 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;a.value = scanner.nextInt();\n+\t\t\t;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
+          "type": "InsertBefore", 
+          "seed": "a.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_378/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:14:20.159490284 -0500\n@@ -62,9 +62,12 @@\n         output +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n         a.value = scanner.nextInt ();\n-        b.value = scanner.nextInt ();\n+        if (c.value > d.value) {\n+\t\t\tx.value = d.value;\n+\t\t}\n+\t\tb.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +76,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 65, 
+          "faulty": "b.value=scanner.nextInt();", 
+          "type": "InsertBefore", 
+          "seed": "if (c.value > d.value) {\n  x.value=d.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1934/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:20:25.342037622 -0500\n@@ -61,21 +61,23 @@\n             new IntObj (), x = new IntObj ();\n         output +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n-        a.value = scanner.nextInt ();\n+        x.value = c.value;\n+\t\ta.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n-            x.value = a.value;\n+            if (a.value > b.value) {\n+\t\t\t\tx.value = b.value;\n+\t\t\t} else {\n+\t\t\t\tx.value = a.value;\n+\t\t\t}\n         }\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 64, 
+          "faulty": "a.value=scanner.nextInt();", 
+          "type": "InsertBefore", 
+          "seed": "x.value=c.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 71, 
+          "faulty": "x.value=a.value;", 
+          "type": "Replace", 
+          "seed": "if (a.value > b.value) {\n  x.value=b.value;\n}\n else {\n  x.value=a.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1185/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:17:29.790585823 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,11 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n+        if (b.value > c.value) {\n+\t\t\tx.value = c.value;\n+\t\t}\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Replace", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
+          "type": "Delete", 
+          "seed": "d.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1370/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:18:13.510443388 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,8 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;d.value = scanner.nextInt();\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "x.value=a.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
+          "type": "Replace", 
+          "seed": "d.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_665/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:27.879493417 -0500\n@@ -64,8 +64,9 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n-        if (a.value > b.value) {\n+        c.value = scanner.nextInt();\n+        x.value = a.value;\n+\t\tif (a.value > b.value) {\n             x.value = b.value;\n         } else {\n             x.value = a.value;\n@@ -73,9 +74,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 68, 
+          "faulty": "if (a.value > b.value) {\n  x.value=b.value;\n}\n else {\n  x.value=a.value;\n}", 
+          "type": "InsertBefore", 
+          "seed": "x.value=a.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_439/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:14:33.579490905 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,11 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n+        if (b.value > c.value) {\n+\t\t\tx.value = c.value;\n+\t\t}\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+\t\t\t;;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Replace", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": "return;", 
+          "type": "Delete", 
           "seed": "if (c.value > d.value) {\n  x.value=d.value;\n}"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1752/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:19:42.734168320 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,8 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+\t\t\t;;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Delete", 
+          "seed": "if (a.value > b.value) {\n  x.value=b.value;\n}\n else {\n  x.value=a.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "c.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_689/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:33.167493661 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,8 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
+          "type": "Delete", 
+          "seed": "b.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1657/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:19:21.062233730 -0500\n@@ -64,18 +64,19 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n-            x.value = a.value;\n+            if (a.value > b.value) {\n+\t\t\t\tx.value = b.value;\n+\t\t\t} else {\n+\t\t\t\tx.value = a.value;\n+\t\t\t}\n         }\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 71, 
+          "faulty": "x.value=a.value;", 
+          "type": "Replace", 
+          "seed": "if (a.value > b.value) {\n  x.value=b.value;\n}\n else {\n  x.value=a.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_415/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:14:28.471490669 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,9 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n+        if (b.value > c.value) {\n+\t\t\tx.value = c.value;\n+\t\t}\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Replace", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_738/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:43.759494151 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "x.value=b.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "InsertBefore", 
+          "seed": "b.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_735/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:43.279494129 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "b.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "InsertBefore", 
+          "seed": "if (c.value > d.value) {\n  x.value=d.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_387/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:14:22.127490375 -0500\n@@ -57,14 +57,15 @@\n     }\n \n     public void exec () throws Exception {\n-        IntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n+        ;\n+\t\tIntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n             new IntObj (), x = new IntObj ();\n         output +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +74,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 60, 
+          "faulty": "IntObj a=new IntObj(), b=new IntObj(), c=new IntObj(), d=new IntObj(), x=new IntObj();", 
+          "type": "InsertBefore", 
+          "seed": ";"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_745/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:45.223494219 -0500\n@@ -61,10 +61,11 @@\n             new IntObj (), x = new IntObj ();\n         output +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n-        a.value = scanner.nextInt ();\n+        x.value = c.value;\n+\t\ta.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +74,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 64, 
+          "faulty": "a.value=scanner.nextInt();", 
+          "type": "InsertBefore", 
+          "seed": "x.value=c.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Delete", 
+          "seed": "x.value=c.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_352/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:14:14.075490003 -0500\n@@ -61,10 +61,11 @@\n             new IntObj (), x = new IntObj ();\n         output +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n-        a.value = scanner.nextInt ();\n+        x.value = a.value;\n+\t\ta.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +74,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 64, 
+          "faulty": "a.value=scanner.nextInt();", 
+          "type": "InsertBefore", 
+          "seed": "x.value=a.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "x.value=c.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_814/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:16:01.451494970 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,8 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;\n     }\n }\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
@@ -60,56 +1114,164 @@
           "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
           "type": "Delete", 
           "seed": "if (c.value > d.value) {\n  x.value=d.value;\n}"
-        }
-      ]
-    }, 
-    {
-      "edits": [
-        {
-          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
-          "line": 66, 
-          "faulty": "c.value=scanner.nextInt();", 
-          "type": "Delete", 
-          "seed": "x.value=a.value;"
-        }, 
-        {
-          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
-          "line": 73, 
-          "faulty": "if (b.value > c.value) {\n  x.value=c.value;\n}", 
-          "type": "InsertBefore", 
-          "seed": "c.value=scanner.nextInt();"
         }, 
         {
           "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
           "line": 77, 
           "faulty": "x.value=d.value;", 
+          "type": "InsertBefore", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
           "type": "Delete", 
-          "seed": "x.value=a.value;"
+          "seed": "b.value=scanner.nextInt();"
         }
       ]
     }, 
     {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1375/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:18:14.510440198 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,9 +73,6 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n             return;;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
-          "line": 64, 
-          "faulty": "a.value=scanner.nextInt();", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
           "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "b.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Replace", 
+          "seed": "if (c.value > d.value) {\n  x.value=d.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_973/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:16:39.167009701 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,8 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;a.value = scanner.nextInt();\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
+          "type": "Replace", 
+          "seed": "a.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_1076/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:17:03.830737573 -0500\n@@ -59,12 +59,13 @@\n     public void exec () throws Exception {\n         IntObj a = new IntObj (), b = new IntObj (), c = new IntObj (), d =\n             new IntObj (), x = new IntObj ();\n-        output +=\n+        x.value = a.value;\n+\t\toutput +=\n             (String.format (\"Please enter 4 numbers separated by spaces > \"));\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +74,8 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;b.value = scanner.nextInt();\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 62, 
+          "faulty": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));", 
+          "type": "InsertBefore", 
           "seed": "x.value=a.value;"
         }, 
         {
           "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
           "line": 67, 
           "faulty": "d.value=scanner.nextInt();", 
-          "type": "InsertBefore", 
-          "seed": "a.value=scanner.nextInt();"
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 77, 
+          "faulty": "x.value=d.value;", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
         }, 
         {
           "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
           "line": 81, 
           "faulty": ";", 
-          "type": "InsertBefore", 
-          "seed": "if (c.value > d.value) {\n  x.value=d.value;\n}"
+          "type": "Replace", 
+          "seed": "b.value=scanner.nextInt();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_729/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:15:42.067494073 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,8 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+\t\t\t;;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the smallest\\n\",x.value));"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"Please enter 4 numbers separated by spaces > \"));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-11-05 17:59:11.937695000 -0500\n+++ /tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/patches_ro4g/Patch_391/patched/tmp/Arja_IntroClassJava_smallest_769cd811312cbbb82c87033a78ac9584ad282550bcb9cc3ae8c4e3da44c288c1a5b3954e01998c3c0654ee6774ceab66e9fe5b135750905c917d2b0bb5fab98b_009/src/main/java/introclassJava/smallest_769cd811_009.java\t2018-12-02 18:14:22.867490409 -0500\n@@ -64,7 +64,7 @@\n         a.value = scanner.nextInt ();\n         b.value = scanner.nextInt ();\n         c.value = scanner.nextInt ();\n-        d.value = scanner.nextInt ();\n+        c.value = scanner.nextInt();\n         if (a.value > b.value) {\n             x.value = b.value;\n         } else {\n@@ -73,11 +73,11 @@\n         if (b.value > c.value) {\n             x.value = c.value;\n         }\n-        if (c.value > d.value) {\n-            x.value = d.value;\n-        }\n+        if (b.value > c.value) {\n+\t\t\tx.value = c.value;\n+\t\t}\n         output += (String.format (\"%d is the smallest\\n\", x.value));\n         if (true)\n-            return;;\n+            return;d.value = scanner.nextInt();\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 67, 
+          "faulty": "d.value=scanner.nextInt();", 
+          "type": "Replace", 
+          "seed": "c.value=scanner.nextInt();"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 76, 
+          "faulty": "if (c.value > d.value) {\n  x.value=d.value;\n}", 
+          "type": "Replace", 
+          "seed": "if (b.value > c.value) {\n  x.value=c.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/smallest_769cd811_009.java", 
+          "line": 81, 
+          "faulty": ";", 
+          "type": "Replace", 
+          "seed": "d.value=scanner.nextInt();"
         }
       ]
     }

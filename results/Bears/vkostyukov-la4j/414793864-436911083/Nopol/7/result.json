@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-03 19:28:25.309833", 
+  "repair_begin": "2018-12-03 19:21:26.944463", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 123, 
+      "patchLocation": {
+        "line": 810, 
+        "class": "org.la4j.Vector"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/la4j/Vector.java\n+++ b/src/main/java/org/la4j/Vector.java\n@@ -809,4 +809,6 @@\n             double diff = Math.abs(a - b);\n-            result = (a == b) ||\n-                    (diff < precision || diff / Math.max(Math.abs(a), Math.abs(b)) < precision);\n+            if ((org.la4j.Vector.DEFAULT_DELIMITER.length()==0) || (!(((that.length) != (1000)) && (3 <= org.la4j.Vector.this.length)))) {\n+                result = (a == b) ||\n+                (diff < precision || diff / Math.max(Math.abs(a), Math.abs(b)) < precision);\n+            }\n         }\n"
+    }
+  ]
+}

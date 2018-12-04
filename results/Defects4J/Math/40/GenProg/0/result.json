@@ -1,0 +1,46 @@
+{
+  "repair_end": "2018-12-02 19:38:05.845558", 
+  "repair_begin": "2018-12-02 18:37:47.038024", 
+  "patches": [
+    {
+      "diff": "--- /tmp/GenProg_Defects4J_Math_40/src/main/java/org/apache/commons/math/exception/util/ExceptionContext.java\t2018-12-02 12:37:26.975197430 -0500\n+++ /tmp/GenProg_Defects4J_Math_40/patches_oq16/Patch_388/patched/tmp/GenProg_Defects4J_Math_40/src/main/java/org/apache/commons/math/exception/util/ExceptionContext.java\t2018-12-02 13:10:07.801276941 -0500\n@@ -134,7 +134,8 @@\n      * @return the localized message.\n      */\n     public String getLocalizedMessage() {\n-        return getMessage(Locale.getDefault());\n+        this.throwable = throwable;\n+\t\treturn getMessage(Locale.getDefault());\n     }\n \n     /**\n@@ -172,16 +173,15 @@\n         int count = 0;\n         final int len = msgPatterns.size();\n         for (int i = 0; i < len; i++) {\n-            final Localizable pat = msgPatterns.get(i);\n-            final Object[] args = msgArguments.get(i);\n-            final MessageFormat fmt = new MessageFormat(pat.getLocalizedString(locale),\n-                                                        locale);\n-            sb.append(fmt.format(args));\n-            if (++count < len) {\n-                // Add a separator if there are other messages.\n-                sb.append(separator);\n-            }\n-        }\n+\t\t\tfinal Localizable pat = msgPatterns.get(i);\n+\t\t\tfinal Object[] args = msgArguments.get(i);\n+\t\t\tfinal MessageFormat fmt = new MessageFormat(\n+\t\t\t\t\tpat.getLocalizedString(locale), locale);\n+\t\t\tsb.append(fmt.format(args));\n+\t\t\tif (++count < len) {\n+\t\t\t\tsb.append(separator);\n+\t\t\t}\n+\t\t}\n \n         return sb.toString();\n     }\n\n\n--- /tmp/GenProg_Defects4J_Math_40/src/main/java/org/apache/commons/math/exception/MathIllegalStateException.java\t2018-12-02 12:37:26.971197430 -0500\n+++ /tmp/GenProg_Defects4J_Math_40/patches_oq16/Patch_388/patched/tmp/GenProg_Defects4J_Math_40/src/main/java/org/apache/commons/math/exception/MathIllegalStateException.java\t2018-12-02 13:10:07.821277503 -0500\n@@ -83,6 +83,6 @@\n     /** {@inheritDoc} */\n     @Override\n     public String getLocalizedMessage() {\n-        return context.getLocalizedMessage();\n+        return context.getMessage();\n     }\n }\n\n\n--- /tmp/GenProg_Defects4J_Math_40/src/main/java/org/apache/commons/math/analysis/solvers/BracketingNthOrderBrentSolver.java\t2018-12-02 12:37:30.667197300 -0500\n+++ /tmp/GenProg_Defects4J_Math_40/patches_oq16/Patch_388/patched/tmp/GenProg_Defects4J_Math_40/src/main/java/org/apache/commons/math/analysis/solvers/BracketingNthOrderBrentSolver.java\t2018-12-02 13:10:07.821277503 -0500\n@@ -261,7 +261,12 @@\n                         // we have more points before the sign change, drop the lowest point\n                         ++start;\n                     } else {\n-                        // we have more points after sign change, drop the highest point\n+                        if (signChangeIndex - start >= end - signChangeIndex) {\n+\t\t\t\t\t\t\t++start;\n+\t\t\t\t\t\t} else {\n+\t\t\t\t\t\t\t--end;\n+\t\t\t\t\t\t}\n+\t\t\t\t\t\t// we have more points after sign change, drop the highest point\n                         --end;\n                     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/exception/MathIllegalStateException.java", 
+          "line": 86, 
+          "faulty": "return context.getLocalizedMessage();", 
+          "type": "Replace", 
+          "seed": "return context.getMessage();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/exception/util/ExceptionContext.java", 
+          "line": 174, 
+          "faulty": "for (int i=0; i < len; i++) {\n  final Localizable pat=msgPatterns.get(i);\n  final Object[] args=msgArguments.get(i);\n  final MessageFormat fmt=new MessageFormat(pat.getLocalizedString(locale),locale);\n  sb.append(fmt.format(args));\n  if (++count < len) {\n    sb.append(separator);\n  }\n}", 
+          "type": "Replace", 
+          "seed": "for (int i=0; i < len; i++) {\n  final Localizable pat=msgPatterns.get(i);\n  final Object[] args=msgArguments.get(i);\n  final MessageFormat fmt=new MessageFormat(pat.getLocalizedString(locale),locale);\n  sb.append(fmt.format(args));\n  if (++count < len) {\n    sb.append(separator);\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/exception/util/ExceptionContext.java", 
+          "line": 179, 
+          "faulty": "sb.append(fmt.format(args));", 
+          "type": "Replace", 
+          "seed": "msgPatterns=new ArrayList<Localizable>();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/exception/util/ExceptionContext.java", 
+          "line": 137, 
+          "faulty": "return getMessage(Locale.getDefault());", 
+          "type": "InsertBefore", 
+          "seed": "this.throwable=throwable;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BracketingNthOrderBrentSolver.java", 
+          "line": 265, 
+          "faulty": "--end;", 
+          "type": "InsertBefore", 
+          "seed": "if (signChangeIndex - start >= end - signChangeIndex) {\n  ++start;\n}\n else {\n  --end;\n}"
+        }
+      ]
+    }
+  ]
+}

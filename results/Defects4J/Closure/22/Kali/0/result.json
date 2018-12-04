@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-02 02:20:56.614108", 
+  "repair_begin": "2018-12-02 02:16:59.748070", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Defects4J_Closure_22/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-01 20:16:47.277193162 -0500\n+++ /tmp/Kali_Defects4J_Closure_22/patches_2bcl/Patch_4/patched/tmp/Kali_Defects4J_Closure_22/src/com/google/javascript/jscomp/CheckSideEffects.java\t2018-12-01 20:20:56.170828245 -0500\n@@ -108,7 +108,7 @@\n \n     // This no-op statement was there so that JSDoc information could\n     // be attached to the name. This check should not complain about it.\n-      if (n == parent.getLastChild()) {\n+      if (false) {\n         for (Node an : parent.getAncestors()) {\n           int ancestorType = an.getType();\n           if (ancestorType == Token.COMMA)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/CheckSideEffects.java", 
+          "line": 111, 
+          "faulty": "if (n == parent.getLastChild()) {\n  for (  Node an : parent.getAncestors()) {\n    int ancestorType=an.getType();\n    if (ancestorType == Token.COMMA)     continue;\n    if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)     return;\n else     break;\n  }\n}", 
+          "type": "RedirectBranch false"
+        }
+      ]
+    }
+  ]
+}

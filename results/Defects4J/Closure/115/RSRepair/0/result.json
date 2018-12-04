@@ -1,0 +1,385 @@
+{
+  "repair_end": "2018-12-02 11:50:23.063724", 
+  "repair_begin": "2018-12-02 11:27:51.283109", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_87/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:36:00.535720996 -0500\n@@ -726,20 +726,6 @@\n     while (cArg != null || fnParam != null) {\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n-        if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n-          // Check for arguments that are evaluated more than once.\n-          // Note: Unlike block inlining, there it is not possible that a\n-          // parameter reference will be in a loop.\n-          if (NodeUtil.mayEffectMutableState(cArg, compiler)\n-              && NodeUtil.getNameReferenceCount(\n-                  block, fnParam.getString()) > 1) {\n-            return CanInlineResult.NO;\n-          }\n-        }\n-\n         // Move to the next name.\n         fnParam = fnParam.getNext();\n       }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 730, 
+          "faulty": "if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n  return CanInlineResult.NO;\n}", 
+          "type": "InsertBefore", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 729, 
+          "faulty": "if (cArg != null) {\n  if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n    return CanInlineResult.NO;\n  }\n  if (NodeUtil.mayEffectMutableState(cArg,compiler) && NodeUtil.getNameReferenceCount(block,fnParam.getString()) > 1) {\n    return CanInlineResult.NO;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_239/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:38:47.576120794 -0500\n@@ -728,7 +728,7 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n+            int index = -1;\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_349/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:41:10.920442900 -0500\n@@ -728,7 +728,7 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n+            return null;\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Replace", 
+          "seed": "return null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:27:29.470156126 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_449/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:43:02.824686671 -0500\n@@ -894,7 +894,6 @@\n     public boolean hasBlockInliningReferences() {\n       for (Reference r : getReferencesInternal().values()) {\n         if (r.mode == InliningMode.BLOCK) {\n-          return true;\n         }\n       }\n       return false;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_449/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:43:02.828686679 -0500\n@@ -728,7 +728,7 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n+            StringBuilder builder = new StringBuilder();\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/InlineFunctions.java", 
+          "line": 897, 
+          "faulty": "return true;", 
+          "type": "Delete", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:27:29.470156126 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_312/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:40:20.352330807 -0500\n@@ -756,8 +756,7 @@\n           // For functions that can no longer be removed, check if they should\n           // still be inlined.\n           if (!mimimizeCost(fsCalled)) {\n-            // It can't be inlined remove it from the list.\n-            fsCalled.setInline(false);\n+            int start = 0;\n           }\n         }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_312/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:40:20.356330817 -0500\n@@ -728,7 +728,6 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Delete", 
+          "seed": "int start=0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/InlineFunctions.java", 
+          "line": 760, 
+          "faulty": "fsCalled.setInline(false);", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_9/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:34:37.839511929 -0500\n@@ -728,7 +728,6 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Delete", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:27:29.470156126 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_639/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:46:55.089365645 -0500\n@@ -742,7 +742,7 @@\n   private void resolveInlineConflictsForFunction(FunctionState fs) {\n     // Functions that aren't referenced don't cause conflicts.\n     if (!fs.hasReferences() || !fs.canInline()) {\n-      return;\n+      final String paramName = \"jscomp_throw_param\";\n     }\n \n     Node fnNode = fs.getFn().getFunctionNode();\n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_639/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:46:55.093365659 -0500\n@@ -728,7 +728,6 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Delete", 
+          "seed": "return new DotFormatter();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/InlineFunctions.java", 
+          "line": 745, 
+          "faulty": "return;", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:27:29.710156133 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_699/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:48:01.953568332 -0500\n@@ -1456,7 +1456,8 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        int count = 0;\n+\t\treturn res;\n       }\n     }\n     return res;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_699/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:48:01.953568332 -0500\n@@ -728,7 +728,6 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Delete", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1459, 
+          "faulty": "return res;", 
+          "type": "InsertBefore", 
+          "seed": "int count=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_204/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:38:05.100022244 -0500\n@@ -727,9 +727,6 @@\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n         if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n           // parameter reference will be in a loop.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 730, 
+          "faulty": "if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n  return CanInlineResult.NO;\n}", 
+          "type": "Delete", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:27:29.470156126 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_108/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:36:22.311775244 -0500\n@@ -501,8 +501,7 @@\n         // This reference can not be directly inlined, see if\n         // block replacement inlining is possible.\n         mode = InliningMode.BLOCK;\n-        referenceAdded = maybeAddReferenceUsingMode(\n-            t, fs, callNode, module, mode);\n+        StringBuilder builder = new StringBuilder();\n       }\n \n       if (!referenceAdded) {\n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_108/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:36:22.315775254 -0500\n@@ -726,20 +726,6 @@\n     while (cArg != null || fnParam != null) {\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n-        if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n-          // Check for arguments that are evaluated more than once.\n-          // Note: Unlike block inlining, there it is not possible that a\n-          // parameter reference will be in a loop.\n-          if (NodeUtil.mayEffectMutableState(cArg, compiler)\n-              && NodeUtil.getNameReferenceCount(\n-                  block, fnParam.getString()) > 1) {\n-            return CanInlineResult.NO;\n-          }\n-        }\n-\n         // Move to the next name.\n         fnParam = fnParam.getNext();\n       }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 729, 
+          "faulty": "if (cArg != null) {\n  if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n    return CanInlineResult.NO;\n  }\n  if (NodeUtil.mayEffectMutableState(cArg,compiler) && NodeUtil.getNameReferenceCount(block,fnParam.getString()) > 1) {\n    return CanInlineResult.NO;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/InlineFunctions.java", 
+          "line": 504, 
+          "faulty": "referenceAdded=maybeAddReferenceUsingMode(t,fs,callNode,module,mode);", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:27:29.470156126 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_480/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:43:38.784764040 -0500\n@@ -501,8 +501,6 @@\n         // This reference can not be directly inlined, see if\n         // block replacement inlining is possible.\n         mode = InliningMode.BLOCK;\n-        referenceAdded = maybeAddReferenceUsingMode(\n-            t, fs, callNode, module, mode);\n       }\n \n       if (!referenceAdded) {\n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_480/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:43:38.784764040 -0500\n@@ -726,19 +726,7 @@\n     while (cArg != null || fnParam != null) {\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n-        if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n-          // Check for arguments that are evaluated more than once.\n-          // Note: Unlike block inlining, there it is not possible that a\n-          // parameter reference will be in a loop.\n-          if (NodeUtil.mayEffectMutableState(cArg, compiler)\n-              && NodeUtil.getNameReferenceCount(\n-                  block, fnParam.getString()) > 1) {\n-            return CanInlineResult.NO;\n-          }\n-        }\n+        int index = -1;\n \n         // Move to the next name.\n         fnParam = fnParam.getNext();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 729, 
+          "faulty": "if (cArg != null) {\n  if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n    return CanInlineResult.NO;\n  }\n  if (NodeUtil.mayEffectMutableState(cArg,compiler) && NodeUtil.getNameReferenceCount(block,fnParam.getString()) > 1) {\n    return CanInlineResult.NO;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/InlineFunctions.java", 
+          "line": 504, 
+          "faulty": "referenceAdded=maybeAddReferenceUsingMode(t,fs,callNode,module,mode);", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_452/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:43:05.172691735 -0500\n@@ -726,20 +726,6 @@\n     while (cArg != null || fnParam != null) {\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n-        if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n-          // Check for arguments that are evaluated more than once.\n-          // Note: Unlike block inlining, there it is not possible that a\n-          // parameter reference will be in a loop.\n-          if (NodeUtil.mayEffectMutableState(cArg, compiler)\n-              && NodeUtil.getNameReferenceCount(\n-                  block, fnParam.getString()) > 1) {\n-            return CanInlineResult.NO;\n-          }\n-        }\n-\n         // Move to the next name.\n         fnParam = fnParam.getNext();\n       }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 730, 
+          "faulty": "if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n  return CanInlineResult.NO;\n}", 
+          "type": "InsertBefore", 
+          "seed": "return new DefaultCodingConvention();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 729, 
+          "faulty": "if (cArg != null) {\n  if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n    return CanInlineResult.NO;\n  }\n  if (NodeUtil.mayEffectMutableState(cArg,compiler) && NodeUtil.getNameReferenceCount(block,fnParam.getString()) > 1) {\n    return CanInlineResult.NO;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_34/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:35:02.319571798 -0500\n@@ -726,19 +726,7 @@\n     while (cArg != null || fnParam != null) {\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n-        if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n-          // Check for arguments that are evaluated more than once.\n-          // Note: Unlike block inlining, there it is not possible that a\n-          // parameter reference will be in a loop.\n-          if (NodeUtil.mayEffectMutableState(cArg, compiler)\n-              && NodeUtil.getNameReferenceCount(\n-                  block, fnParam.getString()) > 1) {\n-            return CanInlineResult.NO;\n-          }\n-        }\n+        final String paramName = \"jscomp_throw_param\";\n \n         // Move to the next name.\n         fnParam = fnParam.getNext();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 729, 
+          "faulty": "if (cArg != null) {\n  if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n    return CanInlineResult.NO;\n  }\n  if (NodeUtil.mayEffectMutableState(cArg,compiler) && NodeUtil.getNameReferenceCount(block,fnParam.getString()) > 1) {\n    return CanInlineResult.NO;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_22/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:34:50.839542240 -0500\n@@ -728,7 +728,7 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n+            final String paramName = \"jscomp_throw_param\";\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Replace", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionToBlockMutator.java\t2018-12-02 05:27:29.470156126 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_499/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionToBlockMutator.java\t2018-12-02 05:43:57.144809676 -0500\n@@ -198,7 +198,8 @@\n \n     @Override\n     public String get() {\n-        return \"JSCompiler_inline_label_\" + idSupplier.get();\n+        StringBuilder builder = new StringBuilder();\n+\t\treturn \"JSCompiler_inline_label_\" + idSupplier.get();\n     }\n   }\n \n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_499/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:43:57.144809676 -0500\n@@ -727,9 +727,6 @@\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n         if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n           // parameter reference will be in a loop.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionToBlockMutator.java", 
+          "line": 201, 
+          "faulty": "return \"JSCompiler_inline_label_\" + idSupplier.get();", 
+          "type": "InsertBefore", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 730, 
+          "faulty": "if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n  return CanInlineResult.NO;\n}", 
+          "type": "Delete", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:27:29.470156126 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_447/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:43:01.852684574 -0500\n@@ -884,7 +884,8 @@\n     void removeBlockInliningReferences() {\n       Iterator<Entry<Node, Reference>> i;\n       for (i = getReferencesInternal().entrySet().iterator(); i.hasNext();) {\n-        Entry<Node, Reference> entry = i.next();\n+        int start = 0;\n+\t\tEntry<Node, Reference> entry = i.next();\n         if (entry.getValue().mode == InliningMode.BLOCK) {\n           i.remove();\n         }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_447/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:43:01.856684583 -0500\n@@ -726,20 +726,6 @@\n     while (cArg != null || fnParam != null) {\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n-        if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n-          // Check for arguments that are evaluated more than once.\n-          // Note: Unlike block inlining, there it is not possible that a\n-          // parameter reference will be in a loop.\n-          if (NodeUtil.mayEffectMutableState(cArg, compiler)\n-              && NodeUtil.getNameReferenceCount(\n-                  block, fnParam.getString()) > 1) {\n-            return CanInlineResult.NO;\n-          }\n-        }\n-\n         // Move to the next name.\n         fnParam = fnParam.getNext();\n       }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/InlineFunctions.java", 
+          "line": 887, 
+          "faulty": "Entry<Node,Reference> entry=i.next();", 
+          "type": "InsertBefore", 
+          "seed": "int start=0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 729, 
+          "faulty": "if (cArg != null) {\n  if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n    return CanInlineResult.NO;\n  }\n  if (NodeUtil.mayEffectMutableState(cArg,compiler) && NodeUtil.getNameReferenceCount(block,fnParam.getString()) > 1) {\n    return CanInlineResult.NO;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return new DotFormatter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_593/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:45:57.097182580 -0500\n@@ -726,19 +726,7 @@\n     while (cArg != null || fnParam != null) {\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n-        if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n-          // Check for arguments that are evaluated more than once.\n-          // Note: Unlike block inlining, there it is not possible that a\n-          // parameter reference will be in a loop.\n-          if (NodeUtil.mayEffectMutableState(cArg, compiler)\n-              && NodeUtil.getNameReferenceCount(\n-                  block, fnParam.getString()) > 1) {\n-            return CanInlineResult.NO;\n-          }\n-        }\n+        int start = 0;\n \n         // Move to the next name.\n         fnParam = fnParam.getNext();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 729, 
+          "faulty": "if (cArg != null) {\n  if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n    return CanInlineResult.NO;\n  }\n  if (NodeUtil.mayEffectMutableState(cArg,compiler) && NodeUtil.getNameReferenceCount(block,fnParam.getString()) > 1) {\n    return CanInlineResult.NO;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_166/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:37:26.647931405 -0500\n@@ -728,7 +728,7 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n+            StringBuilder builder = new StringBuilder();\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Replace", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_118/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:36:36.735810765 -0500\n@@ -727,9 +727,7 @@\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n         if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n+          int start = 0;\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n           // parameter reference will be in a loop.\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 730, 
+          "faulty": "if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n  return CanInlineResult.NO;\n}", 
+          "type": "Replace", 
+          "seed": "int start=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/RenameLabels.java\t2018-12-02 05:27:29.486156127 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_495/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/RenameLabels.java\t2018-12-02 05:43:53.336796946 -0500\n@@ -206,8 +206,6 @@\n           // Mark the label as referenced so it isn't removed.\n           li.referenced = true;\n           if (!name.equals(newName)) {\n-            // Give it the short name.\n-            nameNode.setString(newName);\n             compiler.reportCodeChange();\n           }\n         }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_495/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:43:53.336796946 -0500\n@@ -728,7 +728,6 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/RenameLabels.java", 
+          "line": 210, 
+          "faulty": "nameNode.setString(newName);", 
+          "type": "Delete", 
+          "seed": "return 0;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Delete", 
+          "seed": "StringBuilder builder=new StringBuilder();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:27:29.710156133 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_375/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:41:37.316500880 -0500\n@@ -1443,7 +1443,8 @@\n    */\n   NodeMismatch checkTreeEqualsImpl(Node node2) {\n     if (!isEquivalentTo(node2, false, false, false)) {\n-      return new NodeMismatch(this, node2);\n+      int slashV1 = this.getIntProp(SLASH_V);\n+\treturn new NodeMismatch(this, node2);\n     }\n \n     NodeMismatch res = null;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_375/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:41:37.316500880 -0500\n@@ -728,7 +728,6 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Delete", 
+          "seed": "final String paramName=\"jscomp_throw_param\";"
+        }, 
+        {
+          "path": "src/com/google/javascript/rhino/Node.java", 
+          "line": 1446, 
+          "faulty": "return new NodeMismatch(this,node2);", 
+          "type": "InsertBefore", 
+          "seed": "int slashV1=this.getIntProp(SLASH_V);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:27:29.470156126 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_66/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/InlineFunctions.java\t2018-12-02 05:35:34.939656192 -0500\n@@ -689,7 +689,6 @@\n       // Try again without Block inlining references\n       if (fs.hasBlockInliningReferences()) {\n         fs.setRemove(false);\n-        fs.removeBlockInliningReferences();\n         if (!fs.hasReferences() || !inliningLowersCost(fs)) {\n           return false;\n         }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_66/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:35:34.939656192 -0500\n@@ -728,7 +728,7 @@\n       if (fnParam != null) {\n         if (cArg != null) {\n           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n+            int index = -1;\n           }\n           // Check for arguments that are evaluated more than once.\n           // Note: Unlike block inlining, there it is not possible that a\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 731, 
+          "faulty": "return CanInlineResult.NO;", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }, 
+        {
+          "path": "src/com/google/javascript/jscomp/InlineFunctions.java", 
+          "line": 692, 
+          "faulty": "fs.removeBlockInliningReferences();", 
+          "type": "Delete", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_129/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:36:47.107836115 -0500\n@@ -726,20 +726,6 @@\n     while (cArg != null || fnParam != null) {\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n-        if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n-          // Check for arguments that are evaluated more than once.\n-          // Note: Unlike block inlining, there it is not possible that a\n-          // parameter reference will be in a loop.\n-          if (NodeUtil.mayEffectMutableState(cArg, compiler)\n-              && NodeUtil.getNameReferenceCount(\n-                  block, fnParam.getString()) > 1) {\n-            return CanInlineResult.NO;\n-          }\n-        }\n-\n         // Move to the next name.\n         fnParam = fnParam.getNext();\n       }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 729, 
+          "faulty": "if (cArg != null) {\n  if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n    return CanInlineResult.NO;\n  }\n  if (NodeUtil.mayEffectMutableState(cArg,compiler) && NodeUtil.getNameReferenceCount(block,fnParam.getString()) > 1) {\n    return CanInlineResult.NO;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:27:32.386156206 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_115/patches_r0m3/Patch_509/patched/tmp/RSRepair_Defects4J_Closure_115/src/com/google/javascript/jscomp/FunctionInjector.java\t2018-12-02 05:44:13.072862246 -0500\n@@ -726,19 +726,7 @@\n     while (cArg != null || fnParam != null) {\n       // For each named parameter check if a mutable argument use more than one.\n       if (fnParam != null) {\n-        if (cArg != null) {\n-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n-            return CanInlineResult.NO;\n-          }\n-          // Check for arguments that are evaluated more than once.\n-          // Note: Unlike block inlining, there it is not possible that a\n-          // parameter reference will be in a loop.\n-          if (NodeUtil.mayEffectMutableState(cArg, compiler)\n-              && NodeUtil.getNameReferenceCount(\n-                  block, fnParam.getString()) > 1) {\n-            return CanInlineResult.NO;\n-          }\n-        }\n+        int index = -1;\n \n         // Move to the next name.\n         fnParam = fnParam.getNext();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/com/google/javascript/jscomp/FunctionInjector.java", 
+          "line": 729, 
+          "faulty": "if (cArg != null) {\n  if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {\n    return CanInlineResult.NO;\n  }\n  if (NodeUtil.mayEffectMutableState(cArg,compiler) && NodeUtil.getNameReferenceCount(block,fnParam.getString()) > 1) {\n    return CanInlineResult.NO;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "int index=-1;"
+        }
+      ]
+    }
+  ]
+}
