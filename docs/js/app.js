@@ -224,7 +224,7 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 		$scope.match  = "all";
 		$scope.filters = {};
 		$scope.benchmarks = ["Bears", "Defects4J", "IntroClassJava", "Bug_dot_jar", "QuixBugs"];
-		$scope.tools = ["NPEFix", "Nopol", "DynaMoth", "GenProg", "jGenProg", "Kali", "jKali", "Arja", "RSRepair"];
+		$scope.tools = ["NPEFix", "Nopol", "DynaMoth", "GenProg", "jGenProg", "Kali", "jKali", "Arja", "RSRepair", "Cardumen", "jMutRepair"];
 
 		$scope.human_patches = {};
 
