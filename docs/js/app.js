@@ -34,19 +34,30 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 				patch: '=diff'
 			},
 			link: function (scope, elem, attrs) {
-				var diff = scope.patch.diff;
-				if (diff == null) {
-					diff = scope.patch.patch;
+				function printDiff(patch) {
+					var diff = patch.diff;
+					if (diff == null) {
+						diff = patch.patch;
+					}
+					if (diff == null) {
+						diff = patch.PATCH_DIFF_ORIG;
+					}
+					if (diff != null) {
+						origin = /--- ([^ ]+).*/.exec(diff)[1]
+						dest = /\+\+\+ ([^ ]+).*/.exec(diff)[1]
+						if (dest.indexOf(origin) > 0) {
+							diff = diff.replace(dest, origin)
+						}
+						diff = diff.replace(/\\"/g, '"').replace(/\\n/g, "\n").replace(/\\t/g, "\t")
+						var diff2htmlUi = new Diff2HtmlUI({ diff: diff });
+						diff2htmlUi.draw($(elem), {inputFormat: 'java', showFiles: false, matching: 'none'});
+						diff2htmlUi.highlightCode($(elem));
+					}
 				}
-				if (diff == null) {
-					diff = scope.patch.PATCH_DIFF_ORIG;
-				}
-				if (diff != null) {
-					diff = diff.replace(/\\"/g, '"').replace(/\\n/g, "\n").replace(/\\t/g, "\t")
-					var diff2htmlUi = new Diff2HtmlUI({ diff: diff });
-					diff2htmlUi.draw($(elem), {inputFormat: 'java', showFiles: false, matching: 'none'});
-					diff2htmlUi.highlightCode($(elem));
-				}
+				scope.$watch('patch', function() {
+					printDiff(scope.patch);
+				})
+				printDiff(scope.patch);
 			}
 		}
 		}])
@@ -55,12 +66,56 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 			$uibModalInstance.close();
 		};
 	})
-	.controller('bugModal', function($rootScope, $uibModalInstance, bug) {
+	.controller('bugModal', function($scope, $rootScope, $uibModalInstance, bug, human_patches) {
 		var $ctrl = this;
 		$ctrl.bug = bug;
+		$ctrl.human_patches = human_patches;
+
+		$ctrl.humanPatch = function (bug) {
+			if (bug == null) {
+				return null;
+			}
+			var benchmark = bug.benchmark;
+			var humanPatches = human_patches[benchmark];
+			if (humanPatches == null) {
+				return null;
+			}
+			
+			if (benchmark == "Bears") {
+				for (var patch of humanPatches) {
+					var bugID = patch.builds.buggyBuild.id + "-" + patch.builds.fixerBuild.id
+					if (patch.repository.name == bug.project && bugID == bug.bug_id) {
+						return patch;
+					}
+				}
+				return null;
+			}
+			if (benchmark == "Bug_dot_jar") {
+				for (var patch of humanPatches) {
+					if (patch.project.toLowerCase() == bug.project.toLowerCase() && bug.bug_id.indexOf(patch.commit) != -1) {
+						return patch;
+					}
+				}
+				return null;
+			}
+			if (benchmark == "Defects4J") {
+				for (var patch of humanPatches) {
+					if (patch.project == bug.project && bug.bug_id == patch.bugId) {
+						return patch;
+					}
+				}
+				return null;
+			}
+		}
+		$scope.$watch('$ctrl.human_patches', function () {
+			$ctrl.human = $ctrl.humanPatch(bug)	
+		}, true)
+		$ctrl.human = $ctrl.humanPatch(bug)
+		
 
 		$rootScope.$on('new_bug', function(e, bug) {
 			$ctrl.bug = bug;
+			$ctrl.human = $ctrl.humanPatch(bug)
 		});
 		$ctrl.ok = function () {
 			$uibModalInstance.close();
@@ -75,6 +130,7 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 	.controller('bugController', function($scope, $location, $rootScope, $routeParams, $uibModal) {
 		var $ctrl = $scope;
 		$ctrl.bugs = $scope.$parent.filteredBugs;
+		$ctrl.human_patches = $scope.$parent.human_patches;
 		$ctrl.index = -1;
 		$ctrl.bug = null;
 
@@ -116,7 +172,8 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 						resolve: {
 							bug: function () {
 								return $scope.bugs[$scope.index];
-							}
+							},
+							human_patches: $ctrl.human_patches
 						}
 					});
 					modalInstance.result.then(function () {
@@ -166,8 +223,20 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 		$scope.sortReverse  = false;
 		$scope.match  = "all";
 		$scope.filters = {};
-		$scope.benchmarks = ["Bears", "Defects4J", "IntroClassJava", "Bugs.jar", "QuixBugs"];
+		$scope.benchmarks = ["Bears", "Defects4J", "IntroClassJava", "Bug_dot_jar", "QuixBugs"];
 		$scope.tools = ["NPEFix", "Nopol", "DynaMoth", "GenProg", "jGenProg", "Kali", "jKali", "Arja", "RSRepair"];
+
+		$scope.human_patches = {};
+
+		for(var benchmark of $scope.benchmarks) {
+			((benchmark => {
+				$http.get("data/" + benchmark.toLowerCase() + ".json").then(response => {
+					$scope.human_patches[benchmark] = response.data;
+				}, error => {
+					// ignore
+				})
+			}))(benchmark)
+		}
 		
 		// create the list of sushi rolls 
 		$scope.patches = [];
