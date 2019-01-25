@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-30 07:38:42.593558", 
+  "repair_begin": "2018-12-30 07:35:15.427616", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Bug_dot_jar_Flink_5dfc897b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/functions/source/FileMonitoringFunction.java\t2018-12-30 01:22:32.012199000 -0500\n+++ /tmp/Kali_Bug_dot_jar_Flink_5dfc897b/patches_0w8l/Patch_5/patched/tmp/Kali_Bug_dot_jar_Flink_5dfc897b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/functions/source/FileMonitoringFunction.java\t2018-12-30 01:38:42.200114497 -0500\n@@ -65,6 +65,8 @@\n \tpublic void run(SourceContext<Tuple3<String, Long, Long>> ctx) throws Exception {\n \t\tFileSystem fileSystem = FileSystem.get(new URI(path));\n \n+\t\tif (true)\n+\t\t\treturn;\n \t\twhile (isRunning) {\n \t\t\tList<String> files = listNewFiles(fileSystem);\n \t\t\tfor (String filePath : files) {\n\n\n", 
+      "edits": [
+        {
+          "path": "flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/functions/source/FileMonitoringFunction.java", 
+          "line": 68, 
+          "faulty": "while (isRunning) {\n  List<String> files=listNewFiles(fileSystem);\n  for (  String filePath : files) {\n    if (watchType == WatchType.ONLY_NEW_FILES || watchType == WatchType.REPROCESS_WITH_APPENDED) {\n      ctx.collect(new Tuple3<String,Long,Long>(filePath,0L,-1L));\n      offsetOfFiles.put(filePath,-1L);\n    }\n else     if (watchType == WatchType.PROCESS_ONLY_APPENDED) {\n      long offset=0;\n      long fileSize=fileSystem.getFileStatus(new Path(filePath)).getLen();\n      if (offsetOfFiles.containsKey(filePath)) {\n        offset=offsetOfFiles.get(filePath);\n      }\n      ctx.collect(new Tuple3<String,Long,Long>(filePath,offset,fileSize));\n      offsetOfFiles.put(filePath,fileSize);\n      LOG.info(\"File processed: {}, {}, {}\",filePath,offset,fileSize);\n    }\n  }\n  Thread.sleep(interval);\n}", 
+          "type": "InsertReturn true"
+        }
+      ]
+    }
+  ]
+}

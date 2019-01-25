@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 16:34:36.606892", 
+  "repair_begin": "2018-12-29 16:27:21.504261", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 11, 
+      "patchLocation": {
+        "line": 195, 
+        "class": "org.apache.jackrabbit.oak.plugins.index.AsyncIndexUpdate"
+      }, 
+      "patchType": "CONDITIONAL", 
+      "patch": "--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/AsyncIndexUpdate.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/AsyncIndexUpdate.java\n@@ -194,3 +194,3 @@\n         String beforeCheckpoint = async.getString(name);\n-        if (beforeCheckpoint != null) {\n+        if (org.apache.jackrabbit.oak.plugins.index.AsyncIndexUpdate.ASYNC.length() < org.apache.jackrabbit.oak.plugins.index.AsyncIndexUpdate.this.indexStats.getDone().length()) {\n             NodeState state = store.retrieve(beforeCheckpoint);\n@@ -198,4 +198,4 @@\n                 log.warn(\"Failed to retrieve previously indexed checkpoint {};\"\n-                        + \" re-running the initial {} index update\",\n-                        beforeCheckpoint, name);\n+                + \" re-running the initial {} index update\",\n+                beforeCheckpoint, name);\n                 beforeCheckpoint = null;\n@@ -204,3 +204,3 @@\n                 log.debug(\"No changes since last checkpoint;\"\n-                        + \" skipping the {} index update\", name);\n+                + \" skipping the {} index update\", name);\n                 return;\n"
+    }
+  ]
+}

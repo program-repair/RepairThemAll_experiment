@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 15:08:56.651574", 
+  "repair_begin": "2018-12-29 15:03:05.343250", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 4, 
+      "patchLocation": {
+        "line": 822, 
+        "class": "org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/ode/nonstiff/GraggBulirschStoerIntegrator.java\n+++ b/src/main/java/org/apache/commons/math/ode/nonstiff/GraggBulirschStoerIntegrator.java\n@@ -821,3 +821,5 @@\n               hNew = hInt;\n-              reject = true;\n+              if ((!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)) {\n+                reject = true;\n+              }\n             }\n"
+    }
+  ]
+}

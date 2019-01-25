@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-27 11:25:55.721796", 
+  "repair_begin": "2018-12-27 11:25:35.313474", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Bears_traccar-traccar_255051210-255052458/src/org/traccar/BaseProtocolDecoder.java\t2018-12-27 05:24:51.725490787 -0500\n+++ /tmp/Kali_Bears_traccar-traccar_255051210-255052458/patches_f7yb/Patch_2/patched/tmp/Kali_Bears_traccar-traccar_255051210-255052458/src/org/traccar/BaseProtocolDecoder.java\t2018-12-27 05:25:55.326511244 -0500\n@@ -106,8 +106,7 @@\n     }\n \n     public DeviceSession getDeviceSession(Channel channel, SocketAddress remoteAddress, String... uniqueIds) {\n-        if (channel.getPipeline().get(HttpRequestDecoder.class) != null\n-                || Context.getConfig().getBoolean(\"decoder.ignoreSessionCache\")) {\n+        if (false) {\n             long deviceId = findDeviceId(remoteAddress, uniqueIds);\n             if (deviceId != 0) {\n                 if (Context.getConnectionManager() != null) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/org/traccar/BaseProtocolDecoder.java", 
+          "line": 109, 
+          "faulty": "if (channel.getPipeline().get(HttpRequestDecoder.class) != null || Context.getConfig().getBoolean(\"decoder.ignoreSessionCache\")) {\n  long deviceId=findDeviceId(remoteAddress,uniqueIds);\n  if (deviceId != 0) {\n    if (Context.getConnectionManager() != null) {\n      Context.getConnectionManager().addActiveDevice(deviceId,protocol,channel,remoteAddress);\n    }\n    return new DeviceSession(deviceId);\n  }\n else {\n    return null;\n  }\n}", 
+          "type": "RedirectBranch false"
+        }
+      ]
+    }
+  ]
+}

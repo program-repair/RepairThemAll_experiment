@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 18:59:37.600779", 
+  "repair_begin": "2018-12-29 18:59:23.281419", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 2, 
+      "patchLocation": {
+        "line": 191, 
+        "class": "org.apache.logging.log4j.message.StructuredDataMessage"
+      }, 
+      "patchType": "CONDITIONAL", 
+      "patch": "--- a/api/src/main/java/org/apache/logging/log4j/message/StructuredDataMessage.java\n+++ b/api/src/main/java/org/apache/logging/log4j/message/StructuredDataMessage.java\n@@ -190,5 +190,5 @@\n     protected void validate(String key, String value) {\n-        if (value.length() > MAX_LENGTH) {\n+        if (org.apache.logging.log4j.message.StructuredDataMessage.HASHVAL < key.length()) {\n             throw new IllegalArgumentException(\"Structured data values are limited to 32 characters. key: \" + key +\n-                \" value: \" + value);\n+            \" value: \" + value);\n         }\n"
+    }
+  ]
+}

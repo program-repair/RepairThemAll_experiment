@@ -1,0 +1,31 @@
+{
+  "repair_end": "2019-01-01 17:32:41.167197", 
+  "repair_begin": "2019-01-01 16:51:48.640520", 
+  "patches": [
+    {
+      "PATCH_DIFF_ORIG": "\\/var\\/lib\\/oar\\/.batch_job_bashrc: line 5: \\/home\\/tdurieux\\/.bashrc: No such file or directory\\n--- org\\/apache\\/commons\\/math4\\/special\\/Gamma.java\\n+++ org\\/apache\\/commons\\/math4\\/special\\/Gamma.java\\n@@ -697,10 +697,13 @@\\n \\t\\t\\tfinal double y = (absX + (org.apache.commons.math4.special.Gamma.LANCZOS_G)) + 0.5;\\n \\t\\t\\tfinal double gammaAbs = ((((org.apache.commons.math4.special.Gamma.SQRT_TWO_PI) \\/ x) * \\n \\t\\t\\t(org.apache.commons.math4.util.FastMath.pow(y, (absX + 0.5)))) * \\n-\\t\\t\\t(org.apache.commons.math4.util.FastMath.exp((-y)))) * (org.apache.commons.math4.special.Gamma.lanczos(absX));\\n-\\t\\t\\tif (x > 0.0) {\\n-\\t\\t\\t\\tret = gammaAbs;\\n-\\t\\t\\t}else {\\n+\\t\\t\\t(org.apache.commons.math4.util.FastMath.exp((-y)))) * (org.apache.commons.math4.special.Gamma.lanczos(absX)); \\t\\t\\tif (x >= 1.0) { \\t\\t\\t\\tdouble prod = 1.0; \\t\\t\\t\\tdouble t = x; \\t\\t\\t\\twhile (t > 2.5) { \\t\\t\\t\\t\\tt -= 1.0; \\t\\t\\t\\t\\tprod *= t;} \\t\\t\\t\\tret = prod \\/ (1.0 + (org.apache.commons.math4.special.Gamma.invGamma1pm1((t - 1.0))));}else { \\t\\t\\t\\tdouble prod = x; \\t\\t\\t\\tdouble t = x; \\t\\t\\t\\twhile (t < (-0.5)) { \\t\\t\\t\\t\\tt += 1.0; \\t\\t\\t\\t\\tprod *= t;} \\t\\t\\t\\tret = 1.0 \\/ (prod * (1.0 + (org.apache.commons.math4.special.Gamma.invGamma1pm1(t))));}\\n+\\n+\\n+\\n+\\n+\\n+\\n \\n \\n \\n@@ -709,9 +712,6 @@\\n \\n \\n \\n-\\t\\t\\t\\tret = (-(org.apache.commons.math4.util.FastMath.PI)) \\/ \\n-\\t\\t\\t\\t((x * (org.apache.commons.math4.util.FastMath.sin(((org.apache.commons.math4.util.FastMath.PI) * x)))) * gammaAbs);\\n-\\t\\t\\t}\\n \\t\\t}\\n \\t\\treturn ret;\\n \\t}}\\n\\\\ No newline at end of file\\n\\n", 
+      "patchhunks": [
+        {
+          "MODIFIED_FILE_PATH": "\\/tmp\\/jGenProg_Bug_dot_jar_Commons-Math_9e0c5ad4\\/.\\/output_astor\\/AstorMain-Commons-Math-9e0c5ad4\\/\\/src\\/\\/variant-206_f\\/org\\/apache\\/commons\\/math4\\/special\\/Gamma.java", 
+          "ORIGINAL_CODE": "if (x > 0.0) {\\n\\tret = gammaAbs;\\n}else {\\n\\n\\n\\n\\n\\n\\n\\n\\n\\tret = (-(org.apache.commons.math4.util.FastMath.PI)) \\/ \\n\\t((x * (org.apache.commons.math4.util.FastMath.sin(((org.apache.commons.math4.util.FastMath.PI) * x)))) * gammaAbs);\\n}", 
+          "INGREDIENT_SCOPE": "LOCAL", 
+          "PATCH_HUNK_CODE": "if (x >= 1.0) {\\n\\n\\n\\n\\n\\n\\n\\n\\n\\tdouble prod = 1.0;\\n\\tdouble t = x;\\n\\twhile (t > 2.5) {\\n\\t\\tt -= 1.0;\\n\\t\\tprod *= t;\\n\\t} \\n\\tret = prod \\/ (1.0 + (org.apache.commons.math4.special.Gamma.invGamma1pm1((t - 1.0))));\\n}else {\\n\\n\\n\\n\\n\\n\\n\\n\\tdouble prod = x;\\n\\tdouble t = x;\\n\\twhile (t < (-0.5)) {\\n\\t\\tt += 1.0;\\n\\t\\tprod *= t;\\n\\t} \\n\\tret = 1.0 \\/ (prod * (1.0 + (org.apache.commons.math4.special.Gamma.invGamma1pm1(t))));\\n}", 
+          "INGREDIENT_PARENT": "if (x >= 1.0) {\\n\\n\\n\\n\\n\\n\\n\\n\\n\\tdouble prod = 1.0;\\n\\tdouble t = x;\\n\\twhile (t > 2.5) {\\n\\t\\tt -= 1.0;\\n\\t\\tprod *= t;\\n\\t} \\n\\tret = prod \\/ (1.0 + (org.apache.commons.math4.special.Gamma.invGamma1pm1((t - 1.0))));\\n}else {\\n\\n\\n\\n\\n\\n\\n\\n\\tdouble prod = x;\\n\\tdouble t = x;\\n\\twhile (t < (-0.5)) {\\n\\t\\tt += 1.0;\\n\\t\\tprod *= t;\\n\\t} \\n\\tret = 1.0 \\/ (prod * (1.0 + (org.apache.commons.math4.special.Gamma.invGamma1pm1(t))));\\n}", 
+          "LOCATION": "org.apache.commons.math4.special.Gamma", 
+          "BUGGY_CODE_TYPE": "CtIfImpl|CtBlockImpl", 
+          "OPERATOR": "ReplaceOp", 
+          "PATH": "\\/tmp\\/jGenProg_Bug_dot_jar_Commons-Math_9e0c5ad4\\/output_astor\\/AstorMain-Commons-Math-9e0c5ad4\\/src\\/default\\/org\\/apache\\/commons\\/math4\\/special\\/Gamma.java", 
+          "LINE": "701", 
+          "MP_RANKING": "5", 
+          "SUSPICIOUNESS": "0.707", 
+          "PATCH_HUNK_TYPE": "CtIfImpl|CtBlockImpl"
+        }
+      ], 
+      "GENERATION": "103", 
+      "VARIANT_ID": "206", 
+      "TIME": "547", 
+      "VALIDATION": "|true|0|5847|[]|", 
+      "FOLDER_SOLUTION_CODE": "\\/tmp\\/jGenProg_Bug_dot_jar_Commons-Math_9e0c5ad4\\/.\\/output_astor\\/AstorMain-Commons-Math-9e0c5ad4\\/\\/bin\\/\\/variant-206"
+    }
+  ]
+}

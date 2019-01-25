@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-29 18:48:12.402497", 
+  "repair_begin": "2018-12-29 18:32:13.394254", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Bug_dot_jar_Commons-Math_9e0c5ad4/src/main/java/org/apache/commons/math4/special/Gamma.java\t2018-12-29 12:31:19.182493000 -0500\n+++ /tmp/Kali_Bug_dot_jar_Commons-Math_9e0c5ad4/patches_gitn/Patch_3/patched/tmp/Kali_Bug_dot_jar_Commons-Math_9e0c5ad4/src/main/java/org/apache/commons/math4/special/Gamma.java\t2018-12-29 12:48:12.003942732 -0500\n@@ -660,7 +660,7 @@\n \n         final double ret;\n         final double absX = FastMath.abs(x);\n-        if (absX <= 20.0) {\n+        if (true) {\n             if (x >= 1.0) {\n                 /*\n                  * From the recurrence relation\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/special/Gamma.java", 
+          "line": 663, 
+          "faulty": "if (absX <= 20.0) {\n  if (x >= 1.0) {\n    double prod=1.0;\n    double t=x;\n    while (t > 2.5) {\n      t-=1.0;\n      prod*=t;\n    }\n    ret=prod / (1.0 + invGamma1pm1(t - 1.0));\n  }\n else {\n    double prod=x;\n    double t=x;\n    while (t < -0.5) {\n      t+=1.0;\n      prod*=t;\n    }\n    ret=1.0 / (prod * (1.0 + invGamma1pm1(t)));\n  }\n}\n else {\n  final double y=absX + LANCZOS_G + 0.5;\n  final double gammaAbs=SQRT_TWO_PI / x * FastMath.pow(y,absX + 0.5) * FastMath.exp(-y) * lanczos(absX);\n  if (x > 0.0) {\n    ret=gammaAbs;\n  }\n else {\n    ret=-FastMath.PI / (x * FastMath.sin(FastMath.PI * x) * gammaAbs);\n  }\n}", 
+          "type": "RedirectBranch true"
+        }
+      ]
+    }
+  ]
+}

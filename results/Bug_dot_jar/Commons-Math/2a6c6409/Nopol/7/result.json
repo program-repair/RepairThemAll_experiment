@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 15:34:28.842431", 
+  "repair_begin": "2018-12-29 15:28:01.418886", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 2, 
+      "patchLocation": {
+        "line": 56, 
+        "class": "org.apache.commons.math3.ml.neuralnet.sofm.KohonenTrainingTask"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math3/ml/neuralnet/sofm/KohonenTrainingTask.java\n+++ b/src/main/java/org/apache/commons/math3/ml/neuralnet/sofm/KohonenTrainingTask.java\n@@ -55,4 +55,6 @@\n     public void run() {\n-        while (featuresIterator.hasNext()) {\n-            updateAction.update(net, featuresIterator.next());\n+        if (org.apache.commons.math3.ml.neuralnet.sofm.KohonenTrainingTask.this.featuresIterator.hasNext()) {\n+            while (featuresIterator.hasNext()) {\n+                updateAction.update(net, featuresIterator.next());\n+            }\n         }\n"
+    }
+  ]
+}

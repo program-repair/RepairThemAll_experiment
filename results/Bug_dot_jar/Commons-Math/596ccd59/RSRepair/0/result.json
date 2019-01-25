@@ -1,0 +1,645 @@
+{
+  "repair_end": "2018-12-29 22:06:25.490211", 
+  "repair_begin": "2018-12-29 21:44:37.128513", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_46/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:00:55.503854316 -0500\n@@ -325,9 +325,6 @@\n             for (final T point : points) {\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n-                for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n-                }\n                 sum += u;\n                 i++;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 328, 
+          "faulty": "for (int idx=0; idx < arr.length; idx++) {\n  arr[idx]+=u * pointArr[idx];\n}", 
+          "type": "Delete", 
+          "seed": "final double u=FastMath.pow(membershipMatrix[i][j],fuzziness);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_665/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:06:18.144199574 -0500\n@@ -303,7 +303,9 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n+            if (size < k) {\n+\t\t\t\tthrow new NumberIsTooSmallException(size, k, false);\n+\t\t\t}\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Replace", 
+          "seed": "if (size < k) {\n  throw new NumberIsTooSmallException(size,k,false);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_302/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:03:12.331952338 -0500\n@@ -284,10 +284,7 @@\n         membershipMatrix = new double[size][k];\n         final double[][] oldMatrix = new double[size][k];\n \n-        // if no points are provided, return an empty list of clusters\n-        if (size == 0) {\n-            return clusters;\n-        }\n+        int nextPointIndex = -1;\n \n         initializeMembershipMatrix();\n \n@@ -325,9 +322,6 @@\n             for (final T point : points) {\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n-                for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n-                }\n                 sum += u;\n                 i++;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 328, 
+          "faulty": "for (int idx=0; idx < arr.length; idx++) {\n  arr[idx]+=u * pointArr[idx];\n}", 
+          "type": "Delete", 
+          "seed": "this.epsilon=epsilon;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 288, 
+          "faulty": "if (size == 0) {\n  return clusters;\n}", 
+          "type": "Replace", 
+          "seed": "int nextPointIndex=-1;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_477/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:05:07.712076510 -0500\n@@ -303,7 +303,6 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -333,7 +332,7 @@\n             }\n             MathArrays.scaleInPlace(1.0 / sum, arr);\n             newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n-            j++;\n+            break;\n         }\n         clusters.clear();\n         clusters = newClusters;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 336, 
+          "faulty": "j++;", 
+          "type": "Replace", 
+          "seed": "break;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Delete", 
+          "seed": "double bestVarianceSum=Double.POSITIVE_INFINITY;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_355/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:03:39.731971193 -0500\n@@ -303,7 +303,7 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n+            int i = 0;\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Replace", 
+          "seed": "int i=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_87/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:01:15.199873722 -0500\n@@ -303,7 +303,6 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -332,7 +331,6 @@\n                 i++;\n             }\n             MathArrays.scaleInPlace(1.0 / sum, arr);\n-            newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n             j++;\n         }\n         clusters.clear();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 335, 
+          "faulty": "newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));", 
+          "type": "Delete", 
+          "seed": "initializeMembershipMatrix();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Delete", 
+          "seed": "this.points=null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_147/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:02:01.335908800 -0500\n@@ -326,7 +326,7 @@\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n                 for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n+                    double bestVarianceSum = Double.POSITIVE_INFINITY;\n                 }\n                 sum += u;\n                 i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 329, 
+          "faulty": "arr[idx]+=u * pointArr[idx];", 
+          "type": "Replace", 
+          "seed": "double bestVarianceSum=Double.POSITIVE_INFINITY;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_126/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:01:51.623904567 -0500\n@@ -326,7 +326,7 @@\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n                 for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n+                    continue;\n                 }\n                 sum += u;\n                 i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 329, 
+          "faulty": "arr[idx]+=u * pointArr[idx];", 
+          "type": "Replace", 
+          "seed": "continue;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_121/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:01:50.883904287 -0500\n@@ -297,7 +297,8 @@\n             clusters.add(new CentroidCluster<T>(new DoublePoint(new double[pointDimension])));\n         }\n \n-        int iteration = 0;\n+        MathUtils.checkNotNull(dataPoints);\n+\t\tint iteration = 0;\n         final int max = (maxIterations < 0) ? Integer.MAX_VALUE : maxIterations;\n         double difference = 0.0;\n \n@@ -326,7 +327,6 @@\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n                 for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n                 }\n                 sum += u;\n                 i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 329, 
+          "faulty": "arr[idx]+=u * pointArr[idx];", 
+          "type": "Delete", 
+          "seed": "for (final CentroidCluster<T> cluster : clusters) {\n  final Clusterable center=cluster.getCenter();\n  int i=0;\n  double[] arr=new double[center.getPoint().length];\n  double sum=0.0;\n  for (  final T point : points) {\n    final double u=FastMath.pow(membershipMatrix[i][j],fuzziness);\n    final double[] pointArr=point.getPoint();\n    for (int idx=0; idx < arr.length; idx++) {\n      arr[idx]+=u * pointArr[idx];\n    }\n    sum+=u;\n    i++;\n  }\n  MathArrays.scaleInPlace(1.0 / sum,arr);\n  newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n  j++;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 300, 
+          "faulty": "int iteration=0;", 
+          "type": "InsertBefore", 
+          "seed": "MathUtils.checkNotNull(dataPoints);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_315/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:03:20.599957229 -0500\n@@ -289,8 +289,6 @@\n             return clusters;\n         }\n \n-        initializeMembershipMatrix();\n-\n         // there is at least one point\n         final int pointDimension = points.get(0).getPoint().length;\n         for (int i = 0; i < k; i++) {\n@@ -303,7 +301,6 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -332,7 +329,7 @@\n                 i++;\n             }\n             MathArrays.scaleInPlace(1.0 / sum, arr);\n-            newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n+            int newCluster = -1;\n             j++;\n         }\n         clusters.clear();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 335, 
+          "faulty": "newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));", 
+          "type": "Replace", 
+          "seed": "int newCluster=-1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 292, 
+          "faulty": "initializeMembershipMatrix();", 
+          "type": "Delete", 
+          "seed": "int index=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Delete", 
+          "seed": "clusters.clear();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_562/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:05:35.448121458 -0500\n@@ -326,7 +326,7 @@\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n                 for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n+                    boolean emptyCluster = false;\n                 }\n                 sum += u;\n                 i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 329, 
+          "faulty": "arr[idx]+=u * pointArr[idx];", 
+          "type": "Replace", 
+          "seed": "boolean emptyCluster=false;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_413/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:04:26.060018935 -0500\n@@ -298,7 +298,8 @@\n         }\n \n         int iteration = 0;\n-        final int max = (maxIterations < 0) ? Integer.MAX_VALUE : maxIterations;\n+        int i = 0;\n+\t\tfinal int max = (maxIterations < 0) ? Integer.MAX_VALUE : maxIterations;\n         double difference = 0.0;\n \n         do {\n@@ -326,7 +327,6 @@\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n                 for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n                 }\n                 sum += u;\n                 i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 329, 
+          "faulty": "arr[idx]+=u * pointArr[idx];", 
+          "type": "Delete", 
+          "seed": "for (final CentroidCluster<T> cluster : clusters) {\n  final Clusterable center=cluster.getCenter();\n  int i=0;\n  double[] arr=new double[center.getPoint().length];\n  double sum=0.0;\n  for (  final T point : points) {\n    final double u=FastMath.pow(membershipMatrix[i][j],fuzziness);\n    final double[] pointArr=point.getPoint();\n    for (int idx=0; idx < arr.length; idx++) {\n      arr[idx]+=u * pointArr[idx];\n    }\n    sum+=u;\n    i++;\n  }\n  MathArrays.scaleInPlace(1.0 / sum,arr);\n  newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n  j++;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 301, 
+          "faulty": "final int max=(maxIterations < 0) ? Integer.MAX_VALUE : maxIterations;", 
+          "type": "InsertBefore", 
+          "seed": "int i=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_79/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:01:07.919866131 -0500\n@@ -325,9 +325,6 @@\n             for (final T point : points) {\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n-                for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n-                }\n                 sum += u;\n                 i++;\n             }\n@@ -335,7 +332,7 @@\n             newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n             j++;\n         }\n-        clusters.clear();\n+        int newCluster = -1;\n         clusters = newClusters;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 338, 
+          "faulty": "clusters.clear();", 
+          "type": "Replace", 
+          "seed": "int newCluster=-1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 328, 
+          "faulty": "for (int idx=0; idx < arr.length; idx++) {\n  arr[idx]+=u * pointArr[idx];\n}", 
+          "type": "Delete", 
+          "seed": "final Clusterable center=cluster.getCenter();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_236/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:02:42.143937491 -0500\n@@ -284,7 +284,14 @@\n         membershipMatrix = new double[size][k];\n         final double[][] oldMatrix = new double[size][k];\n \n-        // if no points are provided, return an empty list of clusters\n+        for (int i = 0; i < points.size(); i++) {\n+\t\t\tfor (int j = 0; j < k; j++) {\n+\t\t\t\tmembershipMatrix[i][j] = random.nextDouble();\n+\t\t\t}\n+\t\t\tmembershipMatrix[i] = MathArrays.normalizeArray(\n+\t\t\t\t\tmembershipMatrix[i], 1.0);\n+\t\t}\n+\t\t// if no points are provided, return an empty list of clusters\n         if (size == 0) {\n             return clusters;\n         }\n@@ -303,7 +310,6 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 288, 
+          "faulty": "if (size == 0) {\n  return clusters;\n}", 
+          "type": "InsertBefore", 
+          "seed": "for (int i=0; i < points.size(); i++) {\n  for (int j=0; j < k; j++) {\n    membershipMatrix[i][j]=random.nextDouble();\n  }\n  membershipMatrix[i]=MathArrays.normalizeArray(membershipMatrix[i],1.0);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Delete", 
+          "seed": "for (int i=0; i < points.size(); i++) {\n  final T point=points.get(i);\n  double maxMembership=0.0;\n  int newCluster=-1;\n  for (int j=0; j < clusters.size(); j++) {\n    double sum=0.0;\n    final double distA=FastMath.abs(distance(point,clusters.get(j).getCenter()));\n    for (    final CentroidCluster<T> c : clusters) {\n      final double distB=FastMath.abs(distance(point,c.getCenter()));\n      sum+=FastMath.pow(distA / distB,2.0 / (fuzziness - 1.0));\n    }\n    membershipMatrix[i][j]=1.0 / sum;\n    if (membershipMatrix[i][j] > maxMembership) {\n      maxMembership=membershipMatrix[i][j];\n      newCluster=j;\n    }\n  }\n  clusters.get(newCluster).addPoint(point);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_447/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:04:56.164059292 -0500\n@@ -303,7 +303,7 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n+            updateMembershipMatrix();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -322,20 +322,11 @@\n             int i = 0;\n             double[] arr = new double[center.getPoint().length];\n             double sum = 0.0;\n-            for (final T point : points) {\n-                final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n-                final double[] pointArr = point.getPoint();\n-                for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n-                }\n-                sum += u;\n-                i++;\n-            }\n+            this.membershipMatrix = null;\n             MathArrays.scaleInPlace(1.0 / sum, arr);\n             newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n             j++;\n         }\n-        clusters.clear();\n         clusters = newClusters;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 325, 
+          "faulty": "for (final T point : points) {\n  final double u=FastMath.pow(membershipMatrix[i][j],fuzziness);\n  final double[] pointArr=point.getPoint();\n  for (int idx=0; idx < arr.length; idx++) {\n    arr[idx]+=u * pointArr[idx];\n  }\n  sum+=u;\n  i++;\n}", 
+          "type": "Replace", 
+          "seed": "this.membershipMatrix=null;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 338, 
+          "faulty": "clusters.clear();", 
+          "type": "Delete", 
+          "seed": "return points;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Replace", 
+          "seed": "updateMembershipMatrix();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_37/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:00:53.931852923 -0500\n@@ -325,9 +325,6 @@\n             for (final T point : points) {\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n-                for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n-                }\n                 sum += u;\n                 i++;\n             }\n@@ -346,7 +343,8 @@\n     private void updateMembershipMatrix() {\n         for (int i = 0; i < points.size(); i++) {\n             final T point = points.get(i);\n-            double maxMembership = 0.0;\n+            double distSqSum = 0.0;\n+\t\t\tdouble maxMembership = 0.0;\n             int newCluster = -1;\n             for (int j = 0; j < clusters.size(); j++) {\n                 double sum = 0.0;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 328, 
+          "faulty": "for (int idx=0; idx < arr.length; idx++) {\n  arr[idx]+=u * pointArr[idx];\n}", 
+          "type": "Delete", 
+          "seed": "continue;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 349, 
+          "faulty": "double maxMembership=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "double distSqSum=0.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_142/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:02:00.563908425 -0500\n@@ -303,7 +303,7 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n+            final List<CentroidCluster<T>> resultSet = new ArrayList<CentroidCluster<T>>();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -333,7 +333,8 @@\n             }\n             MathArrays.scaleInPlace(1.0 / sum, arr);\n             newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n-            j++;\n+            this.membershipMatrix = null;\n+\t\t\tj++;\n         }\n         clusters.clear();\n         clusters = newClusters;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 336, 
+          "faulty": "j++;", 
+          "type": "InsertBefore", 
+          "seed": "this.membershipMatrix=null;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Replace", 
+          "seed": "final List<CentroidCluster<T>> resultSet=new ArrayList<CentroidCluster<T>>();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_269/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:03:00.471946591 -0500\n@@ -326,7 +326,6 @@\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n                 for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n                 }\n                 sum += u;\n                 i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 329, 
+          "faulty": "arr[idx]+=u * pointArr[idx];", 
+          "type": "Delete", 
+          "seed": "for (final CentroidCluster<T> cluster : clusters) {\n  final Clusterable center=cluster.getCenter();\n  int i=0;\n  double[] arr=new double[center.getPoint().length];\n  double sum=0.0;\n  for (  final T point : points) {\n    final double u=FastMath.pow(membershipMatrix[i][j],fuzziness);\n    final double[] pointArr=point.getPoint();\n    for (int idx=0; idx < arr.length; idx++) {\n      arr[idx]+=u * pointArr[idx];\n    }\n    sum+=u;\n    i++;\n  }\n  MathArrays.scaleInPlace(1.0 / sum,arr);\n  newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n  j++;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_296/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:03:11.555951916 -0500\n@@ -284,11 +284,6 @@\n         membershipMatrix = new double[size][k];\n         final double[][] oldMatrix = new double[size][k];\n \n-        // if no points are provided, return an empty list of clusters\n-        if (size == 0) {\n-            return clusters;\n-        }\n-\n         initializeMembershipMatrix();\n \n         // there is at least one point\n@@ -325,9 +320,7 @@\n             for (final T point : points) {\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n-                for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n-                }\n+                double difference = 0.0;\n                 sum += u;\n                 i++;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 328, 
+          "faulty": "for (int idx=0; idx < arr.length; idx++) {\n  arr[idx]+=u * pointArr[idx];\n}", 
+          "type": "Replace", 
+          "seed": "double difference=0.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 288, 
+          "faulty": "if (size == 0) {\n  return clusters;\n}", 
+          "type": "Delete", 
+          "seed": "break;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_195/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:02:22.663921687 -0500\n@@ -273,11 +273,6 @@\n \n         final int size = dataPoints.size();\n \n-        // number of clusters has to be smaller or equal the number of data points\n-        if (size < k) {\n-            throw new NumberIsTooSmallException(size, k, false);\n-        }\n-\n         // copy the input collection to an unmodifiable list with indexed access\n         points = Collections.unmodifiableList(new ArrayList<T>(dataPoints));\n         clusters = new ArrayList<CentroidCluster<T>>();\n@@ -326,7 +321,7 @@\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n                 for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n+                    double bestVarianceSum = Double.POSITIVE_INFINITY;\n                 }\n                 sum += u;\n                 i++;\n@@ -344,7 +339,8 @@\n      * the highest membership.\n      */\n     private void updateMembershipMatrix() {\n-        for (int i = 0; i < points.size(); i++) {\n+        int pointIndex = 0;\n+\t\tfor (int i = 0; i < points.size(); i++) {\n             final T point = points.get(i);\n             double maxMembership = 0.0;\n             int newCluster = -1;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 347, 
+          "faulty": "for (int i=0; i < points.size(); i++) {\n  final T point=points.get(i);\n  double maxMembership=0.0;\n  int newCluster=-1;\n  for (int j=0; j < clusters.size(); j++) {\n    double sum=0.0;\n    final double distA=FastMath.abs(distance(point,clusters.get(j).getCenter()));\n    for (    final CentroidCluster<T> c : clusters) {\n      final double distB=FastMath.abs(distance(point,c.getCenter()));\n      sum+=FastMath.pow(distA / distB,2.0 / (fuzziness - 1.0));\n    }\n    membershipMatrix[i][j]=1.0 / sum;\n    if (membershipMatrix[i][j] > maxMembership) {\n      maxMembership=membershipMatrix[i][j];\n      newCluster=j;\n    }\n  }\n  clusters.get(newCluster).addPoint(point);\n}", 
+          "type": "InsertBefore", 
+          "seed": "int pointIndex=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 329, 
+          "faulty": "arr[idx]+=u * pointArr[idx];", 
+          "type": "Replace", 
+          "seed": "double bestVarianceSum=Double.POSITIVE_INFINITY;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 277, 
+          "faulty": "if (size < k) {\n  throw new NumberIsTooSmallException(size,k,false);\n}", 
+          "type": "Delete", 
+          "seed": "this.points=null;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_226/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:02:34.411930777 -0500\n@@ -324,9 +324,9 @@\n             double sum = 0.0;\n             for (final T point : points) {\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n-                final double[] pointArr = point.getPoint();\n+                int assignedDifferently = 0;\n+\t\t\t\tfinal double[] pointArr = point.getPoint();\n                 for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n                 }\n                 sum += u;\n                 i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 329, 
+          "faulty": "arr[idx]+=u * pointArr[idx];", 
+          "type": "Delete", 
+          "seed": "if (fuzziness <= 1.0d) {\n  throw new NumberIsTooSmallException(fuzziness,1.0,false);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 327, 
+          "faulty": "final double[] pointArr=point.getPoint();", 
+          "type": "InsertBefore", 
+          "seed": "int assignedDifferently=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_271/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:03:00.667946675 -0500\n@@ -291,7 +291,10 @@\n \n         initializeMembershipMatrix();\n \n-        // there is at least one point\n+        if (size == 0) {\n+\t\t\treturn clusters;\n+\t\t}\n+\t\t// there is at least one point\n         final int pointDimension = points.get(0).getPoint().length;\n         for (int i = 0; i < k; i++) {\n             clusters.add(new CentroidCluster<T>(new DoublePoint(new double[pointDimension])));\n@@ -303,7 +306,6 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -344,7 +346,8 @@\n      * the highest membership.\n      */\n     private void updateMembershipMatrix() {\n-        for (int i = 0; i < points.size(); i++) {\n+        int iteration = 0;\n+\t\tfor (int i = 0; i < points.size(); i++) {\n             final T point = points.get(i);\n             double maxMembership = 0.0;\n             int newCluster = -1;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 347, 
+          "faulty": "for (int i=0; i < points.size(); i++) {\n  final T point=points.get(i);\n  double maxMembership=0.0;\n  int newCluster=-1;\n  for (int j=0; j < clusters.size(); j++) {\n    double sum=0.0;\n    final double distA=FastMath.abs(distance(point,clusters.get(j).getCenter()));\n    for (    final CentroidCluster<T> c : clusters) {\n      final double distB=FastMath.abs(distance(point,c.getCenter()));\n      sum+=FastMath.pow(distA / distB,2.0 / (fuzziness - 1.0));\n    }\n    membershipMatrix[i][j]=1.0 / sum;\n    if (membershipMatrix[i][j] > maxMembership) {\n      maxMembership=membershipMatrix[i][j];\n      newCluster=j;\n    }\n  }\n  clusters.get(newCluster).addPoint(point);\n}", 
+          "type": "InsertBefore", 
+          "seed": "int iteration=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 295, 
+          "faulty": "final int pointDimension=points.get(0).getPoint().length;", 
+          "type": "InsertBefore", 
+          "seed": "if (size == 0) {\n  return clusters;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Delete", 
+          "seed": "MathUtils.checkNotNull(dataPoints);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_52/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:00:56.535855242 -0500\n@@ -303,7 +303,6 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -332,7 +331,7 @@\n                 i++;\n             }\n             MathArrays.scaleInPlace(1.0 / sum, arr);\n-            newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n+            i++;\n             j++;\n         }\n         clusters.clear();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 335, 
+          "faulty": "newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));", 
+          "type": "Replace", 
+          "seed": "i++;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Delete", 
+          "seed": "double bestVarianceSum=Double.POSITIVE_INFINITY;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_265/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:02:59.915946359 -0500\n@@ -326,7 +326,7 @@\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n                 for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n+                    initializeMembershipMatrix();\n                 }\n                 sum += u;\n                 i++;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 329, 
+          "faulty": "arr[idx]+=u * pointArr[idx];", 
+          "type": "Replace", 
+          "seed": "initializeMembershipMatrix();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_339/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:03:36.763968792 -0500\n@@ -298,12 +298,13 @@\n         }\n \n         int iteration = 0;\n-        final int max = (maxIterations < 0) ? Integer.MAX_VALUE : maxIterations;\n+        double bestVarianceSum = Double.POSITIVE_INFINITY;\n+\t\tfinal int max = (maxIterations < 0) ? Integer.MAX_VALUE : maxIterations;\n         double difference = 0.0;\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n+            final List<CentroidCluster<T>> resultSet = new ArrayList<CentroidCluster<T>>();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -336,7 +337,7 @@\n             j++;\n         }\n         clusters.clear();\n-        clusters = newClusters;\n+        double maxMembership = 0.0;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 339, 
+          "faulty": "clusters=newClusters;", 
+          "type": "Replace", 
+          "seed": "double maxMembership=0.0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 301, 
+          "faulty": "final int max=(maxIterations < 0) ? Integer.MAX_VALUE : maxIterations;", 
+          "type": "InsertBefore", 
+          "seed": "double bestVarianceSum=Double.POSITIVE_INFINITY;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Replace", 
+          "seed": "final List<CentroidCluster<T>> resultSet=new ArrayList<CentroidCluster<T>>();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_620/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:06:03.632171896 -0500\n@@ -284,10 +284,7 @@\n         membershipMatrix = new double[size][k];\n         final double[][] oldMatrix = new double[size][k];\n \n-        // if no points are provided, return an empty list of clusters\n-        if (size == 0) {\n-            return clusters;\n-        }\n+        clusters = new ArrayList<CentroidCluster<T>>();\n \n         initializeMembershipMatrix();\n \n@@ -303,7 +300,7 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n+            MathUtils.checkNotNull(dataPoints);\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -328,7 +325,7 @@\n                 for (int idx = 0; idx < arr.length; idx++) {\n                     arr[idx] += u * pointArr[idx];\n                 }\n-                sum += u;\n+                clusters = newClusters;\n                 i++;\n             }\n             MathArrays.scaleInPlace(1.0 / sum, arr);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 331, 
+          "faulty": "sum+=u;", 
+          "type": "Replace", 
+          "seed": "clusters=newClusters;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 288, 
+          "faulty": "if (size == 0) {\n  return clusters;\n}", 
+          "type": "Replace", 
+          "seed": "clusters=new ArrayList<CentroidCluster<T>>();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Replace", 
+          "seed": "MathUtils.checkNotNull(dataPoints);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_156/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:02:02.899909580 -0500\n@@ -284,11 +284,6 @@\n         membershipMatrix = new double[size][k];\n         final double[][] oldMatrix = new double[size][k];\n \n-        // if no points are provided, return an empty list of clusters\n-        if (size == 0) {\n-            return clusters;\n-        }\n-\n         initializeMembershipMatrix();\n \n         // there is at least one point\n@@ -303,7 +298,7 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n+            MathUtils.checkNotNull(dataPoints);\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -335,8 +330,8 @@\n             newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n             j++;\n         }\n-        clusters.clear();\n-        clusters = newClusters;\n+        int newCluster = -1;\n+\t\tclusters = newClusters;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 338, 
+          "faulty": "clusters.clear();", 
+          "type": "Delete", 
+          "seed": "int minCluster=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 339, 
+          "faulty": "clusters=newClusters;", 
+          "type": "InsertBefore", 
+          "seed": "int newCluster=-1;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 288, 
+          "faulty": "if (size == 0) {\n  return clusters;\n}", 
+          "type": "Delete", 
+          "seed": "return maxIterations;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Replace", 
+          "seed": "MathUtils.checkNotNull(dataPoints);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_508/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:05:19.548095090 -0500\n@@ -299,11 +299,13 @@\n \n         int iteration = 0;\n         final int max = (maxIterations < 0) ? Integer.MAX_VALUE : maxIterations;\n-        double difference = 0.0;\n+        if (fuzziness <= 1.0d) {\n+\t\t\tthrow new NumberIsTooSmallException(fuzziness, 1.0, false);\n+\t\t}\n+\t\tdouble difference = 0.0;\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n@@ -335,7 +337,7 @@\n             newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n             j++;\n         }\n-        clusters.clear();\n+        int index = 0;\n         clusters = newClusters;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 302, 
+          "faulty": "double difference=0.0;", 
+          "type": "InsertBefore", 
+          "seed": "if (fuzziness <= 1.0d) {\n  throw new NumberIsTooSmallException(fuzziness,1.0,false);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 338, 
+          "faulty": "clusters.clear();", 
+          "type": "Replace", 
+          "seed": "int index=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Delete", 
+          "seed": "final List<Cluster<T>> clusters=new ArrayList<Cluster<T>>();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_213/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:02:26.083924190 -0500\n@@ -303,7 +303,6 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Delete", 
+          "seed": "final int size=dataPoints.size();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_300/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:03:12.127952226 -0500\n@@ -326,12 +326,11 @@\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n                 for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n                 }\n                 sum += u;\n                 i++;\n             }\n-            MathArrays.scaleInPlace(1.0 / sum, arr);\n+            double bestVarianceSum = Double.POSITIVE_INFINITY;\n             newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n             j++;\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 329, 
+          "faulty": "arr[idx]+=u * pointArr[idx];", 
+          "type": "Delete", 
+          "seed": "for (int i=0; i < points.size(); i++) {\n  final T point=points.get(i);\n  double maxMembership=0.0;\n  int newCluster=-1;\n  for (int j=0; j < clusters.size(); j++) {\n    double sum=0.0;\n    final double distA=FastMath.abs(distance(point,clusters.get(j).getCenter()));\n    for (    final CentroidCluster<T> c : clusters) {\n      final double distB=FastMath.abs(distance(point,c.getCenter()));\n      sum+=FastMath.pow(distA / distB,2.0 / (fuzziness - 1.0));\n    }\n    membershipMatrix[i][j]=1.0 / sum;\n    if (membershipMatrix[i][j] > maxMembership) {\n      maxMembership=membershipMatrix[i][j];\n      newCluster=j;\n    }\n  }\n  clusters.get(newCluster).addPoint(point);\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 334, 
+          "faulty": "MathArrays.scaleInPlace(1.0 / sum,arr);", 
+          "type": "Replace", 
+          "seed": "double bestVarianceSum=Double.POSITIVE_INFINITY;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_590/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:05:46.596140864 -0500\n@@ -303,7 +303,7 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n+            double maxMembership = 0.0;\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Replace", 
+          "seed": "double maxMembership=0.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_247/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:02:50.679943019 -0500\n@@ -318,16 +318,14 @@\n         int j = 0;\n         final List<CentroidCluster<T>> newClusters = new ArrayList<CentroidCluster<T>>(k);\n         for (final CentroidCluster<T> cluster : clusters) {\n-            final Clusterable center = cluster.getCenter();\n+            double minDistance = Double.MAX_VALUE;\n+\t\t\tfinal Clusterable center = cluster.getCenter();\n             int i = 0;\n             double[] arr = new double[center.getPoint().length];\n             double sum = 0.0;\n             for (final T point : points) {\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n-                for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n-                }\n                 sum += u;\n                 i++;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 328, 
+          "faulty": "for (int idx=0; idx < arr.length; idx++) {\n  arr[idx]+=u * pointArr[idx];\n}", 
+          "type": "Delete", 
+          "seed": "return clusters;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 321, 
+          "faulty": "final Clusterable center=cluster.getCenter();", 
+          "type": "InsertBefore", 
+          "seed": "double minDistance=Double.MAX_VALUE;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_17/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:00:32.447836365 -0500\n@@ -317,7 +317,8 @@\n     private void updateClusterCenters() {\n         int j = 0;\n         final List<CentroidCluster<T>> newClusters = new ArrayList<CentroidCluster<T>>(k);\n-        for (final CentroidCluster<T> cluster : clusters) {\n+        int index = 0;\n+\t\tfor (final CentroidCluster<T> cluster : clusters) {\n             final Clusterable center = cluster.getCenter();\n             int i = 0;\n             double[] arr = new double[center.getPoint().length];\n@@ -325,9 +326,6 @@\n             for (final T point : points) {\n                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);\n                 final double[] pointArr = point.getPoint();\n-                for (int idx = 0; idx < arr.length; idx++) {\n-                    arr[idx] += u * pointArr[idx];\n-                }\n                 sum += u;\n                 i++;\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 328, 
+          "faulty": "for (int idx=0; idx < arr.length; idx++) {\n  arr[idx]+=u * pointArr[idx];\n}", 
+          "type": "Delete", 
+          "seed": "return epsilon;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 320, 
+          "faulty": "for (final CentroidCluster<T> cluster : clusters) {\n  final Clusterable center=cluster.getCenter();\n  int i=0;\n  double[] arr=new double[center.getPoint().length];\n  double sum=0.0;\n  for (  final T point : points) {\n    final double u=FastMath.pow(membershipMatrix[i][j],fuzziness);\n    final double[] pointArr=point.getPoint();\n    for (int idx=0; idx < arr.length; idx++) {\n      arr[idx]+=u * pointArr[idx];\n    }\n    sum+=u;\n    i++;\n  }\n  MathArrays.scaleInPlace(1.0 / sum,arr);\n  newClusters.add(new CentroidCluster<T>(new DoublePoint(arr)));\n  j++;\n}", 
+          "type": "InsertBefore", 
+          "seed": "int index=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 15:44:10.490149000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/patches_0bp6/Patch_557/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_596ccd59/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java\t2018-12-29 16:05:34.600120013 -0500\n@@ -289,7 +289,7 @@\n             return clusters;\n         }\n \n-        initializeMembershipMatrix();\n+        double minDistance = Double.MAX_VALUE;\n \n         // there is at least one point\n         final int pointDimension = points.get(0).getPoint().length;\n@@ -303,7 +303,7 @@\n \n         do {\n             saveMembershipMatrix(oldMatrix);\n-            updateClusterCenters();\n+            membershipMatrix = new double[size][k];\n             updateMembershipMatrix();\n             difference = calculateMaxMembershipChange(oldMatrix);\n         } while (difference > epsilon && ++iteration < max);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 292, 
+          "faulty": "initializeMembershipMatrix();", 
+          "type": "Replace", 
+          "seed": "double minDistance=Double.MAX_VALUE;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java", 
+          "line": 306, 
+          "faulty": "updateClusterCenters();", 
+          "type": "Replace", 
+          "seed": "membershipMatrix=new double[size][k];"
+        }
+      ]
+    }
+  ]
+}

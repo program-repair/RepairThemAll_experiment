@@ -1,0 +1,49 @@
+{
+  "repair_end": "2018-12-29 23:39:11.715195", 
+  "repair_begin": "2018-12-29 22:53:26.348285", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_8dd22390/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java\t2018-12-29 16:53:11.546249000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_8dd22390/patches_ju1d/Patch_559/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_8dd22390/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java\t2018-12-29 17:22:16.202099939 -0500\n@@ -253,7 +253,8 @@\n                 // predict a first estimate of the state at step end (P in the PECE sequence)\n                 final double stepEnd = stepStart + stepSize;\n                 interpolator.setInterpolatedTime(stepEnd);\n-                System.arraycopy(interpolator.getInterpolatedState(), 0, yTmp, 0, y0.length);\n+                setMaxGrowth(10.0);\n+\t\t\t\tSystem.arraycopy(interpolator.getInterpolatedState(), 0, yTmp, 0, y0.length);\n \n                 // evaluate a first estimate of the derivative (first E in the PECE sequence)\n                 computeDerivatives(stepEnd, yTmp, yDot);\n@@ -263,7 +264,8 @@\n                 for (int j = 0; j < y0.length; ++j) {\n                     predictedScaled[j] = stepSize * yDot[j];\n                 }\n-                final Array2DRowRealMatrix nordsieckTmp = updateHighOrderDerivativesPhase1(nordsieck);\n+                lastStep = true;\n+\t\t\t\tfinal Array2DRowRealMatrix nordsieckTmp = updateHighOrderDerivativesPhase1(nordsieck);\n                 updateHighOrderDerivativesPhase2(scaled, predictedScaled, nordsieckTmp);\n \n                 // apply correction (C in the PECE sequence)\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java", 
+          "line": 256, 
+          "faulty": "System.arraycopy(interpolator.getInterpolatedState(),0,yTmp,0,y0.length);", 
+          "type": "InsertBefore", 
+          "seed": "setMaxGrowth(10.0);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java", 
+          "line": 266, 
+          "faulty": "final Array2DRowRealMatrix nordsieckTmp=updateHighOrderDerivativesPhase1(nordsieck);", 
+          "type": "InsertBefore", 
+          "seed": "lastStep=true;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_8dd22390/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java\t2018-12-29 16:53:11.546249000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_8dd22390/patches_ju1d/Patch_845/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_8dd22390/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java\t2018-12-29 17:35:51.021017140 -0500\n@@ -269,7 +269,8 @@\n                 // apply correction (C in the PECE sequence)\n                 error = nordsieckTmp.walkInOptimizedOrder(new Corrector(y, predictedScaled, yTmp));\n \n-                if (error <= 1.0) {\n+                setMaxGrowth(10.0);\n+\t\t\t\tif (error <= 1.0) {\n \n                     // evaluate a final estimate of the derivative (second E in the PECE sequence)\n                     computeDerivatives(stepEnd, yTmp, yDot);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java", 
+          "line": 272, 
+          "faulty": "if (error <= 1.0) {\n  computeDerivatives(stepEnd,yTmp,yDot);\n  final double[] correctedScaled=new double[y0.length];\n  for (int j=0; j < y0.length; ++j) {\n    correctedScaled[j]=stepSize * yDot[j];\n  }\n  updateHighOrderDerivativesPhase2(predictedScaled,correctedScaled,nordsieckTmp);\n  interpolatorTmp.reinitialize(stepEnd,stepSize,correctedScaled,nordsieckTmp);\n  interpolatorTmp.storeTime(stepStart);\n  interpolatorTmp.shift();\n  interpolatorTmp.storeTime(stepEnd);\n  if (manager.evaluateStep(interpolatorTmp)) {\n    final double dt=manager.getEventTime() - stepStart;\n    if (Math.abs(dt) <= Math.ulp(stepStart)) {\n      loop=false;\n    }\n else {\n      hNew=dt;\n      interpolator.rescale(hNew);\n    }\n  }\n else {\n    scaled=correctedScaled;\n    nordsieck=nordsieckTmp;\n    interpolator.reinitialize(stepEnd,stepSize,scaled,nordsieck);\n    loop=false;\n  }\n}\n else {\n  final double factor=computeStepGrowShrinkFactor(error);\n  hNew=filterStep(stepSize * factor,forward,false);\n  interpolator.rescale(hNew);\n}", 
+          "type": "InsertBefore", 
+          "seed": "setMaxGrowth(10.0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_8dd22390/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java\t2018-12-29 16:53:11.546249000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_8dd22390/patches_ju1d/Patch_796/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_8dd22390/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java\t2018-12-29 17:33:49.332554022 -0500\n@@ -255,7 +255,8 @@\n                 interpolator.setInterpolatedTime(stepEnd);\n                 System.arraycopy(interpolator.getInterpolatedState(), 0, yTmp, 0, y0.length);\n \n-                // evaluate a first estimate of the derivative (first E in the PECE sequence)\n+                setMaxGrowth(10.0);\n+\t\t\t\t// evaluate a first estimate of the derivative (first E in the PECE sequence)\n                 computeDerivatives(stepEnd, yTmp, yDot);\n \n                 // update Nordsieck vector\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java", 
+          "line": 259, 
+          "faulty": "computeDerivatives(stepEnd,yTmp,yDot);", 
+          "type": "InsertBefore", 
+          "seed": "setMaxGrowth(10.0);"
+        }
+      ]
+    }
+  ]
+}

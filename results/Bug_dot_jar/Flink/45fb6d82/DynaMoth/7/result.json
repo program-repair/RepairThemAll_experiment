@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-31 01:55:46.883534", 
+  "repair_begin": "2018-12-31 01:52:42.872471", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 33, 
+      "patchLocation": {
+        "line": 229, 
+        "class": "org.apache.flink.compiler.dag.SingleInputNode"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/flink-compiler/src/main/java/org/apache/flink/compiler/dag/SingleInputNode.java\n+++ b/flink-compiler/src/main/java/org/apache/flink/compiler/dag/SingleInputNode.java\n@@ -228,3 +228,5 @@\n \t\t\t\t\t\tif (contained.getPartitioning() == gp.getPartitioning() && gp.getPartitionedFields().isValidSubset(contained.getPartitionedFields())) {\n-\t\t\t\t\t\t\tprops.getGlobalProperties().remove(contained);\n+\t\t\t\t\t\t\tif (this.getMaxDepth() == 1) {\n+\t\t\t\t\t\t\t\tprops.getGlobalProperties().remove(contained);\n+\t\t\t\t\t\t\t}\n \t\t\t\t\t\t\tbreak;\n"
+    }
+  ]
+}

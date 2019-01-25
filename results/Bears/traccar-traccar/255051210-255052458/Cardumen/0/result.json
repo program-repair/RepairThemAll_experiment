@@ -1,0 +1,31 @@
+{
+  "repair_end": "2018-12-28 00:20:38.634990", 
+  "repair_begin": "2018-12-28 00:20:05.665484", 
+  "patches": [
+    {
+      "PATCH_DIFF_ORIG": "\\/var\\/lib\\/oar\\/.batch_job_bashrc: line 5: \\/home\\/tdurieux\\/.bashrc: No such file or directory\\n--- org\\/traccar\\/BaseProtocolDecoder.java\\n+++ org\\/traccar\\/BaseProtocolDecoder.java\\n@@ -106,19 +106,19 @@\\n \\t}\\n \\n \\tpublic org.traccar.DeviceSession getDeviceSession(org.jboss.netty.channel.Channel channel, java.net.SocketAddress remoteAddress, java.lang.String... uniqueIds) {\\n-\\t\\tif (((channel.getPipeline().get(org.jboss.netty.handler.codec.http.HttpRequestDecoder.class)) != null) || \\n-\\t\\t(org.traccar.Context.getConfig().getBoolean(\\\"decoder.ignoreSessionCache\\\"))) {\\n-\\t\\t\\tlong deviceId = findDeviceId(remoteAddress, uniqueIds);\\n-\\t\\t\\tif (deviceId != 0) {\\n-\\t\\t\\t\\tif ((org.traccar.Context.getConnectionManager()) != null) {\\n-\\t\\t\\t\\t\\torg.traccar.Context.getConnectionManager().addActiveDevice(deviceId, protocol, channel, remoteAddress);\\n-\\t\\t\\t\\t}\\n-\\t\\t\\t\\treturn new org.traccar.DeviceSession(deviceId);\\n-\\t\\t\\t}else {\\n-\\t\\t\\t\\treturn null;\\n-\\t\\t\\t}\\n-\\t\\t}\\n-\\t\\tif (channel instanceof org.jboss.netty.channel.socket.DatagramChannel) {\\n+\\t\\tif (\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\t\\tchannel instanceof org.jboss.netty.channel.socket.DatagramChannel) { \\t\\t\\tlong deviceId = findDeviceId(remoteAddress, uniqueIds); \\t\\t\\tif (deviceId != 0) { \\t\\t\\t\\tif ((org.traccar.Context.getConnectionManager()) != null) { \\t\\t\\t\\t\\torg.traccar.Context.getConnectionManager().addActiveDevice(deviceId, protocol, channel, remoteAddress);} \\t\\t\\t\\treturn new org.traccar.DeviceSession(deviceId);}else { \\t\\t\\t\\treturn null;}} \\t\\tif (channel instanceof org.jboss.netty.channel.socket.DatagramChannel) {\\n \\t\\t\\tlong deviceId = findDeviceId(remoteAddress, uniqueIds);\\n \\t\\t\\torg.traccar.DeviceSession deviceSession = addressDeviceSessions.get(remoteAddress);\\n \\t\\t\\tif ((deviceSession != null) && (((deviceSession.getDeviceId()) == deviceId) || ((uniqueIds.length) == 0))) {\\n\\n", 
+      "patchhunks": [
+        {
+          "MODIFIED_FILE_PATH": "\\/tmp\\/Cardumen_Bears_traccar-traccar_255051210-255052458\\/.\\/output_astor\\/AstorMain-traccar-traccar-255051210-255052458\\/\\/src\\/\\/variant-10_f\\/org\\/traccar\\/BaseProtocolDecoder.java", 
+          "ORIGINAL_CODE": "((channel.getPipeline().get(org.jboss.netty.handler.codec.http.HttpRequestDecoder.class)) != null) || \\n(org.traccar.Context.getConfig().getBoolean(\\\"decoder.ignoreSessionCache\\\"))", 
+          "INGREDIENT_SCOPE": "-", 
+          "PATCH_HUNK_CODE": "channel instanceof org.jboss.netty.channel.socket.DatagramChannel", 
+          "INGREDIENT_PARENT": "_Channel_0 instanceof org.jboss.netty.channel.socket.DatagramChannel", 
+          "LOCATION": "org.traccar.BaseProtocolDecoder", 
+          "BUGGY_CODE_TYPE": "CtBinaryOperatorImpl|CtIfImpl", 
+          "OPERATOR": "ExpressionReplaceOperator", 
+          "PATH": "\\/tmp\\/Cardumen_Bears_traccar-traccar_255051210-255052458\\/output_astor\\/AstorMain-traccar-traccar-255051210-255052458\\/src\\/default\\/org\\/traccar\\/BaseProtocolDecoder.java", 
+          "LINE": "109", 
+          "MP_RANKING": "3", 
+          "SUSPICIOUNESS": "1", 
+          "PATCH_HUNK_TYPE": "CtBinaryOperatorImpl|CtIfImpl"
+        }
+      ], 
+      "GENERATION": "5", 
+      "VARIANT_ID": "10", 
+      "TIME": "10", 
+      "VALIDATION": "|true|0|265|[]|", 
+      "FOLDER_SOLUTION_CODE": "\\/tmp\\/Cardumen_Bears_traccar-traccar_255051210-255052458\\/.\\/output_astor\\/AstorMain-traccar-traccar-255051210-255052458\\/\\/bin\\/\\/variant-10"
+    }
+  ]
+}

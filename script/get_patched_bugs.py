@@ -98,7 +98,7 @@ for i in natural_sort(repaired_bugs.iterkeys()):
     print ("| {:3} | {:14} | {:21} | {:1} | {:11} |".format(index, bug['benchmark'], ("%s %s" % (project, bug_id)).strip(), len(bug['tools']), " ".join(bug['tools'])))
 
 print("\n")
-benchmarks = ["Bears", "Bugs.jar", "Defects4J", "IntroClassJava", "QuixBugs"]
+benchmarks = ["Bears", "Bug_dot_jar", "Defects4J", "IntroClassJava", "QuixBugs"]
 line = "| Repair Tools |"
 for benchmark in benchmarks:
     line += " {:} |".format(benchmark)

@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 15:37:59.779921", 
+  "repair_begin": "2018-12-29 15:24:28.124605", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 6, 
+      "patchLocation": {
+        "line": 906, 
+        "class": "org.apache.commons.math.optimization.direct.BOBYQAOptimizer"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/optimization/direct/BOBYQAOptimizer.java\n+++ b/src/main/java/org/apache/commons/math/optimization/direct/BOBYQAOptimizer.java\n@@ -905,3 +905,5 @@\n                     // Computing MAX\n-                    delta = Math.max(hDelta, dnorm);\n+                    if (org.apache.commons.math.optimization.direct.BOBYQAOptimizer.HALF == cauchy) {\n+                        delta = Math.max(hDelta, dnorm);\n+                    }\n                 } else {\n"
+    }
+  ]
+}

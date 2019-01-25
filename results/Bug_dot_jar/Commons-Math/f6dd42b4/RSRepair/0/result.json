@@ -1,0 +1,61 @@
+{
+  "repair_end": "2018-12-30 08:09:39.356451", 
+  "repair_begin": "2018-12-30 07:27:44.759236", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-30 01:27:28.893226000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/patches_0m1a/Patch_300/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-30 01:42:23.740899533 -0500\n@@ -123,7 +123,8 @@\n             return result;\n         }\n \n-        // reduce interval if initial and max bracket the root\n+        verifyBracketing(min, max, f);\n+\t\t// reduce interval if initial and max bracket the root\n         if (yInitial * yMax < 0) {\n             return solve(f, initial, yInitial, max, yMax, initial, yInitial);\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 127, 
+          "faulty": "if (yInitial * yMax < 0) {\n  return solve(f,initial,yInitial,max,yMax,initial,yInitial);\n}", 
+          "type": "InsertBefore", 
+          "seed": "verifyBracketing(min,max,f);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-30 01:27:28.893226000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/patches_0m1a/Patch_337/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-30 01:44:01.281802259 -0500\n@@ -128,8 +128,7 @@\n             return solve(f, initial, yInitial, max, yMax, initial, yInitial);\n         }\n \n-        // full Brent algorithm starting with provided initial guess\n-        return solve(f, min, yMin, max, yMax, initial, yInitial);\n+        return solve(f, min, max);\n \n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 132, 
+          "faulty": "return solve(f,min,yMin,max,yMax,initial,yInitial);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-30 01:27:28.893226000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/patches_0m1a/Patch_778/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-30 02:04:09.900950468 -0500\n@@ -128,8 +128,7 @@\n             return solve(f, initial, yInitial, max, yMax, initial, yInitial);\n         }\n \n-        // full Brent algorithm starting with provided initial guess\n-        return solve(f, min, yMin, max, yMax, initial, yInitial);\n+        return solve(f, min, max);\n \n     }\n \n\n\n--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java\t2018-12-30 01:27:28.897226000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/patches_0m1a/Patch_778/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java\t2018-12-30 02:04:09.904950506 -0500\n@@ -206,7 +206,11 @@\n      */\n     protected void verifyInterval(final double lower, final double upper) {\n         if (lower >= upper) {\n-            throw MathRuntimeException.createIllegalArgumentException(\n+            if (f == null) {\n+\t\t\t\tthrow MathRuntimeException\n+\t\t\t\t\t\t.createIllegalArgumentException(\"function to solve cannot be null\");\n+\t\t\t}\n+\t\t\tthrow MathRuntimeException.createIllegalArgumentException(\n                     \"endpoints do not specify an interval: [{0}, {1}]\",\n                     lower, upper);\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java", 
+          "line": 209, 
+          "faulty": "throw MathRuntimeException.createIllegalArgumentException(\"endpoints do not specify an interval: [{0}, {1}]\",lower,upper);", 
+          "type": "InsertBefore", 
+          "seed": "if (f == null) {\n  throw MathRuntimeException.createIllegalArgumentException(\"function to solve cannot be null\");\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 132, 
+          "faulty": "return solve(f,min,yMin,max,yMax,initial,yInitial);", 
+          "type": "Replace", 
+          "seed": "return solve(f,min,max);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-30 01:27:28.893226000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/patches_0m1a/Patch_145/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_f6dd42b4/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java\t2018-12-30 01:35:10.160778252 -0500\n@@ -104,7 +104,8 @@\n             return result;\n         }\n \n-        // return the first endpoint if it is good enough\n+        verifyBracketing(min, max, f);\n+\t\t// return the first endpoint if it is good enough\n         double yMin = f.value(min);\n         if (Math.abs(yMin) <= functionValueAccuracy) {\n             setResult(yMin, 0);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java", 
+          "line": 108, 
+          "faulty": "double yMin=f.value(min);", 
+          "type": "InsertBefore", 
+          "seed": "verifyBracketing(min,max,f);"
+        }
+      ]
+    }
+  ]
+}

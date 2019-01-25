@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 15:59:09.678068", 
+  "repair_begin": "2018-12-29 15:52:44.121664", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 4, 
+      "patchLocation": {
+        "line": 458, 
+        "class": "org.apache.commons.math3.util.ResizableDoubleArray"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math3/util/ResizableDoubleArray.java\n+++ b/src/main/java/org/apache/commons/math3/util/ResizableDoubleArray.java\n@@ -457,3 +457,5 @@\n         System.arraycopy(values, 0, tempArray, numElements, values.length);\n-        internalArray = tempArray;\n+        if (values.length <= 5) {\n+            internalArray = tempArray;\n+        }\n         startIndex = 0;\n"
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "repair_end": "2018-12-05 00:07:21.158004", 
+  "repair_begin": "2018-12-05 00:00:07.912936", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_1238/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:05:15.418153063 -0500\n@@ -68,14 +68,21 @@\n         temp2.value = b.value;\n         if (a.value > b.value) {\n             a.value = b.value;\n-            b.value = temp1.value;\n+            if (b.value > c.value) {\n+\t\t\t\tb.value = c.value;\n+\t\t\t\tc.value = temp2.value;\n+\t\t\t}\n+\t\t\tb.value = temp1.value;\n         }\n         if (b.value > c.value) {\n             b.value = c.value;\n             c.value = temp2.value;\n         }\n         if (a.value > b.value) {\n-            a.value = b.value;\n+            if (a.value > b.value) {\n+\t\t\t\ta.value = b.value;\n+\t\t\t\tb.value = temp1.value;\n+\t\t\t}\n             b.value = temp1.value;\n         }\n         output += (String.format (\"%d is the median\", b.value));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 71, 
+          "faulty": "b.value=temp1.value;", 
+          "type": "InsertBefore", 
+          "seed": "if (b.value > c.value) {\n  b.value=c.value;\n  c.value=temp2.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 78, 
+          "faulty": "a.value=b.value;", 
+          "type": "Replace", 
+          "seed": "if (a.value > b.value) {\n  a.value=b.value;\n  b.value=temp1.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_513/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:02:19.704190385 -0500\n@@ -75,7 +75,7 @@\n             c.value = temp2.value;\n         }\n         if (a.value > b.value) {\n-            a.value = b.value;\n+            temp1.value = a.value;\n             b.value = temp1.value;\n         }\n         output += (String.format (\"%d is the median\", b.value));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 67, 
+          "faulty": "temp1.value=a.value;", 
+          "type": "Replace", 
+          "seed": "temp1.value=a.value;"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 78, 
+          "faulty": "a.value=b.value;", 
+          "type": "Replace", 
+          "seed": "temp1.value=a.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_209/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:01:05.884188343 -0500\n@@ -67,7 +67,11 @@\n         temp1.value = a.value;\n         temp2.value = b.value;\n         if (a.value > b.value) {\n-            a.value = b.value;\n+            if (b.value > c.value) {\n+\t\t\t\tb.value = c.value;\n+\t\t\t\tc.value = temp2.value;\n+\t\t\t}\n+\t\t\ta.value = b.value;\n             b.value = temp1.value;\n         }\n         if (b.value > c.value) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 70, 
+          "faulty": "a.value=b.value;", 
+          "type": "InsertBefore", 
+          "seed": "if (b.value > c.value) {\n  b.value=c.value;\n  c.value=temp2.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_839/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:03:39.672192598 -0500\n@@ -75,7 +75,7 @@\n             c.value = temp2.value;\n         }\n         if (a.value > b.value) {\n-            a.value = b.value;\n+            temp1.value = a.value;\n             b.value = temp1.value;\n         }\n         output += (String.format (\"%d is the median\", b.value));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 78, 
+          "faulty": "a.value=b.value;", 
+          "type": "Replace", 
+          "seed": "temp1.value=a.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_279/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:01:22.816188811 -0500\n@@ -68,7 +68,11 @@\n         temp2.value = b.value;\n         if (a.value > b.value) {\n             a.value = b.value;\n-            b.value = temp1.value;\n+            if (b.value > c.value) {\n+\t\t\t\tb.value = c.value;\n+\t\t\t\tc.value = temp2.value;\n+\t\t\t}\n+\t\t\tb.value = temp1.value;\n         }\n         if (b.value > c.value) {\n             b.value = c.value;\n@@ -80,6 +84,6 @@\n         }\n         output += (String.format (\"%d is the median\", b.value));\n         if (true)\n-            return;;\n+\t\t\t;;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 71, 
+          "faulty": "b.value=temp1.value;", 
+          "type": "InsertBefore", 
+          "seed": "if (b.value > c.value) {\n  b.value=c.value;\n  c.value=temp2.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 83, 
+          "faulty": "return;", 
+          "type": "Delete", 
+          "seed": "output+=(String.format(\"%d is the median\",b.value));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_94/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:00:37.396187555 -0500\n@@ -75,7 +75,8 @@\n             c.value = temp2.value;\n         }\n         if (a.value > b.value) {\n-            a.value = b.value;\n+            temp1.value = a.value;\n+\t\t\ta.value = b.value;\n             b.value = temp1.value;\n         }\n         output += (String.format (\"%d is the median\", b.value));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 78, 
+          "faulty": "a.value=b.value;", 
+          "type": "InsertBefore", 
+          "seed": "temp1.value=a.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_1372/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:05:48.340789777 -0500\n@@ -67,7 +67,8 @@\n         temp1.value = a.value;\n         temp2.value = b.value;\n         if (a.value > b.value) {\n-            a.value = b.value;\n+            ;\n+\t\t\ta.value = b.value;\n             b.value = temp1.value;\n         }\n         if (b.value > c.value) {\n@@ -75,7 +76,8 @@\n             c.value = temp2.value;\n         }\n         if (a.value > b.value) {\n-            a.value = b.value;\n+            temp1.value = a.value;\n+\t\t\ta.value = b.value;\n             b.value = temp1.value;\n         }\n         output += (String.format (\"%d is the median\", b.value));\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 70, 
+          "faulty": "a.value=b.value;", 
+          "type": "InsertBefore", 
+          "seed": ";"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 78, 
+          "faulty": "a.value=b.value;", 
+          "type": "InsertBefore", 
+          "seed": "temp1.value=a.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_1569/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:06:35.102363843 -0500\n@@ -68,7 +68,11 @@\n         temp2.value = b.value;\n         if (a.value > b.value) {\n             a.value = b.value;\n-            b.value = temp1.value;\n+            if (b.value > c.value) {\n+\t\t\t\tb.value = c.value;\n+\t\t\t\tc.value = temp2.value;\n+\t\t\t}\n+\t\t\tb.value = temp1.value;\n         }\n         if (b.value > c.value) {\n             b.value = c.value;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 71, 
+          "faulty": "b.value=temp1.value;", 
+          "type": "InsertBefore", 
+          "seed": "if (b.value > c.value) {\n  b.value=c.value;\n  c.value=temp2.value;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_803/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:03:31.016192359 -0500\n@@ -72,7 +72,7 @@\n         }\n         if (b.value > c.value) {\n             b.value = c.value;\n-            c.value = temp2.value;\n+            temp1.value = a.value;\n         }\n         if (a.value > b.value) {\n             a.value = b.value;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 75, 
+          "faulty": "c.value=temp2.value;", 
+          "type": "Replace", 
+          "seed": "temp1.value=a.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_956/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:04:07.994327589 -0500\n@@ -74,7 +74,8 @@\n             b.value = c.value;\n             c.value = temp2.value;\n         }\n-        if (a.value > b.value) {\n+        temp1.value = a.value;\n+\t\tif (a.value > b.value) {\n             a.value = b.value;\n             b.value = temp1.value;\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 77, 
+          "faulty": "if (a.value > b.value) {\n  a.value=b.value;\n  b.value=temp1.value;\n}", 
+          "type": "InsertBefore", 
+          "seed": "temp1.value=a.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_384/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:01:47.860189504 -0500\n@@ -68,7 +68,11 @@\n         temp2.value = b.value;\n         if (a.value > b.value) {\n             a.value = b.value;\n-            b.value = temp1.value;\n+            if (b.value > c.value) {\n+\t\t\t\tb.value = c.value;\n+\t\t\t\tc.value = temp2.value;\n+\t\t\t}\n+\t\t\tb.value = temp1.value;\n         }\n         if (b.value > c.value) {\n             b.value = c.value;\n@@ -78,7 +82,8 @@\n             a.value = b.value;\n             b.value = temp1.value;\n         }\n-        output += (String.format (\"%d is the median\", b.value));\n+        temp2.value = b.value;\n+\t\toutput += (String.format (\"%d is the median\", b.value));\n         if (true)\n             return;;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 71, 
+          "faulty": "b.value=temp1.value;", 
+          "type": "InsertBefore", 
+          "seed": "if (b.value > c.value) {\n  b.value=c.value;\n  c.value=temp2.value;\n}"
+        }, 
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 81, 
+          "faulty": "output+=(String.format(\"%d is the median\",b.value));", 
+          "type": "InsertBefore", 
+          "seed": "temp2.value=b.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_561/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:02:31.384190709 -0500\n@@ -70,7 +70,8 @@\n             a.value = b.value;\n             b.value = temp1.value;\n         }\n-        if (b.value > c.value) {\n+        temp1.value = a.value;\n+\t\tif (b.value > c.value) {\n             b.value = c.value;\n             c.value = temp2.value;\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 73, 
+          "faulty": "if (b.value > c.value) {\n  b.value=c.value;\n  c.value=temp2.value;\n}", 
+          "type": "InsertBefore", 
+          "seed": "temp1.value=a.value;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-11-28 17:54:20.919963000 -0500\n+++ /tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/patches_ttek/Patch_107/patched/tmp/RSRepair_IntroClassJava_median_317aa7055d3b7337ab43b73863692d1288ca246c473f9fd176bc737a7c3e1e08c37a15603cfb7bfc86f7bc2dcc239967b79b605aec11f86ae3ab90dc140b540f_000/src/main/java/introclassJava/median_317aa705_000.java\t2018-12-04 18:00:40.460187639 -0500\n@@ -66,7 +66,11 @@\n         c.value = scanner.nextInt ();\n         temp1.value = a.value;\n         temp2.value = b.value;\n-        if (a.value > b.value) {\n+        if (b.value > c.value) {\n+\t\t\tb.value = c.value;\n+\t\t\tc.value = temp2.value;\n+\t\t}\n+\t\tif (a.value > b.value) {\n             a.value = b.value;\n             b.value = temp1.value;\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/median_317aa705_000.java", 
+          "line": 69, 
+          "faulty": "if (a.value > b.value) {\n  a.value=b.value;\n  b.value=temp1.value;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (b.value > c.value) {\n  b.value=c.value;\n  c.value=temp2.value;\n}"
+        }
+      ]
+    }
+  ]
+}

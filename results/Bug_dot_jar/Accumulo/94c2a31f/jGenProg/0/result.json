@@ -1,0 +1,31 @@
+{
+  "repair_end": "2018-12-29 23:10:59.443060", 
+  "repair_begin": "2018-12-29 23:05:10.497618", 
+  "patches": [
+    {
+      "PATCH_DIFF_ORIG": "\\/var\\/lib\\/oar\\/.batch_job_bashrc: line 5: \\/home\\/tdurieux\\/.bashrc: No such file or directory\\n--- org\\/apache\\/accumulo\\/minicluster\\/MiniAccumuloCluster.java\\n+++ org\\/apache\\/accumulo\\/minicluster\\/MiniAccumuloCluster.java\\n@@ -368,16 +368,16 @@\\n \\n \\n \\n-\\tpublic void stop() throws java.io.IOException, java.lang.InterruptedException {\\n-\\t\\tif ((zooKeeperProcess) != null) {\\n-\\t\\t\\ttry {\\n-\\t\\t\\t\\tstopProcessWithTimeout(zooKeeperProcess, 30, java.util.concurrent.TimeUnit.SECONDS);\\n-\\t\\t\\t} catch (java.util.concurrent.ExecutionException e) {\\n-\\t\\t\\t\\torg.apache.accumulo.minicluster.MiniAccumuloCluster.log.warn(\\\"ZooKeeper did not fully stop after 30 seconds\\\", e);\\n-\\t\\t\\t} catch (java.util.concurrent.TimeoutException e) {\\n-\\t\\t\\t\\torg.apache.accumulo.minicluster.MiniAccumuloCluster.log.warn(\\\"ZooKeeper did not fully stop after 30 seconds\\\", e);\\n-\\t\\t\\t}\\n-\\t\\t}\\n+\\tpublic void stop() throws java.io.IOException, java.lang.InterruptedException { \\t\\tif (null == (executor)) { \\t\\t\\texecutor = java.util.concurrent.Executors.newSingleThreadExecutor();}\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n \\t\\tif ((masterProcess) != null) {\\n \\t\\t\\ttry {\\n \\t\\t\\t\\tstopProcessWithTimeout(masterProcess, 30, java.util.concurrent.TimeUnit.SECONDS);\\n\\n", 
+      "patchhunks": [
+        {
+          "MODIFIED_FILE_PATH": "\\/tmp\\/jGenProg_Bug_dot_jar_Accumulo_94c2a31f\\/.\\/output_astor\\/AstorMain-Accumulo-94c2a31f\\/\\/src\\/\\/variant-92_f\\/org\\/apache\\/accumulo\\/minicluster\\/MiniAccumuloCluster.java", 
+          "ORIGINAL_CODE": "if ((zooKeeperProcess) != null) {\\n\\ttry {\\n\\t\\tstopProcessWithTimeout(zooKeeperProcess, 30, java.util.concurrent.TimeUnit.SECONDS);\\n\\t} catch (java.util.concurrent.ExecutionException e) {\\n\\t\\torg.apache.accumulo.minicluster.MiniAccumuloCluster.log.warn(\\\"ZooKeeper did not fully stop after 30 seconds\\\", e);\\n\\t} catch (java.util.concurrent.TimeoutException e) {\\n\\t\\torg.apache.accumulo.minicluster.MiniAccumuloCluster.log.warn(\\\"ZooKeeper did not fully stop after 30 seconds\\\", e);\\n\\t}\\n}", 
+          "INGREDIENT_SCOPE": "LOCAL", 
+          "PATCH_HUNK_CODE": "if (null == (executor)) {\\n\\texecutor = java.util.concurrent.Executors.newSingleThreadExecutor();\\n}", 
+          "INGREDIENT_PARENT": "if (null == (executor)) {\\n\\texecutor = java.util.concurrent.Executors.newSingleThreadExecutor();\\n}", 
+          "LOCATION": "org.apache.accumulo.minicluster.MiniAccumuloCluster", 
+          "BUGGY_CODE_TYPE": "CtIfImpl|CtBlockImpl", 
+          "OPERATOR": "ReplaceOp", 
+          "PATH": "\\/tmp\\/jGenProg_Bug_dot_jar_Accumulo_94c2a31f\\/output_astor\\/AstorMain-Accumulo-94c2a31f\\/src\\/default\\/org\\/apache\\/accumulo\\/minicluster\\/MiniAccumuloCluster.java", 
+          "LINE": "372", 
+          "MP_RANKING": "12", 
+          "SUSPICIOUNESS": "0.577", 
+          "PATCH_HUNK_TYPE": "CtIfImpl|CtBlockImpl"
+        }
+      ], 
+      "GENERATION": "46", 
+      "VARIANT_ID": "92", 
+      "TIME": "297", 
+      "VALIDATION": "|true|0|5|[]|", 
+      "FOLDER_SOLUTION_CODE": "\\/tmp\\/jGenProg_Bug_dot_jar_Accumulo_94c2a31f\\/.\\/output_astor\\/AstorMain-Accumulo-94c2a31f\\/\\/bin\\/\\/variant-92"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "repair_end": "2018-12-28 00:16:27.377965", 
+  "repair_begin": "2018-12-28 00:16:01.148310", 
+  "patches": [
+    {
+      "PATCH_DIFF_ORIG": "\\/var\\/lib\\/oar\\/.batch_job_bashrc: line 5: \\/home\\/tdurieux\\/.bashrc: No such file or directory\\n--- org\\/traccar\\/protocol\\/EelinkProtocolDecoder.java\\n+++ org\\/traccar\\/protocol\\/EelinkProtocolDecoder.java\\n@@ -158,60 +158,60 @@\\n \\n \\t\\t\\t\\t\\tposition.set(org.traccar.model.Position.KEY_EVENT, statusType);\\n \\n-\\t\\t\\t\\t\\tif (((statusType == 1) || (statusType == 2)) || (statusType == 3)) {\\n-\\t\\t\\t\\t\\t\\tbuf.readUnsignedInt();\\n-\\t\\t\\t\\t\\t\\tdecodeStatus(position, buf.readUnsignedShort());\\n-\\t\\t\\t\\t\\t}\\n+\\t\\t\\t\\t\\tif ((\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n \\n-\\t\\t\\t\\t}\\n \\n-\\t\\treturn position;\\n-\\t}\\n \\n-\\tprivate org.traccar.model.Position decodeNew(org.traccar.DeviceSession deviceSession, org.jboss.netty.buffer.ChannelBuffer buf, int index) {\\n \\n-\\t\\torg.traccar.model.Position position = new org.traccar.model.Position();\\n-\\t\\tposition.setDeviceId(deviceSession.getDeviceId());\\n-\\t\\tposition.setProtocol(getProtocolName());\\n \\n-\\t\\tposition.set(org.traccar.model.Position.KEY_INDEX, index);\\n \\n-\\t\\tposition.setTime(new java.util.Date(((buf.readUnsignedInt()) * 1000)));\\n \\n-\\t\\tint flags = buf.readUnsignedByte();\\n \\n-\\t\\tif (org.traccar.helper.BitUtil.check(flags, 0)) {\\n-\\t\\t\\tposition.setLatitude(((buf.readInt()) \\/ 1800000.0));\\n-\\t\\t\\tposition.setLongitude(((buf.readInt()) \\/ 1800000.0));\\n-\\t\\t\\tposition.setAltitude(buf.readShort());\\n-\\t\\t\\tposition.setSpeed(org.traccar.helper.UnitsConverter.knotsFromKph(buf.readUnsignedShort()));\\n-\\t\\t\\tposition.setCourse(buf.readUnsignedShort());\\n-\\t\\t\\tposition.set(org.traccar.model.Position.KEY_SATELLITES, buf.readUnsignedByte());\\n-\\t\\t}\\n \\n-\\t\\tif (org.traccar.helper.BitUtil.check(flags, 1)) {\\n-\\t\\t\\tposition.setNetwork(new org.traccar.model.Network(org.traccar.model.CellTower.from(\\n-\\t\\t\\tbuf.readUnsignedShort(), buf.readUnsignedShort(), \\n-\\t\\t\\tbuf.readUnsignedShort(), buf.readUnsignedInt(), buf.readUnsignedByte())));\\n-\\t\\t}\\n \\n-\\t\\tif (org.traccar.helper.BitUtil.check(flags, 2)) {\\n-\\t\\t\\tbuf.skipBytes(7);\\n-\\t\\t}\\n \\n-\\t\\tif (org.traccar.helper.BitUtil.check(flags, 3)) {\\n-\\t\\t\\tbuf.skipBytes(7);\\n-\\t\\t}\\n \\n-\\t\\tif (org.traccar.helper.BitUtil.check(flags, 4)) {\\n-\\t\\t\\tbuf.skipBytes(7);\\n-\\t\\t}\\n \\n-\\t\\tif (org.traccar.helper.BitUtil.check(flags, 5)) {\\n-\\t\\t\\tbuf.skipBytes(7);\\n-\\t\\t}\\n \\n-\\t\\tif (org.traccar.helper.BitUtil.check(flags, 6)) {\\n+\\t\\t\\t\\t\\t(org.traccar.helper.BitUtil.check(type, 6)) || (statusType == 2)) || (statusType == 3)) { \\t\\t\\t\\t\\t\\tbuf.readUnsignedInt(); \\t\\t\\t\\t\\t\\tdecodeStatus(position, buf.readUnsignedShort());}} \\t\\treturn position;} \\tprivate org.traccar.model.Position decodeNew(org.traccar.DeviceSession deviceSession, org.jboss.netty.buffer.ChannelBuffer buf, int index) { \\t\\torg.traccar.model.Position position = new org.traccar.model.Position(); \\t\\tposition.setDeviceId(deviceSession.getDeviceId()); \\t\\tposition.setProtocol(getProtocolName()); \\t\\tposition.set(org.traccar.model.Position.KEY_INDEX, index); \\t\\tposition.setTime(new java.util.Date(((buf.readUnsignedInt()) * 1000))); \\t\\tint flags = buf.readUnsignedByte(); \\t\\tif (org.traccar.helper.BitUtil.check(flags, 0)) { \\t\\t\\tposition.setLatitude(((buf.readInt()) \\/ 1800000.0)); \\t\\t\\tposition.setLongitude(((buf.readInt()) \\/ 1800000.0)); \\t\\t\\tposition.setAltitude(buf.readShort()); \\t\\t\\tposition.setSpeed(org.traccar.helper.UnitsConverter.knotsFromKph(buf.readUnsignedShort())); \\t\\t\\tposition.setCourse(buf.readUnsignedShort()); \\t\\t\\tposition.set(org.traccar.model.Position.KEY_SATELLITES, buf.readUnsignedByte());} \\t\\tif (org.traccar.helper.BitUtil.check(flags, 1)) { \\t\\t\\tposition.setNetwork(new org.traccar.model.Network(org.traccar.model.CellTower.from(buf.readUnsignedShort(), buf.readUnsignedShort(), buf.readUnsignedShort(), buf.readUnsignedInt(), buf.readUnsignedByte())));} \\t\\tif (org.traccar.helper.BitUtil.check(flags, 2)) { \\t\\t\\tbuf.skipBytes(7);} \\t\\tif (org.traccar.helper.BitUtil.check(flags, 3)) { \\t\\t\\tbuf.skipBytes(7);} \\t\\tif (org.traccar.helper.BitUtil.check(flags, 4)) { \\t\\t\\tbuf.skipBytes(7);} \\t\\tif (org.traccar.helper.BitUtil.check(flags, 5)) { \\t\\t\\tbuf.skipBytes(7);} \\t\\tif (org.traccar.helper.BitUtil.check(flags, 6)) {\\n \\t\\t\\tbuf.skipBytes(7);\\n \\t\\t}\\n \\n\\n", 
+      "patchhunks": [
+        {
+          "MODIFIED_FILE_PATH": "\\/tmp\\/Cardumen_Bears_traccar-traccar_273118899-273136493\\/.\\/output_astor\\/AstorMain-traccar-traccar-273118899-273136493\\/\\/src\\/\\/variant-10_f\\/org\\/traccar\\/protocol\\/EelinkProtocolDecoder.java", 
+          "ORIGINAL_CODE": "(statusType == 1)", 
+          "INGREDIENT_SCOPE": "-", 
+          "PATCH_HUNK_CODE": "(org.traccar.helper.BitUtil.check(type, 6))", 
+          "INGREDIENT_PARENT": "org.traccar.helper.BitUtil.check(_int_0, 6)", 
+          "LOCATION": "org.traccar.protocol.EelinkProtocolDecoder", 
+          "BUGGY_CODE_TYPE": "CtBinaryOperatorImpl|CtBinaryOperatorImpl", 
+          "OPERATOR": "ExpressionReplaceOperator", 
+          "PATH": "\\/tmp\\/Cardumen_Bears_traccar-traccar_273118899-273136493\\/output_astor\\/AstorMain-traccar-traccar-273118899-273136493\\/src\\/default\\/org\\/traccar\\/protocol\\/EelinkProtocolDecoder.java", 
+          "LINE": "161", 
+          "MP_RANKING": "36", 
+          "SUSPICIOUNESS": "1", 
+          "PATCH_HUNK_TYPE": "CtInvocationImpl|CtBinaryOperatorImpl"
+        }
+      ], 
+      "GENERATION": "5", 
+      "VARIANT_ID": "10", 
+      "TIME": "9", 
+      "VALIDATION": "|true|0|276|[]|", 
+      "FOLDER_SOLUTION_CODE": "\\/tmp\\/Cardumen_Bears_traccar-traccar_273118899-273136493\\/.\\/output_astor\\/AstorMain-traccar-traccar-273118899-273136493\\/\\/bin\\/\\/variant-10"
+    }
+  ]
+}

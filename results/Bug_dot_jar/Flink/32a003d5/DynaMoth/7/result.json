@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-31 02:16:40.379880", 
+  "repair_begin": "2018-12-31 02:13:38.896247", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 10, 
+      "patchLocation": {
+        "line": 564, 
+        "class": "eu.stratosphere.compiler.PactCompiler"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/stratosphere-compiler/src/main/java/eu/stratosphere/compiler/PactCompiler.java\n+++ b/stratosphere-compiler/src/main/java/eu/stratosphere/compiler/PactCompiler.java\n@@ -563,3 +563,5 @@\n \t\t} else if (bestPlanRoot instanceof SinkJoinerPlanNode) {\n-\t\t\t((SinkJoinerPlanNode) bestPlanRoot).getDataSinks(bestPlanSinks);\n+\t\t\tif (defaultParallelism != program.getDefaultParallelism()) {\n+\t\t\t\t((SinkJoinerPlanNode) bestPlanRoot).getDataSinks(bestPlanSinks);\n+\t\t\t}\n \t\t}\n"
+    }
+  ]
+}

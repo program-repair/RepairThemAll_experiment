@@ -1,0 +1,829 @@
+{
+  "repair_end": "2018-12-29 13:13:21.625471", 
+  "repair_begin": "2018-12-29 11:48:29.255568", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1003/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:54:05.888483791 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -177,7 +180,10 @@\n      */\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n-        if (x == 0) {\n+        ret = getStirlingError(n) - getStirlingError(x)\n+\t\t\t\t- getStirlingError(n - x) - getDeviancePart(x, n * p)\n+\t\t\t\t- getDeviancePart(n - x, n * q);\n+\t\tif (x == 0) {\n             if (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1003/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:54:05.888483791 -0500\n@@ -100,7 +100,10 @@\n     /** {@inheritDoc} */\n     public double probability(int x) {\n         final double logProbability = logProbability(x);\n-        return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n+        if (x < 0) {\n+\t\t\treturn 0;\n+\t\t}\n+\t\treturn logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n     }\n \n     /** {@inheritDoc} **/\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 180, 
+          "faulty": "if (x == 0) {\n  if (p < 0.1) {\n    ret=-getDeviancePart(n,n * q) - n * p;\n  }\n else {\n    ret=n * FastMath.log(q);\n  }\n}\n else if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 103, 
+          "faulty": "return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);", 
+          "type": "InsertBefore", 
+          "seed": "if (x < 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_892/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:49:20.296975957 -0500\n@@ -162,7 +162,10 @@\n         } else {\n             ret = x * FastMath.log(x / mu) + mu - x;\n         }\n-        return ret;\n+        if (x <= 0) {\n+\t\t\treturn 0;\n+\t\t}\n+\t\treturn ret;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 165, 
+          "faulty": "return ret;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_484/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:31:54.759191834 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -178,7 +181,8 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n-            if (p < 0.1) {\n+            ret = n * FastMath.log(q);\n+\t\t\tif (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n                 ret = n * FastMath.log(q);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 181, 
+          "faulty": "if (p < 0.1) {\n  ret=-getDeviancePart(n,n * q) - n * p;\n}\n else {\n  ret=n * FastMath.log(q);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=n * FastMath.log(q);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1244/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 07:04:21.919912031 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -178,6 +181,25 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n+\t\t\tif (p < 0.1) {\n+\t\t\t\tret = -getDeviancePart(n, n * q) - n * p;\n+\t\t\t} else {\n+\t\t\t\tret = n * FastMath.log(q);\n+\t\t\t}\n+\t\t} else if (x == n) {\n+\t\t\tif (q < 0.1) {\n+\t\t\t\tret = -getDeviancePart(n, n * p) - n * q;\n+\t\t\t} else {\n+\t\t\t\tret = n * FastMath.log(p);\n+\t\t\t}\n+\t\t} else {\n+\t\t\tret = getStirlingError(n) - getStirlingError(x)\n+\t\t\t\t\t- getStirlingError(n - x) - getDeviancePart(x, n * p)\n+\t\t\t\t\t- getDeviancePart(n - x, n * q);\n+\t\t\tdouble f = (MathUtils.TWO_PI * x * (n - x)) / n;\n+\t\t\tret = -0.5 * FastMath.log(f) + ret;\n+\t\t}\n+\t\tif (x == 0) {\n             if (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 180, 
+          "faulty": "if (x == 0) {\n  if (p < 0.1) {\n    ret=-getDeviancePart(n,n * q) - n * p;\n  }\n else {\n    ret=n * FastMath.log(q);\n  }\n}\n else if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (x == 0) {\n  if (p < 0.1) {\n    ret=-getDeviancePart(n,n * q) - n * p;\n  }\n else {\n    ret=n * FastMath.log(q);\n  }\n}\n else if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_723/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:42:06.087460905 -0500\n@@ -144,7 +144,8 @@\n      */\n     static double getDeviancePart(double x, double mu) {\n         double ret;\n-        if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n+        ret = 0;\n+\t\tif (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n             double d = x - mu;\n             double v = d / (x + mu);\n             double s1 = v * d;\n@@ -160,7 +161,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 147, 
+          "faulty": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1144/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 07:00:05.732837444 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -178,7 +181,8 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n-            if (p < 0.1) {\n+            ret = Double.POSITIVE_INFINITY;\n+\t\t\tif (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n                 ret = n * FastMath.log(q);\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1144/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 07:00:05.768837877 -0500\n@@ -99,7 +99,10 @@\n \n     /** {@inheritDoc} */\n     public double probability(int x) {\n-        final double logProbability = logProbability(x);\n+        if (x < 0) {\n+\t\t\treturn 0;\n+\t\t}\n+\t\tfinal double logProbability = logProbability(x);\n         return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 181, 
+          "faulty": "if (p < 0.1) {\n  ret=-getDeviancePart(n,n * q) - n * p;\n}\n else {\n  ret=n * FastMath.log(q);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=Double.POSITIVE_INFINITY;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 102, 
+          "faulty": "final double logProbability=logProbability(x);", 
+          "type": "InsertBefore", 
+          "seed": "if (x < 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_424/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:29:36.397312550 -0500\n@@ -144,7 +144,10 @@\n      */\n     static double getDeviancePart(double x, double mu) {\n         double ret;\n-        if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n+        if (x < 0) {\n+\t\t\treturn Double.NEGATIVE_INFINITY;\n+\t\t}\n+\t\tif (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n             double d = x - mu;\n             double v = d / (x + mu);\n             double s1 = v * d;\n@@ -160,7 +163,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 147, 
+          "faulty": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (x < 0) {\n  return Double.NEGATIVE_INFINITY;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/util/FastMath.java\t2018-12-29 05:47:47.513303000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1307/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/util/FastMath.java\t2018-12-29 07:07:02.589834008 -0500\n@@ -1140,7 +1140,13 @@\n \n         /* Handle special cases of negative input, and NaN */\n         if (((bits & 0x8000000000000000L) != 0 || x != x) && x != 0.0) {\n-            if (hiPrec != null) {\n+            if (((bits & 0x8000000000000000L) != 0 || x != x) && x != 0.0) {\n+\t\t\t\tif (hiPrec != null) {\n+\t\t\t\t\thiPrec[0] = Double.NaN;\n+\t\t\t\t}\n+\t\t\t\treturn Double.NaN;\n+\t\t\t}\n+\t\t\tif (hiPrec != null) {\n                 hiPrec[0] = Double.NaN;\n             }\n \n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1307/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 07:07:02.589834008 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/util/FastMath.java", 
+          "line": 1143, 
+          "faulty": "if (hiPrec != null) {\n  hiPrec[0]=Double.NaN;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (((bits & 0x8000000000000000L) != 0 || x != x) && x != 0.0) {\n  if (hiPrec != null) {\n    hiPrec[0]=Double.NaN;\n  }\n  return Double.NaN;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_874/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:48:37.684446459 -0500\n@@ -145,6 +145,24 @@\n     static double getDeviancePart(double x, double mu) {\n         double ret;\n         if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n+\t\t\tdouble d = x - mu;\n+\t\t\tdouble v = d / (x + mu);\n+\t\t\tdouble s1 = v * d;\n+\t\t\tdouble s = Double.NaN;\n+\t\t\tdouble ej = 2.0 * x * v;\n+\t\t\tv *= v;\n+\t\t\tint j = 1;\n+\t\t\twhile (s1 != s) {\n+\t\t\t\ts = s1;\n+\t\t\t\tej *= v;\n+\t\t\t\ts1 = s + ej / ((j * 2) + 1);\n+\t\t\t\t++j;\n+\t\t\t}\n+\t\t\tret = s1;\n+\t\t} else {\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n+\t\t}\n+\t\tif (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n             double d = x - mu;\n             double v = d / (x + mu);\n             double s1 = v * d;\n@@ -160,7 +178,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 147, 
+          "faulty": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_395/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:28:28.700398638 -0500\n@@ -178,11 +178,7 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n-            if (p < 0.1) {\n-                ret = -getDeviancePart(n, n * q) - n * p;\n-            } else {\n-                ret = n * FastMath.log(q);\n-            }\n+            ret = n * FastMath.log(q);\n         } else if (x == n) {\n             if (q < 0.1) {\n                 ret = -getDeviancePart(n, n * p) - n * q;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 181, 
+          "faulty": "if (p < 0.1) {\n  ret=-getDeviancePart(n,n * q) - n * p;\n}\n else {\n  ret=n * FastMath.log(q);\n}", 
+          "type": "Replace", 
+          "seed": "ret=n * FastMath.log(q);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1127/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:59:22.840321065 -0500\n@@ -160,9 +160,15 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n-        return ret;\n+        if (x <= 0) {\n+\t\t\treturn 0;\n+\t\t}\n+\t\treturn ret;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 165, 
+          "faulty": "return ret;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_880/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:48:50.960611634 -0500\n@@ -144,7 +144,8 @@\n      */\n     static double getDeviancePart(double x, double mu) {\n         double ret;\n-        if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n+        ret = 0.5;\n+\t\tif (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n             double d = x - mu;\n             double v = d / (x + mu);\n             double s1 = v * d;\n@@ -160,7 +161,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -177,8 +181,12 @@\n      */\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n-        if (x == 0) {\n-            if (p < 0.1) {\n+        ret = getStirlingError(n) - getStirlingError(x)\n+\t\t\t\t- getStirlingError(n - x) - getDeviancePart(x, n * p)\n+\t\t\t\t- getDeviancePart(n - x, n * q);\n+\t\tif (x == 0) {\n+            ret = 1.0;\n+\t\t\tif (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n                 ret = n * FastMath.log(q);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 147, 
+          "faulty": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=0.5;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 180, 
+          "faulty": "if (x == 0) {\n  if (p < 0.1) {\n    ret=-getDeviancePart(n,n * q) - n * p;\n  }\n else {\n    ret=n * FastMath.log(q);\n  }\n}\n else if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 181, 
+          "faulty": "if (p < 0.1) {\n  ret=-getDeviancePart(n,n * q) - n * p;\n}\n else {\n  ret=n * FastMath.log(q);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=1.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_469/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:31:20.022719027 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_469/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:31:20.026719081 -0500\n@@ -100,7 +100,10 @@\n     /** {@inheritDoc} */\n     public double probability(int x) {\n         final double logProbability = logProbability(x);\n-        return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n+        if (x < 0) {\n+\t\t\treturn 0;\n+\t\t}\n+\t\treturn logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n     }\n \n     /** {@inheritDoc} **/\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 103, 
+          "faulty": "return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);", 
+          "type": "InsertBefore", 
+          "seed": "if (x < 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_431/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:29:50.761504511 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_431/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:29:50.761504511 -0500\n@@ -100,7 +100,8 @@\n     /** {@inheritDoc} */\n     public double probability(int x) {\n         final double logProbability = logProbability(x);\n-        return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n+        return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath\n+\t\t\t\t.exp(logProbability);\n     }\n \n     /** {@inheritDoc} **/\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 103, 
+          "faulty": "return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);", 
+          "type": "Replace", 
+          "seed": "return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_355/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:26:44.767121054 -0500\n@@ -144,7 +144,8 @@\n      */\n     static double getDeviancePart(double x, double mu) {\n         double ret;\n-        if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n+        ret = 0.5;\n+\t\tif (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n             double d = x - mu;\n             double v = d / (x + mu);\n             double s1 = v * d;\n@@ -160,7 +161,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -177,7 +181,10 @@\n      */\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n-        if (x == 0) {\n+        ret = getStirlingError(n) - getStirlingError(x)\n+\t\t\t\t- getStirlingError(n - x) - getDeviancePart(x, n * p)\n+\t\t\t\t- getDeviancePart(n - x, n * q);\n+\t\tif (x == 0) {\n             if (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 147, 
+          "faulty": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=0.5;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 180, 
+          "faulty": "if (x == 0) {\n  if (p < 0.1) {\n    ret=-getDeviancePart(n,n * q) - n * p;\n  }\n else {\n    ret=n * FastMath.log(q);\n  }\n}\n else if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1344/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 07:08:37.150963566 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -178,11 +181,7 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n-            if (p < 0.1) {\n-                ret = -getDeviancePart(n, n * q) - n * p;\n-            } else {\n-                ret = n * FastMath.log(q);\n-            }\n+            ret = n * FastMath.log(q);\n         } else if (x == n) {\n             if (q < 0.1) {\n                 ret = -getDeviancePart(n, n * p) - n * q;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 181, 
+          "faulty": "if (p < 0.1) {\n  ret=-getDeviancePart(n,n * q) - n * p;\n}\n else {\n  ret=n * FastMath.log(q);\n}", 
+          "type": "Replace", 
+          "seed": "ret=n * FastMath.log(q);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_487/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:32:00.143264738 -0500\n@@ -144,7 +144,8 @@\n      */\n     static double getDeviancePart(double x, double mu) {\n         double ret;\n-        if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n+        ret = 0.5;\n+\t\tif (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n             double d = x - mu;\n             double v = d / (x + mu);\n             double s1 = v * d;\n@@ -160,7 +161,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 147, 
+          "faulty": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=0.5;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_491/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:32:08.135372774 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -178,24 +181,24 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n-            if (p < 0.1) {\n-                ret = -getDeviancePart(n, n * q) - n * p;\n-            } else {\n-                ret = n * FastMath.log(q);\n-            }\n-        } else if (x == n) {\n-            if (q < 0.1) {\n-                ret = -getDeviancePart(n, n * p) - n * q;\n-            } else {\n-                ret = n * FastMath.log(p);\n-            }\n-        } else {\n-            ret = getStirlingError(n) - getStirlingError(x) -\n-                  getStirlingError(n - x) - getDeviancePart(x, n * p) -\n-                  getDeviancePart(n - x, n * q);\n-            double f = (MathUtils.TWO_PI * x * (n - x)) / n;\n-            ret = -0.5 * FastMath.log(f) + ret;\n-        }\n-        return ret;\n+\t\t\tif (p < 0.1) {\n+\t\t\t\tret = -getDeviancePart(n, n * q) - n * p;\n+\t\t\t} else {\n+\t\t\t\tret = n * FastMath.log(q);\n+\t\t\t}\n+\t\t} else if (x == n) {\n+\t\t\tif (q < 0.1) {\n+\t\t\t\tret = -getDeviancePart(n, n * p) - n * q;\n+\t\t\t} else {\n+\t\t\t\tret = n * FastMath.log(p);\n+\t\t\t}\n+\t\t} else {\n+\t\t\tret = getStirlingError(n) - getStirlingError(x)\n+\t\t\t\t\t- getStirlingError(n - x) - getDeviancePart(x, n * p)\n+\t\t\t\t\t- getDeviancePart(n - x, n * q);\n+\t\t\tdouble f = (MathUtils.TWO_PI * x * (n - x)) / n;\n+\t\t\tret = -0.5 * FastMath.log(f) + ret;\n+\t\t}\n+\t\treturn ret;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 180, 
+          "faulty": "if (x == 0) {\n  if (p < 0.1) {\n    ret=-getDeviancePart(n,n * q) - n * p;\n  }\n else {\n    ret=n * FastMath.log(q);\n  }\n}\n else if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}", 
+          "type": "Delete", 
+          "seed": "if (x == Integer.MAX_VALUE) {\n  return 1;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 199, 
+          "faulty": "return ret;", 
+          "type": "InsertBefore", 
+          "seed": "if (x == 0) {\n  if (p < 0.1) {\n    ret=-getDeviancePart(n,n * q) - n * p;\n  }\n else {\n    ret=n * FastMath.log(q);\n  }\n}\n else if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1229/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 07:03:45.415474777 -0500\n@@ -144,7 +144,8 @@\n      */\n     static double getDeviancePart(double x, double mu) {\n         double ret;\n-        if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n+        ret = 0.5;\n+\t\tif (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n             double d = x - mu;\n             double v = d / (x + mu);\n             double s1 = v * d;\n@@ -160,7 +161,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1229/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 07:03:45.415474777 -0500\n@@ -99,7 +99,10 @@\n \n     /** {@inheritDoc} */\n     public double probability(int x) {\n-        final double logProbability = logProbability(x);\n+        if (x == Integer.MAX_VALUE) {\n+\t\t\treturn 1;\n+\t\t}\n+\t\tfinal double logProbability = logProbability(x);\n         return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 147, 
+          "faulty": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=0.5;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 102, 
+          "faulty": "final double logProbability=logProbability(x);", 
+          "type": "InsertBefore", 
+          "seed": "if (x == Integer.MAX_VALUE) {\n  return 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1085/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:57:38.099057580 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1085/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:57:38.103057628 -0500\n@@ -99,8 +99,14 @@\n \n     /** {@inheritDoc} */\n     public double probability(int x) {\n-        final double logProbability = logProbability(x);\n-        return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n+        if (x == Integer.MAX_VALUE) {\n+\t\t\treturn 1;\n+\t\t}\n+\t\tfinal double logProbability = logProbability(x);\n+        if (x == Integer.MAX_VALUE) {\n+\t\t\treturn 1;\n+\t\t}\n+\t\treturn logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n     }\n \n     /** {@inheritDoc} **/\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 102, 
+          "faulty": "final double logProbability=logProbability(x);", 
+          "type": "InsertBefore", 
+          "seed": "if (x == Integer.MAX_VALUE) {\n  return 1;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 103, 
+          "faulty": "return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);", 
+          "type": "InsertBefore", 
+          "seed": "if (x == Integer.MAX_VALUE) {\n  return 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_417/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:29:21.253109450 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_417/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:29:21.253109450 -0500\n@@ -107,7 +107,9 @@\n     @Override\n     public double logProbability(int x) {\n         double ret;\n-        if (x < 0 || x > numberOfTrials) {\n+        ret = 1.0 - Beta.regularizedBeta(probabilityOfSuccess, x + 1.0,\n+\t\t\t\tnumberOfTrials - x);\n+\t\tif (x < 0 || x > numberOfTrials) {\n             ret = Double.NEGATIVE_INFINITY;\n         } else {\n             ret = SaddlePointExpansion.logBinomialProbability(x,\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 110, 
+          "faulty": "if (x < 0 || x > numberOfTrials) {\n  ret=Double.NEGATIVE_INFINITY;\n}\n else {\n  ret=SaddlePointExpansion.logBinomialProbability(x,numberOfTrials,probabilityOfSuccess,1.0 - probabilityOfSuccess);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=1.0 - Beta.regularizedBeta(probabilityOfSuccess,x + 1.0,numberOfTrials - x);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/util/FastMath.java\t2018-12-29 05:47:47.513303000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1093/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/util/FastMath.java\t2018-12-29 06:57:56.903284699 -0500\n@@ -1140,7 +1140,10 @@\n \n         /* Handle special cases of negative input, and NaN */\n         if (((bits & 0x8000000000000000L) != 0 || x != x) && x != 0.0) {\n-            if (hiPrec != null) {\n+            if (x == 1.0) {\n+\t\t\t\treturn Math.PI / 2.0;\n+\t\t\t}\n+\t\t\tif (hiPrec != null) {\n                 hiPrec[0] = Double.NaN;\n             }\n \n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1093/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:57:56.907284747 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1093/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:57:56.907284747 -0500\n@@ -99,7 +99,10 @@\n \n     /** {@inheritDoc} */\n     public double probability(int x) {\n-        final double logProbability = logProbability(x);\n+        if (x == Integer.MAX_VALUE) {\n+\t\t\treturn 1;\n+\t\t}\n+\t\tfinal double logProbability = logProbability(x);\n         return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 102, 
+          "faulty": "final double logProbability=logProbability(x);", 
+          "type": "InsertBefore", 
+          "seed": "if (x == Integer.MAX_VALUE) {\n  return 1;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/util/FastMath.java", 
+          "line": 1143, 
+          "faulty": "if (hiPrec != null) {\n  hiPrec[0]=Double.NaN;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (x == 1.0) {\n  return Math.PI / 2.0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_444/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:30:22.053920496 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_444/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:30:22.057920549 -0500\n@@ -107,7 +107,15 @@\n     @Override\n     public double logProbability(int x) {\n         double ret;\n-        if (x < 0 || x > numberOfTrials) {\n+        if (x < 0) {\n+\t\t\tret = 0.0;\n+\t\t} else if (x >= numberOfTrials) {\n+\t\t\tret = 1.0;\n+\t\t} else {\n+\t\t\tret = 1.0 - Beta.regularizedBeta(probabilityOfSuccess, x + 1.0,\n+\t\t\t\t\tnumberOfTrials - x);\n+\t\t}\n+\t\tif (x < 0 || x > numberOfTrials) {\n             ret = Double.NEGATIVE_INFINITY;\n         } else {\n             ret = SaddlePointExpansion.logBinomialProbability(x,\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 110, 
+          "faulty": "if (x < 0 || x > numberOfTrials) {\n  ret=Double.NEGATIVE_INFINITY;\n}\n else {\n  ret=SaddlePointExpansion.logBinomialProbability(x,numberOfTrials,probabilityOfSuccess,1.0 - probabilityOfSuccess);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (x < 0) {\n  ret=0.0;\n}\n else if (x >= numberOfTrials) {\n  ret=1.0;\n}\n else {\n  ret=1.0 - Beta.regularizedBeta(probabilityOfSuccess,x + 1.0,numberOfTrials - x);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_635/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:38:17.956401535 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -178,7 +181,8 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n-            if (p < 0.1) {\n+            ret = 1.0;\n+\t\t\tif (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n                 ret = n * FastMath.log(q);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 181, 
+          "faulty": "if (p < 0.1) {\n  ret=-getDeviancePart(n,n * q) - n * p;\n}\n else {\n  ret=n * FastMath.log(q);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=1.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_534/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:33:58.552844736 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -196,6 +199,25 @@\n             double f = (MathUtils.TWO_PI * x * (n - x)) / n;\n             ret = -0.5 * FastMath.log(f) + ret;\n         }\n-        return ret;\n+        if (x == 0) {\n+\t\t\tif (p < 0.1) {\n+\t\t\t\tret = -getDeviancePart(n, n * q) - n * p;\n+\t\t\t} else {\n+\t\t\t\tret = n * FastMath.log(q);\n+\t\t\t}\n+\t\t} else if (x == n) {\n+\t\t\tif (q < 0.1) {\n+\t\t\t\tret = -getDeviancePart(n, n * p) - n * q;\n+\t\t\t} else {\n+\t\t\t\tret = n * FastMath.log(p);\n+\t\t\t}\n+\t\t} else {\n+\t\t\tret = getStirlingError(n) - getStirlingError(x)\n+\t\t\t\t\t- getStirlingError(n - x) - getDeviancePart(x, n * p)\n+\t\t\t\t\t- getDeviancePart(n - x, n * q);\n+\t\t\tdouble f = (MathUtils.TWO_PI * x * (n - x)) / n;\n+\t\t\tret = -0.5 * FastMath.log(f) + ret;\n+\t\t}\n+\t\treturn ret;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 199, 
+          "faulty": "return ret;", 
+          "type": "InsertBefore", 
+          "seed": "if (x == 0) {\n  if (p < 0.1) {\n    ret=-getDeviancePart(n,n * q) - n * p;\n  }\n else {\n    ret=n * FastMath.log(q);\n  }\n}\n else if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_600/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:36:47.719147325 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -179,7 +182,21 @@\n         double ret;\n         if (x == 0) {\n             if (p < 0.1) {\n-                ret = -getDeviancePart(n, n * q) - n * p;\n+                if (x == n) {\n+\t\t\t\t\tif (q < 0.1) {\n+\t\t\t\t\t\tret = -getDeviancePart(n, n * p) - n * q;\n+\t\t\t\t\t} else {\n+\t\t\t\t\t\tret = n * FastMath.log(p);\n+\t\t\t\t\t}\n+\t\t\t\t} else {\n+\t\t\t\t\tret = getStirlingError(n) - getStirlingError(x)\n+\t\t\t\t\t\t\t- getStirlingError(n - x)\n+\t\t\t\t\t\t\t- getDeviancePart(x, n * p)\n+\t\t\t\t\t\t\t- getDeviancePart(n - x, n * q);\n+\t\t\t\t\tdouble f = (MathUtils.TWO_PI * x * (n - x)) / n;\n+\t\t\t\t\tret = -0.5 * FastMath.log(f) + ret;\n+\t\t\t\t}\n+\t\t\t\tret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n                 ret = n * FastMath.log(q);\n             }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 182, 
+          "faulty": "ret=-getDeviancePart(n,n * q) - n * p;", 
+          "type": "InsertBefore", 
+          "seed": "if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_478/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:31:41.459011311 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_478/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:31:41.459011311 -0500\n@@ -108,7 +108,13 @@\n     public double logProbability(int x) {\n         double ret;\n         if (x < 0 || x > numberOfTrials) {\n-            ret = Double.NEGATIVE_INFINITY;\n+            if (x >= numberOfTrials) {\n+\t\t\t\tret = 1.0;\n+\t\t\t} else {\n+\t\t\t\tret = 1.0 - Beta.regularizedBeta(probabilityOfSuccess, x + 1.0,\n+\t\t\t\t\t\tnumberOfTrials - x);\n+\t\t\t}\n+\t\t\tret = Double.NEGATIVE_INFINITY;\n         } else {\n             ret = SaddlePointExpansion.logBinomialProbability(x,\n                     numberOfTrials, probabilityOfSuccess,\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 111, 
+          "faulty": "ret=Double.NEGATIVE_INFINITY;", 
+          "type": "InsertBefore", 
+          "seed": "if (x >= numberOfTrials) {\n  ret=1.0;\n}\n else {\n  ret=1.0 - Beta.regularizedBeta(probabilityOfSuccess,x + 1.0,numberOfTrials - x);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_300/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:24:25.625428422 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -177,7 +180,10 @@\n      */\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n-        if (x == 0) {\n+        ret = getStirlingError(n) - getStirlingError(x)\n+\t\t\t\t- getStirlingError(n - x) - getDeviancePart(x, n * p)\n+\t\t\t\t- getDeviancePart(n - x, n * q);\n+\t\tif (x == 0) {\n             if (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 180, 
+          "faulty": "if (x == 0) {\n  if (p < 0.1) {\n    ret=-getDeviancePart(n,n * q) - n * p;\n  }\n else {\n    ret=n * FastMath.log(q);\n  }\n}\n else if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_328/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:25:35.146276825 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_328/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:25:35.146276825 -0500\n@@ -107,7 +107,8 @@\n     @Override\n     public double logProbability(int x) {\n         double ret;\n-        if (x < 0 || x > numberOfTrials) {\n+        ret = 0.5;\n+\t\tif (x < 0 || x > numberOfTrials) {\n             ret = Double.NEGATIVE_INFINITY;\n         } else {\n             ret = SaddlePointExpansion.logBinomialProbability(x,\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 110, 
+          "faulty": "if (x < 0 || x > numberOfTrials) {\n  ret=Double.NEGATIVE_INFINITY;\n}\n else {\n  ret=SaddlePointExpansion.logBinomialProbability(x,numberOfTrials,probabilityOfSuccess,1.0 - probabilityOfSuccess);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=0.5;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_993/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:53:41.708189050 -0500\n@@ -144,7 +144,10 @@\n      */\n     static double getDeviancePart(double x, double mu) {\n         double ret;\n-        if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n+        if (x < 0) {\n+\t\t\treturn Double.NEGATIVE_INFINITY;\n+\t\t}\n+\t\tif (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n             double d = x - mu;\n             double v = d / (x + mu);\n             double s1 = v * d;\n@@ -160,7 +163,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -178,7 +184,8 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n-            if (p < 0.1) {\n+            ret = n * FastMath.log(q);\n+\t\t\tif (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n                 ret = n * FastMath.log(q);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 147, 
+          "faulty": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (x < 0) {\n  return Double.NEGATIVE_INFINITY;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 181, 
+          "faulty": "if (p < 0.1) {\n  ret=-getDeviancePart(n,n * q) - n * p;\n}\n else {\n  ret=n * FastMath.log(q);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=n * FastMath.log(q);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_760/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:43:37.920654133 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -177,7 +180,8 @@\n      */\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n-        if (x == 0) {\n+        ret = 0;\n+\t\tif (x == 0) {\n             if (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 180, 
+          "faulty": "if (x == 0) {\n  if (p < 0.1) {\n    ret=-getDeviancePart(n,n * q) - n * p;\n  }\n else {\n    ret=n * FastMath.log(q);\n  }\n}\n else if (x == n) {\n  if (q < 0.1) {\n    ret=-getDeviancePart(n,n * p) - n * q;\n  }\n else {\n    ret=n * FastMath.log(p);\n  }\n}\n else {\n  ret=getStirlingError(n) - getStirlingError(x) - getStirlingError(n - x)- getDeviancePart(x,n * p)- getDeviancePart(n - x,n * q);\n  double f=(MathUtils.TWO_PI * x * (n - x)) / n;\n  ret=-0.5 * FastMath.log(f) + ret;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_555/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:34:51.781552387 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_555/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:34:51.781552387 -0500\n@@ -107,7 +107,8 @@\n     @Override\n     public double logProbability(int x) {\n         double ret;\n-        if (x < 0 || x > numberOfTrials) {\n+        ret = 0.0;\n+\t\tif (x < 0 || x > numberOfTrials) {\n             ret = Double.NEGATIVE_INFINITY;\n         } else {\n             ret = SaddlePointExpansion.logBinomialProbability(x,\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 110, 
+          "faulty": "if (x < 0 || x > numberOfTrials) {\n  ret=Double.NEGATIVE_INFINITY;\n}\n else {\n  ret=SaddlePointExpansion.logBinomialProbability(x,numberOfTrials,probabilityOfSuccess,1.0 - probabilityOfSuccess);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=0.0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_403/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:28:47.360652135 -0500\n@@ -144,7 +144,8 @@\n      */\n     static double getDeviancePart(double x, double mu) {\n         double ret;\n-        if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n+        ret = 0.5;\n+\t\tif (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n             double d = x - mu;\n             double v = d / (x + mu);\n             double s1 = v * d;\n@@ -160,7 +161,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -178,7 +182,8 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n-            if (p < 0.1) {\n+            ret = n * FastMath.log(q);\n+\t\t\tif (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n                 ret = n * FastMath.log(q);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 147, 
+          "faulty": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=0.5;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 181, 
+          "faulty": "if (p < 0.1) {\n  ret=-getDeviancePart(n,n * q) - n * p;\n}\n else {\n  ret=n * FastMath.log(q);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=n * FastMath.log(q);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_687/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:40:33.466237171 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_687/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:40:33.466237171 -0500\n@@ -107,7 +107,8 @@\n     @Override\n     public double logProbability(int x) {\n         double ret;\n-        if (x < 0 || x > numberOfTrials) {\n+        ret = Double.NEGATIVE_INFINITY;\n+\t\tif (x < 0 || x > numberOfTrials) {\n             ret = Double.NEGATIVE_INFINITY;\n         } else {\n             ret = SaddlePointExpansion.logBinomialProbability(x,\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 110, 
+          "faulty": "if (x < 0 || x > numberOfTrials) {\n  ret=Double.NEGATIVE_INFINITY;\n}\n else {\n  ret=SaddlePointExpansion.logBinomialProbability(x,numberOfTrials,probabilityOfSuccess,1.0 - probabilityOfSuccess);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=Double.NEGATIVE_INFINITY;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1357/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 07:09:08.291335331 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1357/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 07:09:08.291335331 -0500\n@@ -99,7 +99,10 @@\n \n     /** {@inheritDoc} */\n     public double probability(int x) {\n-        final double logProbability = logProbability(x);\n+        if (x < 0) {\n+\t\t\treturn 0;\n+\t\t}\n+\t\tfinal double logProbability = logProbability(x);\n         return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 102, 
+          "faulty": "final double logProbability=logProbability(x);", 
+          "type": "InsertBefore", 
+          "seed": "if (x < 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_727/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:42:14.155566488 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -178,11 +181,7 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n-            if (p < 0.1) {\n-                ret = -getDeviancePart(n, n * q) - n * p;\n-            } else {\n-                ret = n * FastMath.log(q);\n-            }\n+            ret = n * FastMath.log(q);\n         } else if (x == n) {\n             if (q < 0.1) {\n                 ret = -getDeviancePart(n, n * p) - n * q;\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_727/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:42:14.155566488 -0500\n@@ -107,7 +107,13 @@\n     @Override\n     public double logProbability(int x) {\n         double ret;\n-        if (x < 0 || x > numberOfTrials) {\n+        if (x < 0) {\n+\t\t\tret = 0.0;\n+\t\t} else {\n+\t\t\tfinal double p = probabilityOfSuccess;\n+\t\t\tret = FastMath.pow(1 - p, x) * p;\n+\t\t}\n+\t\tif (x < 0 || x > numberOfTrials) {\n             ret = Double.NEGATIVE_INFINITY;\n         } else {\n             ret = SaddlePointExpansion.logBinomialProbability(x,\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 181, 
+          "faulty": "if (p < 0.1) {\n  ret=-getDeviancePart(n,n * q) - n * p;\n}\n else {\n  ret=n * FastMath.log(q);\n}", 
+          "type": "Replace", 
+          "seed": "ret=n * FastMath.log(q);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 110, 
+          "faulty": "if (x < 0 || x > numberOfTrials) {\n  ret=Double.NEGATIVE_INFINITY;\n}\n else {\n  ret=SaddlePointExpansion.logBinomialProbability(x,numberOfTrials,probabilityOfSuccess,1.0 - probabilityOfSuccess);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (x < 0) {\n  ret=0.0;\n}\n else {\n  final double p=probabilityOfSuccess;\n  ret=FastMath.pow(1 - p,x) * p;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_461/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:31:02.290475965 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 05:47:46.625284000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_461/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java\t2018-12-29 06:31:02.294476020 -0500\n@@ -99,7 +99,10 @@\n \n     /** {@inheritDoc} */\n     public double probability(int x) {\n-        final double logProbability = logProbability(x);\n+        if (x == Integer.MAX_VALUE) {\n+\t\t\treturn 1;\n+\t\t}\n+\t\tfinal double logProbability = logProbability(x);\n         return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java", 
+          "line": 102, 
+          "faulty": "final double logProbability=logProbability(x);", 
+          "type": "InsertBefore", 
+          "seed": "if (x == Integer.MAX_VALUE) {\n  return 1;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_325/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:25:29.806211857 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n@@ -178,7 +181,8 @@\n     static double logBinomialProbability(int x, int n, double p, double q) {\n         double ret;\n         if (x == 0) {\n-            if (p < 0.1) {\n+            ret = Double.POSITIVE_INFINITY;\n+\t\t\tif (p < 0.1) {\n                 ret = -getDeviancePart(n, n * q) - n * p;\n             } else {\n                 ret = n * FastMath.log(q);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 181, 
+          "faulty": "if (p < 0.1) {\n  ret=-getDeviancePart(n,n * q) - n * p;\n}\n else {\n  ret=n * FastMath.log(q);\n}", 
+          "type": "InsertBefore", 
+          "seed": "ret=Double.POSITIVE_INFINITY;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_1301/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 07:06:49.017671795 -0500\n@@ -144,7 +144,10 @@\n      */\n     static double getDeviancePart(double x, double mu) {\n         double ret;\n-        if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n+        if (x <= 0) {\n+\t\t\treturn 0;\n+\t\t}\n+\t\tif (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n             double d = x - mu;\n             double v = d / (x + mu);\n             double s1 = v * d;\n@@ -160,7 +163,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 147, 
+          "faulty": "if (FastMath.abs(x - mu) < 0.1 * (x + mu)) {\n  double d=x - mu;\n  double v=d / (x + mu);\n  double s1=v * d;\n  double s=Double.NaN;\n  double ej=2.0 * x * v;\n  v*=v;\n  int j=1;\n  while (s1 != s) {\n    s=s1;\n    ej*=v;\n    s1=s + ej / ((j * 2) + 1);\n    ++j;\n  }\n  ret=s1;\n}\n else {\n  ret=x * FastMath.log(x / mu) + mu - x;\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 05:47:46.653285000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/patches_lhtt/Patch_71/patched/tmp/Arja_Bug_dot_jar_Commons-Math_cc4ab51e/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java\t2018-12-29 06:14:13.137777440 -0500\n@@ -160,7 +160,10 @@\n             }\n             ret = s1;\n         } else {\n-            ret = x * FastMath.log(x / mu) + mu - x;\n+            if (x <= 0) {\n+\t\t\t\treturn 0;\n+\t\t\t}\n+\t\t\tret = x * FastMath.log(x / mu) + mu - x;\n         }\n         return ret;\n     }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java", 
+          "line": 163, 
+          "faulty": "ret=x * FastMath.log(x / mu) + mu - x;", 
+          "type": "InsertBefore", 
+          "seed": "if (x <= 0) {\n  return 0;\n}"
+        }
+      ]
+    }
+  ]
+}

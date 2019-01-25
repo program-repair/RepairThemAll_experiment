@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-31 04:36:34.892753", 
+  "repair_begin": "2018-12-31 04:16:21.843685", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 39, 
+      "patchLocation": {
+        "line": 41, 
+        "class": "org.apache.flink.optimizer.traversals.BranchesVisitor"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/flink-optimizer/src/main/java/org/apache/flink/optimizer/traversals/BranchesVisitor.java\n+++ b/flink-optimizer/src/main/java/org/apache/flink/optimizer/traversals/BranchesVisitor.java\n@@ -40,3 +40,5 @@\n \t\tif (node instanceof IterationNode) {\n-\t\t\t((IterationNode) node).acceptForStepFunction(this);\n+\t\t\tif (node.getCostWeight() != 1) {\n+\t\t\t\t((IterationNode) node).acceptForStepFunction(this);\n+\t\t\t}\n \t\t}\n"
+    }
+  ]
+}

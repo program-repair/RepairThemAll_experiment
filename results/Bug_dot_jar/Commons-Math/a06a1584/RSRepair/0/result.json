@@ -1,0 +1,723 @@
+{
+  "repair_end": "2018-12-30 00:52:29.629998", 
+  "repair_begin": "2018-12-30 00:37:59.961504", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_107/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:32.251989474 -0500\n@@ -325,7 +325,7 @@\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n         if ((attribute.getPlusOutside() != null) &&\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n+            final SubHyperplane<Euclidean3D> cut = node.getCut();\n         }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 328, 
+          "faulty": "return attribute.getPlusOutside();", 
+          "type": "Replace", 
+          "seed": "final SubHyperplane<Euclidean3D> cut=node.getCut();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_226/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:52:17.259878205 -0500\n@@ -289,7 +289,15 @@\n             }\n         }\n \n-        // search in the near branch\n+        if (getSize() < 0) {\n+\t\t\tsetSize(Double.POSITIVE_INFINITY);\n+\t\t\tsetBarycenter((Point<Euclidean3D>) Vector3D.NaN);\n+\t\t} else {\n+\t\t\tsetSize(getSize() / 3.0);\n+\t\t\tsetBarycenter((Point<Euclidean3D>) new Vector3D(\n+\t\t\t\t\t1.0 / (4 * getSize()), (Vector3D) getBarycenter()));\n+\t\t}\n+\t\t// search in the near branch\n         final SubHyperplane<Euclidean3D> crossed = recurseFirstIntersection(near, point, line);\n         if (crossed != null) {\n             return crossed;\n@@ -300,9 +308,6 @@\n             final Vector3D hit3D = plane.intersection(line);\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 293, 
+          "faulty": "final SubHyperplane<Euclidean3D> crossed=recurseFirstIntersection(near,point,line);", 
+          "type": "InsertBefore", 
+          "seed": "if (getSize() < 0) {\n  setSize(Double.POSITIVE_INFINITY);\n  setBarycenter((Point<Euclidean3D>)Vector3D.NaN);\n}\n else {\n  setSize(getSize() / 3.0);\n  setBarycenter((Point<Euclidean3D>)new Vector3D(1.0 / (4 * getSize()),(Vector3D)getBarycenter()));\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 303, 
+          "faulty": "if (facet != null) {\n  return facet;\n}", 
+          "type": "Delete", 
+          "seed": "throw new MathArithmeticException(LocalizedFormats.CANNOT_NORMALIZE_A_ZERO_NORM_VECTOR);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_229/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:52:18.187875880 -0500\n@@ -261,7 +261,9 @@\n                                                                 final Line line) {\n \n         final SubHyperplane<Euclidean3D> cut = node.getCut();\n-        if (cut == null) {\n+        setBarycenter((Point<Euclidean3D>) new Vector3D(1.0 / (4 * getSize()),\n+\t\t\t\t(Vector3D) getBarycenter()));\n+\t\tif (cut == null) {\n             return null;\n         }\n         final BSPTree<Euclidean3D> minus = node.getMinus();\n@@ -298,12 +300,6 @@\n         if (!in) {\n             // search in the cut hyperplane\n             final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n         }\n \n         // search in the far branch\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 264, 
+          "faulty": "if (cut == null) {\n  return null;\n}", 
+          "type": "InsertBefore", 
+          "seed": "setBarycenter((Point<Euclidean3D>)new Vector3D(1.0 / (4 * getSize()),(Vector3D)getBarycenter()));"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 301, 
+          "faulty": "if (hit3D != null) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return getInstance(Locale.getDefault());"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_29/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:05.388054359 -0500\n@@ -295,17 +295,6 @@\n             return crossed;\n         }\n \n-        if (!in) {\n-            // search in the cut hyperplane\n-            final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n-        }\n-\n         // search in the far branch\n         return recurseFirstIntersection(far, point, line);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 298, 
+          "faulty": "if (!in) {\n  final Vector3D hit3D=plane.intersection(line);\n  if (hit3D != null) {\n    final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n    if (facet != null) {\n      return facet;\n    }\n  }\n}", 
+          "type": "Delete", 
+          "seed": "final double[][] hj=new double[3][3];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_121/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:36.635978771 -0500\n@@ -325,7 +325,7 @@\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n         if ((attribute.getPlusOutside() != null) &&\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n+            final double[][] cHessian = new double[3][3];\n         }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 328, 
+          "faulty": "return attribute.getPlusOutside();", 
+          "type": "Replace", 
+          "seed": "final double[][] cHessian=new double[3][3];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_84/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:24.636007993 -0500\n@@ -323,14 +323,8 @@\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n-        if ((attribute.getPlusOutside() != null) &&\n-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n-        }\n-        if ((attribute.getPlusInside() != null) &&\n-            (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusInside();\n-        }\n+        int i = 0;\n+        final BSPTree<Euclidean3D> minus = node.getMinus();\n         return null;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 326, 
+          "faulty": "if ((attribute.getPlusOutside() != null) && (((SubPlane)attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusOutside();\n}", 
+          "type": "Replace", 
+          "seed": "int i=0;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 330, 
+          "faulty": "if ((attribute.getPlusInside() != null) && (((SubPlane)attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusInside();\n}", 
+          "type": "Replace", 
+          "seed": "final BSPTree<Euclidean3D> minus=node.getMinus();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_44/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:11.236040341 -0500\n@@ -325,7 +325,7 @@\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n         if ((attribute.getPlusOutside() != null) &&\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n+            double[][] m = new double[3][];\n         }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 328, 
+          "faulty": "return attribute.getPlusOutside();", 
+          "type": "Replace", 
+          "seed": "double[][] m=new double[3][];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_252/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:52:27.083853535 -0500\n@@ -298,12 +298,6 @@\n         if (!in) {\n             // search in the cut hyperplane\n             final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n         }\n \n         // search in the far branch\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 301, 
+          "faulty": "if (hit3D != null) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "final FieldVector3D<T> v1=applyTo(vector(0,1,0));"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 303, 
+          "faulty": "if (facet != null) {\n  return facet;\n}", 
+          "type": "Replace", 
+          "seed": "final SubHyperplane<Euclidean3D> cut=node.getCut();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_23/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:03.036059980 -0500\n@@ -296,14 +296,6 @@\n         }\n \n         if (!in) {\n-            // search in the cut hyperplane\n-            final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n         }\n \n         // search in the far branch\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 300, 
+          "faulty": "final Vector3D hit3D=plane.intersection(line);", 
+          "type": "Delete", 
+          "seed": "final Vector3D direction=line.getDirection();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 301, 
+          "faulty": "if (hit3D != null) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "final Vector3D point=line.toSpace((Point<Euclidean1D>)Vector1D.ZERO);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_72/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:20.368018329 -0500\n@@ -296,13 +296,11 @@\n         }\n \n         if (!in) {\n-            // search in the cut hyperplane\n+            final Vector3D direction = line.getDirection();\n+\t\t\t// search in the cut hyperplane\n             final Vector3D hit3D = plane.intersection(line);\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 300, 
+          "faulty": "final Vector3D hit3D=plane.intersection(line);", 
+          "type": "InsertBefore", 
+          "seed": "final Vector3D direction=line.getDirection();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 303, 
+          "faulty": "if (facet != null) {\n  return facet;\n}", 
+          "type": "Delete", 
+          "seed": "if (in) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(point,node);\n  if (facet != null) {\n    return facet;\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_14/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:00.256066611 -0500\n@@ -298,12 +298,7 @@\n         if (!in) {\n             // search in the cut hyperplane\n             final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n+            final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n         }\n \n         // search in the far branch\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 301, 
+          "faulty": "if (hit3D != null) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_17/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:00.928065010 -0500\n@@ -325,7 +325,6 @@\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n         if ((attribute.getPlusOutside() != null) &&\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n         }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 328, 
+          "faulty": "return attribute.getPlusOutside();", 
+          "type": "Delete", 
+          "seed": "return new EnclosingBall<Euclidean3D,Vector3D>(Vector3D.ZERO,Double.NEGATIVE_INFINITY);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_62/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:16.832026869 -0500\n@@ -264,7 +264,8 @@\n         if (cut == null) {\n             return null;\n         }\n-        final BSPTree<Euclidean3D> minus = node.getMinus();\n+        final Vector3D p3D = (Vector3D) point;\n+\t\tfinal BSPTree<Euclidean3D> minus = node.getMinus();\n         final BSPTree<Euclidean3D> plus  = node.getPlus();\n         final Plane               plane = (Plane) cut.getHyperplane();\n \n@@ -298,12 +299,6 @@\n         if (!in) {\n             // search in the cut hyperplane\n             final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n         }\n \n         // search in the far branch\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 267, 
+          "faulty": "final BSPTree<Euclidean3D> minus=node.getMinus();", 
+          "type": "InsertBefore", 
+          "seed": "final Vector3D p3D=(Vector3D)point;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 301, 
+          "faulty": "if (hit3D != null) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "if (!in) {\n  final Vector3D hit3D=plane.intersection(line);\n  if (hit3D != null) {\n    final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n    if (facet != null) {\n      return facet;\n    }\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_53/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:13.344035272 -0500\n@@ -323,10 +323,7 @@\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n-        if ((attribute.getPlusOutside() != null) &&\n-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n-        }\n+        final SubHyperplane<Euclidean3D> cut = node.getCut();\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusInside();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 326, 
+          "faulty": "if ((attribute.getPlusOutside() != null) && (((SubPlane)attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusOutside();\n}", 
+          "type": "Replace", 
+          "seed": "final SubHyperplane<Euclidean3D> cut=node.getCut();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_223/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:52:16.619879808 -0500\n@@ -319,13 +319,14 @@\n      */\n     private SubHyperplane<Euclidean3D> boundaryFacet(final Vector3D point,\n                                                      final BSPTree<Euclidean3D> node) {\n-        final Vector2D point2D = ((Plane) node.getCut().getHyperplane()).toSubSpace((Point<Euclidean3D>) point);\n+        final BSPTree<Euclidean3D> plus = node\n+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.getPlus();\n+\t\tfinal Vector2D point2D = ((Plane) node.getCut().getHyperplane()).toSubSpace((Point<Euclidean3D>) point);\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n         if ((attribute.getPlusOutside() != null) &&\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n         }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 322, 
+          "faulty": "final Vector2D point2D=((Plane)node.getCut().getHyperplane()).toSubSpace((Point<Euclidean3D>)point);", 
+          "type": "InsertBefore", 
+          "seed": "final BSPTree<Euclidean3D> plus=node.getPlus();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 328, 
+          "faulty": "return attribute.getPlusOutside();", 
+          "type": "Delete", 
+          "seed": "return new Vector3D(1,0,0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_65/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:17.924024234 -0500\n@@ -301,7 +301,7 @@\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n                 if (facet != null) {\n-                    return facet;\n+                    final double[][] hj = new double[3][3];\n                 }\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 304, 
+          "faulty": "return facet;", 
+          "type": "Replace", 
+          "seed": "final double[][] hj=new double[3][3];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_204/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:52:09.143898488 -0500\n@@ -300,9 +300,7 @@\n             final Vector3D hit3D = plane.intersection(line);\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n+                return recurseFirstIntersection(far, point, line);\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 303, 
+          "faulty": "if (facet != null) {\n  return facet;\n}", 
+          "type": "Replace", 
+          "seed": "return recurseFirstIntersection(far,point,line);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_88/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:25.800005169 -0500\n@@ -295,17 +295,6 @@\n             return crossed;\n         }\n \n-        if (!in) {\n-            // search in the cut hyperplane\n-            final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n-        }\n-\n         // search in the far branch\n         return recurseFirstIntersection(far, point, line);\n \n@@ -327,10 +316,11 @@\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusOutside();\n         }\n-        if ((attribute.getPlusInside() != null) &&\n-            (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusInside();\n-        }\n+        if ((attribute.getPlusInside() != null)\n+\t\t\t\t&& (((SubPlane) attribute.getPlusInside()).getRemainingRegion()\n+\t\t\t\t\t\t.checkPoint(point2D) == Location.INSIDE)) {\n+\t\t\treturn attribute.getPlusInside();\n+\t\t}\n         return null;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 330, 
+          "faulty": "if ((attribute.getPlusInside() != null) && (((SubPlane)attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusInside();\n}", 
+          "type": "Replace", 
+          "seed": "if ((attribute.getPlusInside() != null) && (((SubPlane)attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusInside();\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 298, 
+          "faulty": "if (!in) {\n  final Vector3D hit3D=plane.intersection(line);\n  if (hit3D != null) {\n    final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n    if (facet != null) {\n      return facet;\n    }\n  }\n}", 
+          "type": "Delete", 
+          "seed": "final double offset=plane.getOffset((Point<Euclidean3D>)point);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_154/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:49.719946649 -0500\n@@ -281,30 +281,20 @@\n             far  = minus;\n         }\n \n-        if (in) {\n-            // search in the cut hyperplane\n-            final SubHyperplane<Euclidean3D> facet = boundaryFacet(point, node);\n-            if (facet != null) {\n-                return facet;\n-            }\n-        }\n-\n         // search in the near branch\n         final SubHyperplane<Euclidean3D> crossed = recurseFirstIntersection(near, point, line);\n         if (crossed != null) {\n             return crossed;\n         }\n \n-        if (!in) {\n-            // search in the cut hyperplane\n-            final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n-        }\n+        if (getSize() < 0) {\n+\t\t\tsetSize(Double.POSITIVE_INFINITY);\n+\t\t\tsetBarycenter((Point<Euclidean3D>) Vector3D.NaN);\n+\t\t} else {\n+\t\t\tsetSize(getSize() / 3.0);\n+\t\t\tsetBarycenter((Point<Euclidean3D>) new Vector3D(\n+\t\t\t\t\t1.0 / (4 * getSize()), (Vector3D) getBarycenter()));\n+\t\t}\n \n         // search in the far branch\n         return recurseFirstIntersection(far, point, line);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 284, 
+          "faulty": "if (in) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(point,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return new EnclosingBall<Euclidean3D,Vector3D>(Vector3D.ZERO,Double.NEGATIVE_INFINITY);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 298, 
+          "faulty": "if (!in) {\n  final Vector3D hit3D=plane.intersection(line);\n  if (hit3D != null) {\n    final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n    if (facet != null) {\n      return facet;\n    }\n  }\n}", 
+          "type": "Replace", 
+          "seed": "if (getSize() < 0) {\n  setSize(Double.POSITIVE_INFINITY);\n  setBarycenter((Point<Euclidean3D>)Vector3D.NaN);\n}\n else {\n  setSize(getSize() / 3.0);\n  setBarycenter((Point<Euclidean3D>)new Vector3D(1.0 / (4 * getSize()),(Vector3D)getBarycenter()));\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_49/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:12.216037986 -0500\n@@ -301,7 +301,6 @@\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n                 if (facet != null) {\n-                    return facet;\n                 }\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 304, 
+          "faulty": "return facet;", 
+          "type": "Delete", 
+          "seed": "Vector3D v1=applyTo(Vector3D.PLUS_I);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_47/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:11.880038793 -0500\n@@ -298,12 +298,6 @@\n         if (!in) {\n             // search in the cut hyperplane\n             final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n         }\n \n         // search in the far branch\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 301, 
+          "faulty": "if (hit3D != null) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "double[][] m=new double[3][];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 303, 
+          "faulty": "if (facet != null) {\n  return facet;\n}", 
+          "type": "Delete", 
+          "seed": "final Vector3D hit3D=plane.intersection(line);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_160/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:52.147940659 -0500\n@@ -300,9 +300,14 @@\n             final Vector3D hit3D = plane.intersection(line);\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n+                if (getSize() < 0) {\n+\t\t\t\t\tsetSize(Double.POSITIVE_INFINITY);\n+\t\t\t\t\tsetBarycenter((Point<Euclidean3D>) Vector3D.NaN);\n+\t\t\t\t} else {\n+\t\t\t\t\tsetSize(getSize() / 3.0);\n+\t\t\t\t\tsetBarycenter((Point<Euclidean3D>) new Vector3D(\n+\t\t\t\t\t\t\t1.0 / (4 * getSize()), (Vector3D) getBarycenter()));\n+\t\t\t\t}\n             }\n         }\n \n@@ -323,10 +328,6 @@\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n-        if ((attribute.getPlusOutside() != null) &&\n-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n-        }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusInside();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 326, 
+          "faulty": "if ((attribute.getPlusOutside() != null) && (((SubPlane)attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusOutside();\n}", 
+          "type": "Delete", 
+          "seed": "return false;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 303, 
+          "faulty": "if (facet != null) {\n  return facet;\n}", 
+          "type": "Replace", 
+          "seed": "if (getSize() < 0) {\n  setSize(Double.POSITIVE_INFINITY);\n  setBarycenter((Point<Euclidean3D>)Vector3D.NaN);\n}\n else {\n  setSize(getSize() / 3.0);\n  setBarycenter((Point<Euclidean3D>)new Vector3D(1.0 / (4 * getSize()),(Vector3D)getBarycenter()));\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_11/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:50:59.400068650 -0500\n@@ -292,7 +292,15 @@\n         // search in the near branch\n         final SubHyperplane<Euclidean3D> crossed = recurseFirstIntersection(near, point, line);\n         if (crossed != null) {\n-            return crossed;\n+            if (getSize() < 0) {\n+\t\t\t\tsetSize(Double.POSITIVE_INFINITY);\n+\t\t\t\tsetBarycenter((Point<Euclidean3D>) Vector3D.NaN);\n+\t\t\t} else {\n+\t\t\t\tsetSize(getSize() / 3.0);\n+\t\t\t\tsetBarycenter((Point<Euclidean3D>) new Vector3D(\n+\t\t\t\t\t\t1.0 / (4 * getSize()), (Vector3D) getBarycenter()));\n+\t\t\t}\n+\t\t\treturn crossed;\n         }\n \n         if (!in) {\n@@ -325,7 +333,6 @@\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n         if ((attribute.getPlusOutside() != null) &&\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n         }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 295, 
+          "faulty": "return crossed;", 
+          "type": "InsertBefore", 
+          "seed": "if (getSize() < 0) {\n  setSize(Double.POSITIVE_INFINITY);\n  setBarycenter((Point<Euclidean3D>)Vector3D.NaN);\n}\n else {\n  setSize(getSize() / 3.0);\n  setBarycenter((Point<Euclidean3D>)new Vector3D(1.0 / (4 * getSize()),(Vector3D)getBarycenter()));\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 328, 
+          "faulty": "return attribute.getPlusOutside();", 
+          "type": "Delete", 
+          "seed": "if (getSize() < 0) {\n  setSize(Double.POSITIVE_INFINITY);\n  setBarycenter((Point<Euclidean3D>)Vector3D.NaN);\n}\n else {\n  setSize(getSize() / 3.0);\n  setBarycenter((Point<Euclidean3D>)new Vector3D(1.0 / (4 * getSize()),(Vector3D)getBarycenter()));\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java\t2018-12-29 18:37:29.068755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_168/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java\t2018-12-29 18:51:55.911931357 -0500\n@@ -359,7 +359,8 @@\n      */\n     public Vector3D intersection(final Line line) {\n         final Vector3D direction = line.getDirection();\n-        final double   dot       = w.dotProduct(direction);\n+        final double z = v.getZ();\n+\t\tfinal double   dot       = w.dotProduct(direction);\n         if (FastMath.abs(dot) < 1.0e-10) {\n             return null;\n         }\n\n\n--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_168/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:55.915931346 -0500\n@@ -281,7 +281,15 @@\n             far  = minus;\n         }\n \n-        if (in) {\n+        if (getSize() < 0) {\n+\t\t\tsetSize(Double.POSITIVE_INFINITY);\n+\t\t\tsetBarycenter((Point<Euclidean3D>) Vector3D.NaN);\n+\t\t} else {\n+\t\t\tsetSize(getSize() / 3.0);\n+\t\t\tsetBarycenter((Point<Euclidean3D>) new Vector3D(\n+\t\t\t\t\t1.0 / (4 * getSize()), (Vector3D) getBarycenter()));\n+\t\t}\n+\t\tif (in) {\n             // search in the cut hyperplane\n             final SubHyperplane<Euclidean3D> facet = boundaryFacet(point, node);\n             if (facet != null) {\n@@ -325,7 +333,6 @@\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n         if ((attribute.getPlusOutside() != null) &&\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n         }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 284, 
+          "faulty": "if (in) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(point,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (getSize() < 0) {\n  setSize(Double.POSITIVE_INFINITY);\n  setBarycenter((Point<Euclidean3D>)Vector3D.NaN);\n}\n else {\n  setSize(getSize() / 3.0);\n  setBarycenter((Point<Euclidean3D>)new Vector3D(1.0 / (4 * getSize()),(Vector3D)getBarycenter()));\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 328, 
+          "faulty": "return attribute.getPlusOutside();", 
+          "type": "Delete", 
+          "seed": "if (isNaN()) {\n  return 409;\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java", 
+          "line": 362, 
+          "faulty": "final double dot=w.dotProduct(direction);", 
+          "type": "InsertBefore", 
+          "seed": "final double z=v.getZ();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_117/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:35.335981948 -0500\n@@ -325,7 +325,7 @@\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n         if ((attribute.getPlusOutside() != null) &&\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n+            final double[] quat = new double[4];\n         }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 328, 
+          "faulty": "return attribute.getPlusOutside();", 
+          "type": "Replace", 
+          "seed": "final double[] quat=new double[4];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_242/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:52:22.763864399 -0500\n@@ -295,17 +295,6 @@\n             return crossed;\n         }\n \n-        if (!in) {\n-            // search in the cut hyperplane\n-            final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n-        }\n-\n         // search in the far branch\n         return recurseFirstIntersection(far, point, line);\n \n@@ -327,7 +316,8 @@\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusOutside();\n         }\n-        if ((attribute.getPlusInside() != null) &&\n+        setSize(0);\n+\t\tif ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusInside();\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 330, 
+          "faulty": "if ((attribute.getPlusInside() != null) && (((SubPlane)attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusInside();\n}", 
+          "type": "InsertBefore", 
+          "seed": "setSize(0);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 298, 
+          "faulty": "if (!in) {\n  final Vector3D hit3D=plane.intersection(line);\n  if (hit3D != null) {\n    final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n    if (facet != null) {\n      return facet;\n    }\n  }\n}", 
+          "type": "Delete", 
+          "seed": "final boolean in=FastMath.abs(offset) < 1.0e-10;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_145/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:46.619954284 -0500\n@@ -295,16 +295,7 @@\n             return crossed;\n         }\n \n-        if (!in) {\n-            // search in the cut hyperplane\n-            final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n-        }\n+        double[][] m = new double[3][];\n \n         // search in the far branch\n         return recurseFirstIntersection(far, point, line);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 298, 
+          "faulty": "if (!in) {\n  final Vector3D hit3D=plane.intersection(line);\n  if (hit3D != null) {\n    final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n    if (facet != null) {\n      return facet;\n    }\n  }\n}", 
+          "type": "Replace", 
+          "seed": "double[][] m=new double[3][];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_175/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:58.163925780 -0500\n@@ -282,12 +282,11 @@\n         }\n \n         if (in) {\n-            // search in the cut hyperplane\n-            final SubHyperplane<Euclidean3D> facet = boundaryFacet(point, node);\n-            if (facet != null) {\n-                return facet;\n-            }\n-        }\n+\t\t\tfinal SubHyperplane<Euclidean3D> facet = boundaryFacet(point, node);\n+\t\t\tif (facet != null) {\n+\t\t\t\treturn facet;\n+\t\t\t}\n+\t\t}\n \n         // search in the near branch\n         final SubHyperplane<Euclidean3D> crossed = recurseFirstIntersection(near, point, line);\n@@ -323,10 +322,14 @@\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n-        if ((attribute.getPlusOutside() != null) &&\n-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n-        }\n+        if (getSize() < 0) {\n+\t\t\tsetSize(Double.POSITIVE_INFINITY);\n+\t\t\tsetBarycenter((Point<Euclidean3D>) Vector3D.NaN);\n+\t\t} else {\n+\t\t\tsetSize(getSize() / 3.0);\n+\t\t\tsetBarycenter((Point<Euclidean3D>) new Vector3D(\n+\t\t\t\t\t1.0 / (4 * getSize()), (Vector3D) getBarycenter()));\n+\t\t}\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusInside();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 284, 
+          "faulty": "if (in) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(point,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "if (in) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(point,node);\n  if (facet != null) {\n    return facet;\n  }\n}"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 326, 
+          "faulty": "if ((attribute.getPlusOutside() != null) && (((SubPlane)attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusOutside();\n}", 
+          "type": "Replace", 
+          "seed": "if (getSize() < 0) {\n  setSize(Double.POSITIVE_INFINITY);\n  setBarycenter((Point<Euclidean3D>)Vector3D.NaN);\n}\n else {\n  setSize(getSize() / 3.0);\n  setBarycenter((Point<Euclidean3D>)new Vector3D(1.0 / (4 * getSize()),(Vector3D)getBarycenter()));\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_151/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:48.803948906 -0500\n@@ -301,7 +301,8 @@\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n                 if (facet != null) {\n-                    return facet;\n+                    final double[] quat = new double[4];\n+\t\t\t\t\treturn facet;\n                 }\n             }\n         }\n@@ -323,10 +324,6 @@\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n-        if ((attribute.getPlusOutside() != null) &&\n-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n-        }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusInside();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 326, 
+          "faulty": "if ((attribute.getPlusOutside() != null) && (((SubPlane)attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusOutside();\n}", 
+          "type": "Delete", 
+          "seed": "throw new CardanEulerSingularityException(true);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 304, 
+          "faulty": "return facet;", 
+          "type": "InsertBefore", 
+          "seed": "final double[] quat=new double[4];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_130/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:41.347967233 -0500\n@@ -262,7 +262,8 @@\n \n         final SubHyperplane<Euclidean3D> cut = node.getCut();\n         if (cut == null) {\n-            return null;\n+            final Vector3D p3D = (Vector3D) point;\n+\t\t\treturn null;\n         }\n         final BSPTree<Euclidean3D> minus = node.getMinus();\n         final BSPTree<Euclidean3D> plus  = node.getPlus();\n@@ -300,9 +301,6 @@\n             final Vector3D hit3D = plane.intersection(line);\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 265, 
+          "faulty": "return null;", 
+          "type": "InsertBefore", 
+          "seed": "final Vector3D p3D=(Vector3D)point;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 303, 
+          "faulty": "if (facet != null) {\n  return facet;\n}", 
+          "type": "Delete", 
+          "seed": "final BSPTree<Euclidean3D> minus=node.getMinus();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_41/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:10.340042493 -0500\n@@ -300,9 +300,6 @@\n             final Vector3D hit3D = plane.intersection(line);\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n             }\n         }\n \n@@ -327,10 +324,6 @@\n             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusOutside();\n         }\n-        if ((attribute.getPlusInside() != null) &&\n-            (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusInside();\n-        }\n         return null;\n     }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 330, 
+          "faulty": "if ((attribute.getPlusInside() != null) && (((SubPlane)attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusInside();\n}", 
+          "type": "Delete", 
+          "seed": "Vector3D v2=applyInverseTo(Vector3D.PLUS_K);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 303, 
+          "faulty": "if (facet != null) {\n  return facet;\n}", 
+          "type": "Delete", 
+          "seed": "if (hit3D != null) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n  if (facet != null) {\n    return facet;\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_139/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:44.567959329 -0500\n@@ -291,10 +291,6 @@\n \n         // search in the near branch\n         final SubHyperplane<Euclidean3D> crossed = recurseFirstIntersection(near, point, line);\n-        if (crossed != null) {\n-            return crossed;\n-        }\n-\n         if (!in) {\n             // search in the cut hyperplane\n             final Vector3D hit3D = plane.intersection(line);\n@@ -323,10 +319,6 @@\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n-        if ((attribute.getPlusOutside() != null) &&\n-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n-        }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusInside();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 326, 
+          "faulty": "if ((attribute.getPlusOutside() != null) && (((SubPlane)attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusOutside();\n}", 
+          "type": "Delete", 
+          "seed": "return Vector3DFormat.getInstance().format(toVector3D());"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 294, 
+          "faulty": "if (crossed != null) {\n  return crossed;\n}", 
+          "type": "Delete", 
+          "seed": "int i=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_257/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:52:28.595849726 -0500\n@@ -298,12 +298,7 @@\n         if (!in) {\n             // search in the cut hyperplane\n             final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n+            return crossed;\n         }\n \n         // search in the far branch\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 301, 
+          "faulty": "if (hit3D != null) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Replace", 
+          "seed": "return crossed;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_93/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:27.340001429 -0500\n@@ -298,12 +298,6 @@\n         if (!in) {\n             // search in the cut hyperplane\n             final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n         }\n \n         // search in the far branch\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 301, 
+          "faulty": "if (hit3D != null) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return Vector3DFormat.getInstance().format(toVector3D());"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_110/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:33.131987328 -0500\n@@ -291,20 +291,7 @@\n \n         // search in the near branch\n         final SubHyperplane<Euclidean3D> crossed = recurseFirstIntersection(near, point, line);\n-        if (crossed != null) {\n-            return crossed;\n-        }\n-\n-        if (!in) {\n-            // search in the cut hyperplane\n-            final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n-        }\n+        setSize(getSize() / 3.0);\n \n         // search in the far branch\n         return recurseFirstIntersection(far, point, line);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 300, 
+          "faulty": "final Vector3D hit3D=plane.intersection(line);", 
+          "type": "Delete", 
+          "seed": "final Vector3D p3D=(Vector3D)point;"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 294, 
+          "faulty": "if (crossed != null) {\n  return crossed;\n}", 
+          "type": "Delete", 
+          "seed": "return pointAt(((Vector1D)point).getX());"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 298, 
+          "faulty": "if (!in) {\n  final Vector3D hit3D=plane.intersection(line);\n  if (hit3D != null) {\n    final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n    if (facet != null) {\n      return facet;\n    }\n  }\n}", 
+          "type": "Replace", 
+          "seed": "setSize(getSize() / 3.0);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java\t2018-12-29 18:37:29.068755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_239/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java\t2018-12-29 18:52:22.023866258 -0500\n@@ -358,7 +358,8 @@\n      * instance (null if the line is parallel to the instance)\n      */\n     public Vector3D intersection(final Line line) {\n-        final Vector3D direction = line.getDirection();\n+        final double z = v.getZ();\n+\t\tfinal Vector3D direction = line.getDirection();\n         final double   dot       = w.dotProduct(direction);\n         if (FastMath.abs(dot) < 1.0e-10) {\n             return null;\n\n\n--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_239/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:52:22.027866247 -0500\n@@ -295,17 +295,6 @@\n             return crossed;\n         }\n \n-        if (!in) {\n-            // search in the cut hyperplane\n-            final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n-        }\n-\n         // search in the far branch\n         return recurseFirstIntersection(far, point, line);\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java", 
+          "line": 361, 
+          "faulty": "final Vector3D direction=line.getDirection();", 
+          "type": "InsertBefore", 
+          "seed": "final double z=v.getZ();"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 298, 
+          "faulty": "if (!in) {\n  final Vector3D hit3D=plane.intersection(line);\n  if (hit3D != null) {\n    final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n    if (facet != null) {\n      return facet;\n    }\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return pointAt(((Vector1D)point).getX());"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_180/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:59.823921665 -0500\n@@ -298,12 +298,6 @@\n         if (!in) {\n             // search in the cut hyperplane\n             final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n         }\n \n         // search in the far branch\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 302, 
+          "faulty": "final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);", 
+          "type": "Delete", 
+          "seed": "return recurseFirstIntersection(getTree(true),point,line);"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 301, 
+          "faulty": "if (hit3D != null) {\n  final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n  if (facet != null) {\n    return facet;\n  }\n}", 
+          "type": "Delete", 
+          "seed": "return this.isNaN();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_232/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:52:19.147873474 -0500\n@@ -268,7 +268,8 @@\n         final BSPTree<Euclidean3D> plus  = node.getPlus();\n         final Plane               plane = (Plane) cut.getHyperplane();\n \n-        // establish search order\n+        getTree(true).visit(new FacetsContributionVisitor());\n+\t\t// establish search order\n         final double offset = plane.getOffset((Point<Euclidean3D>) point);\n         final boolean in    = FastMath.abs(offset) < 1.0e-10;\n         final BSPTree<Euclidean3D> near;\n@@ -323,10 +324,7 @@\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n-        if ((attribute.getPlusOutside() != null) &&\n-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n-        }\n+        int i = 0;\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusInside();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 272, 
+          "faulty": "final double offset=plane.getOffset((Point<Euclidean3D>)point);", 
+          "type": "InsertBefore", 
+          "seed": "getTree(true).visit(new FacetsContributionVisitor());"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 326, 
+          "faulty": "if ((attribute.getPlusOutside() != null) && (((SubPlane)attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusOutside();\n}", 
+          "type": "Replace", 
+          "seed": "int i=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_4/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:50:57.100074121 -0500\n@@ -270,7 +270,8 @@\n \n         // establish search order\n         final double offset = plane.getOffset((Point<Euclidean3D>) point);\n-        final boolean in    = FastMath.abs(offset) < 1.0e-10;\n+        final double[][] hj = new double[3][3];\n+\t\tfinal boolean in    = FastMath.abs(offset) < 1.0e-10;\n         final BSPTree<Euclidean3D> near;\n         final BSPTree<Euclidean3D> far;\n         if (offset < 0) {\n@@ -295,16 +296,8 @@\n             return crossed;\n         }\n \n-        if (!in) {\n-            // search in the cut hyperplane\n-            final Vector3D hit3D = plane.intersection(line);\n-            if (hit3D != null) {\n-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n-            }\n-        }\n+        setBarycenter((Point<Euclidean3D>) new Vector3D(1.0 / (4 * getSize()),\n+\t\t\t\t(Vector3D) getBarycenter()));\n \n         // search in the far branch\n         return recurseFirstIntersection(far, point, line);\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 273, 
+          "faulty": "final boolean in=FastMath.abs(offset) < 1.0e-10;", 
+          "type": "InsertBefore", 
+          "seed": "final double[][] hj=new double[3][3];"
+        }, 
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 298, 
+          "faulty": "if (!in) {\n  final Vector3D hit3D=plane.intersection(line);\n  if (hit3D != null) {\n    final SubHyperplane<Euclidean3D> facet=boundaryFacet(hit3D,node);\n    if (facet != null) {\n      return facet;\n    }\n  }\n}", 
+          "type": "Replace", 
+          "seed": "setBarycenter((Point<Euclidean3D>)new Vector3D(1.0 / (4 * getSize()),(Vector3D)getBarycenter()));"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_19/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:01.608063387 -0500\n@@ -323,10 +323,7 @@\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n-        if ((attribute.getPlusOutside() != null) &&\n-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n-        }\n+        final BSPTree<Euclidean3D> plus = node.getPlus();\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusInside();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 326, 
+          "faulty": "if ((attribute.getPlusOutside() != null) && (((SubPlane)attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusOutside();\n}", 
+          "type": "Replace", 
+          "seed": "final BSPTree<Euclidean3D> plus=node.getPlus();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_26/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:04.320056913 -0500\n@@ -323,10 +323,6 @@\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n-        if ((attribute.getPlusOutside() != null) &&\n-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n-        }\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusInside();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 326, 
+          "faulty": "if ((attribute.getPlusOutside() != null) && (((SubPlane)attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusOutside();\n}", 
+          "type": "Delete", 
+          "seed": "double fn=0;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_9/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:50:59.000069602 -0500\n@@ -300,9 +300,6 @@\n             final Vector3D hit3D = plane.intersection(line);\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n-                if (facet != null) {\n-                    return facet;\n-                }\n             }\n         }\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 303, 
+          "faulty": "if (facet != null) {\n  return facet;\n}", 
+          "type": "Delete", 
+          "seed": "final Region<Euclidean2D> polygon=((SubPlane)facet).getRemainingRegion();"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_196/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:52:06.255905683 -0500\n@@ -323,10 +323,7 @@\n         @SuppressWarnings(\"unchecked\")\n         final BoundaryAttribute<Euclidean3D> attribute =\n             (BoundaryAttribute<Euclidean3D>) node.getAttribute();\n-        if ((attribute.getPlusOutside() != null) &&\n-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n-            return attribute.getPlusOutside();\n-        }\n+        final double[][] hj = new double[3][3];\n         if ((attribute.getPlusInside() != null) &&\n             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n             return attribute.getPlusInside();\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 326, 
+          "faulty": "if ((attribute.getPlusOutside() != null) && (((SubPlane)attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {\n  return attribute.getPlusOutside();\n}", 
+          "type": "Replace", 
+          "seed": "final double[][] hj=new double[3][3];"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:37:29.072755000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/patches_0lgm/Patch_81/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_a06a1584/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java\t2018-12-29 18:51:23.656010369 -0500\n@@ -301,7 +301,7 @@\n             if (hit3D != null) {\n                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);\n                 if (facet != null) {\n-                    return facet;\n+                    double[][] m = new double[3][];\n                 }\n             }\n         }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java", 
+          "line": 304, 
+          "faulty": "return facet;", 
+          "type": "Replace", 
+          "seed": "double[][] m=new double[3][];"
+        }
+      ]
+    }
+  ]
+}

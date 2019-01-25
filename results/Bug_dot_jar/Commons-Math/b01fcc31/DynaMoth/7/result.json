@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-30 22:32:47.647100", 
+  "repair_begin": "2018-12-30 22:32:23.494503", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 1, 
+      "patchLocation": {
+        "line": 212, 
+        "class": "org.apache.commons.math.optimization.linear.SimplexTableau"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\n+++ b/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java\n@@ -211,5 +211,7 @@\n         if (constraint.getValue() < 0) {\n-            return new LinearConstraint(constraint.getCoefficients().mapMultiply(-1),\n-                                        constraint.getRelationship().oppositeRelationship(),\n-                                        -1 * constraint.getValue());\n+            if (false) {\n+                return new LinearConstraint(constraint.getCoefficients().mapMultiply(-1),\n+                constraint.getRelationship().oppositeRelationship(),\n+                -1 * constraint.getValue());\n+            }\n         }\n"
+    }
+  ]
+}

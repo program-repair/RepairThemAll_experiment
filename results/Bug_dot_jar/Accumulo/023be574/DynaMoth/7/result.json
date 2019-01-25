@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-30 17:32:03.226925", 
+  "repair_begin": "2018-12-30 17:31:01.793554", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 1, 
+      "patchLocation": {
+        "line": 440, 
+        "class": "org.apache.accumulo.core.util.shell.Shell"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/core/src/main/java/org/apache/accumulo/core/util/shell/Shell.java\n+++ b/core/src/main/java/org/apache/accumulo/core/util/shell/Shell.java\n@@ -439,16 +439,18 @@\n     \n-    if (execFile != null) {\n-      java.util.Scanner scanner = new java.util.Scanner(new File(execFile), Constants.UTF8.name());\n-      try {\n-        while (scanner.hasNextLine() && !hasExited()) {\n-          execCommand(scanner.nextLine(), true, isVerbose());\n+    if (false) {\n+      if (execFile != null) {\n+        java.util.Scanner scanner = new java.util.Scanner(new File(execFile), Constants.UTF8.name());\n+        try {\n+          while (scanner.hasNextLine() && !hasExited()) {\n+            execCommand(scanner.nextLine(), true, isVerbose());\n+          }\n+        } finally {\n+          scanner.close();\n         }\n-      } finally {\n-        scanner.close();\n+      } else if (execCommand != null) {\n+        for (String command : execCommand.split(\"\\n\")) {\n+          execCommand(command, true, isVerbose());\n+        }\n+        return exitCode;\n       }\n-    } else if (execCommand != null) {\n-      for (String command : execCommand.split(\"\\n\")) {\n-        execCommand(command, true, isVerbose());\n-      }\n-      return exitCode;\n     }\n"
+    }
+  ]
+}

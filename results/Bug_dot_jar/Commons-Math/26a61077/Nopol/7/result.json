@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 15:00:27.743799", 
+  "repair_begin": "2018-12-29 14:57:29.776721", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 10, 
+      "patchLocation": {
+        "line": 182, 
+        "class": "org.apache.commons.math.analysis.function.Gaussian$Parametric"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/src/main/java/org/apache/commons/math/analysis/function/Gaussian.java\n+++ b/src/main/java/org/apache/commons/math/analysis/function/Gaussian.java\n@@ -181,4 +181,6 @@\n             }\n-            if (param[2] <= 0) {\n-                throw new NotStrictlyPositiveException(param[2]);\n+            if ((param[2]) == 0) {\n+                if (param[2] <= 0) {\n+                    throw new NotStrictlyPositiveException(param[2]);\n+                }\n             }\n"
+    }
+  ]
+}

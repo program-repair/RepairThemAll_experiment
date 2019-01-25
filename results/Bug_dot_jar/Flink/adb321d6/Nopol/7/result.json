@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 18:08:44.053721", 
+  "repair_begin": "2018-12-29 17:57:25.084965", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 20, 
+      "patchLocation": {
+        "line": 199, 
+        "class": "org.apache.flink.optimizer.dag.WorksetIterationNode"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/flink-optimizer/src/main/java/org/apache/flink/optimizer/dag/WorksetIterationNode.java\n+++ b/flink-optimizer/src/main/java/org/apache/flink/optimizer/dag/WorksetIterationNode.java\n@@ -198,3 +198,5 @@\n \t\tsolutionSetDeltaUpdateAux.addOutgoingConnection(this.solutionSetDeltaRootConnection);\n-\t\tnextWorkset.addOutgoingConnection(this.nextWorksetRootConnection);\n+\t\tif (20 < org.apache.flink.optimizer.dag.WorksetIterationNode.this.costWeight) {\n+\t\t\tnextWorkset.addOutgoingConnection(this.nextWorksetRootConnection);\n+\t\t}\n \t}\n"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "repair_end": "2018-12-30 05:16:16.315484", 
+  "repair_begin": "2018-12-30 04:39:33.971606", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_69273dca/src/main/java/org/apache/commons/math3/ode/nonstiff/RungeKuttaIntegrator.java\t2018-12-29 22:39:07.379252000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_69273dca/patches_r00r/Patch_378/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_69273dca/src/main/java/org/apache/commons/math3/ode/nonstiff/RungeKuttaIntegrator.java\t2018-12-29 23:04:40.209866537 -0500\n@@ -128,7 +128,16 @@\n \n       interpolator.shift();\n \n-      // first stage\n+      if (forward) {\n+\t\tif (stepStart + stepSize >= t) {\n+\t\t\tstepSize = t - stepStart;\n+\t\t}\n+\t} else {\n+\t\tif (stepStart + stepSize <= t) {\n+\t\t\tstepSize = t - stepStart;\n+\t\t}\n+\t}\n+\t// first stage\n       computeDerivatives(stepStart, y, yDotK[0]);\n \n       // next stages\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ode/nonstiff/RungeKuttaIntegrator.java", 
+          "line": 132, 
+          "faulty": "computeDerivatives(stepStart,y,yDotK[0]);", 
+          "type": "InsertBefore", 
+          "seed": "if (forward) {\n  if (stepStart + stepSize >= t) {\n    stepSize=t - stepStart;\n  }\n}\n else {\n  if (stepStart + stepSize <= t) {\n    stepSize=t - stepStart;\n  }\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_Bug_dot_jar_Commons-Math_69273dca/src/main/java/org/apache/commons/math3/ode/nonstiff/RungeKuttaIntegrator.java\t2018-12-29 22:39:07.379252000 -0500\n+++ /tmp/RSRepair_Bug_dot_jar_Commons-Math_69273dca/patches_r00r/Patch_278/patched/tmp/RSRepair_Bug_dot_jar_Commons-Math_69273dca/src/main/java/org/apache/commons/math3/ode/nonstiff/RungeKuttaIntegrator.java\t2018-12-29 23:02:29.885924970 -0500\n@@ -135,7 +135,16 @@\n       for (int k = 1; k < stages; ++k) {\n \n           for (int j = 0; j < y0.length; ++j) {\n-              double sum = a[k-1][0] * yDotK[0][j];\n+              if (!isLastStep) {\n+\t\t\t\tinterpolator.storeTime(stepStart);\n+\t\t\t\tfinal double nextT = stepStart + stepSize;\n+\t\t\t\tfinal boolean nextIsLast = forward ? (nextT >= t)\n+\t\t\t\t\t\t: (nextT <= t);\n+\t\t\t\tif (nextIsLast) {\n+\t\t\t\t\tstepSize = t - stepStart;\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tdouble sum = a[k-1][0] * yDotK[0][j];\n               for (int l = 1; l < k; ++l) {\n                   sum += a[k-1][l] * yDotK[l][j];\n               }\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/org/apache/commons/math3/ode/nonstiff/RungeKuttaIntegrator.java", 
+          "line": 138, 
+          "faulty": "double sum=a[k - 1][0] * yDotK[0][j];", 
+          "type": "InsertBefore", 
+          "seed": "if (!isLastStep) {\n  interpolator.storeTime(stepStart);\n  final double nextT=stepStart + stepSize;\n  final boolean nextIsLast=forward ? (nextT >= t) : (nextT <= t);\n  if (nextIsLast) {\n    stepSize=t - stepStart;\n  }\n}"
+        }
+      ]
+    }
+  ]
+}

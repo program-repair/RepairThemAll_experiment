@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 18:27:50.193496", 
+  "repair_begin": "2018-12-29 17:46:58.909562", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 3, 
+      "patchLocation": {
+        "line": 141, 
+        "class": "org.apache.flink.runtime.instance.InstanceConnectionInfo"
+      }, 
+      "patchType": "CONDITIONAL", 
+      "patch": "--- a/flink-runtime/src/main/java/org/apache/flink/runtime/instance/InstanceConnectionInfo.java\n+++ b/flink-runtime/src/main/java/org/apache/flink/runtime/instance/InstanceConnectionInfo.java\n@@ -140,3 +140,3 @@\n \t\t\tString fqdn = getFQDNHostname();\n-\t\t\tif(this.fqdnHostNameIsIP) { // fqdn to hostname translation is pointless if FQDN is an ip address.\n+\t\t\tif(fqdn.length() <= 17) { // fqdn to hostname translation is pointless if FQDN is an ip address.\n \t\t\t\thostName = fqdn;\n"
+    }
+  ]
+}

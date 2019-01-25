@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 17:49:51.549240", 
+  "repair_begin": "2018-12-29 17:47:50.707004", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 1, 
+      "patchLocation": {
+        "line": 98, 
+        "class": "org.apache.flink.streaming.api.functions.source.FileMonitoringFunction"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/functions/source/FileMonitoringFunction.java\n+++ b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/functions/source/FileMonitoringFunction.java\n@@ -97,10 +97,12 @@\n \n-\t\tfor (FileStatus status : statuses) {\n-\t\t\tPath filePath = status.getPath();\n-\t\t\tString fileName = filePath.getName();\n-\t\t\tlong modificationTime = status.getModificationTime();\n-\n-\t\t\tif (!isFiltered(fileName, modificationTime)) {\n-\t\t\t\tfiles.add(filePath.toString());\n-\t\t\t\tmodificationTimes.put(fileName, modificationTime);\n+\t\tif (statuses!=null) {\n+\t\t\tfor (FileStatus status : statuses) {\n+\t\t\t\tPath filePath = status.getPath();\n+\t\t\t\tString fileName = filePath.getName();\n+\t\t\t\tlong modificationTime = status.getModificationTime();\n+\t\t\t\t\n+\t\t\t\tif (!isFiltered(fileName, modificationTime)) {\n+\t\t\t\t\tfiles.add(filePath.toString());\n+\t\t\t\t\tmodificationTimes.put(fileName, modificationTime);\n+\t\t\t\t}\n \t\t\t}\n"
+    }
+  ]
+}

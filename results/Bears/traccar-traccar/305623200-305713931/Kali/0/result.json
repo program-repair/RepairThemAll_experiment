@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-27 11:24:17.123837", 
+  "repair_begin": "2018-12-27 11:24:00.010614", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Bears_traccar-traccar_305623200-305713931/src/org/traccar/protocol/Jt600FrameDecoder.java\t2018-12-27 05:23:31.088338766 -0500\n+++ /tmp/Kali_Bears_traccar-traccar_305623200-305713931/patches_7a4z/Patch_5/patched/tmp/Kali_Bears_traccar-traccar_305623200-305713931/src/org/traccar/protocol/Jt600FrameDecoder.java\t2018-12-27 05:24:16.756530880 -0500\n@@ -37,7 +37,7 @@\n         if (type == '$') {\n             boolean longFormat = buf.getUnsignedByte(buf.readerIndex() + 1) == 0x75;\n             int length = buf.getUnsignedShort(buf.readerIndex() + (longFormat ? 8 : 7)) + 10;\n-            if (length >= buf.readableBytes()) {\n+            if (true) {\n                 return buf.readBytes(length);\n             }\n         } else if (type == '(') {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/org/traccar/protocol/Jt600FrameDecoder.java", 
+          "line": 40, 
+          "faulty": "if (length >= buf.readableBytes()) {\n  return buf.readBytes(length);\n}", 
+          "type": "RedirectBranch true"
+        }
+      ]
+    }
+  ]
+}

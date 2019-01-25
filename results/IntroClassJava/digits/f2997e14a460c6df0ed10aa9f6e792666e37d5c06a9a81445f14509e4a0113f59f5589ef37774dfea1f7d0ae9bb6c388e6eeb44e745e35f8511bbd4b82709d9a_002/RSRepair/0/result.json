@@ -1,0 +1,42 @@
+{
+  "repair_end": "2018-12-05 01:00:21.626349", 
+  "repair_begin": "2018-12-05 00:40:11.277689", 
+  "patches": [
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_digits_f2997e14a460c6df0ed10aa9f6e792666e37d5c06a9a81445f14509e4a0113f59f5589ef37774dfea1f7d0ae9bb6c388e6eeb44e745e35f8511bbd4b82709d9a_002/src/main/java/introclassJava/digits_f2997e14_002.java\t2018-11-28 17:54:19.955964000 -0500\n+++ /tmp/RSRepair_IntroClassJava_digits_f2997e14a460c6df0ed10aa9f6e792666e37d5c06a9a81445f14509e4a0113f59f5589ef37774dfea1f7d0ae9bb6c388e6eeb44e745e35f8511bbd4b82709d9a_002/patches_6zkp/Patch_1148/patched/tmp/RSRepair_IntroClassJava_digits_f2997e14a460c6df0ed10aa9f6e792666e37d5c06a9a81445f14509e4a0113f59f5589ef37774dfea1f7d0ae9bb6c388e6eeb44e745e35f8511bbd4b82709d9a_002/src/main/java/introclassJava/digits_f2997e14_002.java\t2018-12-04 18:53:41.029980441 -0500\n@@ -68,7 +68,11 @@\n                 break;\n             } else if (Math.abs (digit.value) < 10) {\n                 digit.value = Math.abs (digit.value);\n-                output += (String.format (\"%d\\n\", digit.value));\n+                if (Math.abs(input.value) < 10 && input.value != 0) {\n+\t\t\t\t\toutput += (String.format(\"%d\\n\", input.value));\n+\t\t\t\t\tbreak;\n+\t\t\t\t}\n+\t\t\t\toutput += (String.format (\"%d\\n\", digit.value));\n             }\n             input.value = input.value / 10;\n             if (Math.abs (input.value) < 10 && input.value != 0) {\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/digits_f2997e14_002.java", 
+          "line": 71, 
+          "faulty": "output+=(String.format(\"%d\\n\",digit.value));", 
+          "type": "InsertBefore", 
+          "seed": "if (Math.abs(input.value) < 10 && input.value != 0) {\n  output+=(String.format(\"%d\\n\",input.value));\n  break;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_digits_f2997e14a460c6df0ed10aa9f6e792666e37d5c06a9a81445f14509e4a0113f59f5589ef37774dfea1f7d0ae9bb6c388e6eeb44e745e35f8511bbd4b82709d9a_002/src/main/java/introclassJava/digits_f2997e14_002.java\t2018-11-28 17:54:19.955964000 -0500\n+++ /tmp/RSRepair_IntroClassJava_digits_f2997e14a460c6df0ed10aa9f6e792666e37d5c06a9a81445f14509e4a0113f59f5589ef37774dfea1f7d0ae9bb6c388e6eeb44e745e35f8511bbd4b82709d9a_002/patches_6zkp/Patch_749/patched/tmp/RSRepair_IntroClassJava_digits_f2997e14a460c6df0ed10aa9f6e792666e37d5c06a9a81445f14509e4a0113f59f5589ef37774dfea1f7d0ae9bb6c388e6eeb44e745e35f8511bbd4b82709d9a_002/src/main/java/introclassJava/digits_f2997e14_002.java\t2018-12-04 18:48:41.289424716 -0500\n@@ -62,7 +62,11 @@\n         input.value = scanner.nextInt ();\n         output += (String.format (\"\\n\"));\n         while (true) {\n-            digit.value = input.value % 10;\n+            if (Math.abs(input.value) < 10 && input.value != 0) {\n+\t\t\t\toutput += (String.format(\"%d\\n\", input.value));\n+\t\t\t\tbreak;\n+\t\t\t}\n+\t\t\tdigit.value = input.value % 10;\n             if (input.value == 0) {\n                 output += (String.format (\"0\\n\"));\n                 break;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/digits_f2997e14_002.java", 
+          "line": 65, 
+          "faulty": "digit.value=input.value % 10;", 
+          "type": "InsertBefore", 
+          "seed": "if (Math.abs(input.value) < 10 && input.value != 0) {\n  output+=(String.format(\"%d\\n\",input.value));\n  break;\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/RSRepair_IntroClassJava_digits_f2997e14a460c6df0ed10aa9f6e792666e37d5c06a9a81445f14509e4a0113f59f5589ef37774dfea1f7d0ae9bb6c388e6eeb44e745e35f8511bbd4b82709d9a_002/src/main/java/introclassJava/digits_f2997e14_002.java\t2018-11-28 17:54:19.955964000 -0500\n+++ /tmp/RSRepair_IntroClassJava_digits_f2997e14a460c6df0ed10aa9f6e792666e37d5c06a9a81445f14509e4a0113f59f5589ef37774dfea1f7d0ae9bb6c388e6eeb44e745e35f8511bbd4b82709d9a_002/patches_6zkp/Patch_825/patched/tmp/RSRepair_IntroClassJava_digits_f2997e14a460c6df0ed10aa9f6e792666e37d5c06a9a81445f14509e4a0113f59f5589ef37774dfea1f7d0ae9bb6c388e6eeb44e745e35f8511bbd4b82709d9a_002/src/main/java/introclassJava/digits_f2997e14_002.java\t2018-12-04 18:49:32.914195613 -0500\n@@ -67,7 +67,11 @@\n                 output += (String.format (\"0\\n\"));\n                 break;\n             } else if (Math.abs (digit.value) < 10) {\n-                digit.value = Math.abs (digit.value);\n+                if (Math.abs(input.value) < 10 && input.value != 0) {\n+\t\t\t\t\toutput += (String.format(\"%d\\n\", input.value));\n+\t\t\t\t\tbreak;\n+\t\t\t\t}\n+\t\t\t\tdigit.value = Math.abs (digit.value);\n                 output += (String.format (\"%d\\n\", digit.value));\n             }\n             input.value = input.value / 10;\n\n\n", 
+      "edits": [
+        {
+          "path": "src/main/java/introclassJava/digits_f2997e14_002.java", 
+          "line": 70, 
+          "faulty": "digit.value=Math.abs(digit.value);", 
+          "type": "InsertBefore", 
+          "seed": "if (Math.abs(input.value) < 10 && input.value != 0) {\n  output+=(String.format(\"%d\\n\",input.value));\n  break;\n}"
+        }
+      ]
+    }
+  ]
+}

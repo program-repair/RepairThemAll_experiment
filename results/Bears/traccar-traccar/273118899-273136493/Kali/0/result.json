@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-27 11:24:37.569730", 
+  "repair_begin": "2018-12-27 11:24:17.291766", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Bears_traccar-traccar_273118899-273136493/src/org/traccar/protocol/EelinkProtocolDecoder.java\t2018-12-27 05:23:34.379026669 -0500\n+++ /tmp/Kali_Bears_traccar-traccar_273118899-273136493/patches_2jnn/Patch_2/patched/tmp/Kali_Bears_traccar-traccar_273118899-273136493/src/org/traccar/protocol/EelinkProtocolDecoder.java\t2018-12-27 05:24:37.167028102 -0500\n@@ -152,7 +152,7 @@\n \n             position.set(Position.KEY_ALARM, decodeAlarm(buf.readUnsignedByte()));\n \n-        } else if (type == MSG_STATE) {\n+        } else if (false) {\n \n             int statusType = buf.readUnsignedByte();\n \n\n\n", 
+      "edits": [
+        {
+          "path": "src/org/traccar/protocol/EelinkProtocolDecoder.java", 
+          "line": 155, 
+          "faulty": "if (type == MSG_STATE) {\n  int statusType=buf.readUnsignedByte();\n  position.set(Position.KEY_EVENT,statusType);\n  if (statusType == 0x01 || statusType == 0x02 || statusType == 0x03) {\n    buf.readUnsignedInt();\n    decodeStatus(position,buf.readUnsignedShort());\n  }\n}", 
+          "type": "RedirectBranch false"
+        }
+      ]
+    }
+  ]
+}

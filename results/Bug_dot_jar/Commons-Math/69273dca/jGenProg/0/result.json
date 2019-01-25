@@ -1,0 +1,31 @@
+{
+  "repair_end": "2019-01-01 17:30:25.909872", 
+  "repair_begin": "2019-01-01 16:50:25.042735", 
+  "patches": [
+    {
+      "PATCH_DIFF_ORIG": "\\/var\\/lib\\/oar\\/.batch_job_bashrc: line 5: \\/home\\/tdurieux\\/.bashrc: No such file or directory\\n--- org\\/apache\\/commons\\/math3\\/ode\\/nonstiff\\/RungeKuttaIntegrator.java\\n+++ org\\/apache\\/commons\\/math3\\/ode\\/nonstiff\\/RungeKuttaIntegrator.java\\n@@ -135,31 +135,31 @@\\n \\t\\t\\tfor (int k = 1; k < stages; ++k) {\\n \\n \\t\\t\\t\\tfor (int j = 0; j < (y0.length); ++j) {\\n-\\t\\t\\t\\t\\tdouble sum = (a[(k - 1)][0]) * (yDotK[0][j]);\\n-\\t\\t\\t\\t\\tfor (int l = 1; l < k; ++l) {\\n-\\t\\t\\t\\t\\t\\tsum += (a[(k - 1)][l]) * (yDotK[l][j]);\\n-\\t\\t\\t\\t\\t}\\n-\\t\\t\\t\\t\\tyTmp[j] = (y[j]) + ((stepSize) * sum);\\n-\\t\\t\\t\\t}\\n \\n-\\t\\t\\t\\tcomputeDerivatives(((stepStart) + ((c[(k - 1)]) * (stepSize))), yTmp, yDotK[k]);\\n \\n-\\t\\t\\t}\\n \\n \\n-\\t\\t\\tfor (int j = 0; j < (y0.length); ++j) {\\n-\\t\\t\\t\\tdouble sum = (b[0]) * (yDotK[0][j]);\\n-\\t\\t\\t\\tfor (int l = 1; l < stages; ++l) {\\n-\\t\\t\\t\\t\\tsum += (b[l]) * (yDotK[l][j]);\\n-\\t\\t\\t\\t}\\n-\\t\\t\\t\\tyTmp[j] = (y[j]) + ((stepSize) * sum);\\n-\\t\\t\\t}\\n \\n \\n-\\t\\t\\tinterpolator.storeTime(((stepStart) + (stepSize)));\\n-\\t\\t\\tjava.lang.System.arraycopy(yTmp, 0, y, 0, y0.length);\\n-\\t\\t\\tjava.lang.System.arraycopy(yDotK[(stages - 1)], 0, yDotTmp, 0, y0.length);\\n-\\t\\t\\tstepStart = acceptStep(interpolator, y, yDotTmp, t);\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n \\n \\t\\t\\tif (!(isLastStep)) {\\n \\n@@ -172,7 +172,7 @@\\n \\t\\t\\t\\tif (nextIsLast) {\\n \\t\\t\\t\\t\\tstepSize = t - (stepStart);\\n \\t\\t\\t\\t}\\n-\\t\\t\\t}\\n+\\t\\t\\t\\t\\t} \\t\\t\\t\\t\\tdouble sum = (a[(k - 1)][0]) * (yDotK[0][j]); \\t\\t\\t\\t\\tfor (int l = 1; l < k; ++l) { \\t\\t\\t\\t\\t\\tsum += (a[(k - 1)][l]) * (yDotK[l][j]);} \\t\\t\\t\\t\\tyTmp[j] = (y[j]) + ((stepSize) * sum);} \\t\\t\\t\\tcomputeDerivatives(((stepStart) + ((c[(k - 1)]) * (stepSize))), yTmp, yDotK[k]);} \\t\\t\\tfor (int j = 0; j < (y0.length); ++j) { \\t\\t\\t\\tdouble sum = (b[0]) * (yDotK[0][j]); \\t\\t\\t\\tfor (int l = 1; l < stages; ++l) { \\t\\t\\t\\t\\tsum += (b[l]) * (yDotK[l][j]);} \\t\\t\\t\\tyTmp[j] = (y[j]) + ((stepSize) * sum);} \\t\\t\\tinterpolator.storeTime(((stepStart) + (stepSize))); \\t\\t\\tjava.lang.System.arraycopy(yTmp, 0, y, 0, y0.length); \\t\\t\\tjava.lang.System.arraycopy(yDotK[(stages - 1)], 0, yDotTmp, 0, y0.length); \\t\\t\\tstepStart = acceptStep(interpolator, y, yDotTmp, t); \\t\\t\\tif (!(isLastStep)) { \\t\\t\\t\\tinterpolator.storeTime(stepStart); \\t\\t\\t\\tfinal double nextT = (stepStart) + (stepSize); \\t\\t\\t\\tfinal boolean nextIsLast = (forward) ? nextT >= t : nextT <= t; \\t\\t\\t\\tif (nextIsLast) { \\t\\t\\t\\t\\tstepSize = t - (stepStart);}}\\n \\n \\t\\t} while (!(isLastStep) );\\n \\n\\n", 
+      "patchhunks": [
+        {
+          "MODIFIED_FILE_PATH": "\\/tmp\\/jGenProg_Bug_dot_jar_Commons-Math_69273dca\\/.\\/output_astor\\/AstorMain-Commons-Math-69273dca\\/\\/src\\/\\/variant-122_f\\/org\\/apache\\/commons\\/math3\\/ode\\/nonstiff\\/RungeKuttaIntegrator.java", 
+          "ORIGINAL_CODE": "double sum = (a[(k - 1)][0]) * (yDotK[0][j])", 
+          "INGREDIENT_SCOPE": "LOCAL", 
+          "PATCH_HUNK_CODE": "if (!(isLastStep)) {\\n\\n\\n\\tinterpolator.storeTime(stepStart);\\n\\n\\n\\tfinal double nextT = (stepStart) + (stepSize);\\n\\tfinal boolean nextIsLast = (forward) ? nextT >= t : nextT <= t;\\n\\tif (nextIsLast) {\\n\\t\\tstepSize = t - (stepStart);\\n\\t}\\n}", 
+          "INGREDIENT_PARENT": "if (!(isLastStep)) {\\n\\n\\n\\tinterpolator.storeTime(stepStart);\\n\\n\\n\\tfinal double nextT = (stepStart) + (stepSize);\\n\\tfinal boolean nextIsLast = (forward) ? nextT >= t : nextT <= t;\\n\\tif (nextIsLast) {\\n\\t\\tstepSize = t - (stepStart);\\n\\t}\\n}", 
+          "LOCATION": "org.apache.commons.math3.ode.nonstiff.RungeKuttaIntegrator", 
+          "BUGGY_CODE_TYPE": "CtLocalVariableImpl|CtBlockImpl", 
+          "OPERATOR": "InsertBeforeOp", 
+          "PATH": "\\/tmp\\/jGenProg_Bug_dot_jar_Commons-Math_69273dca\\/output_astor\\/AstorMain-Commons-Math-69273dca\\/src\\/default\\/org\\/apache\\/commons\\/math3\\/ode\\/nonstiff\\/RungeKuttaIntegrator.java", 
+          "LINE": "138", 
+          "MP_RANKING": "11", 
+          "SUSPICIOUNESS": "0.147", 
+          "PATCH_HUNK_TYPE": "CtIfImpl|CtBlockImpl"
+        }
+      ], 
+      "GENERATION": "61", 
+      "VARIANT_ID": "122", 
+      "TIME": "497", 
+      "VALIDATION": "|true|0|6155|[]|", 
+      "FOLDER_SOLUTION_CODE": "\\/tmp\\/jGenProg_Bug_dot_jar_Commons-Math_69273dca\\/.\\/output_astor\\/AstorMain-Commons-Math-69273dca\\/\\/bin\\/\\/variant-122"
+    }
+  ]
+}

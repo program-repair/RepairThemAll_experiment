@@ -1,0 +1,17 @@
+{
+  "repair_end": "2018-12-30 02:30:44.555100", 
+  "repair_begin": "2018-12-30 02:30:14.814660", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Kali_Bug_dot_jar_Jackrabbit-Oak_7c320b1e/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java\t2018-12-29 20:27:26.379559000 -0500\n+++ /tmp/Kali_Bug_dot_jar_Jackrabbit-Oak_7c320b1e/patches_kfwp/Patch_4/patched/tmp/Kali_Bug_dot_jar_Jackrabbit-Oak_7c320b1e/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java\t2018-12-29 20:30:44.191926383 -0500\n@@ -316,7 +316,7 @@\n                         buff.append('0');\n                     }\n                     buff.append(hex);\n-                } else if (c >= 127) {\n+                } else if (false) {\n                     // ascii only mode\n                     buff.append(\"\\\\u\");\n                     String hex = Integer.toHexString(c);\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java", 
+          "line": 319, 
+          "faulty": "if (c >= 127) {\n  buff.append(\"\\\\u\");\n  String hex=Integer.toHexString(c);\n  for (int len=hex.length(); len < 4; len++) {\n    buff.append('0');\n  }\n  buff.append(hex);\n}\n else {\n  buff.append(c);\n}", 
+          "type": "RedirectBranch false"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "repair_end": "2019-01-01 15:00:45.068033", 
+  "repair_begin": "2019-01-01 14:53:25.240160", 
+  "patches": [
+    {
+      "PATCH_DIFF_ORIG": "\\/var\\/lib\\/oar\\/.batch_job_bashrc: line 5: \\/home\\/tdurieux\\/.bashrc: No such file or directory\\n--- org\\/apache\\/commons\\/math\\/complex\\/Complex.java\\n+++ org\\/apache\\/commons\\/math\\/complex\\/Complex.java\\n@@ -149,10 +149,6 @@\\n \\n \\tpublic org.apache.commons.math.complex.Complex add(org.apache.commons.math.complex.Complex rhs) throws \\n \\torg.apache.commons.math.exception.NullArgumentException {\\n-\\t\\torg.apache.commons.math.util.MathUtils.checkNotNull(rhs);\\n-\\t\\treturn createComplex(((real) + (rhs.getReal())), \\n-\\t\\t((imaginary) + (rhs.getImaginary())));\\n-\\t}\\n \\n \\n \\n@@ -168,12 +164,6 @@\\n \\n \\n \\n-\\tpublic org.apache.commons.math.complex.Complex conjugate() {\\n-\\t\\tif (isNaN) {\\n-\\t\\t\\treturn org.apache.commons.math.complex.Complex.NaN;\\n-\\t\\t}\\n-\\t\\treturn createComplex(real, (-(imaginary)));\\n-\\t}\\n \\n \\n \\n@@ -210,12 +200,22 @@\\n \\n \\n \\n-\\tpublic org.apache.commons.math.complex.Complex divide(org.apache.commons.math.complex.Complex rhs) throws \\n-\\torg.apache.commons.math.exception.NullArgumentException {\\n-\\t\\torg.apache.commons.math.util.MathUtils.checkNotNull(rhs);\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n+\\n \\t\\tif ((isNaN) || (rhs.isNaN)) {\\n \\t\\t\\treturn org.apache.commons.math.complex.Complex.NaN;\\n-\\t\\t}\\n+\\t\\t} \\t\\torg.apache.commons.math.util.MathUtils.checkNotNull(rhs); \\t\\treturn createComplex(((real) + (rhs.getReal())), ((imaginary) + (rhs.getImaginary())));} \\tpublic org.apache.commons.math.complex.Complex conjugate() { \\t\\tif (isNaN) { \\t\\t\\treturn org.apache.commons.math.complex.Complex.NaN;} \\t\\treturn createComplex(real, (-(imaginary)));} \\tpublic org.apache.commons.math.complex.Complex divide(org.apache.commons.math.complex.Complex rhs) throws org.apache.commons.math.exception.NullArgumentException { \\t\\torg.apache.commons.math.util.MathUtils.checkNotNull(rhs); \\t\\tif ((isNaN) || (rhs.isNaN)) { \\t\\t\\treturn org.apache.commons.math.complex.Complex.NaN;}\\n \\n \\t\\tdouble c = rhs.getReal();\\n \\t\\tdouble d = rhs.getImaginary();\\n\\n", 
+      "patchhunks": [
+        {
+          "MODIFIED_FILE_PATH": "\\/tmp\\/jGenProg_Bug_dot_jar_Commons-Math_2123f780\\/.\\/output_astor\\/AstorMain-Commons-Math-2123f780\\/\\/src\\/\\/variant-660_f\\/org\\/apache\\/commons\\/math\\/complex\\/Complex.java", 
+          "ORIGINAL_CODE": "org.apache.commons.math.util.MathUtils.checkNotNull(rhs)", 
+          "INGREDIENT_SCOPE": "LOCAL", 
+          "PATCH_HUNK_CODE": "if ((isNaN) || (rhs.isNaN)) {\\n\\treturn org.apache.commons.math.complex.Complex.NaN;\\n}", 
+          "INGREDIENT_PARENT": "if ((isNaN) || (rhs.isNaN)) {\\n\\treturn org.apache.commons.math.complex.Complex.NaN;\\n}", 
+          "LOCATION": "org.apache.commons.math.complex.Complex", 
+          "BUGGY_CODE_TYPE": "CtInvocationImpl|CtBlockImpl", 
+          "OPERATOR": "InsertBeforeOp", 
+          "PATH": "\\/tmp\\/jGenProg_Bug_dot_jar_Commons-Math_2123f780\\/output_astor\\/AstorMain-Commons-Math-2123f780\\/src\\/default\\/org\\/apache\\/commons\\/math\\/complex\\/Complex.java", 
+          "LINE": "152", 
+          "MP_RANKING": "0", 
+          "SUSPICIOUNESS": "0.158", 
+          "PATCH_HUNK_TYPE": "CtIfImpl|CtBlockImpl"
+        }
+      ], 
+      "GENERATION": "330", 
+      "VARIANT_ID": "660", 
+      "TIME": "175", 
+      "VALIDATION": "|true|0|2525|[]|", 
+      "FOLDER_SOLUTION_CODE": "\\/tmp\\/jGenProg_Bug_dot_jar_Commons-Math_2123f780\\/.\\/output_astor\\/AstorMain-Commons-Math-2123f780\\/\\/bin\\/\\/variant-660"
+    }
+  ]
+}

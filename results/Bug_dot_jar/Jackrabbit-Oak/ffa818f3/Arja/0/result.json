@@ -1,0 +1,534 @@
+{
+  "repair_end": "2018-12-29 17:51:28.271717", 
+  "repair_begin": "2018-12-29 16:32:45.576659", 
+  "patches": [
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_668/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 11:01:40.893694526 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_668/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 11:01:40.897694547 -0500\n@@ -52,12 +52,16 @@\n         if (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n-        len /= 2;\n+        if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tlen /= 2;\n         byte[] buff = new byte[len];\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n         }\n-        return buff;\n+        len /= 2;\n+\t\treturn buff;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 55, 
+          "faulty": "len/=2;", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 60, 
+          "faulty": "return buff;", 
+          "type": "InsertBefore", 
+          "seed": "len/=2;"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_283/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:43:41.456670187 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 60, 
+          "faulty": "return buff;", 
+          "type": "Replace", 
+          "seed": "return buff;"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1313/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 11:31:44.387116353 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1313/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 11:31:44.391116376 -0500\n@@ -52,7 +52,10 @@\n         if (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n-        len /= 2;\n+        if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tlen /= 2;\n         byte[] buff = new byte[len];\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 55, 
+          "faulty": "len/=2;", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 60, 
+          "faulty": "return buff;", 
+          "type": "Replace", 
+          "seed": "return buff;"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1202/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 11:26:25.657281396 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1202/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 11:26:25.661281419 -0500\n@@ -57,7 +57,11 @@\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n         }\n-        return buff;\n+        for (int i = 0; i < len; i++) {\n+\t\t\tbuff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i\n+\t\t\t\t\t+ i + 1));\n+\t\t}\n+\t\treturn buff;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 60, 
+          "faulty": "return buff;", 
+          "type": "InsertBefore", 
+          "seed": "for (int i=0; i < len; i++) {\n  buff[i]=(byte)((getHexDigit(s,i + i) << 4) | getHexDigit(s,i + i + 1));\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_460/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:51:53.526890150 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_460/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:51:53.530890169 -0500\n@@ -50,9 +50,15 @@\n     public static byte[] convertHexToBytes(String s) {\n         int len = s.length();\n         if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tif (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n-        len /= 2;\n+        if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tlen /= 2;\n         byte[] buff = new byte[len];\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 55, 
+          "faulty": "len/=2;", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 52, 
+          "faulty": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_450/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:51:22.206745155 -0500\n@@ -102,7 +102,6 @@\n \n     @Override\n     public String toString() {\n-        // the string representation is intentionally not stored\n         return StringUtils.convertBytesToHex(raw);\n     }\n     \n@@ -113,7 +112,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_450/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:51:22.210745173 -0500\n@@ -57,7 +57,8 @@\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n         }\n-        return buff;\n+        len /= 2;\n+\t\treturn buff;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 106, 
+          "faulty": "return StringUtils.convertBytesToHex(raw);", 
+          "type": "Replace", 
+          "seed": "return StringUtils.convertBytesToHex(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 60, 
+          "faulty": "return buff;", 
+          "type": "InsertBefore", 
+          "seed": "len/=2;"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_190/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:39:46.611505246 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_190/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:39:46.611505246 -0500\n@@ -50,6 +50,9 @@\n     public static byte[] convertHexToBytes(String s) {\n         int len = s.length();\n         if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tif (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n         len /= 2;\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 52, 
+          "faulty": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1057/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 11:19:52.031314135 -0500\n@@ -102,7 +102,6 @@\n \n     @Override\n     public String toString() {\n-        // the string representation is intentionally not stored\n         return StringUtils.convertBytesToHex(raw);\n     }\n     \n@@ -113,7 +112,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1057/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 11:19:52.035314155 -0500\n@@ -52,7 +52,10 @@\n         if (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n-        len /= 2;\n+        if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tlen /= 2;\n         byte[] buff = new byte[len];\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n@@ -71,13 +74,15 @@\n         char c = s.charAt(i);\n         if (c >= '0' && c <= '9') {\n             return c - '0';\n-        } else if (c >= 'a' && c <= 'f') {\n-            return c - 'a' + 0xa;\n-        } else if (c >= 'A' && c <= 'F') {\n-            return c - 'A' + 0xa;\n-        } else {\n-            throw new IllegalArgumentException(s);\n-        }\n+        } else if (c >= '0' && c <= '9') {\n+\t\t\treturn c - '0';\n+\t\t} else if (c >= 'a' && c <= 'f') {\n+\t\t\treturn c - 'a' + 0xa;\n+\t\t} else if (c >= 'A' && c <= 'F') {\n+\t\t\treturn c - 'A' + 0xa;\n+\t\t} else {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n     }\n \n }\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 55, 
+          "faulty": "len/=2;", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 106, 
+          "faulty": "return StringUtils.convertBytesToHex(raw);", 
+          "type": "Replace", 
+          "seed": "return StringUtils.convertBytesToHex(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 74, 
+          "faulty": "if (c >= 'a' && c <= 'f') {\n  return c - 'a' + 0xa;\n}\n else if (c >= 'A' && c <= 'F') {\n  return c - 'A' + 0xa;\n}\n else {\n  throw new IllegalArgumentException(s);\n}", 
+          "type": "Replace", 
+          "seed": "if (c >= '0' && c <= '9') {\n  return c - '0';\n}\n else if (c >= 'a' && c <= 'f') {\n  return c - 'a' + 0xa;\n}\n else if (c >= 'A' && c <= 'F') {\n  return c - 'A' + 0xa;\n}\n else {\n  throw new IllegalArgumentException(s);\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_103/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:36:28.490478421 -0500\n@@ -102,7 +102,6 @@\n \n     @Override\n     public String toString() {\n-        // the string representation is intentionally not stored\n         return StringUtils.convertBytesToHex(raw);\n     }\n     \n@@ -113,7 +112,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_103/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:36:28.522478702 -0500\n@@ -50,6 +50,9 @@\n     public static byte[] convertHexToBytes(String s) {\n         int len = s.length();\n         if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tif (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n         len /= 2;\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 106, 
+          "faulty": "return StringUtils.convertBytesToHex(raw);", 
+          "type": "Replace", 
+          "seed": "return StringUtils.convertBytesToHex(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 52, 
+          "faulty": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_613/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:59:01.020900198 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n@@ -127,7 +127,6 @@\n      * @return the raw byte representation\n      */\n     public byte[] getBytes() {\n-        // don't copy the buffer for efficiency reasons\n         return raw;\n     }\n }\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 131, 
+          "faulty": "return raw;", 
+          "type": "Replace", 
+          "seed": "return raw;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1413/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 11:36:29.108670038 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1413/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 11:36:29.108670038 -0500\n@@ -38,7 +38,12 @@\n             buff[i + i] = hex[c >> 4];\n             buff[i + i + 1] = hex[c & 0xf];\n         }\n-        return new String(buff);\n+        for (int i = 0; i < len; i++) {\n+\t\t\tint c = value[i] & 0xff;\n+\t\t\tbuff[i + i] = hex[c >> 4];\n+\t\t\tbuff[i + i + 1] = hex[c & 0xf];\n+\t\t}\n+\t\treturn new String(buff);\n     }\n \n     /**\n@@ -52,7 +57,10 @@\n         if (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n-        len /= 2;\n+        if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tlen /= 2;\n         byte[] buff = new byte[len];\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 55, 
+          "faulty": "len/=2;", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 41, 
+          "faulty": "return new String(buff);", 
+          "type": "InsertBefore", 
+          "seed": "for (int i=0; i < len; i++) {\n  int c=value[i] & 0xff;\n  buff[i + i]=hex[c >> 4];\n  buff[i + i + 1]=hex[c & 0xf];\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1154/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 11:24:13.048598325 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1154/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 11:24:13.052598344 -0500\n@@ -50,6 +50,9 @@\n     public static byte[] convertHexToBytes(String s) {\n         int len = s.length();\n         if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tif (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n         len /= 2;\n@@ -57,7 +60,8 @@\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n         }\n-        return buff;\n+        len /= 2;\n+\t\treturn buff;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 60, 
+          "faulty": "return buff;", 
+          "type": "InsertBefore", 
+          "seed": "len/=2;"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 52, 
+          "faulty": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_172/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:39:12.799334359 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_172/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:39:12.799334359 -0500\n@@ -52,7 +52,10 @@\n         if (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n-        len /= 2;\n+        if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tlen /= 2;\n         byte[] buff = new byte[len];\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 55, 
+          "faulty": "len/=2;", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_180/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:39:30.351423202 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_940/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 11:14:15.877619480 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_940/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 11:14:15.881619500 -0500\n@@ -55,6 +55,10 @@\n         len /= 2;\n         byte[] buff = new byte[len];\n         for (int i = 0; i < len; i++) {\n+\t\t\tbuff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i\n+\t\t\t\t\t+ i + 1));\n+\t\t}\n+\t\tfor (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n         }\n         return buff;\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 57, 
+          "faulty": "for (int i=0; i < len; i++) {\n  buff[i]=(byte)((getHexDigit(s,i + i) << 4) | getHexDigit(s,i + i + 1));\n}", 
+          "type": "InsertBefore", 
+          "seed": "for (int i=0; i < len; i++) {\n  buff[i]=(byte)((getHexDigit(s,i + i) << 4) | getHexDigit(s,i + i + 1));\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_868/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 11:10:53.640562890 -0500\n@@ -102,7 +102,6 @@\n \n     @Override\n     public String toString() {\n-        // the string representation is intentionally not stored\n         return StringUtils.convertBytesToHex(raw);\n     }\n     \n@@ -113,7 +112,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 106, 
+          "faulty": "return StringUtils.convertBytesToHex(raw);", 
+          "type": "Replace", 
+          "seed": "return StringUtils.convertBytesToHex(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 60, 
+          "faulty": "return buff;", 
+          "type": "Replace", 
+          "seed": "return buff;"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_132/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:37:29.402803924 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_132/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:37:29.406803944 -0500\n@@ -38,7 +38,8 @@\n             buff[i + i] = hex[c >> 4];\n             buff[i + i + 1] = hex[c & 0xf];\n         }\n-        return new String(buff);\n+        len /= 2;\n+\t\treturn new String(buff);\n     }\n \n     /**\n@@ -50,9 +51,15 @@\n     public static byte[] convertHexToBytes(String s) {\n         int len = s.length();\n         if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tif (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n-        len /= 2;\n+        if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tlen /= 2;\n         byte[] buff = new byte[len];\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 55, 
+          "faulty": "len/=2;", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 60, 
+          "faulty": "return buff;", 
+          "type": "Replace", 
+          "seed": "return buff;"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 41, 
+          "faulty": "return new String(buff);", 
+          "type": "InsertBefore", 
+          "seed": "len/=2;"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 52, 
+          "faulty": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_216/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:40:52.903837473 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_216/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:40:52.903837473 -0500\n@@ -72,7 +72,13 @@\n         if (c >= '0' && c <= '9') {\n             return c - '0';\n         } else if (c >= 'a' && c <= 'f') {\n-            return c - 'a' + 0xa;\n+            if (c >= 'a' && c <= 'f') {\n+\t\t\t\treturn c - 'a' + 0xa;\n+\t\t\t} else if (c >= 'A' && c <= 'F') {\n+\t\t\t\treturn c - 'A' + 0xa;\n+\t\t\t} else {\n+\t\t\t\tthrow new IllegalArgumentException(s);\n+\t\t\t}\n         } else if (c >= 'A' && c <= 'F') {\n             return c - 'A' + 0xa;\n         } else {\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 75, 
+          "faulty": "return c - 'a' + 0xa;", 
+          "type": "Replace", 
+          "seed": "if (c >= 'a' && c <= 'f') {\n  return c - 'a' + 0xa;\n}\n else if (c >= 'A' && c <= 'F') {\n  return c - 'A' + 0xa;\n}\n else {\n  throw new IllegalArgumentException(s);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1391/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 11:35:30.400356518 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_1391/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 11:35:30.404356540 -0500\n@@ -50,11 +50,18 @@\n     public static byte[] convertHexToBytes(String s) {\n         int len = s.length();\n         if (len % 2 != 0) {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n+\t\tif (len % 2 != 0) {\n             throw new IllegalArgumentException(s);\n         }\n         len /= 2;\n         byte[] buff = new byte[len];\n         for (int i = 0; i < len; i++) {\n+\t\t\tbuff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i\n+\t\t\t\t\t+ i + 1));\n+\t\t}\n+\t\tfor (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n         }\n         return buff;\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 57, 
+          "faulty": "for (int i=0; i < len; i++) {\n  buff[i]=(byte)((getHexDigit(s,i + i) << 4) | getHexDigit(s,i + i + 1));\n}", 
+          "type": "InsertBefore", 
+          "seed": "for (int i=0; i < len; i++) {\n  buff[i]=(byte)((getHexDigit(s,i + i) << 4) | getHexDigit(s,i + i + 1));\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 52, 
+          "faulty": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}", 
+          "type": "InsertBefore", 
+          "seed": "if (len % 2 != 0) {\n  throw new IllegalArgumentException(s);\n}"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_365/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:47:26.145669612 -0500\n@@ -102,7 +102,6 @@\n \n     @Override\n     public String toString() {\n-        // the string representation is intentionally not stored\n         return StringUtils.convertBytesToHex(raw);\n     }\n     \n@@ -113,7 +112,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 106, 
+          "faulty": "return StringUtils.convertBytesToHex(raw);", 
+          "type": "Replace", 
+          "seed": "return StringUtils.convertBytesToHex(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_326/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:45:41.057251879 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_326/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:45:41.057251879 -0500\n@@ -38,7 +38,8 @@\n             buff[i + i] = hex[c >> 4];\n             buff[i + i + 1] = hex[c & 0xf];\n         }\n-        return new String(buff);\n+        len /= 2;\n+\t\treturn new String(buff);\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 41, 
+          "faulty": "return new String(buff);", 
+          "type": "InsertBefore", 
+          "seed": "len/=2;"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_515/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:54:24.291590121 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_515/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:54:24.291590121 -0500\n@@ -57,7 +57,8 @@\n         for (int i = 0; i < len; i++) {\n             buff[i] = (byte) ((getHexDigit(s, i + i) << 4) | getHexDigit(s, i + i + 1));\n         }\n-        return buff;\n+        len /= 2;\n+\t\treturn buff;\n     }\n \n     /**\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 60, 
+          "faulty": "return buff;", 
+          "type": "InsertBefore", 
+          "seed": "len/=2;"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }, 
+    {
+      "diff": "--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 10:31:33.854329000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_752/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\t2018-12-29 11:05:24.746845328 -0500\n@@ -113,7 +113,7 @@\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                return Arrays.hashCode(raw);\n             }\n         }\n         return raw.length - other.length;\n\n\n--- /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 10:30:50.817424000 -0500\n+++ /tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/patches_2hm4/Patch_752/patched/tmp/Arja_Bug_dot_jar_Jackrabbit-Oak_ffa818f3/oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java\t2018-12-29 11:05:24.750845348 -0500\n@@ -71,13 +71,15 @@\n         char c = s.charAt(i);\n         if (c >= '0' && c <= '9') {\n             return c - '0';\n-        } else if (c >= 'a' && c <= 'f') {\n-            return c - 'a' + 0xa;\n-        } else if (c >= 'A' && c <= 'F') {\n-            return c - 'A' + 0xa;\n-        } else {\n-            throw new IllegalArgumentException(s);\n-        }\n+        } else if (c >= '0' && c <= '9') {\n+\t\t\treturn c - '0';\n+\t\t} else if (c >= 'a' && c <= 'f') {\n+\t\t\treturn c - 'a' + 0xa;\n+\t\t} else if (c >= 'A' && c <= 'F') {\n+\t\t\treturn c - 'A' + 0xa;\n+\t\t} else {\n+\t\t\tthrow new IllegalArgumentException(s);\n+\t\t}\n     }\n \n }\n\n\n", 
+      "edits": [
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/util/StringUtils.java", 
+          "line": 74, 
+          "faulty": "if (c >= 'a' && c <= 'f') {\n  return c - 'a' + 0xa;\n}\n else if (c >= 'A' && c <= 'F') {\n  return c - 'A' + 0xa;\n}\n else {\n  throw new IllegalArgumentException(s);\n}", 
+          "type": "Replace", 
+          "seed": "if (c >= '0' && c <= '9') {\n  return c - '0';\n}\n else if (c >= 'a' && c <= 'f') {\n  return c - 'a' + 0xa;\n}\n else if (c >= 'A' && c <= 'F') {\n  return c - 'A' + 0xa;\n}\n else {\n  throw new IllegalArgumentException(s);\n}"
+        }, 
+        {
+          "path": "oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java", 
+          "line": 116, 
+          "faulty": "return raw[i] - other[i];", 
+          "type": "Replace", 
+          "seed": "return Arrays.hashCode(raw);"
+        }
+      ]
+    }
+  ]
+}

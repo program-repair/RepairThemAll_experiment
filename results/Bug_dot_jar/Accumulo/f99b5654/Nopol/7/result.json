@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 11:07:06.292154", 
+  "repair_begin": "2018-12-29 11:05:11.713409", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 11, 
+      "patchLocation": {
+        "line": 321, 
+        "class": "org.apache.accumulo.core.util.shell.Shell"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/core/src/main/java/org/apache/accumulo/core/util/shell/Shell.java\n+++ b/core/src/main/java/org/apache/accumulo/core/util/shell/Shell.java\n@@ -320,7 +320,9 @@\n     // decide whether to execute commands from a file and quit\n-    if (cl.hasOption(execfileOption.getOpt())) {\n-      execFile = cl.getOptionValue(execfileOption.getOpt());\n-      verbose = false;\n-    } else if (cl.hasOption(execfileVerboseOption.getOpt())) {\n-      execFile = cl.getOptionValue(execfileVerboseOption.getOpt());\n+    if (org.apache.accumulo.core.util.shell.Shell.this.principal.length()==0) {\n+      if (cl.hasOption(execfileOption.getOpt())) {\n+        execFile = cl.getOptionValue(execfileOption.getOpt());\n+        verbose = false;\n+      } else if (cl.hasOption(execfileVerboseOption.getOpt())) {\n+        execFile = cl.getOptionValue(execfileVerboseOption.getOpt());\n+      }\n     }\n"
+    }
+  ]
+}

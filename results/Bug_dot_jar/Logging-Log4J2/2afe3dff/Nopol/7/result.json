@@ -1,0 +1,15 @@
+{
+  "repair_end": "2018-12-29 19:10:38.593762", 
+  "repair_begin": "2018-12-29 19:10:15.872493", 
+  "patches": [
+    {
+      "nb_test_that_execute_statement": 1, 
+      "patchLocation": {
+        "line": 431, 
+        "class": "org.apache.logging.log4j.core.impl.ThrowableProxy"
+      }, 
+      "patchType": "PRECONDITION", 
+      "patch": "--- a/core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\n+++ b/core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\n@@ -430,5 +430,7 @@\n                 int modifier = method.getModifiers();\n-                if (method.getName().equals(\"getCallerClass\") && Modifier.isStatic(modifier)) {\n-                    getCallerClass = method;\n-                    return;\n+                if (org.apache.logging.log4j.core.impl.ThrowableProxy.securityManager!=null) {\n+                    if (method.getName().equals(\"getCallerClass\") && Modifier.isStatic(modifier)) {\n+                        getCallerClass = method;\n+                        return;\n+                    }\n                 }\n"
+    }
+  ]
+}

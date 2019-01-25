@@ -1,0 +1,31 @@
+{
+  "repair_end": "2018-12-28 00:14:03.117532", 
+  "repair_begin": "2018-12-28 00:13:27.657598", 
+  "patches": [
+    {
+      "PATCH_DIFF_ORIG": "\\/var\\/lib\\/oar\\/.batch_job_bashrc: line 5: \\/home\\/tdurieux\\/.bashrc: No such file or directory\\n--- org\\/traccar\\/protocol\\/Gt06ProtocolDecoder.java\\n+++ org\\/traccar\\/protocol\\/Gt06ProtocolDecoder.java\\n@@ -557,7 +557,7 @@\\n \\t\\t\\tint mnc = buf.readUnsignedByte();\\n \\t\\t\\torg.traccar.model.Network network = new org.traccar.model.Network();\\n \\t\\t\\tfor (int i = 0; i < 7; i++) {\\n-\\t\\t\\t\\tint lac = (longFormat) ? buf.readInt() : buf.readUnsignedShort();\\n+\\t\\t\\t\\tint lac = (longFormat) ? org.traccar.helper.BitUtil.to(type, 15) : buf.readUnsignedShort();\\n \\t\\t\\t\\tint cid = (longFormat) ? ((int) (buf.readLong())) : buf.readUnsignedMedium();\\n \\t\\t\\t\\tint rssi = -(buf.readUnsignedByte());\\n \\t\\t\\t\\tif (lac > 0) {\\n\\n", 
+      "patchhunks": [
+        {
+          "MODIFIED_FILE_PATH": "\\/tmp\\/Cardumen_Bears_traccar-traccar_316227226-316639485\\/.\\/output_astor\\/AstorMain-traccar-traccar-316227226-316639485\\/\\/src\\/\\/variant-10_f\\/org\\/traccar\\/protocol\\/Gt06ProtocolDecoder.java", 
+          "ORIGINAL_CODE": "buf.readInt()", 
+          "INGREDIENT_SCOPE": "-", 
+          "PATCH_HUNK_CODE": "org.traccar.helper.BitUtil.to(type, 15)", 
+          "INGREDIENT_PARENT": "org.traccar.helper.BitUtil.to(_int_0, 15)", 
+          "LOCATION": "org.traccar.protocol.Gt06ProtocolDecoder", 
+          "BUGGY_CODE_TYPE": "CtInvocationImpl|CtConditionalImpl", 
+          "OPERATOR": "ExpressionReplaceOperator", 
+          "PATH": "\\/tmp\\/Cardumen_Bears_traccar-traccar_316227226-316639485\\/output_astor\\/AstorMain-traccar-traccar-316227226-316639485\\/src\\/default\\/org\\/traccar\\/protocol\\/Gt06ProtocolDecoder.java", 
+          "LINE": "560", 
+          "MP_RANKING": "66", 
+          "SUSPICIOUNESS": "1", 
+          "PATCH_HUNK_TYPE": "CtInvocationImpl|CtConditionalImpl"
+        }
+      ], 
+      "GENERATION": "5", 
+      "VARIANT_ID": "10", 
+      "TIME": "10", 
+      "VALIDATION": "|true|0|299|[]|", 
+      "FOLDER_SOLUTION_CODE": "\\/tmp\\/Cardumen_Bears_traccar-traccar_316227226-316639485\\/.\\/output_astor\\/AstorMain-traccar-traccar-316227226-316639485\\/\\/bin\\/\\/variant-10"
+    }
+  ]
+}
