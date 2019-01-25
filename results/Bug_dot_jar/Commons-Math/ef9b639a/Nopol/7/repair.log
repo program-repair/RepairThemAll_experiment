@@ -1,0 +1,896 @@
+cd /tmp/Nopol_Bug_dot_jar_Commons-Math_ef9b639a;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4g -Xms1g -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis smt \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source src/main/java \
+	--classpath "target/classes:target/test-classes:/home/tdurieux/.m2/repository/junit/junit/4.4/junit-4.4.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+08:45:21.562 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/main/java]
+08:45:21.641 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/Nopol_Bug_dot_jar_Commons-Math_ef9b639a/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Commons-Math_ef9b639a/target/test-classes/, file:/home/tdurieux/.m2/repository/junit/junit/4.4/junit-4.4.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+08:45:21.642 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+08:45:21.642 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.math.ArgumentOutsideDomainExceptionTest, org.apache.commons.math.ConvergenceExceptionTest, org.apache.commons.math.DuplicateSampleAbscissaExceptionTest, org.apache.commons.math.FunctionEvaluationExceptionTest, org.apache.commons.math.MathConfigurationExceptionTest, org.apache.commons.math.MathExceptionTest, org.apache.commons.math.MaxIterationsExceededExceptionTest, org.apache.commons.math.analysis.integration.LegendreGaussIntegratorTest, org.apache.commons.math.analysis.integration.RombergIntegratorTest, org.apache.commons.math.analysis.integration.SimpsonIntegratorTest, org.apache.commons.math.analysis.integration.TrapezoidIntegratorTest, org.apache.commons.math.analysis.interpolation.DividedDifferenceInterpolatorTest, org.apache.commons.math.analysis.interpolation.LoessInterpolatorTest, org.apache.commons.math.analysis.interpolation.MicrosphereInterpolatorTest, org.apache.commons.math.analysis.interpolation.NevilleInterpolatorTest, org.apache.commons.math.analysis.interpolation.SplineInterpolatorTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionLagrangeFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionNewtonFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialSplineFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialsUtilsTest, org.apache.commons.math.analysis.solvers.BisectionSolverTest, org.apache.commons.math.analysis.solvers.BrentSolverTest, org.apache.commons.math.analysis.solvers.LaguerreSolverTest, org.apache.commons.math.analysis.solvers.MullerSolverTest, org.apache.commons.math.analysis.solvers.NewtonSolverTest, org.apache.commons.math.analysis.solvers.RiddersSolverTest, org.apache.commons.math.analysis.solvers.UnivariateRealSolverFactoryImplTest, org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtilsTest, org.apache.commons.math.complex.ComplexFieldTest, org.apache.commons.math.complex.ComplexFormatTest, org.apache.commons.math.complex.ComplexTest, org.apache.commons.math.complex.ComplexUtilsTest, org.apache.commons.math.complex.FrenchComplexFormatTest, org.apache.commons.math.distribution.BetaDistributionTest, org.apache.commons.math.distribution.BinomialDistributionTest, org.apache.commons.math.distribution.CauchyDistributionTest, org.apache.commons.math.distribution.ChiSquareDistributionTest, org.apache.commons.math.distribution.ExponentialDistributionTest, org.apache.commons.math.distribution.FDistributionTest, org.apache.commons.math.distribution.GammaDistributionTest, org.apache.commons.math.distribution.HypergeometricDistributionTest, org.apache.commons.math.distribution.NormalDistributionTest, org.apache.commons.math.distribution.PascalDistributionTest, org.apache.commons.math.distribution.PoissonDistributionTest, org.apache.commons.math.distribution.TDistributionTest, org.apache.commons.math.distribution.WeibullDistributionTest, org.apache.commons.math.distribution.ZipfDistributionTest, org.apache.commons.math.estimation.EstimatedParameterTest, org.apache.commons.math.estimation.GaussNewtonEstimatorTest, org.apache.commons.math.estimation.LevenbergMarquardtEstimatorTest, org.apache.commons.math.estimation.MinpackTest, org.apache.commons.math.estimation.WeightedMeasurementTest, org.apache.commons.math.fraction.BigFractionFieldTest, org.apache.commons.math.fraction.BigFractionFormatTest, org.apache.commons.math.fraction.BigFractionTest, org.apache.commons.math.fraction.FractionFieldTest, org.apache.commons.math.fraction.FractionFormatTest, org.apache.commons.math.fraction.FractionTest, org.apache.commons.math.genetics.BinaryChromosomeTest, org.apache.commons.math.genetics.BinaryMutationTest, org.apache.commons.math.genetics.ChromosomeTest, org.apache.commons.math.genetics.ElitisticListPopulationTest, org.apache.commons.math.genetics.FitnessCachingTest, org.apache.commons.math.genetics.FixedGenerationCountTest, org.apache.commons.math.genetics.GeneticAlgorithmTestBinary, org.apache.commons.math.genetics.GeneticAlgorithmTestPermutations, org.apache.commons.math.genetics.ListPopulationTest, org.apache.commons.math.genetics.OnePointCrossoverTest, org.apache.commons.math.genetics.RandomKeyMutationTest, org.apache.commons.math.genetics.RandomKeyTest, org.apache.commons.math.genetics.TournamentSelectionTest, org.apache.commons.math.geometry.FrenchVector3DFormatTest, org.apache.commons.math.geometry.RotationOrderTest, org.apache.commons.math.geometry.RotationTest, org.apache.commons.math.geometry.Vector3DFormatTest, org.apache.commons.math.geometry.Vector3DTest, org.apache.commons.math.linear.Array2DRowRealMatrixTest, org.apache.commons.math.linear.ArrayFieldVectorTest, org.apache.commons.math.linear.ArrayRealVectorTest, org.apache.commons.math.linear.BiDiagonalTransformerTest, org.apache.commons.math.linear.BigMatrixImplTest, org.apache.commons.math.linear.BlockFieldMatrixTest, org.apache.commons.math.linear.BlockRealMatrixTest, org.apache.commons.math.linear.CholeskyDecompositionImplTest, org.apache.commons.math.linear.CholeskySolverTest, org.apache.commons.math.linear.EigenDecompositionImplTest, org.apache.commons.math.linear.EigenSolverTest, org.apache.commons.math.linear.FieldLUDecompositionImplTest, org.apache.commons.math.linear.FieldMatrixImplTest, org.apache.commons.math.linear.FrenchRealVectorFormatTest, org.apache.commons.math.linear.InvalidMatrixExceptionTest, org.apache.commons.math.linear.LUDecompositionImplTest, org.apache.commons.math.linear.LUSolverTest, org.apache.commons.math.linear.MatrixIndexExceptionTest, org.apache.commons.math.linear.MatrixUtilsTest, org.apache.commons.math.linear.QRDecompositionImplTest, org.apache.commons.math.linear.QRSolverTest, org.apache.commons.math.linear.RealMatrixImplTest, org.apache.commons.math.linear.RealVectorFormatTest, org.apache.commons.math.linear.SingularValueDecompositionImplTest, org.apache.commons.math.linear.SingularValueSolverTest, org.apache.commons.math.linear.SparseFieldMatrixTest, org.apache.commons.math.linear.SparseFieldVectorTest, org.apache.commons.math.linear.SparseRealMatrixTest, org.apache.commons.math.linear.SparseRealVectorTest, org.apache.commons.math.linear.TriDiagonalTransformerTest, org.apache.commons.math.ode.ContinuousOutputModelTest, org.apache.commons.math.ode.FirstOrderConverterTest, org.apache.commons.math.ode.nonstiff.AdamsBashforthIntegratorTest, org.apache.commons.math.ode.nonstiff.AdamsMoultonIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.EulerIntegratorTest, org.apache.commons.math.ode.nonstiff.EulerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GillIntegratorTest, org.apache.commons.math.ode.nonstiff.GillStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.HighamHall54IntegratorTest, org.apache.commons.math.ode.nonstiff.HighamHall54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.MidpointIntegratorTest, org.apache.commons.math.ode.nonstiff.MidpointStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesIntegratorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesStepInterpolatorTest, org.apache.commons.math.ode.sampling.DummyStepInterpolatorTest, org.apache.commons.math.ode.sampling.NordsieckStepInterpolatorTest, org.apache.commons.math.ode.sampling.StepNormalizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateRealOptimizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateVectorialOptimizerTest, org.apache.commons.math.optimization.MultiStartMultivariateRealOptimizerTest, org.apache.commons.math.optimization.MultiStartUnivariateRealOptimizerTest, org.apache.commons.math.optimization.direct.MultiDirectionalTest, org.apache.commons.math.optimization.direct.NelderMeadTest, org.apache.commons.math.optimization.fitting.HarmonicFitterTest, org.apache.commons.math.optimization.fitting.PolynomialFitterTest, org.apache.commons.math.optimization.general.GaussNewtonOptimizerTest, org.apache.commons.math.optimization.general.LevenbergMarquardtOptimizerTest, org.apache.commons.math.optimization.general.MinpackTest, org.apache.commons.math.optimization.general.NonLinearConjugateGradientOptimizerTest, org.apache.commons.math.optimization.linear.SimplexSolverTest, org.apache.commons.math.optimization.linear.SimplexTableauTest, org.apache.commons.math.optimization.univariate.BrentMinimizerTest, org.apache.commons.math.random.AbstractRandomGeneratorTest, org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.EmpiricalDistributionTest, org.apache.commons.math.random.GaussianRandomGeneratorTest, org.apache.commons.math.random.MersenneTwisterTest, org.apache.commons.math.random.RandomAdaptorTest, org.apache.commons.math.random.RandomDataTest, org.apache.commons.math.random.UncorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.UniformRandomGeneratorTest, org.apache.commons.math.random.ValueServerTest, org.apache.commons.math.special.BetaTest, org.apache.commons.math.special.ErfTest, org.apache.commons.math.special.GammaTest, org.apache.commons.math.stat.CertifiedDataTest, org.apache.commons.math.stat.FrequencyTest, org.apache.commons.math.stat.StatUtilsTest, org.apache.commons.math.stat.clustering.EuclideanIntegerPointTest, org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest, org.apache.commons.math.stat.correlation.CovarianceTest, org.apache.commons.math.stat.correlation.PearsonsCorrelationTest, org.apache.commons.math.stat.correlation.SpearmansRankCorrelationTest, org.apache.commons.math.stat.data.LewTest, org.apache.commons.math.stat.data.LotteryTest, org.apache.commons.math.stat.descriptive.AbstractUnivariateStatisticTest, org.apache.commons.math.stat.descriptive.AggregateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.InteractionTest, org.apache.commons.math.stat.descriptive.ListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MixedListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.StatisticalSummaryValuesTest, org.apache.commons.math.stat.descriptive.SummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedDescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedMultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.moment.FirstMomentTest, org.apache.commons.math.stat.descriptive.moment.FourthMomentTest, org.apache.commons.math.stat.descriptive.moment.GeometricMeanTest, org.apache.commons.math.stat.descriptive.moment.KurtosisTest, org.apache.commons.math.stat.descriptive.moment.MeanTest, org.apache.commons.math.stat.descriptive.moment.SecondMomentTest, org.apache.commons.math.stat.descriptive.moment.SkewnessTest, org.apache.commons.math.stat.descriptive.moment.StandardDeviationTest, org.apache.commons.math.stat.descriptive.moment.ThirdMomentTest, org.apache.commons.math.stat.descriptive.moment.VarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialCovarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialMeanTest, org.apache.commons.math.stat.descriptive.rank.MaxTest, org.apache.commons.math.stat.descriptive.rank.MedianTest, org.apache.commons.math.stat.descriptive.rank.MinTest, org.apache.commons.math.stat.descriptive.rank.PercentileTest, org.apache.commons.math.stat.descriptive.summary.ProductTest, org.apache.commons.math.stat.descriptive.summary.SumLogTest, org.apache.commons.math.stat.descriptive.summary.SumSqTest, org.apache.commons.math.stat.descriptive.summary.SumTest, org.apache.commons.math.stat.inference.ChiSquareFactoryTest, org.apache.commons.math.stat.inference.ChiSquareTestTest, org.apache.commons.math.stat.inference.OneWayAnovaTest, org.apache.commons.math.stat.inference.TTestFactoryTest, org.apache.commons.math.stat.inference.TTestTest, org.apache.commons.math.stat.inference.TestUtilsTest, org.apache.commons.math.stat.ranking.NaturalRankingTest, org.apache.commons.math.stat.regression.GLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.OLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.SimpleRegressionTest, org.apache.commons.math.transform.FastCosineTransformerTest, org.apache.commons.math.transform.FastFourierTransformerTest, org.apache.commons.math.transform.FastHadamardTransformerTest, org.apache.commons.math.transform.FastSineTransformerTest, org.apache.commons.math.util.BigRealFieldTest, org.apache.commons.math.util.BigRealTest, org.apache.commons.math.util.ContinuedFractionTest, org.apache.commons.math.util.DefaultTransformerTest, org.apache.commons.math.util.MathUtilsTest, org.apache.commons.math.util.OpenIntToDoubleHashMapTest, org.apache.commons.math.util.OpenIntToFieldTest, org.apache.commons.math.util.ResizableDoubleArrayTest, org.apache.commons.math.util.TransformerMapTest]
+08:45:21.644 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=SMT, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/main/java], projectClasspath='[Ljava.net.URL;@66d33a', projectTests=[org.apache.commons.math.ArgumentOutsideDomainExceptionTest, org.apache.commons.math.ConvergenceExceptionTest, org.apache.commons.math.DuplicateSampleAbscissaExceptionTest, org.apache.commons.math.FunctionEvaluationExceptionTest, org.apache.commons.math.MathConfigurationExceptionTest, org.apache.commons.math.MathExceptionTest, org.apache.commons.math.MaxIterationsExceededExceptionTest, org.apache.commons.math.analysis.integration.LegendreGaussIntegratorTest, org.apache.commons.math.analysis.integration.RombergIntegratorTest, org.apache.commons.math.analysis.integration.SimpsonIntegratorTest, org.apache.commons.math.analysis.integration.TrapezoidIntegratorTest, org.apache.commons.math.analysis.interpolation.DividedDifferenceInterpolatorTest, org.apache.commons.math.analysis.interpolation.LoessInterpolatorTest, org.apache.commons.math.analysis.interpolation.MicrosphereInterpolatorTest, org.apache.commons.math.analysis.interpolation.NevilleInterpolatorTest, org.apache.commons.math.analysis.interpolation.SplineInterpolatorTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionLagrangeFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionNewtonFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialSplineFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialsUtilsTest, org.apache.commons.math.analysis.solvers.BisectionSolverTest, org.apache.commons.math.analysis.solvers.BrentSolverTest, org.apache.commons.math.analysis.solvers.LaguerreSolverTest, org.apache.commons.math.analysis.solvers.MullerSolverTest, org.apache.commons.math.analysis.solvers.NewtonSolverTest, org.apache.commons.math.analysis.solvers.RiddersSolverTest, org.apache.commons.math.analysis.solvers.UnivariateRealSolverFactoryImplTest, org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtilsTest, org.apache.commons.math.complex.ComplexFieldTest, org.apache.commons.math.complex.ComplexFormatTest, org.apache.commons.math.complex.ComplexTest, org.apache.commons.math.complex.ComplexUtilsTest, org.apache.commons.math.complex.FrenchComplexFormatTest, org.apache.commons.math.distribution.BetaDistributionTest, org.apache.commons.math.distribution.BinomialDistributionTest, org.apache.commons.math.distribution.CauchyDistributionTest, org.apache.commons.math.distribution.ChiSquareDistributionTest, org.apache.commons.math.distribution.ExponentialDistributionTest, org.apache.commons.math.distribution.FDistributionTest, org.apache.commons.math.distribution.GammaDistributionTest, org.apache.commons.math.distribution.HypergeometricDistributionTest, org.apache.commons.math.distribution.NormalDistributionTest, org.apache.commons.math.distribution.PascalDistributionTest, org.apache.commons.math.distribution.PoissonDistributionTest, org.apache.commons.math.distribution.TDistributionTest, org.apache.commons.math.distribution.WeibullDistributionTest, org.apache.commons.math.distribution.ZipfDistributionTest, org.apache.commons.math.estimation.EstimatedParameterTest, org.apache.commons.math.estimation.GaussNewtonEstimatorTest, org.apache.commons.math.estimation.LevenbergMarquardtEstimatorTest, org.apache.commons.math.estimation.MinpackTest, org.apache.commons.math.estimation.WeightedMeasurementTest, org.apache.commons.math.fraction.BigFractionFieldTest, org.apache.commons.math.fraction.BigFractionFormatTest, org.apache.commons.math.fraction.BigFractionTest, org.apache.commons.math.fraction.FractionFieldTest, org.apache.commons.math.fraction.FractionFormatTest, org.apache.commons.math.fraction.FractionTest, org.apache.commons.math.genetics.BinaryChromosomeTest, org.apache.commons.math.genetics.BinaryMutationTest, org.apache.commons.math.genetics.ChromosomeTest, org.apache.commons.math.genetics.ElitisticListPopulationTest, org.apache.commons.math.genetics.FitnessCachingTest, org.apache.commons.math.genetics.FixedGenerationCountTest, org.apache.commons.math.genetics.GeneticAlgorithmTestBinary, org.apache.commons.math.genetics.GeneticAlgorithmTestPermutations, org.apache.commons.math.genetics.ListPopulationTest, org.apache.commons.math.genetics.OnePointCrossoverTest, org.apache.commons.math.genetics.RandomKeyMutationTest, org.apache.commons.math.genetics.RandomKeyTest, org.apache.commons.math.genetics.TournamentSelectionTest, org.apache.commons.math.geometry.FrenchVector3DFormatTest, org.apache.commons.math.geometry.RotationOrderTest, org.apache.commons.math.geometry.RotationTest, org.apache.commons.math.geometry.Vector3DFormatTest, org.apache.commons.math.geometry.Vector3DTest, org.apache.commons.math.linear.Array2DRowRealMatrixTest, org.apache.commons.math.linear.ArrayFieldVectorTest, org.apache.commons.math.linear.ArrayRealVectorTest, org.apache.commons.math.linear.BiDiagonalTransformerTest, org.apache.commons.math.linear.BigMatrixImplTest, org.apache.commons.math.linear.BlockFieldMatrixTest, org.apache.commons.math.linear.BlockRealMatrixTest, org.apache.commons.math.linear.CholeskyDecompositionImplTest, org.apache.commons.math.linear.CholeskySolverTest, org.apache.commons.math.linear.EigenDecompositionImplTest, org.apache.commons.math.linear.EigenSolverTest, org.apache.commons.math.linear.FieldLUDecompositionImplTest, org.apache.commons.math.linear.FieldMatrixImplTest, org.apache.commons.math.linear.FrenchRealVectorFormatTest, org.apache.commons.math.linear.InvalidMatrixExceptionTest, org.apache.commons.math.linear.LUDecompositionImplTest, org.apache.commons.math.linear.LUSolverTest, org.apache.commons.math.linear.MatrixIndexExceptionTest, org.apache.commons.math.linear.MatrixUtilsTest, org.apache.commons.math.linear.QRDecompositionImplTest, org.apache.commons.math.linear.QRSolverTest, org.apache.commons.math.linear.RealMatrixImplTest, org.apache.commons.math.linear.RealVectorFormatTest, org.apache.commons.math.linear.SingularValueDecompositionImplTest, org.apache.commons.math.linear.SingularValueSolverTest, org.apache.commons.math.linear.SparseFieldMatrixTest, org.apache.commons.math.linear.SparseFieldVectorTest, org.apache.commons.math.linear.SparseRealMatrixTest, org.apache.commons.math.linear.SparseRealVectorTest, org.apache.commons.math.linear.TriDiagonalTransformerTest, org.apache.commons.math.ode.ContinuousOutputModelTest, org.apache.commons.math.ode.FirstOrderConverterTest, org.apache.commons.math.ode.nonstiff.AdamsBashforthIntegratorTest, org.apache.commons.math.ode.nonstiff.AdamsMoultonIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.EulerIntegratorTest, org.apache.commons.math.ode.nonstiff.EulerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GillIntegratorTest, org.apache.commons.math.ode.nonstiff.GillStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.HighamHall54IntegratorTest, org.apache.commons.math.ode.nonstiff.HighamHall54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.MidpointIntegratorTest, org.apache.commons.math.ode.nonstiff.MidpointStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesIntegratorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesStepInterpolatorTest, org.apache.commons.math.ode.sampling.DummyStepInterpolatorTest, org.apache.commons.math.ode.sampling.NordsieckStepInterpolatorTest, org.apache.commons.math.ode.sampling.StepNormalizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateRealOptimizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateVectorialOptimizerTest, org.apache.commons.math.optimization.MultiStartMultivariateRealOptimizerTest, org.apache.commons.math.optimization.MultiStartUnivariateRealOptimizerTest, org.apache.commons.math.optimization.direct.MultiDirectionalTest, org.apache.commons.math.optimization.direct.NelderMeadTest, org.apache.commons.math.optimization.fitting.HarmonicFitterTest, org.apache.commons.math.optimization.fitting.PolynomialFitterTest, org.apache.commons.math.optimization.general.GaussNewtonOptimizerTest, org.apache.commons.math.optimization.general.LevenbergMarquardtOptimizerTest, org.apache.commons.math.optimization.general.MinpackTest, org.apache.commons.math.optimization.general.NonLinearConjugateGradientOptimizerTest, org.apache.commons.math.optimization.linear.SimplexSolverTest, org.apache.commons.math.optimization.linear.SimplexTableauTest, org.apache.commons.math.optimization.univariate.BrentMinimizerTest, org.apache.commons.math.random.AbstractRandomGeneratorTest, org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.EmpiricalDistributionTest, org.apache.commons.math.random.GaussianRandomGeneratorTest, org.apache.commons.math.random.MersenneTwisterTest, org.apache.commons.math.random.RandomAdaptorTest, org.apache.commons.math.random.RandomDataTest, org.apache.commons.math.random.UncorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.UniformRandomGeneratorTest, org.apache.commons.math.random.ValueServerTest, org.apache.commons.math.special.BetaTest, org.apache.commons.math.special.ErfTest, org.apache.commons.math.special.GammaTest, org.apache.commons.math.stat.CertifiedDataTest, org.apache.commons.math.stat.FrequencyTest, org.apache.commons.math.stat.StatUtilsTest, org.apache.commons.math.stat.clustering.EuclideanIntegerPointTest, org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest, org.apache.commons.math.stat.correlation.CovarianceTest, org.apache.commons.math.stat.correlation.PearsonsCorrelationTest, org.apache.commons.math.stat.correlation.SpearmansRankCorrelationTest, org.apache.commons.math.stat.data.LewTest, org.apache.commons.math.stat.data.LotteryTest, org.apache.commons.math.stat.descriptive.AbstractUnivariateStatisticTest, org.apache.commons.math.stat.descriptive.AggregateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.InteractionTest, org.apache.commons.math.stat.descriptive.ListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MixedListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.StatisticalSummaryValuesTest, org.apache.commons.math.stat.descriptive.SummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedDescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedMultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.moment.FirstMomentTest, org.apache.commons.math.stat.descriptive.moment.FourthMomentTest, org.apache.commons.math.stat.descriptive.moment.GeometricMeanTest, org.apache.commons.math.stat.descriptive.moment.KurtosisTest, org.apache.commons.math.stat.descriptive.moment.MeanTest, org.apache.commons.math.stat.descriptive.moment.SecondMomentTest, org.apache.commons.math.stat.descriptive.moment.SkewnessTest, org.apache.commons.math.stat.descriptive.moment.StandardDeviationTest, org.apache.commons.math.stat.descriptive.moment.ThirdMomentTest, org.apache.commons.math.stat.descriptive.moment.VarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialCovarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialMeanTest, org.apache.commons.math.stat.descriptive.rank.MaxTest, org.apache.commons.math.stat.descriptive.rank.MedianTest, org.apache.commons.math.stat.descriptive.rank.MinTest, org.apache.commons.math.stat.descriptive.rank.PercentileTest, org.apache.commons.math.stat.descriptive.summary.ProductTest, org.apache.commons.math.stat.descriptive.summary.SumLogTest, org.apache.commons.math.stat.descriptive.summary.SumSqTest, org.apache.commons.math.stat.descriptive.summary.SumTest, org.apache.commons.math.stat.inference.ChiSquareFactoryTest, org.apache.commons.math.stat.inference.ChiSquareTestTest, org.apache.commons.math.stat.inference.OneWayAnovaTest, org.apache.commons.math.stat.inference.TTestFactoryTest, org.apache.commons.math.stat.inference.TTestTest, org.apache.commons.math.stat.inference.TestUtilsTest, org.apache.commons.math.stat.ranking.NaturalRankingTest, org.apache.commons.math.stat.regression.GLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.OLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.SimpleRegressionTest, org.apache.commons.math.transform.FastCosineTransformerTest, org.apache.commons.math.transform.FastFourierTransformerTest, org.apache.commons.math.transform.FastHadamardTransformerTest, org.apache.commons.math.transform.FastSineTransformerTest, org.apache.commons.math.util.BigRealFieldTest, org.apache.commons.math.util.BigRealTest, org.apache.commons.math.util.ContinuedFractionTest, org.apache.commons.math.util.DefaultTransformerTest, org.apache.commons.math.util.MathUtilsTest, org.apache.commons.math.util.OpenIntToDoubleHashMapTest, org.apache.commons.math.util.OpenIntToFieldTest, org.apache.commons.math.util.ResizableDoubleArrayTest, org.apache.commons.math.util.TransformerMapTest], complianceLevel=7, outputFolder=., json=true}
+08:45:21.645 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+08:45:21.650 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 930 MB
+08:45:21.650 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+08:45:21.650 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 981 MB
+08:45:21.650 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+08:45:21.651 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+08:45:21.652 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+08:45:41.556 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+08:45:41.556 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.Cluster:71 which is executed by 2 tests
+-1758221861
+08:45:41.863 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+08:45:41.864 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.EuclideanIntegerPoint:30 which is executed by 3 tests
+1039432913
+08:45:41.977 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+08:45:41.977 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:162 which is executed by 2 tests
+-1391802703
+08:45:42.219 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+08:45:42.220 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:161 which is executed by 2 tests
+-1391802703
+08:45:42.315 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+08:45:42.315 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:157 which is executed by 2 tests
+-1391802703
+08:45:42.414 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:42.447 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 2
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:43.524 [pool-5-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:43.525 [pool-6-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+08:45:43.526 [pool-3-thread-1] DEBUG tests.output - Failing tests with false: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:43.527 [pool-3-thread-1] DEBUG tests.output - Failing tests with true: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:43.527 [pool-3-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:157.
+08:45:43.527 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:43.533 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 2
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:43.720 [pool-9-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (3 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+08:45:43.723 [pool-10-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:43.725 [pool-11-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.chooseInitialCenters(KMeansPlusPlusClusterer.java:50)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:10)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.dimension2(KMeansPlusPlusClustererTest.java:66)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:43.727 [pool-12-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ dimension2(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.chooseInitialCenters(KMeansPlusPlusClusterer.java:50)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:10)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.dimension2(KMeansPlusPlusClustererTest.java:66)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+08:45:43.728 [pool-13-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+java.lang.ArithmeticException: / by zero
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:69)
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:30)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:17)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.dimension2(KMeansPlusPlusClustererTest.java:66)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+08:45:43.730 [pool-14-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ dimension2(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[/ by zero]
+java.lang.ArithmeticException: / by zero    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:69)
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:30)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:17)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.dimension2(KMeansPlusPlusClustererTest.java:66)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+08:45:43.743 [pool-15-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (11 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+08:45:43.955 [pool-7-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+08:45:44.154 [pool-7-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+08:45:44.226 [pool-7-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+! of arity: 1
+|| of arity: 2
+&& of arity: 2
+08:45:44.286 [pool-7-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+! of arity: 1
+|| of arity: 2
+&& of arity: 2
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+08:45:44.351 [pool-7-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+! of arity: 1
+|| of arity: 2
+&& of arity: 2
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+! of arity: 1
+|| of arity: 2
+&& of arity: 2
+08:45:44.416 [pool-7-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Failed code synthesis, returning NullCodeGenesis
+08:45:44.418 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+08:45:44.419 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:156 which is executed by 2 tests
+-1391802703
+08:45:44.505 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+08:45:44.505 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:155 which is executed by 2 tests
+-1391802703
+08:45:44.589 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:44.595 [pool-17-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 2
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:44.763 [pool-18-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:44.767 [pool-19-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+08:45:44.768 [pool-16-thread-1] DEBUG tests.output - Failing tests with false: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:44.768 [pool-16-thread-1] DEBUG tests.output - Failing tests with true: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:44.768 [pool-16-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:155.
+08:45:44.768 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+08:45:44.768 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:154 which is executed by 2 tests
+-1391802703
+08:45:44.852 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+08:45:44.852 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:153 which is executed by 2 tests
+-1391802703
+08:45:44.936 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+08:45:44.937 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:139 which is executed by 2 tests
+-1391802703
+08:45:45.021 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+08:45:45.021 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:115 which is executed by 2 tests
+-1391802703
+08:45:45.106 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:45.121 [pool-21-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 2
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:45.323 [pool-22-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (3 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:45.325 [pool-23-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+08:45:45.325 [pool-20-thread-1] DEBUG tests.output - Failing tests with false: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:45.325 [pool-20-thread-1] DEBUG tests.output - Failing tests with true: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:45.325 [pool-20-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:115.
+08:45:45.325 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+08:45:45.325 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:114 which is executed by 2 tests
+-1391802703
+08:45:45.430 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+08:45:45.430 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:112 which is executed by 2 tests
+-1391802703
+08:45:45.533 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:45.541 [pool-25-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 2
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.chooseInitialCenters(KMeansPlusPlusClusterer.java:69)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:10)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:45.729 [pool-26-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.chooseInitialCenters(KMeansPlusPlusClusterer.java:69)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:10)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:45.732 [pool-27-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+08:45:45.733 [pool-24-thread-1] DEBUG tests.output - Failing tests with false: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:45.733 [pool-24-thread-1] DEBUG tests.output - Failing tests with true: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:45.733 [pool-24-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:112.
+08:45:45.733 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+08:45:45.733 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:111 which is executed by 2 tests
+-1391802703
+08:45:45.817 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+08:45:45.817 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:108 which is executed by 2 tests
+-1391802703
+08:45:45.899 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+08:45:45.899 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:107 which is executed by 2 tests
+-1391802703
+08:45:46.000 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+08:45:46.001 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:91 which is executed by 2 tests
+-1391802703
+08:45:46.082 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:46.094 [pool-29-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 2
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.ArithmeticException: / by zero
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:69)
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:30)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:17)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+08:45:46.232 [pool-30-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[/ by zero]
+java.lang.ArithmeticException: / by zero    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:69)
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:30)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:17)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:50)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:46.236 [pool-31-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:50)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+08:45:46.236 [pool-28-thread-1] DEBUG tests.output - Failing tests with false: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): / by zero]
+08:45:46.236 [pool-28-thread-1] DEBUG tests.output - Failing tests with true: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:46.236 [pool-28-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:91.
+08:45:46.237 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+08:45:46.237 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:90 which is executed by 2 tests
+-1391802703
+08:45:46.327 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+08:45:46.327 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:89 which is executed by 2 tests
+-1391802703
+08:45:46.410 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:46.416 [pool-33-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 2
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.ArithmeticException: / by zero
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:69)
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:30)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:17)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+08:45:46.565 [pool-34-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[/ by zero]
+java.lang.ArithmeticException: / by zero    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:69)
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:30)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:17)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:49)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:46.568 [pool-35-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:49)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:11)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+08:45:46.569 [pool-32-thread-1] DEBUG tests.output - Failing tests with false: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): / by zero]
+08:45:46.569 [pool-32-thread-1] DEBUG tests.output - Failing tests with true: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:46.569 [pool-32-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:89.
+08:45:46.569 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+08:45:46.569 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:57 which is executed by 2 tests
+-1391802703
+08:45:46.650 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:46.655 [pool-37-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (3 ms)
+<> Total tests run: 2
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:91)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:57)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.ArithmeticException: / by zero
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:69)
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:30)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+08:45:46.796 [pool-38-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[/ by zero]
+java.lang.ArithmeticException: / by zero    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:69)
+    at org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.centroidOf(EuclideanIntegerPoint.java:30)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:35)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+java.lang.NullPointerException
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:53)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:28)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+08:45:46.799 [pool-39-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.assignPointsToClusters(KMeansPlusPlusClusterer.java:53)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer.cluster(KMeansPlusPlusClusterer.java:28)
+    at org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest.testPerformClusterAnalysisDegenerate(KMeansPlusPlusClustererTest.java:109)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+08:45:46.800 [pool-36-thread-1] DEBUG tests.output - Failing tests with false: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): / by zero]
+08:45:46.800 [pool-36-thread-1] DEBUG tests.output - Failing tests with true: 
+[testPerformClusterAnalysisDegenerate(org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest): null]
+08:45:46.800 [pool-36-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:57.
+08:45:46.800 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #21
+08:45:46.800 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer:56 which is executed by 2 tests
+-1391802703
+08:45:46.882 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #22
+08:45:46.882 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.stat.clustering.EuclideanIntegerPoint:57 which is executed by 3 tests
+1039432913
+08:45:46.965 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #23
+08:45:46.965 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator:878 which is executed by 4 tests
+2138339591
+08:45:47.073 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:919)
+08:45:47.123 [pool-41-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (47 ms)
+<> Total tests run: 3
+<> Ignored tests: 0
+<> Failed tests: 1
+~ derivativesConsistency(org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest)
+[expected:<-98.69895610335308> but was:<-98.69895609303683>]
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:919)
+
+08:45:47.573 [pool-42-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:538)
+08:45:47.582 [pool-43-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ derivativesConsistency(org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest)
+[expected:<-98.69895610335308> but was:<-98.69895609303683>]
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:538)
+
+08:45:47.590 [pool-44-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (7 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+08:45:47.598 [pool-45-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (8 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+08:45:47.622 [pool-46-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (23 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertTrue(Assert.java:31)
+    at junit.framework.TestCase.assertTrue(TestCase.java:201)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest.testIntegratorControls(GraggBulirschStoerIntegratorTest.java:182)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+08:45:47.847 [pool-47-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (220 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testIntegratorControls(org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertTrue(Assert.java:31)
+    at junit.framework.TestCase.assertTrue(TestCase.java:201)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest.testIntegratorControls(GraggBulirschStoerIntegratorTest.java:182)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:538)
+08:45:47.853 [pool-48-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (5 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ derivativesConsistency(org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest)
+[expected:<-98.69895610335308> but was:<-98.69895609303683>]
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:538)
+
+08:45:47.861 [pool-49-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (6 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+08:45:47.875 [pool-50-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (13 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+08:45:48.050 [pool-51-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (174 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+08:45:48.241 [pool-52-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (189 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+08:45:48.356 [pool-40-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+08:45:48.451 [pool-40-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+08:45:55.338 [pool-40-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+! of arity: 1
+|| of arity: 2
+&& of arity: 2
+08:51:10.516 [pool-40-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Successful code synthesis: (!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)
+08:51:10.516 [pool-40-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Applying patch: org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator:878: PRECONDITION (!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)
+08:51:10.743 [pool-40-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Running test suite to check the patch "(!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)" is working
+08:51:10.934 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+08:51:11.131 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 393
+08:51:11.131 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 2901
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 9
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 2
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb inputs in SMT : 76
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT level: 3
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT components: [7] [== of arity: 2, != of arity: 2, < of arity: 2, <= of arity: 2, ! of arity: 1, || of arity: 2, && of arity: 2]
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol -                   class java.lang.Boolean: 7
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb variables in SMT : 83
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 349375ms
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----PATCH FOUND----
+08:51:11.132 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - (!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)
+08:51:11.166 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb test that executes the patch: 4
+08:51:11.167 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator:878: PRECONDITION
+08:51:11.200 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - --- a/src/main/java/org/apache/commons/math/ode/nonstiff/GraggBulirschStoerIntegrator.java
++++ b/src/main/java/org/apache/commons/math/ode/nonstiff/GraggBulirschStoerIntegrator.java
+@@ -877,3 +877,5 @@
+               hNew = hInt;
+-              reject = true;
++              if ((!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)) {
++                reject = true;
++              }
+             }
+
+PATCH
+402.18user 2.54system 5:51.24elapsed 115%CPU (0avgtext+0avgdata 985416maxresident)k
+63520inputs+6480outputs (25major+463750minor)pagefaults 0swaps
+
+
+Node: graphene-16.nancy.grid5000.fr
+
+
+
+Date: Sat Dec 29 08:51:11 EST 2018
+

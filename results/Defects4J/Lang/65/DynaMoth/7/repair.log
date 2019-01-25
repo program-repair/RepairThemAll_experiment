@@ -1,0 +1,811 @@
+cd /tmp/DynaMoth_Defects4J_Lang_65;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 3 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/DynaMoth_Defects4J_Lang_65/target/classes/:/tmp/DynaMoth_Defects4J_Lang_65/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+10:00:02.918 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+10:00:02.921 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Defects4J_Lang_65/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_65/target/tests/, file:/tmp/DynaMoth_Defects4J_Lang_65/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_65/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+10:00:02.922 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+10:00:02.922 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.VariableFormatterTest, org.apache.commons.lang.text.VariableFormatterTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+10:00:02.924 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.VariableFormatterTest, org.apache.commons.lang.text.VariableFormatterTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=3, outputFolder=., json=true}
+10:00:02.924 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+10:00:02.942 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 958 MB
+10:00:02.942 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+10:00:02.942 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 990 MB
+10:00:02.942 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+10:00:02.943 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+10:00:02.943 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+10:00:24.396 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+10:00:24.396 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:287 which is executed by 1 tests
+-723213736
+10:00:24.682 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+10:00:24.683 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:285 which is executed by 1 tests
+-723213736
+10:00:24.778 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:24.838 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (33 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:25.826 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+10:00:25.826 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:283 which is executed by 1 tests
+-723213736
+10:00:25.916 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:25.935 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:26.113 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+10:00:26.114 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:282 which is executed by 1 tests
+-723213736
+10:00:26.194 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+10:00:26.194 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:281 which is executed by 1 tests
+-723213736
+10:00:26.274 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:26.283 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:26.448 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+10:00:26.448 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:278 which is executed by 1 tests
+-723213736
+10:00:26.528 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:26.536 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:26.686 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+10:00:26.686 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:275 which is executed by 1 tests
+-723213736
+10:00:26.821 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:26.833 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:26.982 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:26.990 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:27.131 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+10:00:27.132 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:274 which is executed by 1 tests
+-723213736
+10:00:27.208 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+10:00:27.208 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:273 which is executed by 1 tests
+-723213736
+10:00:27.285 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:27.293 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:27.439 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+10:00:27.439 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:272 which is executed by 1 tests
+-723213736
+10:00:27.516 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+10:00:27.516 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:271 which is executed by 1 tests
+-723213736
+10:00:27.592 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:27.601 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:27.740 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+10:00:27.740 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:270 which is executed by 1 tests
+-723213736
+10:00:27.817 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:27.824 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:27.994 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:28.002 [pool-40-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:28.129 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+10:00:28.129 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:269 which is executed by 1 tests
+-723213736
+10:00:28.205 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:28.221 [pool-44-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:28.344 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:28.352 [pool-48-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:28.475 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+10:00:28.475 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:268 which is executed by 1 tests
+-723213736
+10:00:28.549 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+10:00:28.550 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:549 which is executed by 2 tests
+1745874308
+10:00:28.636 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+10:00:28.637 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:548 which is executed by 2 tests
+1745874308
+10:00:28.722 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:28.837 [pool-52-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (109 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:29.073 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+10:00:29.073 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:547 which is executed by 2 tests
+1745874308
+10:00:29.157 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:29.203 [pool-56-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (41 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:29.395 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+10:00:29.395 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:546 which is executed by 2 tests
+1745874308
+10:00:29.479 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+10:00:29.479 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:543 which is executed by 2 tests
+1745874308
+10:00:29.562 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:29.603 [pool-60-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (35 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:29.775 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:29.815 [pool-64-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (35 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:29.989 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+10:00:29.989 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:191 which is executed by 3 tests
+-723213736
+10:00:30.082 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #21
+10:00:30.082 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:709 which is executed by 5 tests
+1745874308
+10:00:30.165 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:30.200 [pool-68-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (30 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:30.364 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #22
+10:00:30.365 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:706 which is executed by 5 tests
+1745874308
+10:00:30.447 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:30.479 [pool-72-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (27 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:30.641 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #23
+10:00:30.641 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:704 which is executed by 5 tests
+1745874308
+10:00:30.723 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:30.755 [pool-76-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (27 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:30.916 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #24
+10:00:30.917 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:702 which is executed by 5 tests
+1745874308
+10:00:30.999 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #25
+10:00:30.999 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:701 which is executed by 5 tests
+1745874308
+10:00:31.106 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #26
+10:00:31.106 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:700 which is executed by 5 tests
+1745874308
+10:00:31.188 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:31.257 [pool-80-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (33 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:31.427 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:31.468 [pool-84-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (32 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:31.622 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #27
+10:00:31.623 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:670 which is executed by 5 tests
+1745874308
+10:00:31.705 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:31.735 [pool-88-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (19 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:31.910 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #28
+10:00:31.910 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:668 which is executed by 5 tests
+1745874308
+10:00:32.000 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #29
+10:00:32.000 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:667 which is executed by 5 tests
+1745874308
+10:00:32.080 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #30
+10:00:32.080 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:663 which is executed by 5 tests
+1745874308
+10:00:32.178 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:32.210 [pool-92-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:32.391 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #31
+10:00:32.391 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:646 which is executed by 5 tests
+1745874308
+10:00:32.472 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:32.534 [pool-96-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (27 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:32.689 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:32.712 [pool-100-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (18 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:32.969 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #32
+10:00:32.969 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:644 which is executed by 5 tests
+1745874308
+10:00:33.055 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:33.075 [pool-104-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:33.237 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:33.259 [pool-108-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:33.447 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #33
+10:00:33.447 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:643 which is executed by 5 tests
+1745874308
+10:00:33.525 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:33.546 [pool-112-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:33.702 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #34
+10:00:33.702 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:642 which is executed by 5 tests
+1745874308
+10:00:33.782 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:33.804 [pool-116-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (18 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:33.970 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #35
+10:00:33.971 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:641 which is executed by 5 tests
+1745874308
+10:00:34.048 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #36
+10:00:34.049 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.DateUtils:620 which is executed by 5 tests
+1745874308
+10:00:34.127 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:34.148 [pool-120-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:34.310 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:00:34.340 [pool-124-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (25 ms)
+<> Total tests run: 22
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testTruncateLang59(org.apache.commons.lang.time.DateUtilsTest)
+[Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>]
+junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.TestCase.assertEquals(TestCase.java:244)
+    at org.apache.commons.lang.time.DateUtilsTest.testTruncateLang59(DateUtilsTest.java:927)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:00:34.497 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+10:00:34.574 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 76
+10:00:34.574 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1661
+10:00:34.574 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 31
+10:00:34.574 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 0
+10:00:34.574 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 31582ms
+10:00:34.575 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+61.64user 2.62system 0:33.23elapsed 193%CPU (0avgtext+0avgdata 619604maxresident)k
+57216inputs+5392outputs (8major+317190minor)pagefaults 0swaps
+
+
+Node: graphene-92.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 10:00:34 EST 2018
+

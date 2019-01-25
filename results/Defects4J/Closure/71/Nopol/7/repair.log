@@ -1,0 +1,91 @@
+cd /tmp/Nopol_Defects4J_Closure_71;
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8;
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4048m -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis smt \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 6 \
+	--source src/ \
+	--classpath "build/classes/:build/test/:/tmp/Nopol_Defects4J_Closure_71/build/classes:/tmp/Nopol_Defects4J_Closure_71/build/test:/tmp/Nopol_Defects4J_Closure_71/build/lib/rhino.jar:/tmp/Nopol_Defects4J_Closure_71/lib/ant.jar:/tmp/Nopol_Defects4J_Closure_71/lib/ant-launcher.jar:/tmp/Nopol_Defects4J_Closure_71/lib/args4j.jar:/tmp/Nopol_Defects4J_Closure_71/lib/guava.jar:/tmp/Nopol_Defects4J_Closure_71/lib/json.jar:/tmp/Nopol_Defects4J_Closure_71/lib/jsr305.jar:/tmp/Nopol_Defects4J_Closure_71/lib/junit.jar:/tmp/Nopol_Defects4J_Closure_71/lib/caja-r4314.jar:/tmp/Nopol_Defects4J_Closure_71/lib/protobuf-java.jar:/tmp/Nopol_Defects4J_Closure_71/lib/libtrunk_rhino_parser_jarjared.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+java.lang.IllegalArgumentException: File does not exist in: '/tmp/Nopol_Defects4J_Closure_71/build/lib/rhino.jar'
+	at xxl.java.library.FileLibrary.fail(FileLibrary.java:129)
+	at xxl.java.library.FileLibrary.openFrom(FileLibrary.java:29)
+	at xxl.java.library.FileLibrary.urlFrom(FileLibrary.java:100)
+	at xxl.java.library.JavaLibrary.classpathFrom(JavaLibrary.java:84)
+	at fr.inria.lille.repair.Main.parseArguments(Main.java:161)
+	at fr.inria.lille.repair.Main.main(Main.java:66)
+
+Usage: java -jar nopol.jar
+                          [(-m|--mode) <repair|ranking>] (-e|--type) <condition|precondition|pre_then_cond|loop|arithmetic> [(-o|--oracle) <angelic|symbolic>] [(-y|--synthesis) <smt|dynamoth>] [(-l|--solver) <z3|cvc4>] [(-p|--solver-path) <solverPath>] (-s|--source) source1:source2:...:sourceN  (-c|--classpath) <classpath> [(-t|--test) test1:test2:...:testN ] [--complianceLevel <complianceLevel>] [--maxTime <maxTime>] [--maxTimeType <maxTimeType>] [(-z|--flocal) < cocospoon|dumb|gzoltar>] [--output <outputFolder>] [--json[:<outputJson>]]
+
+  [(-m|--mode) <repair|ranking>]
+        Define the mode of execution. (default: repair)
+
+  (-e|--type) <condition|precondition|pre_then_cond|loop|arithmetic>
+        The repair type (example fixing only conditions, or adding
+        precondition). REQUIRED OPTION (default: condition)
+
+  [(-o|--oracle) <angelic|symbolic>]
+        Define the oracle (only used with repair mode). (default: angelic)
+
+  [(-y|--synthesis) <smt|dynamoth>]
+        Define the patch synthesis. (default: smt)
+
+  [(-l|--solver) <z3|cvc4>]
+        Define the solver (only used with smt synthesis). (default: z3)
+
+  [(-p|--solver-path) <solverPath>]
+        Define the solver binary path (only used with smt synthesis).
+
+  (-s|--source) source1:source2:...:sourceN 
+        Define the path to the source code of the project.
+
+  (-c|--classpath) <classpath>
+        Define the classpath of the project.
+
+  [(-t|--test) test1:test2:...:testN ]
+        Define the tests of the project (both failing and passing),
+        fully-qualified, separated with ':' (even if the classpath contains
+        other tests, only those are considered.
+
+  [--complianceLevel <complianceLevel>]
+        The compliance level of the project. (default: 7)
+
+  [--maxTime <maxTime>]
+        The maximum time execution in minute for the whole execution of
+        Nopol.(default: 10)
+
+  [--maxTimeType <maxTimeType>]
+        The maximum time execution in minute for one type of patch. (default: 5)
+
+  [(-z|--flocal) < cocospoon|dumb|gzoltar>]
+        Define the fault localizer to be used. (default: gzoltar)
+
+  [--output <outputFolder>]
+        Define the location where the patches will be saved. (default: .)
+
+  [--json[:<outputJson>]]
+        Output a json file in the current working directory.
+
+Command exited with non-zero status 255
+0.13user 0.06system 0:00.20elapsed 99%CPU (0avgtext+0avgdata 32144maxresident)k
+3888inputs+80outputs (1major+4055minor)pagefaults 0swaps
+
+
+Node: petitprince-14.luxembourg.grid5000.fr
+
+
+
+Date: Wed Nov 28 20:09:44 EST 2018
+

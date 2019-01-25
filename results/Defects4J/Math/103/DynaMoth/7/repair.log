@@ -1,0 +1,1644 @@
+cd /tmp/DynaMoth_Defects4J_Math_103;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source src/java/ \
+	--classpath "target/classes/:target/test-classes/:/tmp/DynaMoth_Defects4J_Math_103/target/classes/:/tmp/DynaMoth_Defects4J_Math_103/target/test-classes/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+10:06:45.641 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+10:06:45.644 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Defects4J_Math_103/target/classes/, file:/tmp/DynaMoth_Defects4J_Math_103/target/test-classes/, file:/tmp/DynaMoth_Defects4J_Math_103/target/classes/, file:/tmp/DynaMoth_Defects4J_Math_103/target/test-classes/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+10:06:45.645 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+10:06:45.645 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.math.ArgumentOutsideDomainExceptionTest, org.apache.commons.math.ArgumentOutsideDomainExceptionTest, org.apache.commons.math.ConvergenceExceptionTest, org.apache.commons.math.ConvergenceExceptionTest, org.apache.commons.math.DuplicateSampleAbscissaExceptionTest, org.apache.commons.math.DuplicateSampleAbscissaExceptionTest, org.apache.commons.math.FunctionEvaluationExceptionTest, org.apache.commons.math.FunctionEvaluationExceptionTest, org.apache.commons.math.MathConfigurationExceptionTest, org.apache.commons.math.MathConfigurationExceptionTest, org.apache.commons.math.MathExceptionTest, org.apache.commons.math.MathExceptionTest, org.apache.commons.math.MaxIterationsExceededExceptionTest, org.apache.commons.math.MaxIterationsExceededExceptionTest, org.apache.commons.math.analysis.BisectionSolverTest, org.apache.commons.math.analysis.BisectionSolverTest, org.apache.commons.math.analysis.BrentSolverTest, org.apache.commons.math.analysis.BrentSolverTest, org.apache.commons.math.analysis.DividedDifferenceInterpolatorTest, org.apache.commons.math.analysis.DividedDifferenceInterpolatorTest, org.apache.commons.math.analysis.LaguerreSolverTest, org.apache.commons.math.analysis.LaguerreSolverTest, org.apache.commons.math.analysis.MullerSolverTest, org.apache.commons.math.analysis.MullerSolverTest, org.apache.commons.math.analysis.NevilleInterpolatorTest, org.apache.commons.math.analysis.NevilleInterpolatorTest, org.apache.commons.math.analysis.NewtonSolverTest, org.apache.commons.math.analysis.NewtonSolverTest, org.apache.commons.math.analysis.PolynomialFunctionLagrangeFormTest, org.apache.commons.math.analysis.PolynomialFunctionLagrangeFormTest, org.apache.commons.math.analysis.PolynomialFunctionNewtonFormTest, org.apache.commons.math.analysis.PolynomialFunctionNewtonFormTest, org.apache.commons.math.analysis.PolynomialFunctionTest, org.apache.commons.math.analysis.PolynomialFunctionTest, org.apache.commons.math.analysis.PolynomialSplineFunctionTest, org.apache.commons.math.analysis.PolynomialSplineFunctionTest, org.apache.commons.math.analysis.RiddersSolverTest, org.apache.commons.math.analysis.RiddersSolverTest, org.apache.commons.math.analysis.RombergIntegratorTest, org.apache.commons.math.analysis.RombergIntegratorTest, org.apache.commons.math.analysis.SimpsonIntegratorTest, org.apache.commons.math.analysis.SimpsonIntegratorTest, org.apache.commons.math.analysis.SplineInterpolatorTest, org.apache.commons.math.analysis.SplineInterpolatorTest, org.apache.commons.math.analysis.TrapezoidIntegratorTest, org.apache.commons.math.analysis.TrapezoidIntegratorTest, org.apache.commons.math.analysis.UnivariateRealSolverFactoryImplTest, org.apache.commons.math.analysis.UnivariateRealSolverFactoryImplTest, org.apache.commons.math.analysis.UnivariateRealSolverUtilsTest, org.apache.commons.math.analysis.UnivariateRealSolverUtilsTest, org.apache.commons.math.complex.ComplexFormatTest, org.apache.commons.math.complex.ComplexFormatTest, org.apache.commons.math.complex.ComplexTest, org.apache.commons.math.complex.ComplexTest, org.apache.commons.math.complex.ComplexUtilsTest, org.apache.commons.math.complex.ComplexUtilsTest, org.apache.commons.math.complex.FrenchComplexFormatTest, org.apache.commons.math.complex.FrenchComplexFormatTest, org.apache.commons.math.distribution.BinomialDistributionTest, org.apache.commons.math.distribution.BinomialDistributionTest, org.apache.commons.math.distribution.CauchyDistributionTest, org.apache.commons.math.distribution.CauchyDistributionTest, org.apache.commons.math.distribution.ChiSquareDistributionTest, org.apache.commons.math.distribution.ChiSquareDistributionTest, org.apache.commons.math.distribution.ExponentialDistributionTest, org.apache.commons.math.distribution.ExponentialDistributionTest, org.apache.commons.math.distribution.FDistributionTest, org.apache.commons.math.distribution.FDistributionTest, org.apache.commons.math.distribution.GammaDistributionTest, org.apache.commons.math.distribution.GammaDistributionTest, org.apache.commons.math.distribution.HypergeometricDistributionTest, org.apache.commons.math.distribution.HypergeometricDistributionTest, org.apache.commons.math.distribution.NormalDistributionTest, org.apache.commons.math.distribution.NormalDistributionTest, org.apache.commons.math.distribution.PascalDistributionTest, org.apache.commons.math.distribution.PascalDistributionTest, org.apache.commons.math.distribution.PoissonDistributionTest, org.apache.commons.math.distribution.PoissonDistributionTest, org.apache.commons.math.distribution.TDistributionTest, org.apache.commons.math.distribution.TDistributionTest, org.apache.commons.math.distribution.WeibullDistributionTest, org.apache.commons.math.distribution.WeibullDistributionTest, org.apache.commons.math.estimation.EstimatedParameterTest, org.apache.commons.math.estimation.EstimatedParameterTest, org.apache.commons.math.estimation.LevenbergMarquardtEstimatorTest, org.apache.commons.math.estimation.LevenbergMarquardtEstimatorTest, org.apache.commons.math.estimation.MinpackTest, org.apache.commons.math.estimation.MinpackTest, org.apache.commons.math.estimation.WeightedMeasurementTest, org.apache.commons.math.estimation.WeightedMeasurementTest, org.apache.commons.math.fraction.FractionFormatTest, org.apache.commons.math.fraction.FractionFormatTest, org.apache.commons.math.fraction.FractionTest, org.apache.commons.math.fraction.FractionTest, org.apache.commons.math.geometry.RotationTest, org.apache.commons.math.geometry.RotationTest, org.apache.commons.math.geometry.Vector3DTest, org.apache.commons.math.geometry.Vector3DTest, org.apache.commons.math.linear.BigMatrixImplTest, org.apache.commons.math.linear.BigMatrixImplTest, org.apache.commons.math.linear.InvalidMatrixExceptionTest, org.apache.commons.math.linear.InvalidMatrixExceptionTest, org.apache.commons.math.linear.MatrixIndexExceptionTest, org.apache.commons.math.linear.MatrixIndexExceptionTest, org.apache.commons.math.linear.MatrixUtilsTest, org.apache.commons.math.linear.MatrixUtilsTest, org.apache.commons.math.linear.QRDecompositionImplTest, org.apache.commons.math.linear.QRDecompositionImplTest, org.apache.commons.math.linear.RealMatrixImplTest, org.apache.commons.math.linear.RealMatrixImplTest, org.apache.commons.math.ode.ClassicalRungeKuttaIntegratorTest, org.apache.commons.math.ode.ClassicalRungeKuttaIntegratorTest, org.apache.commons.math.ode.ClassicalRungeKuttaStepInterpolatorTest, org.apache.commons.math.ode.ClassicalRungeKuttaStepInterpolatorTest, org.apache.commons.math.ode.ContinuousOutputModelTest, org.apache.commons.math.ode.ContinuousOutputModelTest, org.apache.commons.math.ode.DormandPrince54IntegratorTest, org.apache.commons.math.ode.DormandPrince54IntegratorTest, org.apache.commons.math.ode.DormandPrince54StepInterpolatorTest, org.apache.commons.math.ode.DormandPrince54StepInterpolatorTest, org.apache.commons.math.ode.DormandPrince853IntegratorTest, org.apache.commons.math.ode.DormandPrince853IntegratorTest, org.apache.commons.math.ode.DormandPrince853StepInterpolatorTest, org.apache.commons.math.ode.DormandPrince853StepInterpolatorTest, org.apache.commons.math.ode.EulerIntegratorTest, org.apache.commons.math.ode.EulerIntegratorTest, org.apache.commons.math.ode.EulerStepInterpolatorTest, org.apache.commons.math.ode.EulerStepInterpolatorTest, org.apache.commons.math.ode.FirstOrderConverterTest, org.apache.commons.math.ode.FirstOrderConverterTest, org.apache.commons.math.ode.GillIntegratorTest, org.apache.commons.math.ode.GillIntegratorTest, org.apache.commons.math.ode.GillStepInterpolatorTest, org.apache.commons.math.ode.GillStepInterpolatorTest, org.apache.commons.math.ode.GraggBulirschStoerIntegratorTest, org.apache.commons.math.ode.GraggBulirschStoerIntegratorTest, org.apache.commons.math.ode.GraggBulirschStoerStepInterpolatorTest, org.apache.commons.math.ode.GraggBulirschStoerStepInterpolatorTest, org.apache.commons.math.ode.HighamHall54IntegratorTest, org.apache.commons.math.ode.HighamHall54IntegratorTest, org.apache.commons.math.ode.HighamHall54StepInterpolatorTest, org.apache.commons.math.ode.HighamHall54StepInterpolatorTest, org.apache.commons.math.ode.MidpointIntegratorTest, org.apache.commons.math.ode.MidpointIntegratorTest, org.apache.commons.math.ode.MidpointStepInterpolatorTest, org.apache.commons.math.ode.MidpointStepInterpolatorTest, org.apache.commons.math.ode.StepNormalizerTest, org.apache.commons.math.ode.StepNormalizerTest, org.apache.commons.math.ode.ThreeEighthesIntegratorTest, org.apache.commons.math.ode.ThreeEighthesIntegratorTest, org.apache.commons.math.ode.ThreeEighthesStepInterpolatorTest, org.apache.commons.math.ode.ThreeEighthesStepInterpolatorTest, org.apache.commons.math.optimization.MultiDirectionalTest, org.apache.commons.math.optimization.MultiDirectionalTest, org.apache.commons.math.optimization.NelderMeadTest, org.apache.commons.math.optimization.NelderMeadTest, org.apache.commons.math.random.AbstractRandomGeneratorTest, org.apache.commons.math.random.AbstractRandomGeneratorTest, org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.EmpiricalDistributionTest, org.apache.commons.math.random.EmpiricalDistributionTest, org.apache.commons.math.random.GaussianRandomGeneratorTest, org.apache.commons.math.random.GaussianRandomGeneratorTest, org.apache.commons.math.random.RandomAdaptorTest, org.apache.commons.math.random.RandomAdaptorTest, org.apache.commons.math.random.RandomDataTest, org.apache.commons.math.random.RandomDataTest, org.apache.commons.math.random.UncorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.UncorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.UniformRandomGeneratorTest, org.apache.commons.math.random.UniformRandomGeneratorTest, org.apache.commons.math.random.ValueServerTest, org.apache.commons.math.random.ValueServerTest, org.apache.commons.math.special.BetaTest, org.apache.commons.math.special.BetaTest, org.apache.commons.math.special.ErfTest, org.apache.commons.math.special.ErfTest, org.apache.commons.math.special.GammaTest, org.apache.commons.math.special.GammaTest, org.apache.commons.math.stat.CertifiedDataTest, org.apache.commons.math.stat.CertifiedDataTest, org.apache.commons.math.stat.FrequencyTest, org.apache.commons.math.stat.FrequencyTest, org.apache.commons.math.stat.StatUtilsTest, org.apache.commons.math.stat.StatUtilsTest, org.apache.commons.math.stat.data.LewTest, org.apache.commons.math.stat.data.LewTest, org.apache.commons.math.stat.data.LotteryTest, org.apache.commons.math.stat.data.LotteryTest, org.apache.commons.math.stat.descriptive.AbstractUnivariateStatisticTest, org.apache.commons.math.stat.descriptive.AbstractUnivariateStatisticTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsImplTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsImplTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.InteractionTest, org.apache.commons.math.stat.descriptive.InteractionTest, org.apache.commons.math.stat.descriptive.ListUnivariateImplTest, org.apache.commons.math.stat.descriptive.ListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MixedListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MixedListUnivariateImplTest, org.apache.commons.math.stat.descriptive.StatisticalSummaryValuesTest, org.apache.commons.math.stat.descriptive.StatisticalSummaryValuesTest, org.apache.commons.math.stat.descriptive.SummaryStatisticsImplTest, org.apache.commons.math.stat.descriptive.SummaryStatisticsImplTest, org.apache.commons.math.stat.descriptive.moment.FirstMomentTest, org.apache.commons.math.stat.descriptive.moment.FirstMomentTest, org.apache.commons.math.stat.descriptive.moment.FourthMomentTest, org.apache.commons.math.stat.descriptive.moment.FourthMomentTest, org.apache.commons.math.stat.descriptive.moment.GeometricMeanTest, org.apache.commons.math.stat.descriptive.moment.GeometricMeanTest, org.apache.commons.math.stat.descriptive.moment.KurtosisTest, org.apache.commons.math.stat.descriptive.moment.KurtosisTest, org.apache.commons.math.stat.descriptive.moment.MeanTest, org.apache.commons.math.stat.descriptive.moment.MeanTest, org.apache.commons.math.stat.descriptive.moment.SecondMomentTest, org.apache.commons.math.stat.descriptive.moment.SecondMomentTest, org.apache.commons.math.stat.descriptive.moment.SkewnessTest, org.apache.commons.math.stat.descriptive.moment.SkewnessTest, org.apache.commons.math.stat.descriptive.moment.StandardDeviationTest, org.apache.commons.math.stat.descriptive.moment.StandardDeviationTest, org.apache.commons.math.stat.descriptive.moment.ThirdMomentTest, org.apache.commons.math.stat.descriptive.moment.ThirdMomentTest, org.apache.commons.math.stat.descriptive.moment.VarianceTest, org.apache.commons.math.stat.descriptive.moment.VarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialCovarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialCovarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialMeanTest, org.apache.commons.math.stat.descriptive.moment.VectorialMeanTest, org.apache.commons.math.stat.descriptive.rank.MaxTest, org.apache.commons.math.stat.descriptive.rank.MaxTest, org.apache.commons.math.stat.descriptive.rank.MedianTest, org.apache.commons.math.stat.descriptive.rank.MedianTest, org.apache.commons.math.stat.descriptive.rank.MinTest, org.apache.commons.math.stat.descriptive.rank.MinTest, org.apache.commons.math.stat.descriptive.rank.PercentileTest, org.apache.commons.math.stat.descriptive.rank.PercentileTest, org.apache.commons.math.stat.descriptive.summary.ProductTest, org.apache.commons.math.stat.descriptive.summary.ProductTest, org.apache.commons.math.stat.descriptive.summary.SumLogTest, org.apache.commons.math.stat.descriptive.summary.SumLogTest, org.apache.commons.math.stat.descriptive.summary.SumSqTest, org.apache.commons.math.stat.descriptive.summary.SumSqTest, org.apache.commons.math.stat.descriptive.summary.SumTest, org.apache.commons.math.stat.descriptive.summary.SumTest, org.apache.commons.math.stat.inference.ChiSquareFactoryTest, org.apache.commons.math.stat.inference.ChiSquareFactoryTest, org.apache.commons.math.stat.inference.ChiSquareTestTest, org.apache.commons.math.stat.inference.ChiSquareTestTest, org.apache.commons.math.stat.inference.TTestFactoryTest, org.apache.commons.math.stat.inference.TTestFactoryTest, org.apache.commons.math.stat.inference.TTestTest, org.apache.commons.math.stat.inference.TTestTest, org.apache.commons.math.stat.inference.TestUtilsTest, org.apache.commons.math.stat.inference.TestUtilsTest, org.apache.commons.math.stat.regression.SimpleRegressionTest, org.apache.commons.math.stat.regression.SimpleRegressionTest, org.apache.commons.math.transform.FastCosineTransformerTest, org.apache.commons.math.transform.FastCosineTransformerTest, org.apache.commons.math.transform.FastFourierTransformerTest, org.apache.commons.math.transform.FastFourierTransformerTest, org.apache.commons.math.transform.FastSineTransformerTest, org.apache.commons.math.transform.FastSineTransformerTest, org.apache.commons.math.util.ContinuedFractionTest, org.apache.commons.math.util.ContinuedFractionTest, org.apache.commons.math.util.DefaultTransformerTest, org.apache.commons.math.util.DefaultTransformerTest, org.apache.commons.math.util.MathUtilsTest, org.apache.commons.math.util.MathUtilsTest, org.apache.commons.math.util.ResizableDoubleArrayTest, org.apache.commons.math.util.ResizableDoubleArrayTest, org.apache.commons.math.util.TransformerMapTest, org.apache.commons.math.util.TransformerMapTest]
+10:06:45.647 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.commons.math.ArgumentOutsideDomainExceptionTest, org.apache.commons.math.ArgumentOutsideDomainExceptionTest, org.apache.commons.math.ConvergenceExceptionTest, org.apache.commons.math.ConvergenceExceptionTest, org.apache.commons.math.DuplicateSampleAbscissaExceptionTest, org.apache.commons.math.DuplicateSampleAbscissaExceptionTest, org.apache.commons.math.FunctionEvaluationExceptionTest, org.apache.commons.math.FunctionEvaluationExceptionTest, org.apache.commons.math.MathConfigurationExceptionTest, org.apache.commons.math.MathConfigurationExceptionTest, org.apache.commons.math.MathExceptionTest, org.apache.commons.math.MathExceptionTest, org.apache.commons.math.MaxIterationsExceededExceptionTest, org.apache.commons.math.MaxIterationsExceededExceptionTest, org.apache.commons.math.analysis.BisectionSolverTest, org.apache.commons.math.analysis.BisectionSolverTest, org.apache.commons.math.analysis.BrentSolverTest, org.apache.commons.math.analysis.BrentSolverTest, org.apache.commons.math.analysis.DividedDifferenceInterpolatorTest, org.apache.commons.math.analysis.DividedDifferenceInterpolatorTest, org.apache.commons.math.analysis.LaguerreSolverTest, org.apache.commons.math.analysis.LaguerreSolverTest, org.apache.commons.math.analysis.MullerSolverTest, org.apache.commons.math.analysis.MullerSolverTest, org.apache.commons.math.analysis.NevilleInterpolatorTest, org.apache.commons.math.analysis.NevilleInterpolatorTest, org.apache.commons.math.analysis.NewtonSolverTest, org.apache.commons.math.analysis.NewtonSolverTest, org.apache.commons.math.analysis.PolynomialFunctionLagrangeFormTest, org.apache.commons.math.analysis.PolynomialFunctionLagrangeFormTest, org.apache.commons.math.analysis.PolynomialFunctionNewtonFormTest, org.apache.commons.math.analysis.PolynomialFunctionNewtonFormTest, org.apache.commons.math.analysis.PolynomialFunctionTest, org.apache.commons.math.analysis.PolynomialFunctionTest, org.apache.commons.math.analysis.PolynomialSplineFunctionTest, org.apache.commons.math.analysis.PolynomialSplineFunctionTest, org.apache.commons.math.analysis.RiddersSolverTest, org.apache.commons.math.analysis.RiddersSolverTest, org.apache.commons.math.analysis.RombergIntegratorTest, org.apache.commons.math.analysis.RombergIntegratorTest, org.apache.commons.math.analysis.SimpsonIntegratorTest, org.apache.commons.math.analysis.SimpsonIntegratorTest, org.apache.commons.math.analysis.SplineInterpolatorTest, org.apache.commons.math.analysis.SplineInterpolatorTest, org.apache.commons.math.analysis.TrapezoidIntegratorTest, org.apache.commons.math.analysis.TrapezoidIntegratorTest, org.apache.commons.math.analysis.UnivariateRealSolverFactoryImplTest, org.apache.commons.math.analysis.UnivariateRealSolverFactoryImplTest, org.apache.commons.math.analysis.UnivariateRealSolverUtilsTest, org.apache.commons.math.analysis.UnivariateRealSolverUtilsTest, org.apache.commons.math.complex.ComplexFormatTest, org.apache.commons.math.complex.ComplexFormatTest, org.apache.commons.math.complex.ComplexTest, org.apache.commons.math.complex.ComplexTest, org.apache.commons.math.complex.ComplexUtilsTest, org.apache.commons.math.complex.ComplexUtilsTest, org.apache.commons.math.complex.FrenchComplexFormatTest, org.apache.commons.math.complex.FrenchComplexFormatTest, org.apache.commons.math.distribution.BinomialDistributionTest, org.apache.commons.math.distribution.BinomialDistributionTest, org.apache.commons.math.distribution.CauchyDistributionTest, org.apache.commons.math.distribution.CauchyDistributionTest, org.apache.commons.math.distribution.ChiSquareDistributionTest, org.apache.commons.math.distribution.ChiSquareDistributionTest, org.apache.commons.math.distribution.ExponentialDistributionTest, org.apache.commons.math.distribution.ExponentialDistributionTest, org.apache.commons.math.distribution.FDistributionTest, org.apache.commons.math.distribution.FDistributionTest, org.apache.commons.math.distribution.GammaDistributionTest, org.apache.commons.math.distribution.GammaDistributionTest, org.apache.commons.math.distribution.HypergeometricDistributionTest, org.apache.commons.math.distribution.HypergeometricDistributionTest, org.apache.commons.math.distribution.NormalDistributionTest, org.apache.commons.math.distribution.NormalDistributionTest, org.apache.commons.math.distribution.PascalDistributionTest, org.apache.commons.math.distribution.PascalDistributionTest, org.apache.commons.math.distribution.PoissonDistributionTest, org.apache.commons.math.distribution.PoissonDistributionTest, org.apache.commons.math.distribution.TDistributionTest, org.apache.commons.math.distribution.TDistributionTest, org.apache.commons.math.distribution.WeibullDistributionTest, org.apache.commons.math.distribution.WeibullDistributionTest, org.apache.commons.math.estimation.EstimatedParameterTest, org.apache.commons.math.estimation.EstimatedParameterTest, org.apache.commons.math.estimation.LevenbergMarquardtEstimatorTest, org.apache.commons.math.estimation.LevenbergMarquardtEstimatorTest, org.apache.commons.math.estimation.MinpackTest, org.apache.commons.math.estimation.MinpackTest, org.apache.commons.math.estimation.WeightedMeasurementTest, org.apache.commons.math.estimation.WeightedMeasurementTest, org.apache.commons.math.fraction.FractionFormatTest, org.apache.commons.math.fraction.FractionFormatTest, org.apache.commons.math.fraction.FractionTest, org.apache.commons.math.fraction.FractionTest, org.apache.commons.math.geometry.RotationTest, org.apache.commons.math.geometry.RotationTest, org.apache.commons.math.geometry.Vector3DTest, org.apache.commons.math.geometry.Vector3DTest, org.apache.commons.math.linear.BigMatrixImplTest, org.apache.commons.math.linear.BigMatrixImplTest, org.apache.commons.math.linear.InvalidMatrixExceptionTest, org.apache.commons.math.linear.InvalidMatrixExceptionTest, org.apache.commons.math.linear.MatrixIndexExceptionTest, org.apache.commons.math.linear.MatrixIndexExceptionTest, org.apache.commons.math.linear.MatrixUtilsTest, org.apache.commons.math.linear.MatrixUtilsTest, org.apache.commons.math.linear.QRDecompositionImplTest, org.apache.commons.math.linear.QRDecompositionImplTest, org.apache.commons.math.linear.RealMatrixImplTest, org.apache.commons.math.linear.RealMatrixImplTest, org.apache.commons.math.ode.ClassicalRungeKuttaIntegratorTest, org.apache.commons.math.ode.ClassicalRungeKuttaIntegratorTest, org.apache.commons.math.ode.ClassicalRungeKuttaStepInterpolatorTest, org.apache.commons.math.ode.ClassicalRungeKuttaStepInterpolatorTest, org.apache.commons.math.ode.ContinuousOutputModelTest, org.apache.commons.math.ode.ContinuousOutputModelTest, org.apache.commons.math.ode.DormandPrince54IntegratorTest, org.apache.commons.math.ode.DormandPrince54IntegratorTest, org.apache.commons.math.ode.DormandPrince54StepInterpolatorTest, org.apache.commons.math.ode.DormandPrince54StepInterpolatorTest, org.apache.commons.math.ode.DormandPrince853IntegratorTest, org.apache.commons.math.ode.DormandPrince853IntegratorTest, org.apache.commons.math.ode.DormandPrince853StepInterpolatorTest, org.apache.commons.math.ode.DormandPrince853StepInterpolatorTest, org.apache.commons.math.ode.EulerIntegratorTest, org.apache.commons.math.ode.EulerIntegratorTest, org.apache.commons.math.ode.EulerStepInterpolatorTest, org.apache.commons.math.ode.EulerStepInterpolatorTest, org.apache.commons.math.ode.FirstOrderConverterTest, org.apache.commons.math.ode.FirstOrderConverterTest, org.apache.commons.math.ode.GillIntegratorTest, org.apache.commons.math.ode.GillIntegratorTest, org.apache.commons.math.ode.GillStepInterpolatorTest, org.apache.commons.math.ode.GillStepInterpolatorTest, org.apache.commons.math.ode.GraggBulirschStoerIntegratorTest, org.apache.commons.math.ode.GraggBulirschStoerIntegratorTest, org.apache.commons.math.ode.GraggBulirschStoerStepInterpolatorTest, org.apache.commons.math.ode.GraggBulirschStoerStepInterpolatorTest, org.apache.commons.math.ode.HighamHall54IntegratorTest, org.apache.commons.math.ode.HighamHall54IntegratorTest, org.apache.commons.math.ode.HighamHall54StepInterpolatorTest, org.apache.commons.math.ode.HighamHall54StepInterpolatorTest, org.apache.commons.math.ode.MidpointIntegratorTest, org.apache.commons.math.ode.MidpointIntegratorTest, org.apache.commons.math.ode.MidpointStepInterpolatorTest, org.apache.commons.math.ode.MidpointStepInterpolatorTest, org.apache.commons.math.ode.StepNormalizerTest, org.apache.commons.math.ode.StepNormalizerTest, org.apache.commons.math.ode.ThreeEighthesIntegratorTest, org.apache.commons.math.ode.ThreeEighthesIntegratorTest, org.apache.commons.math.ode.ThreeEighthesStepInterpolatorTest, org.apache.commons.math.ode.ThreeEighthesStepInterpolatorTest, org.apache.commons.math.optimization.MultiDirectionalTest, org.apache.commons.math.optimization.MultiDirectionalTest, org.apache.commons.math.optimization.NelderMeadTest, org.apache.commons.math.optimization.NelderMeadTest, org.apache.commons.math.random.AbstractRandomGeneratorTest, org.apache.commons.math.random.AbstractRandomGeneratorTest, org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.EmpiricalDistributionTest, org.apache.commons.math.random.EmpiricalDistributionTest, org.apache.commons.math.random.GaussianRandomGeneratorTest, org.apache.commons.math.random.GaussianRandomGeneratorTest, org.apache.commons.math.random.RandomAdaptorTest, org.apache.commons.math.random.RandomAdaptorTest, org.apache.commons.math.random.RandomDataTest, org.apache.commons.math.random.RandomDataTest, org.apache.commons.math.random.UncorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.UncorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.UniformRandomGeneratorTest, org.apache.commons.math.random.UniformRandomGeneratorTest, org.apache.commons.math.random.ValueServerTest, org.apache.commons.math.random.ValueServerTest, org.apache.commons.math.special.BetaTest, org.apache.commons.math.special.BetaTest, org.apache.commons.math.special.ErfTest, org.apache.commons.math.special.ErfTest, org.apache.commons.math.special.GammaTest, org.apache.commons.math.special.GammaTest, org.apache.commons.math.stat.CertifiedDataTest, org.apache.commons.math.stat.CertifiedDataTest, org.apache.commons.math.stat.FrequencyTest, org.apache.commons.math.stat.FrequencyTest, org.apache.commons.math.stat.StatUtilsTest, org.apache.commons.math.stat.StatUtilsTest, org.apache.commons.math.stat.data.LewTest, org.apache.commons.math.stat.data.LewTest, org.apache.commons.math.stat.data.LotteryTest, org.apache.commons.math.stat.data.LotteryTest, org.apache.commons.math.stat.descriptive.AbstractUnivariateStatisticTest, org.apache.commons.math.stat.descriptive.AbstractUnivariateStatisticTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsImplTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsImplTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.InteractionTest, org.apache.commons.math.stat.descriptive.InteractionTest, org.apache.commons.math.stat.descriptive.ListUnivariateImplTest, org.apache.commons.math.stat.descriptive.ListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MixedListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MixedListUnivariateImplTest, org.apache.commons.math.stat.descriptive.StatisticalSummaryValuesTest, org.apache.commons.math.stat.descriptive.StatisticalSummaryValuesTest, org.apache.commons.math.stat.descriptive.SummaryStatisticsImplTest, org.apache.commons.math.stat.descriptive.SummaryStatisticsImplTest, org.apache.commons.math.stat.descriptive.moment.FirstMomentTest, org.apache.commons.math.stat.descriptive.moment.FirstMomentTest, org.apache.commons.math.stat.descriptive.moment.FourthMomentTest, org.apache.commons.math.stat.descriptive.moment.FourthMomentTest, org.apache.commons.math.stat.descriptive.moment.GeometricMeanTest, org.apache.commons.math.stat.descriptive.moment.GeometricMeanTest, org.apache.commons.math.stat.descriptive.moment.KurtosisTest, org.apache.commons.math.stat.descriptive.moment.KurtosisTest, org.apache.commons.math.stat.descriptive.moment.MeanTest, org.apache.commons.math.stat.descriptive.moment.MeanTest, org.apache.commons.math.stat.descriptive.moment.SecondMomentTest, org.apache.commons.math.stat.descriptive.moment.SecondMomentTest, org.apache.commons.math.stat.descriptive.moment.SkewnessTest, org.apache.commons.math.stat.descriptive.moment.SkewnessTest, org.apache.commons.math.stat.descriptive.moment.StandardDeviationTest, org.apache.commons.math.stat.descriptive.moment.StandardDeviationTest, org.apache.commons.math.stat.descriptive.moment.ThirdMomentTest, org.apache.commons.math.stat.descriptive.moment.ThirdMomentTest, org.apache.commons.math.stat.descriptive.moment.VarianceTest, org.apache.commons.math.stat.descriptive.moment.VarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialCovarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialCovarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialMeanTest, org.apache.commons.math.stat.descriptive.moment.VectorialMeanTest, org.apache.commons.math.stat.descriptive.rank.MaxTest, org.apache.commons.math.stat.descriptive.rank.MaxTest, org.apache.commons.math.stat.descriptive.rank.MedianTest, org.apache.commons.math.stat.descriptive.rank.MedianTest, org.apache.commons.math.stat.descriptive.rank.MinTest, org.apache.commons.math.stat.descriptive.rank.MinTest, org.apache.commons.math.stat.descriptive.rank.PercentileTest, org.apache.commons.math.stat.descriptive.rank.PercentileTest, org.apache.commons.math.stat.descriptive.summary.ProductTest, org.apache.commons.math.stat.descriptive.summary.ProductTest, org.apache.commons.math.stat.descriptive.summary.SumLogTest, org.apache.commons.math.stat.descriptive.summary.SumLogTest, org.apache.commons.math.stat.descriptive.summary.SumSqTest, org.apache.commons.math.stat.descriptive.summary.SumSqTest, org.apache.commons.math.stat.descriptive.summary.SumTest, org.apache.commons.math.stat.descriptive.summary.SumTest, org.apache.commons.math.stat.inference.ChiSquareFactoryTest, org.apache.commons.math.stat.inference.ChiSquareFactoryTest, org.apache.commons.math.stat.inference.ChiSquareTestTest, org.apache.commons.math.stat.inference.ChiSquareTestTest, org.apache.commons.math.stat.inference.TTestFactoryTest, org.apache.commons.math.stat.inference.TTestFactoryTest, org.apache.commons.math.stat.inference.TTestTest, org.apache.commons.math.stat.inference.TTestTest, org.apache.commons.math.stat.inference.TestUtilsTest, org.apache.commons.math.stat.inference.TestUtilsTest, org.apache.commons.math.stat.regression.SimpleRegressionTest, org.apache.commons.math.stat.regression.SimpleRegressionTest, org.apache.commons.math.transform.FastCosineTransformerTest, org.apache.commons.math.transform.FastCosineTransformerTest, org.apache.commons.math.transform.FastFourierTransformerTest, org.apache.commons.math.transform.FastFourierTransformerTest, org.apache.commons.math.transform.FastSineTransformerTest, org.apache.commons.math.transform.FastSineTransformerTest, org.apache.commons.math.util.ContinuedFractionTest, org.apache.commons.math.util.ContinuedFractionTest, org.apache.commons.math.util.DefaultTransformerTest, org.apache.commons.math.util.DefaultTransformerTest, org.apache.commons.math.util.MathUtilsTest, org.apache.commons.math.util.MathUtilsTest, org.apache.commons.math.util.ResizableDoubleArrayTest, org.apache.commons.math.util.ResizableDoubleArrayTest, org.apache.commons.math.util.TransformerMapTest, org.apache.commons.math.util.TransformerMapTest], complianceLevel=7, outputFolder=., json=true}
+10:06:45.648 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+10:06:45.666 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 953 MB
+10:06:45.666 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+10:06:45.666 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 990 MB
+10:06:45.666 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+10:06:45.667 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+10:06:45.667 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+10:06:58.751 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+10:06:58.751 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:157 which is executed by 16 tests
+1013737658
+10:06:59.046 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+10:06:59.046 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:156 which is executed by 16 tests
+1013737658
+10:06:59.144 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:06:59.245 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (48 ms)
+<> Total tests run: 160
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:06:59.246 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:06:59.246 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+10:06:59.246 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:155 which is executed by 16 tests
+1013737658
+10:06:59.339 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:06:59.382 [pool-6-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (30 ms)
+<> Total tests run: 160
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:06:59.382 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:06:59.382 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+10:06:59.382 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:154 which is executed by 16 tests
+1013737658
+10:06:59.599 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+10:06:59.599 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:133 which is executed by 16 tests
+1013737658
+10:06:59.688 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+10:06:59.689 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:132 which is executed by 16 tests
+1013737658
+10:06:59.775 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+10:06:59.775 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:115 which is executed by 16 tests
+1013737658
+10:06:59.863 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+10:06:59.863 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:114 which is executed by 16 tests
+1013737658
+10:06:59.949 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+10:06:59.950 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:229 which is executed by 16 tests
+-1129122774
+10:07:00.032 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+10:07:00.032 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:228 which is executed by 16 tests
+-1129122774
+10:07:00.114 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:00.141 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (19 ms)
+<> Total tests run: 160
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:00.142 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:00.142 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+10:07:00.142 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:224 which is executed by 16 tests
+-1129122774
+10:07:00.225 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:00.249 [pool-10-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 160
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:00.250 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:00.252 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:00.274 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 160
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:00.275 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:00.275 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+10:07:00.275 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:383 which is executed by 7 tests
+1013737658
+10:07:00.361 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:00.383 [pool-14-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:00.384 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:00.384 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+10:07:00.384 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:279 which is executed by 7 tests
+1013737658
+10:07:00.475 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:00.489 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:00.495 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:00.495 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+10:07:00.495 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:278 which is executed by 7 tests
+1013737658
+10:07:00.656 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+10:07:00.657 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:277 which is executed by 7 tests
+1013737658
+10:07:00.741 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+10:07:00.741 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:387 which is executed by 8 tests
+1013737658
+10:07:00.825 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+10:07:00.825 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:382 which is executed by 8 tests
+1013737658
+10:07:00.909 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:00.928 [pool-18-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:00.928 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:00.929 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:00.947 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:00.947 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:00.947 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+10:07:00.947 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:380 which is executed by 8 tests
+1013737658
+10:07:01.032 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:01.044 [pool-22-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:01.045 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:01.045 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+10:07:01.045 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:379 which is executed by 8 tests
+1013737658
+10:07:01.128 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+10:07:01.129 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:378 which is executed by 8 tests
+1013737658
+10:07:01.213 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:01.226 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:01.227 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:01.227 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #21
+10:07:01.227 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:375 which is executed by 8 tests
+1013737658
+10:07:01.313 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:01.325 [pool-26-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:01.325 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:01.325 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:01.336 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:01.337 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:01.337 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #22
+10:07:01.337 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:373 which is executed by 8 tests
+1013737658
+10:07:01.419 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #23
+10:07:01.419 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:372 which is executed by 8 tests
+1013737658
+10:07:01.501 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #24
+10:07:01.502 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:371 which is executed by 8 tests
+1013737658
+10:07:01.594 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #25
+10:07:01.594 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:362 which is executed by 8 tests
+1013737658
+10:07:01.677 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #26
+10:07:01.678 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:361 which is executed by 8 tests
+1013737658
+10:07:01.759 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:01.771 [pool-30-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:01.771 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:01.771 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #27
+10:07:01.771 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:360 which is executed by 8 tests
+1013737658
+10:07:01.853 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:01.865 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:01.865 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:01.865 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #28
+10:07:01.865 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:268 which is executed by 8 tests
+1013737658
+10:07:01.947 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:01.958 [pool-34-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:01.959 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:01.959 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:01.971 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:01.971 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:01.971 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #29
+10:07:01.971 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:267 which is executed by 8 tests
+1013737658
+10:07:02.053 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #30
+10:07:02.053 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:264 which is executed by 8 tests
+1013737658
+10:07:02.134 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:02.152 [pool-38-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 80
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:02.158 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:02.159 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #31
+10:07:02.159 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:261 which is executed by 8 tests
+1013737658
+10:07:02.241 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #32
+10:07:02.241 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:245 which is executed by 8 tests
+1013737658
+10:07:02.323 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #33
+10:07:02.323 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:244 which is executed by 8 tests
+1013737658
+10:07:02.404 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #34
+10:07:02.405 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:133 which is executed by 8 tests
+-1129122774
+10:07:02.496 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #35
+10:07:02.496 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:233 which is executed by 9 tests
+1013737658
+10:07:02.589 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #36
+10:07:02.589 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:225 which is executed by 7 tests
+1013737658
+10:07:02.670 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #37
+10:07:02.670 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:309 which is executed by 2 tests
+1013737658
+10:07:02.751 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #38
+10:07:02.751 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:214 which is executed by 2 tests
+-1129122774
+10:07:02.829 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #39
+10:07:02.829 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:213 which is executed by 2 tests
+-1129122774
+10:07:02.906 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #40
+10:07:02.907 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:212 which is executed by 2 tests
+-1129122774
+10:07:02.984 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #41
+10:07:02.984 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:211 which is executed by 2 tests
+-1129122774
+10:07:03.062 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #42
+10:07:03.062 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:301 which is executed by 3 tests
+1013737658
+10:07:03.143 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:03.151 [pool-40-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:03.152 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:03.152 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:03.159 [pool-42-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:03.160 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:03.160 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #43
+10:07:03.160 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:300 which is executed by 3 tests
+1013737658
+10:07:03.242 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #44
+10:07:03.242 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:297 which is executed by 3 tests
+1013737658
+10:07:03.328 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:03.335 [pool-44-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:03.339 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:03.339 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #45
+10:07:03.339 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:286 which is executed by 3 tests
+1013737658
+10:07:03.419 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:03.427 [pool-46-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:03.427 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:03.427 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #46
+10:07:03.427 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:293 which is executed by 3 tests
+1013737658
+10:07:03.507 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #47
+10:07:03.507 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:292 which is executed by 3 tests
+1013737658
+10:07:03.586 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:03.595 [pool-48-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:03.595 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:03.595 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #48
+10:07:03.595 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:291 which is executed by 3 tests
+1013737658
+10:07:03.674 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:03.682 [pool-50-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:03.682 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:03.682 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #49
+10:07:03.683 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:205 which is executed by 3 tests
+-1129122774
+10:07:03.760 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:03.770 [pool-52-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:03.770 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:03.770 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:03.778 [pool-54-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:03.778 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:03.778 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #50
+10:07:03.778 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:197 which is executed by 3 tests
+-1129122774
+10:07:03.855 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:03.863 [pool-56-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:03.863 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:03.863 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:03.870 [pool-58-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:03.871 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:03.871 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #51
+10:07:03.871 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:196 which is executed by 3 tests
+-1129122774
+10:07:03.947 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #52
+10:07:03.947 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:193 which is executed by 3 tests
+-1129122774
+10:07:04.024 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:04.031 [pool-60-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:04.032 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:04.032 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #53
+10:07:04.032 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:182 which is executed by 3 tests
+-1129122774
+10:07:04.108 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:04.116 [pool-62-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:04.116 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:04.116 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #54
+10:07:04.116 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:175 which is executed by 3 tests
+-1129122774
+10:07:04.197 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:04.205 [pool-64-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:04.205 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:04.206 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #55
+10:07:04.206 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:174 which is executed by 3 tests
+-1129122774
+10:07:04.282 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #56
+10:07:04.282 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:173 which is executed by 3 tests
+-1129122774
+10:07:04.358 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #57
+10:07:04.358 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:166 which is executed by 3 tests
+-1129122774
+10:07:04.434 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:04.442 [pool-66-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:04.442 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:04.442 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:04.450 [pool-68-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:04.451 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:04.451 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #58
+10:07:04.451 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.FractionFormat:283 which is executed by 1 tests
+1013737658
+10:07:04.531 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #59
+10:07:04.531 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:158 which is executed by 4 tests
+-1129122774
+10:07:04.607 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:04.615 [pool-70-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:04.615 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:04.615 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:04.622 [pool-72-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:04.622 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:04.622 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #60
+10:07:04.622 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:157 which is executed by 4 tests
+-1129122774
+10:07:04.698 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #61
+10:07:04.698 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:154 which is executed by 4 tests
+-1129122774
+10:07:04.775 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:04.782 [pool-74-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:04.782 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:04.782 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #62
+10:07:04.782 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:180 which is executed by 1 tests
+68567944
+10:07:04.862 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:04.881 [pool-76-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (12 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:05.539 [pool-75-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Gamma.java:71: error: variable ret might not have been initialized
+        return ret;
+               ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:07:05.540 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #63
+10:07:05.540 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:145 which is executed by 5 tests
+-1129122774
+10:07:05.618 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:05.628 [pool-78-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:05.628 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:05.628 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:05.637 [pool-80-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:05.637 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:05.638 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #64
+10:07:05.638 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:144 which is executed by 5 tests
+-1129122774
+10:07:05.715 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #65
+10:07:05.715 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:141 which is executed by 5 tests
+-1129122774
+10:07:05.792 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:05.801 [pool-82-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:05.801 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:05.801 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #66
+10:07:05.801 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:138 which is executed by 5 tests
+-1129122774
+10:07:05.878 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #67
+10:07:05.878 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:134 which is executed by 5 tests
+-1129122774
+10:07:05.954 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+10:07:05.963 [pool-84-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:05.963 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:05.963 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+10:07:05.970 [pool-86-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 32
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:07:05.971 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: failingTestCasesValidated: nothing to repair, no failing test cases
+10:07:05.971 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #68
+10:07:05.971 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.fraction.ProperFractionFormat:116 which is executed by 6 tests
+-1129122774
+10:07:06.048 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #69
+10:07:06.048 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:272 which is executed by 3 tests
+754024968
+10:07:06.134 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #70
+10:07:06.134 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:271 which is executed by 3 tests
+754024968
+10:07:06.219 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #71
+10:07:06.220 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:267 which is executed by 3 tests
+754024968
+10:07:06.307 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:06.322 [pool-88-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (11 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:06.544 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:06.555 [pool-92-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:06.712 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #72
+10:07:06.712 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:266 which is executed by 3 tests
+754024968
+10:07:06.797 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:06.809 [pool-96-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:06.963 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #73
+10:07:06.963 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:265 which is executed by 3 tests
+754024968
+10:07:07.049 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #74
+10:07:07.049 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.NormalDistributionImpl:109 which is executed by 8 tests
+1270563308
+10:07:07.125 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #75
+10:07:07.126 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:161 which is executed by 9 tests
+68567944
+10:07:07.202 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:07.214 [pool-100-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:07.328 [pool-99-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Gamma.java:71: error: variable ret might not have been initialized
+        return ret;
+               ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:07:07.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #76
+10:07:07.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Erf:58 which is executed by 12 tests
+69946
+10:07:07.400 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:07.411 [pool-102-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:07.533 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #77
+10:07:07.533 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Erf:60 which is executed by 13 tests
+69946
+10:07:07.605 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #78
+10:07:07.605 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Erf:57 which is executed by 13 tests
+69946
+10:07:07.677 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:07.688 [pool-106-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:07.786 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:07.797 [pool-110-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:07.891 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #79
+10:07:07.891 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Erf:56 which is executed by 13 tests
+69946
+10:07:07.963 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #80
+10:07:07.963 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:261 which is executed by 19 tests
+10:07:07.963 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:261
+10:07:07.963 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #81
+10:07:07.963 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.NormalDistributionImpl:98 which is executed by 20 tests
+1270563308
+10:07:08.037 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #82
+10:07:08.037 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.NormalDistributionImpl:97 which is executed by 20 tests
+1270563308
+10:07:08.112 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:08.123 [pool-114-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:08.239 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #83
+10:07:08.239 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.NormalDistributionImpl:93 which is executed by 20 tests
+1270563308
+10:07:08.313 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:08.324 [pool-118-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:08.449 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:08.460 [pool-122-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:08.600 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #84
+10:07:08.600 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.NormalDistributionImpl:77 which is executed by 20 tests
+1270563308
+10:07:08.674 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #85
+10:07:08.674 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.NormalDistributionImpl:76 which is executed by 20 tests
+1270563308
+10:07:08.748 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:08.759 [pool-126-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:08.872 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #86
+10:07:08.872 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:235 which is executed by 21 tests
+754024968
+10:07:08.952 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #87
+10:07:08.952 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:182 which is executed by 35 tests
+68567944
+10:07:09.028 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:09.039 [pool-130-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:09.146 [pool-129-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Gamma.java:71: error: variable ret might not have been initialized
+        return ret;
+               ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:07:09.146 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #88
+10:07:09.147 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:179 which is executed by 35 tests
+68567944
+10:07:09.223 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:09.234 [pool-132-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:09.338 [pool-131-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Gamma.java:69: error: variable ret might not have been initialized
+        return ret;
+               ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:07:09.339 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:09.353 [pool-134-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:09.497 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #89
+10:07:09.497 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:177 which is executed by 35 tests
+68567944
+10:07:09.573 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:09.584 [pool-138-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:09.704 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #90
+10:07:09.704 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:174 which is executed by 35 tests
+68567944
+10:07:09.780 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:09.791 [pool-142-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:09.913 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #91
+10:07:09.913 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:173 which is executed by 35 tests
+68567944
+10:07:09.988 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:09.999 [pool-146-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:36.983 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #92
+10:07:36.984 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:171 which is executed by 35 tests
+68567944
+10:07:37.069 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:37.088 [pool-150-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:37.206 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #93
+10:07:37.206 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:170 which is executed by 35 tests
+68567944
+10:07:37.282 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #94
+10:07:37.282 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:169 which is executed by 35 tests
+68567944
+10:07:37.358 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #95
+10:07:37.358 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:168 which is executed by 35 tests
+68567944
+10:07:37.433 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #96
+10:07:37.433 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:162 which is executed by 43 tests
+68567944
+10:07:37.509 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:37.520 [pool-154-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:37.661 [pool-153-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Gamma.java:69: error: variable ret might not have been initialized
+        return ret;
+               ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:07:37.661 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:37.674 [pool-156-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:37.815 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #97
+10:07:37.815 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:115 which is executed by 43 tests
+754024968
+10:07:37.896 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #98
+10:07:37.896 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:114 which is executed by 43 tests
+754024968
+10:07:37.975 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:37.986 [pool-160-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:38.128 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #99
+10:07:38.128 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:113 which is executed by 43 tests
+754024968
+10:07:38.207 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #100
+10:07:38.207 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:100 which is executed by 43 tests
+754024968
+10:07:38.287 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #101
+10:07:38.287 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:85 which is executed by 43 tests
+754024968
+10:07:38.367 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:38.378 [pool-164-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:38.505 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #102
+10:07:38.505 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.MathException:83 which is executed by 43 tests
+754024968
+10:07:38.585 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:38.597 [pool-168-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:38.718 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:38.729 [pool-172-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:38.854 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #103
+10:07:38.854 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:160 which is executed by 45 tests
+68567944
+10:07:38.931 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:38.943 [pool-176-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:39.064 [pool-175-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Gamma.java:69: error: variable ret might not have been initialized
+        return ret;
+               ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:07:39.065 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:39.087 [pool-178-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:39.200 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #104
+10:07:39.200 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:186 which is executed by 50 tests
+68567944
+10:07:39.275 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #105
+10:07:39.275 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:158 which is executed by 50 tests
+68567944
+10:07:39.351 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:39.365 [pool-182-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:39.460 [pool-181-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Gamma.java:69: error: variable ret might not have been initialized
+        return ret;
+               ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:07:39.460 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:39.471 [pool-184-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:39.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #106
+10:07:39.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:107 which is executed by 60 tests
+10:07:39.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:107
+10:07:39.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #107
+10:07:39.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:102 which is executed by 60 tests
+10:07:39.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:102
+10:07:39.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #108
+10:07:39.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:134 which is executed by 66 tests
+10:07:39.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:134
+10:07:39.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #109
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:133 which is executed by 66 tests
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:133
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #110
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:132 which is executed by 66 tests
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:132
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #111
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:131 which is executed by 66 tests
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:131
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #112
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:130 which is executed by 66 tests
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:130
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #113
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:129 which is executed by 66 tests
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:129
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #114
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:128 which is executed by 66 tests
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:128
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #115
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:122 which is executed by 66 tests
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:122
+10:07:39.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #116
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:121 which is executed by 66 tests
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:121
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #117
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:120 which is executed by 66 tests
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:120
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #118
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:119 which is executed by 66 tests
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:119
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #119
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:118 which is executed by 66 tests
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:118
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #120
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:117 which is executed by 66 tests
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:117
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #121
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:116 which is executed by 66 tests
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.commons.math.distribution.ContinuousDistributionAbstractTest:116
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #122
+10:07:39.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:102 which is executed by 86 tests
+68567944
+10:07:39.652 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:39.663 [pool-188-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:39.756 [pool-187-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Gamma.java:37: error: variable ret might not have been initialized
+        return ret;
+               ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:07:39.757 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #123
+10:07:39.757 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:101 which is executed by 86 tests
+68567944
+10:07:39.832 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #124
+10:07:39.833 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:99 which is executed by 86 tests
+68567944
+10:07:39.908 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:39.918 [pool-190-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:40.041 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #125
+10:07:40.041 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:97 which is executed by 86 tests
+68567944
+10:07:40.116 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:40.128 [pool-194-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:40.242 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #126
+10:07:40.242 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:96 which is executed by 86 tests
+68567944
+10:07:40.318 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:40.329 [pool-198-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:40.432 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #127
+10:07:40.432 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:95 which is executed by 86 tests
+68567944
+10:07:40.507 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #128
+10:07:40.507 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:93 which is executed by 86 tests
+68567944
+10:07:40.582 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #129
+10:07:40.582 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:106 which is executed by 89 tests
+68567944
+10:07:40.656 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #130
+10:07:40.657 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.special.Gamma:90 which is executed by 89 tests
+68567944
+10:07:40.732 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:40.743 [pool-202-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:40.834 [pool-201-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Gamma.java:35: error: variable ret might not have been initialized
+        return ret;
+               ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:07:40.834 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded
+    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+10:07:40.849 [pool-204-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testExtremeValues(org.apache.commons.math.distribution.NormalDistributionTest)
+[Maximal number of iterations (10,000) exceeded]
+org.apache.commons.math.MaxIterationsExceededException: Maximal number of iterations (10,000) exceeded    at org.apache.commons.math.special.Gamma.regularizedGammaP(Gamma.java:180)
+    at org.apache.commons.math.special.Erf.erf(Erf.java:56)
+    at org.apache.commons.math.distribution.NormalDistributionImpl.cumulativeProbability(NormalDistributionImpl.java:109)
+    at org.apache.commons.math.distribution.NormalDistributionTest.testExtremeValues(NormalDistributionTest.java:133)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+10:07:40.978 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+10:07:41.085 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 215
+10:07:41.085 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1266
+10:07:41.085 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 35
+10:07:41.085 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 0
+10:07:41.085 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 55340ms
+10:07:41.085 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+101.81user 6.10system 0:57.12elapsed 188%CPU (0avgtext+0avgdata 4131780maxresident)k
+51352inputs+6776outputs (5major+1159652minor)pagefaults 0swaps
+
+
+Node: graphene-7.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 10:07:41 EST 2018
+

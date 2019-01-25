@@ -1,0 +1,1444 @@
+cd /tmp/DynaMoth_Defects4J_Lang_64;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 3 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/DynaMoth_Defects4J_Lang_64/target/classes/:/tmp/DynaMoth_Defects4J_Lang_64/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+09:59:34.126 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+09:59:34.151 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Defects4J_Lang_64/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_64/target/tests/, file:/tmp/DynaMoth_Defects4J_Lang_64/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_64/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+09:59:34.151 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+09:59:34.151 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+09:59:34.153 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=3, outputFolder=., json=true}
+09:59:34.153 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+09:59:34.181 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 958 MB
+09:59:34.182 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+09:59:34.182 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 990 MB
+09:59:34.182 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+09:59:34.183 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+09:59:34.183 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+09:59:55.677 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+09:59:55.678 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:287 which is executed by 1 tests
+-723213736
+09:59:55.958 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+09:59:55.958 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:285 which is executed by 1 tests
+-723213736
+09:59:56.052 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:56.111 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (33 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:57.015 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+09:59:57.015 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:283 which is executed by 1 tests
+-723213736
+09:59:57.097 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:57.107 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:57.283 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+09:59:57.284 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:282 which is executed by 1 tests
+-723213736
+09:59:57.365 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+09:59:57.365 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:281 which is executed by 1 tests
+-723213736
+09:59:57.445 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:57.455 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:57.618 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+09:59:57.618 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:278 which is executed by 1 tests
+-723213736
+09:59:57.697 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:57.716 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:57.869 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+09:59:57.869 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:275 which is executed by 1 tests
+-723213736
+09:59:57.984 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:58.002 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:58.146 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:58.154 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:58.292 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+09:59:58.292 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:274 which is executed by 1 tests
+-723213736
+09:59:58.369 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+09:59:58.370 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:273 which is executed by 1 tests
+-723213736
+09:59:58.447 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:58.455 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:58.600 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+09:59:58.600 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:272 which is executed by 1 tests
+-723213736
+09:59:58.677 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+09:59:58.677 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:271 which is executed by 1 tests
+-723213736
+09:59:58.754 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:58.761 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:58.901 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+09:59:58.902 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:270 which is executed by 1 tests
+-723213736
+09:59:58.978 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:58.986 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:59.144 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:59.151 [pool-40-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:59.275 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+09:59:59.275 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:269 which is executed by 1 tests
+-723213736
+09:59:59.351 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:59.359 [pool-44-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:59.492 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:59.498 [pool-48-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:59.628 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+09:59:59.629 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:268 which is executed by 1 tests
+-723213736
+09:59:59.704 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+09:59:59.704 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:191 which is executed by 4 tests
+-723213736
+09:59:59.778 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+09:59:59.778 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.ValuedEnum:183 which is executed by 5 tests
+-254951211
+09:59:59.866 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+09:59:59.867 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:495 which is executed by 13 tests
+2165026
+09:59:59.951 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+09:59:59.951 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:486 which is executed by 13 tests
+2165026
+10:00:00.056 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:00.120 [pool-52-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (46 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:00.314 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+10:00:00.314 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:485 which is executed by 13 tests
+2165026
+10:00:00.398 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+10:00:00.398 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:484 which is executed by 13 tests
+2165026
+10:00:00.482 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #21
+10:00:00.482 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:359 which is executed by 13 tests
+2165026
+10:00:00.565 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #22
+10:00:00.566 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:358 which is executed by 13 tests
+2165026
+10:00:00.649 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:00.699 [pool-60-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (45 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:00.881 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #23
+10:00:00.881 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:357 which is executed by 13 tests
+2165026
+10:00:00.960 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:01.007 [pool-68-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (44 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:01.186 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #24
+10:00:01.186 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:354 which is executed by 13 tests
+2165026
+10:00:01.306 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:01.380 [pool-76-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (70 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:01.594 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:01.644 [pool-84-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (46 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:01.834 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #25
+10:00:01.834 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:352 which is executed by 13 tests
+2165026
+10:00:01.912 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:01.960 [pool-92-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (42 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:02.224 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #26
+10:00:02.224 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:351 which is executed by 13 tests
+2165026
+10:00:02.309 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:02.364 [pool-100-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (42 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:02.508 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #27
+10:00:02.508 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:350 which is executed by 13 tests
+2165026
+10:00:02.586 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:02.648 [pool-108-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (40 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:02.786 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:02.829 [pool-116-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (39 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:02.964 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #28
+10:00:02.964 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:349 which is executed by 13 tests
+2165026
+10:00:03.041 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #29
+10:00:03.042 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:340 which is executed by 13 tests
+2165026
+10:00:03.119 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:03.162 [pool-124-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (40 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:03.325 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #30
+10:00:03.325 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:339 which is executed by 13 tests
+2165026
+10:00:03.402 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:03.446 [pool-132-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (41 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:03.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #31
+10:00:03.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:519 which is executed by 16 tests
+2165026
+10:00:03.666 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #32
+10:00:03.666 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:344 which is executed by 17 tests
+2165026
+10:00:03.743 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:03.786 [pool-140-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (39 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:03.944 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:03.988 [pool-148-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (41 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:04.149 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #33
+10:00:04.149 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:338 which is executed by 17 tests
+2165026
+10:00:04.225 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:04.268 [pool-156-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (39 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:04.394 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:04.438 [pool-164-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (41 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:04.566 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #34
+10:00:04.566 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:337 which is executed by 18 tests
+2165026
+10:00:04.643 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:04.686 [pool-172-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (40 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:04.836 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #35
+10:00:04.836 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:336 which is executed by 17 tests
+2165026
+10:00:04.912 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #36
+10:00:04.912 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:335 which is executed by 17 tests
+2165026
+10:00:04.989 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #37
+10:00:04.989 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:332 which is executed by 18 tests
+2165026
+10:00:05.065 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:05.108 [pool-180-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (40 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:05.270 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:05.315 [pool-188-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (42 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:05.476 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #38
+10:00:05.476 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:331 which is executed by 18 tests
+2165026
+10:00:05.552 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #39
+10:00:05.552 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.enums.Enum:327 which is executed by 18 tests
+2165026
+10:00:05.629 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:05.673 [pool-196-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (41 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:05.850 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum
+    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+10:00:05.893 [pool-204-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (40 ms)
+<> Total tests run: 19
+<> Ignored tests: 0
+<> Failed tests: 3
+~ testCompareTo_otherEnumType(org.apache.commons.lang.enums.ValuedEnumTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.fail(Assert.java:64)
+    at junit.framework.TestCase.fail(TestCase.java:235)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_otherEnumType(ValuedEnumTest.java:108)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testCompareTo_classloader_equal(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_equal(ValuedEnumTest.java:78)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+~ testCompareTo_classloader_different(org.apache.commons.lang.enums.ValuedEnumTest)
+[org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum]
+java.lang.ClassCastException: org.apache.commons.lang.enums.ValuedColorEnum cannot be cast to org.apache.commons.lang.enums.ValuedEnum    at org.apache.commons.lang.enums.ValuedEnum.compareTo(ValuedEnum.java:183)
+    at org.apache.commons.lang.enums.ValuedEnumTest.testCompareTo_classloader_different(ValuedEnumTest.java:92)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+10:00:06.053 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #40
+10:00:06.053 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringUtils:185 which is executed by 104 tests
+148294401
+10:00:06.189 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+10:00:06.260 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 77
+10:00:06.260 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1679
+10:00:06.260 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 32
+10:00:06.261 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 0
+10:00:06.261 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 32066ms
+10:00:06.261 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+61.28user 2.86system 0:33.53elapsed 191%CPU (0avgtext+0avgdata 651140maxresident)k
+56968inputs+5568outputs (8major+356056minor)pagefaults 0swaps
+
+
+Node: graphene-9.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 10:00:06 EST 2018
+

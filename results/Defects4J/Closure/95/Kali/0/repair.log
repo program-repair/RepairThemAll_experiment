@@ -1,0 +1,62 @@
+cd /tmp/Kali_Defects4J_Closure_95;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/home/tdurieux/openjdk-1.7.0/bin/:$PATH";
+export JAVA_HOME="/home/tdurieux/openjdk-1.7.0/bin/";
+timeout 120m java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../libs/jmetal.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/arja.jar us.msu.cse.repair.Main \
+	Kali \
+	-DexternalProjRoot /home/tdurieux/defects4j4repair/script/../libs/arja_external \
+	-DsrcJavaDir /tmp/Kali_Defects4J_Closure_95/src/ \
+	-DbinJavaDir /tmp/Kali_Defects4J_Closure_95/build/classes/ \
+	-DbinTestDir /tmp/Kali_Defects4J_Closure_95/build/test/ \
+	-DdiffFormat true \
+	-Dseed 0 \
+	-Ddependences /tmp/Kali_Defects4J_Closure_95/build/classes:/tmp/Kali_Defects4J_Closure_95/build/test:/tmp/Kali_Defects4J_Closure_95/lib/json.jar:/tmp/Kali_Defects4J_Closure_95/lib/junit.jar:/tmp/Kali_Defects4J_Closure_95/lib/libtrunk_rhino_parser_jarjared.jar:/tmp/Kali_Defects4J_Closure_95/lib/args4j_deploy.jar:/tmp/Kali_Defects4J_Closure_95/lib/ant_deploy.jar:/tmp/Kali_Defects4J_Closure_95/lib/guava-r06.jar:/tmp/Kali_Defects4J_Closure_95/lib/hamcrest-core-1.1.jar:/tmp/Kali_Defects4J_Closure_95/lib/jsr305.jar:/tmp/Kali_Defects4J_Closure_95/lib/protobuf-java-2.3.0.jar;
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+Fault localization starts...
+Number of positive tests: 986
+Number of negative tests: 5125
+Fault localization is finished!
+AST parsing starts...
+AST parsing is finished!
+Detection of local variables starts...
+Detection of local variables is finished!
+Detection of fields starts...
+Detection of fields is finished!
+Detection of methods starts...
+Detection of methods is finished!
+Ingredient screener starts...
+Ingredient screener is finished!
+Initialization of manipulations starts...
+Initialization of manipulations is finished!
+Filtering of the tests starts...
+Number of positive tests considered: 44
+Filtering of the tests is finished!
+java.io.IOException: Cannot run program "/home/tdurieux/openjdk-1.7.0/jre/bin/java": error=7, Argument list too long
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1047)
+	at us.msu.cse.repair.core.testexecutors.ExternalTestExecutor.runTests(ExternalTestExecutor.java:98)
+	at us.msu.cse.repair.algorithms.kali.Kali.invokeTestExecutor(Kali.java:140)
+	at us.msu.cse.repair.algorithms.kali.Kali.runTests(Kali.java:159)
+	at us.msu.cse.repair.algorithms.kali.Kali.redirectBranch(Kali.java:82)
+	at us.msu.cse.repair.algorithms.kali.Kali.redirectBranch(Kali.java:64)
+	at us.msu.cse.repair.algorithms.kali.Kali.execute(Kali.java:50)
+	at us.msu.cse.repair.algorithms.kali.KaliAlgInterface.execute(KaliAlgInterface.java:24)
+	at us.msu.cse.repair.core.AbstractRepairAlgorithm.execute(AbstractRepairAlgorithm.java:18)
+	at us.msu.cse.repair.KaliMain.main(KaliMain.java:16)
+	at us.msu.cse.repair.Main.main(Main.java:14)
+Caused by: java.io.IOException: error=7, Argument list too long
+	at java.lang.UNIXProcess.forkAndExec(Native Method)
+	at java.lang.UNIXProcess.<init>(UNIXProcess.java:187)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:130)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1028)
+	... 10 more
+
+
+Node: graphene-11.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 19:55:24 EST 2018
+

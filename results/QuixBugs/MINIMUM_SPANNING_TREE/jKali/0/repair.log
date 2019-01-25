@@ -1,0 +1,57 @@
+cd /tmp/jKali_QuixBugs_MINIMUM_SPANNING_TREE_;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4g -Xms1g -cp /home/tdurieux/defects4j4repair/script/../libs/jtestex7.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/astor.jar fr.inria.main.evolution.AstorMain \
+	-mode jkali \
+	-location . \
+	-id MINIMUM_SPANNING_TREE- \
+	-failing java_testcases.junit.MINIMUM_SPANNING_TREE_Test \
+	-jvm4testexecution /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/ \
+	-jvm4evosuitetestexecution /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/ \
+	-maxgen 1000000 \
+	-maxtime 120 \
+	-stopfirst true \
+	-seed 0 \
+	-scope local \
+	-population 1 \
+	-javacompliancelevel 8 \
+	-srcjavafolder src/main/java \
+	-srctestfolder src/test/java \
+	-binjavafolder target/classes \
+	-bintestfolder target/test-classes \
+	-parameters x:x \
+	-dependencies /home/tdurieux/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+2018-12-02 08:27:14,903 INFO main - command line arguments: [-mode  jkali  -location  .  -id  MINIMUM_SPANNING_TREE-  -failing  java_testcases.junit.MINIMUM_SPANNING_TREE_Test  -jvm4testexecution  /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/  -jvm4evosuitetestexecution  /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/  -maxgen  1000000  -maxtime  120  -stopfirst  true  -seed  0  -scope  local  -population  1  -javacompliancelevel  8  -srcjavafolder  src/main/java  -srctestfolder  src/test/java  -binjavafolder  target/classes  -bintestfolder  target/test-classes  -parameters  x:x  -dependencies  /home/tdurieux/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar]
+2018-12-02 08:27:14,904 INFO fr.inria.main.evolution.AstorMain - Running Astor on a JDK at /usr/lib/jvm/java-8-openjdk-amd64/jre
+[INFO ] fr.inria.main.AbstractMain.determineSourceFolders(AbstractMain.java:842) - Source folders: [/tmp/jKali_QuixBugs_MINIMUM_SPANNING_TREE_/./src/main/java]
+[INFO ] fr.inria.main.AbstractMain.determineSourceFolders(AbstractMain.java:861) - Source Test folders: [/tmp/jKali_QuixBugs_MINIMUM_SPANNING_TREE_/./src/test/java]
+[INFO ] fr.inria.astor.core.faultlocalization.gzoltar.GZoltarFaultLocalization.calculateSuspicious(GZoltarFaultLocalization.java:75) - -Executing Gzoltar classpath: /tmp/jKali_QuixBugs_MINIMUM_SPANNING_TREE_/./output_astor/AstorMain-MINIMUM_SPANNING_TREE-//bin//default from 0 classes with test cases
+[INFO ] fr.inria.astor.core.faultlocalization.gzoltar.GZoltarFaultLocalization.searchSuspicious(GZoltarFaultLocalization.java:149) - Gzoltar fault localization: min susp value parameter: 0.1
+[INFO ] fr.inria.astor.core.faultlocalization.gzoltar.GZoltarFaultLocalization.searchSuspicious(GZoltarFaultLocalization.java:169) - -gz-Adding classpath: [/tmp/jKali_QuixBugs_MINIMUM_SPANNING_TREE_/./output_astor/AstorMain-MINIMUM_SPANNING_TREE-//bin//default, /home/tdurieux/.m2/repository/junit/junit/4.11/junit-4.11.jar, /home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar]
+[INFO ] fr.inria.astor.core.faultlocalization.gzoltar.GZoltarFaultLocalization.searchSuspicious(GZoltarFaultLocalization.java:218) - Gzoltar Test Result Total:0, fails: 0, GZoltar suspicious 0, with positive susp 0
+[INFO ] fr.inria.astor.core.faultlocalization.gzoltar.GZoltarFaultLocalization.searchSuspicious(GZoltarFaultLocalization.java:226) - nr test results 0
+[INFO ] fr.inria.astor.core.faultlocalization.gzoltar.GZoltarFaultLocalization.searchSuspicious(GZoltarFaultLocalization.java:271) - Gzoltar found: 0 with susp > 0.1, we consider: 0
+Exception in thread "main" java.lang.IllegalArgumentException: No suspicious gen for analyze
+	at fr.inria.astor.core.faultlocalization.gzoltar.GZoltarFaultLocalization.calculateSuspicious(GZoltarFaultLocalization.java:93)
+	at fr.inria.astor.core.faultlocalization.gzoltar.GZoltarFaultLocalization.searchSuspicious(GZoltarFaultLocalization.java:49)
+	at fr.inria.astor.core.solutionsearch.AstorCoreEngine.calculateSuspicious(AstorCoreEngine.java:898)
+	at fr.inria.main.evolution.AstorMain.createEngine(AstorMain.java:125)
+	at fr.inria.main.evolution.AstorMain.run(AstorMain.java:179)
+	at fr.inria.main.evolution.AstorMain.execute(AstorMain.java:236)
+	at fr.inria.main.evolution.AstorMain.main(AstorMain.java:210)
+Command exited with non-zero status 1
+2.64user 0.42system 0:02.05elapsed 150%CPU (0avgtext+0avgdata 178140maxresident)k
+24104inputs+5216outputs (3major+64726minor)pagefaults 0swaps
+
+
+Node: grisou-46.nancy.grid5000.fr
+
+
+
+Date: Sun Dec  2 08:27:16 EST 2018
+

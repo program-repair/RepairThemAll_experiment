@@ -1,0 +1,38 @@
+cd /tmp/NPEFix_QuixBugs_REVERSE_LINKED_LIST_;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4g -Xms1g -cp /home/tdurieux/defects4j4repair/script/../repair_tools/npefix.jar fr.inria.spirals.npefix.main.run.Main \
+    --test java_testcases.junit.REVERSE_LINKED_LIST_Test \
+    --iteration 100 \
+	--complianceLevel 8 \
+	--workingdirectory . \
+	--source src/main/java \
+	--classpath target/classes:target/test-classes:/home/tdurieux/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+TernarySplitter  in 3ms
+CheckNotNull  in 4ms
+ForceNullInit in 4ms
+AddImplicitCastChecker --> 0 in 2ms
+BeforeDeref --> 1 (failed:0) in 10ms
+target--> 1 (failed:0) in 10ms
+TryRegister # Try: 0 in 1ms
+Assign --> 27 (failed: 0) in 22ms
+VarInit --> 1 in 2ms
+MethodEncapsulation # Method: 9 in 36ms
+ConstructorEncapsulation # Constructor: 7 in 21ms
+VariableFor in 1ms
+RMI Selector (Host: 127.0.0.1, Port: 10000): KO
+5.04user 0.24system 0:01.72elapsed 307%CPU (0avgtext+0avgdata 338720maxresident)k
+20656inputs+152outputs (1major+87774minor)pagefaults 0swaps
+
+
+Node: grisou-20.nancy.grid5000.fr
+
+
+
+Date: Sun Dec  2 05:24:07 EST 2018
+

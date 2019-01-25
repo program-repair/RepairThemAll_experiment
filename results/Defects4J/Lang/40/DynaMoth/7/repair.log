@@ -1,0 +1,148 @@
+cd /tmp/DynaMoth_Defects4J_Lang_40;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 5 \
+	--source src/java/ \
+	--classpath "target/classes/:target/test-classes/:/tmp/DynaMoth_Defects4J_Lang_40/target/classes/:/tmp/DynaMoth_Defects4J_Lang_40/target/test-classes/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+09:58:40.874 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+09:58:40.878 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Defects4J_Lang_40/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_40/target/test-classes/, file:/tmp/DynaMoth_Defects4J_Lang_40/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_40/target/test-classes/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+09:58:40.878 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+09:58:40.878 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EnumUtilsTest, org.apache.commons.lang.EnumUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.concurrent.ConcurrentUtilsTest, org.apache.commons.lang.concurrent.ConcurrentUtilsTest, org.apache.commons.lang.concurrent.LazyInitializerTest, org.apache.commons.lang.concurrent.LazyInitializerTest, org.apache.commons.lang.exception.ContextedExceptionTest, org.apache.commons.lang.exception.ContextedExceptionTest, org.apache.commons.lang.exception.ContextedRuntimeExceptionTest, org.apache.commons.lang.exception.ContextedRuntimeExceptionTest, org.apache.commons.lang.exception.DefaultExceptionContextTest, org.apache.commons.lang.exception.DefaultExceptionContextTest, org.apache.commons.lang.exception.ExceptionUtilsTest, org.apache.commons.lang.exception.ExceptionUtilsTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.reflect.ConstructorUtilsTest, org.apache.commons.lang.reflect.ConstructorUtilsTest, org.apache.commons.lang.reflect.FieldUtilsTest, org.apache.commons.lang.reflect.FieldUtilsTest, org.apache.commons.lang.reflect.MethodUtilsTest, org.apache.commons.lang.reflect.MethodUtilsTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.translate.EntityArraysTest, org.apache.commons.lang.text.translate.EntityArraysTest, org.apache.commons.lang.text.translate.EscapeUtilsTest, org.apache.commons.lang.text.translate.EscapeUtilsTest, org.apache.commons.lang.text.translate.LookupTranslatorTest, org.apache.commons.lang.text.translate.LookupTranslatorTest, org.apache.commons.lang.text.translate.NumericEntityEscaperTest, org.apache.commons.lang.text.translate.NumericEntityEscaperTest, org.apache.commons.lang.text.translate.UnescapeUtilsTest, org.apache.commons.lang.text.translate.UnescapeUtilsTest, org.apache.commons.lang.text.translate.UnicodeEscaperTest, org.apache.commons.lang.text.translate.UnicodeEscaperTest, org.apache.commons.lang.text.translate.UnicodeUnescaperTest, org.apache.commons.lang.text.translate.UnicodeUnescaperTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsRoundingTest, org.apache.commons.lang.time.DateUtilsRoundingTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+09:58:40.880 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EnumUtilsTest, org.apache.commons.lang.EnumUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.concurrent.ConcurrentUtilsTest, org.apache.commons.lang.concurrent.ConcurrentUtilsTest, org.apache.commons.lang.concurrent.LazyInitializerTest, org.apache.commons.lang.concurrent.LazyInitializerTest, org.apache.commons.lang.exception.ContextedExceptionTest, org.apache.commons.lang.exception.ContextedExceptionTest, org.apache.commons.lang.exception.ContextedRuntimeExceptionTest, org.apache.commons.lang.exception.ContextedRuntimeExceptionTest, org.apache.commons.lang.exception.DefaultExceptionContextTest, org.apache.commons.lang.exception.DefaultExceptionContextTest, org.apache.commons.lang.exception.ExceptionUtilsTest, org.apache.commons.lang.exception.ExceptionUtilsTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.reflect.ConstructorUtilsTest, org.apache.commons.lang.reflect.ConstructorUtilsTest, org.apache.commons.lang.reflect.FieldUtilsTest, org.apache.commons.lang.reflect.FieldUtilsTest, org.apache.commons.lang.reflect.MethodUtilsTest, org.apache.commons.lang.reflect.MethodUtilsTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.translate.EntityArraysTest, org.apache.commons.lang.text.translate.EntityArraysTest, org.apache.commons.lang.text.translate.EscapeUtilsTest, org.apache.commons.lang.text.translate.EscapeUtilsTest, org.apache.commons.lang.text.translate.LookupTranslatorTest, org.apache.commons.lang.text.translate.LookupTranslatorTest, org.apache.commons.lang.text.translate.NumericEntityEscaperTest, org.apache.commons.lang.text.translate.NumericEntityEscaperTest, org.apache.commons.lang.text.translate.UnescapeUtilsTest, org.apache.commons.lang.text.translate.UnescapeUtilsTest, org.apache.commons.lang.text.translate.UnicodeEscaperTest, org.apache.commons.lang.text.translate.UnicodeEscaperTest, org.apache.commons.lang.text.translate.UnicodeUnescaperTest, org.apache.commons.lang.text.translate.UnicodeUnescaperTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsRoundingTest, org.apache.commons.lang.time.DateUtilsRoundingTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=5, outputFolder=., json=true}
+09:58:40.880 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+09:58:40.896 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 958 MB
+09:58:40.896 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+09:58:40.896 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 990 MB
+09:58:40.896 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+09:58:40.897 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+09:58:40.897 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+09:58:56.927 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+09:58:56.928 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringUtils:1048 which is executed by 2 tests
+148294401
+09:58:57.311 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+09:58:57.312 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringUtils:1045 which is executed by 2 tests
+148294401
+09:58:57.624 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: en: 0 ß SS
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertFalse(Assert.java:39)
+    at junit.framework.TestCase.assertFalse(TestCase.java:210)
+    at org.apache.commons.lang.StringUtilsEqualsIndexOfTest.testContainsIgnoreCase_LocaleIndependence(StringUtilsEqualsIndexOfTest.java:341)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+09:58:57.670 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (19 ms)
+<> Total tests run: 27
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testContainsIgnoreCase_LocaleIndependence(org.apache.commons.lang.StringUtilsEqualsIndexOfTest)
+[en: 0 ß SS]
+junit.framework.AssertionFailedError: en: 0 ß SS    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertFalse(Assert.java:39)
+    at junit.framework.TestCase.assertFalse(TestCase.java:210)
+    at org.apache.commons.lang.StringUtilsEqualsIndexOfTest.testContainsIgnoreCase_LocaleIndependence(StringUtilsEqualsIndexOfTest.java:341)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+09:58:58.796 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: en: 0 ß SS
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertFalse(Assert.java:39)
+    at junit.framework.TestCase.assertFalse(TestCase.java:210)
+    at org.apache.commons.lang.StringUtilsEqualsIndexOfTest.testContainsIgnoreCase_LocaleIndependence(StringUtilsEqualsIndexOfTest.java:341)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+09:58:58.817 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 27
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testContainsIgnoreCase_LocaleIndependence(org.apache.commons.lang.StringUtilsEqualsIndexOfTest)
+[en: 0 ß SS]
+junit.framework.AssertionFailedError: en: 0 ß SS    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertFalse(Assert.java:39)
+    at junit.framework.TestCase.assertFalse(TestCase.java:210)
+    at org.apache.commons.lang.StringUtilsEqualsIndexOfTest.testContainsIgnoreCase_LocaleIndependence(StringUtilsEqualsIndexOfTest.java:341)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+09:58:59.260 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+09:58:59.261 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringUtils:1018 which is executed by 3 tests
+148294401
+09:58:59.420 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+09:58:59.420 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringUtils:1015 which is executed by 4 tests
+148294401
+09:58:59.630 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: en: 0 ß SS
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertFalse(Assert.java:39)
+    at junit.framework.TestCase.assertFalse(TestCase.java:210)
+    at org.apache.commons.lang.StringUtilsEqualsIndexOfTest.testContainsIgnoreCase_LocaleIndependence(StringUtilsEqualsIndexOfTest.java:341)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+09:58:59.643 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 27
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testContainsIgnoreCase_LocaleIndependence(org.apache.commons.lang.StringUtilsEqualsIndexOfTest)
+[en: 0 ß SS]
+junit.framework.AssertionFailedError: en: 0 ß SS    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertFalse(Assert.java:39)
+    at junit.framework.TestCase.assertFalse(TestCase.java:210)
+    at org.apache.commons.lang.StringUtilsEqualsIndexOfTest.testContainsIgnoreCase_LocaleIndependence(StringUtilsEqualsIndexOfTest.java:341)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+09:59:00.027 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: en: 0 ß SS
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertFalse(Assert.java:39)
+    at junit.framework.TestCase.assertFalse(TestCase.java:210)
+    at org.apache.commons.lang.StringUtilsEqualsIndexOfTest.testContainsIgnoreCase_LocaleIndependence(StringUtilsEqualsIndexOfTest.java:341)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+09:59:00.041 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 27
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testContainsIgnoreCase_LocaleIndependence(org.apache.commons.lang.StringUtilsEqualsIndexOfTest)
+[en: 0 ß SS]
+junit.framework.AssertionFailedError: en: 0 ß SS    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertFalse(Assert.java:39)
+    at junit.framework.TestCase.assertFalse(TestCase.java:210)
+    at org.apache.commons.lang.StringUtilsEqualsIndexOfTest.testContainsIgnoreCase_LocaleIndependence(StringUtilsEqualsIndexOfTest.java:341)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+09:59:00.388 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+09:59:00.500 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 82
+09:59:00.500 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1756
+09:59:00.500 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 4
+09:59:00.501 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 0
+09:59:00.501 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 19517ms
+09:59:00.501 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+40.41user 1.44system 0:20.85elapsed 200%CPU (0avgtext+0avgdata 602064maxresident)k
+58624inputs+5256outputs (7major+283779minor)pagefaults 0swaps
+
+
+Node: graphene-41.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 09:59:00 EST 2018
+

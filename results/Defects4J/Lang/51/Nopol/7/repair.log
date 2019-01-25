@@ -1,0 +1,699 @@
+cd /tmp/Nopol_Defects4J_Lang_51;
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8;
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4048m -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis smt \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/Nopol_Defects4J_Lang_51/target/classes/:/tmp/Nopol_Defects4J_Lang_51/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+18:37:44.503 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+18:37:44.507 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/Nopol_Defects4J_Lang_51/target/classes/, file:/tmp/Nopol_Defects4J_Lang_51/target/tests/, file:/tmp/Nopol_Defects4J_Lang_51/target/classes/, file:/tmp/Nopol_Defects4J_Lang_51/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+18:37:44.507 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+18:37:44.508 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+18:37:44.510 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=SMT, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@66d33a', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=7, outputFolder=., json=true}
+18:37:44.510 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 24
+18:37:44.517 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 445 MB
+18:37:44.517 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+18:37:44.517 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 483 MB
+18:37:44.517 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+18:37:44.519 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+18:37:44.519 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+18:38:04.879 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+18:38:04.879 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.BooleanUtils:699 which is executed by 1 tests
+-883334774
+18:38:05.176 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+18:38:05.177 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.BooleanUtils:692 which is executed by 1 tests
+-883334774
+18:38:05.362 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:05.416 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (21 ms)
+<> Total tests run: 44
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.AssertionFailedError: expected:<true> but was:<false>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+18:38:06.315 [pool-5-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[expected:<true> but was:<false>]
+junit.framework.AssertionFailedError: expected:<true> but was:<false>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:266)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:06.318 [pool-6-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:266)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:38:06.319 [pool-3-thread-1] DEBUG tests.output - Failing tests with false: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): expected:<true> but was:<false>]
+18:38:06.319 [pool-3-thread-1] DEBUG tests.output - Failing tests with true: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): String index out of range: 3]
+18:38:06.319 [pool-3-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.BooleanUtils:692.
+18:38:06.320 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+18:38:06.320 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.BooleanUtils:691 which is executed by 1 tests
+-883334774
+18:38:06.413 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:06.430 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 44
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.AssertionFailedError: expected:<true> but was:<false>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+18:38:06.822 [pool-9-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[expected:<true> but was:<false>]
+junit.framework.AssertionFailedError: expected:<true> but was:<false>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:266)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:06.826 [pool-10-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:266)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:38:06.827 [pool-7-thread-1] DEBUG tests.output - Failing tests with false: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): expected:<true> but was:<false>]
+18:38:06.827 [pool-7-thread-1] DEBUG tests.output - Failing tests with true: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): String index out of range: 3]
+18:38:06.827 [pool-7-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.BooleanUtils:691.
+18:38:06.827 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:06.841 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 44
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.AssertionFailedError: expected:<true> but was:<false>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+18:38:07.114 [pool-13-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[expected:<true> but was:<false>]
+junit.framework.AssertionFailedError: expected:<true> but was:<false>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:266)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:07.117 [pool-14-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:266)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:38:07.118 [pool-11-thread-1] DEBUG tests.output - Failing tests with false: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): expected:<true> but was:<false>]
+18:38:07.118 [pool-11-thread-1] DEBUG tests.output - Failing tests with true: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): String index out of range: 3]
+18:38:07.118 [pool-11-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.BooleanUtils:691.
+18:38:07.118 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+18:38:07.119 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.BooleanUtils:686 which is executed by 1 tests
+-883334774
+18:38:07.220 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:07.235 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 44
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.AssertionFailedError: expected:<true> but was:<false>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+18:38:07.428 [pool-17-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[expected:<true> but was:<false>]
+junit.framework.AssertionFailedError: expected:<true> but was:<false>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:280)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:07.430 [pool-18-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:280)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:38:07.431 [pool-15-thread-1] DEBUG tests.output - Failing tests with false: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): expected:<true> but was:<false>]
+18:38:07.432 [pool-15-thread-1] DEBUG tests.output - Failing tests with true: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): String index out of range: 3]
+18:38:07.432 [pool-15-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.BooleanUtils:686.
+18:38:07.432 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+18:38:07.432 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.BooleanUtils:685 which is executed by 1 tests
+-883334774
+18:38:07.510 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:07.525 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 44
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.AssertionFailedError: expected:<true> but was:<false>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+18:38:07.723 [pool-21-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[expected:<true> but was:<false>]
+junit.framework.AssertionFailedError: expected:<true> but was:<false>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:281)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:07.726 [pool-22-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:281)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:38:07.727 [pool-19-thread-1] DEBUG tests.output - Failing tests with false: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): expected:<true> but was:<false>]
+18:38:07.727 [pool-19-thread-1] DEBUG tests.output - Failing tests with true: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): String index out of range: 3]
+18:38:07.727 [pool-19-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.BooleanUtils:685.
+18:38:07.727 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:07.741 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 44
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.AssertionFailedError: expected:<true> but was:<false>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+18:38:07.914 [pool-25-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[expected:<true> but was:<false>]
+junit.framework.AssertionFailedError: expected:<true> but was:<false>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:281)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:07.916 [pool-26-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:281)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:38:07.917 [pool-23-thread-1] DEBUG tests.output - Failing tests with false: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): expected:<true> but was:<false>]
+18:38:07.917 [pool-23-thread-1] DEBUG tests.output - Failing tests with true: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): String index out of range: 3]
+18:38:07.917 [pool-23-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.BooleanUtils:685.
+18:38:07.918 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+18:38:07.918 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.BooleanUtils:684 which is executed by 1 tests
+-883334774
+18:38:08.000 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+18:38:08.001 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.BooleanUtils:678 which is executed by 1 tests
+-883334774
+18:38:08.078 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:08.091 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 44
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.AssertionFailedError: expected:<true> but was:<false>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+18:38:08.259 [pool-29-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[expected:<true> but was:<false>]
+junit.framework.AssertionFailedError: expected:<true> but was:<false>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:281)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:08.261 [pool-30-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:281)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:38:08.261 [pool-27-thread-1] DEBUG tests.output - Failing tests with false: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): expected:<true> but was:<false>]
+18:38:08.262 [pool-27-thread-1] DEBUG tests.output - Failing tests with true: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): String index out of range: 3]
+18:38:08.262 [pool-27-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.BooleanUtils:678.
+18:38:08.262 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+18:38:08.262 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.BooleanUtils:677 which is executed by 1 tests
+-883334774
+18:38:08.358 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:08.370 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 44
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.AssertionFailedError: expected:<true> but was:<false>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+18:38:08.544 [pool-33-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[expected:<true> but was:<false>]
+junit.framework.AssertionFailedError: expected:<true> but was:<false>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:281)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:08.551 [pool-34-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:281)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:38:08.551 [pool-31-thread-1] DEBUG tests.output - Failing tests with false: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): expected:<true> but was:<false>]
+18:38:08.552 [pool-31-thread-1] DEBUG tests.output - Failing tests with true: 
+[test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest): String index out of range: 3]
+18:38:08.552 [pool-31-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.BooleanUtils:677.
+18:38:08.552 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:38:08.565 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 44
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[String index out of range: 3]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 3    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.BooleanUtils.toBoolean(BooleanUtils.java:686)
+    at org.apache.commons.lang.BooleanUtilsTest.test_toBoolean_String(BooleanUtilsTest.java:334)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.AssertionFailedError: expected:<true> but was:<false>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+18:38:08.730 [pool-37-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[expected:<true> but was:<false>]
+junit.framework.AssertionFailedError: expected:<true> but was:<false>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+
+18:38:08.732 [pool-38-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+junit.framework.AssertionFailedError: expected:<true> but was:<false>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+18:38:08.734 [pool-39-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_toBoolean_String(org.apache.commons.lang.BooleanUtilsTest)
+[expected:<true> but was:<false>]
+junit.framework.AssertionFailedError: expected:<true> but was:<false>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:174)
+    at junit.framework.Assert.assertEquals(Assert.java:181)
+    at junit.framework.TestCase.assertEquals(TestCase.java:341)
+
+18:38:08.735 [pool-40-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+18:38:08.970 [pool-35-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+18:38:09.091 [pool-35-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Successful code synthesis: str!=null
+18:38:09.092 [pool-35-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Applying patch: org.apache.commons.lang.BooleanUtils:677: CONDITIONAL str!=null
+18:38:09.220 [pool-35-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Running test suite to check the patch "str!=null" is working
+18:38:09.226 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 77
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1734
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 9
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 1
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb inputs in SMT : 3
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT level: 1
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT components: [0] []
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb variables in SMT : 13
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 24725ms
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+18:38:09.316 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----PATCH FOUND----
+18:38:09.317 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - str!=null
+18:38:09.333 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb test that executes the patch: 1
+18:38:09.333 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - org.apache.commons.lang.BooleanUtils:677: CONDITIONAL
+18:38:09.360 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - --- a/src/java/org/apache/commons/lang/BooleanUtils.java
++++ b/src/java/org/apache/commons/lang/BooleanUtils.java
+@@ -676,6 +676,6 @@
+                 }
+-                if (ch == 'Y') {
+-                    return 
+-                        (str.charAt(1) == 'E' || str.charAt(1) == 'e') &&
+-                        (str.charAt(2) == 'S' || str.charAt(2) == 's');
++                if (str!=null) {
++                    return
++                    (str.charAt(1) == 'E' || str.charAt(1) == 'e') &&
++                    (str.charAt(2) == 'S' || str.charAt(2) == 's');
+                 }
+
+PATCH
+72.28user 2.44system 0:26.22elapsed 284%CPU (0avgtext+0avgdata 690468maxresident)k
+73552inputs+5480outputs (28major+340406minor)pagefaults 0swaps
+
+
+Node: petitprince-2.luxembourg.grid5000.fr
+
+
+
+Date: Wed Nov 28 18:38:09 EST 2018
+

@@ -1,0 +1,52 @@
+cd /tmp/NPEFix_Bears_aicis-fresco_370467437-370477490;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4g -Xms1g -cp /home/tdurieux/defects4j4repair/script/../repair_tools/npefix.jar fr.inria.spirals.npefix.main.run.Main \
+    --test dk.alexandra.fresco.framework.network.async.TestAsyncNetwork \
+    --iteration 100 \
+	--complianceLevel 8 \
+	--workingdirectory . \
+	--source core/src/main/java \
+	--classpath core/target/classes:core/target/test-classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/tools/ot/target/classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/tools/mascot/target/classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/suite/spdz/target/classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/suite/spdz2k/target/classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/suite/tinytables/target/classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/demos/common/target/classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/demos/psi/target/classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/demos/aes/target/classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/demos/distance/target/classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/demos/sum/target/classes:/tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/demos/aggregation/target/classes:/home/tdurieux/.m2/repository/com/esotericsoftware/jsonbeans/0.7/jsonbeans-0.7.jar:/home/tdurieux/.m2/repository/scapi/scapi/dfc8b2da384d87310c8f755b301bc085b1557671/scapi-dfc8b2da384d87310c8f755b301bc085b1557671.jar:/home/tdurieux/.m2/repository/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar:/home/tdurieux/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar:/home/tdurieux/.m2/repository/dk/alexandra/fresco/ot/1.0.1-SNAPSHOT/ot-1.0.1-SNAPSHOT.jar:/home/tdurieux/.m2/repository/dk/alexandra/fresco/core/1.0.1-SNAPSHOT/core-1.0.1-SNAPSHOT-tests.jar:/home/tdurieux/.m2/repository/com/esotericsoftware/minlog/minlog/1.2/minlog-1.2.jar:/home/tdurieux/.m2/repository/dk/alexandra/fresco/demos-common/1.0.1-SNAPSHOT/demos-common-1.0.1-SNAPSHOT.jar:/home/tdurieux/.m2/repository/com/esotericsoftware/kryo/kryo/2.24.0/kryo-2.24.0.jar:/home/tdurieux/.m2/repository/dk/alexandra/fresco/mascot/1.0.1-SNAPSHOT/mascot-1.0.1-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/apache/commons/commons-exec/1.2/commons-exec-1.2.jar:/home/tdurieux/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.53/bcprov-jdk15on-1.53.jar:/home/tdurieux/.m2/repository/dk/alexandra/fresco/spdz/1.0.1-SNAPSHOT/spdz-1.0.1-SNAPSHOT.jar:/home/tdurieux/.m2/repository/com/esotericsoftware/kryonet/2.22.0-RC1/kryonet-2.22.0-RC1.jar:/home/tdurieux/.m2/repository/org/objenesis/objenesis/2.1/objenesis-2.1.jar:/home/tdurieux/.m2/repository/dk/alexandra/fresco/spdz/1.0.1-SNAPSHOT/spdz-1.0.1-SNAPSHOT-tests.jar:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar:/home/tdurieux/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/tdurieux/.m2/repository/commons-cli/commons-cli/1.3/commons-cli-1.3.jar:/home/tdurieux/.m2/repository/org/apache/commons/commons-math3/3.5/commons-math3-3.5.jar:/home/tdurieux/.m2/repository/dk/alexandra/fresco/tinytables/1.0.1-SNAPSHOT/tinytables-1.0.1-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/tdurieux/.m2/repository/dk/alexandra/fresco/core/1.0.1-SNAPSHOT/core-1.0.1-SNAPSHOT.jar;
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+TernarySplitter  in 137ms
+CheckNotNull  in 183ms
+ForceNullInit in 75ms
+AddImplicitCastChecker --> 4 in 359ms
+BeforeDeref --> 1854 (failed:0) in 636ms
+target--> 2154 (failed:0) in 2144ms
+TryRegister # Try: 23 in 94ms
+Assign --> 1167 (failed: 0) in 860ms
+VarInit --> 310 in 178ms
+MethodEncapsulation # Method: 1019 in 711ms
+ConstructorEncapsulation # Constructor: 258 in 337ms
+VariableFor in 144ms
+spoon.compiler.ModelBuildingException: Illegal class literal for the type parameter BuilderT at /tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/BuildStepLooping.java:131
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.report(JDTBasedSpoonCompiler.java:581)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.reportProblems(JDTBasedSpoonCompiler.java:562)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.compile(JDTBasedSpoonCompiler.java:157)
+	at fr.inria.spirals.npefix.main.all.Launcher.instrument(Launcher.java:109)
+	at fr.inria.spirals.npefix.main.run.Main.run(Main.java:61)
+	at fr.inria.spirals.npefix.main.run.Main.main(Main.java:48)
+Exception in thread "main" spoon.compiler.ModelBuildingException: Illegal class literal for the type parameter BuilderT at /tmp/NPEFix_Bears_aicis-fresco_370467437-370477490/BuildStepLooping.java:131
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.report(JDTBasedSpoonCompiler.java:581)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.reportProblems(JDTBasedSpoonCompiler.java:562)
+	at spoon.support.compiler.jdt.JDTBasedSpoonCompiler.compile(JDTBasedSpoonCompiler.java:157)
+	at fr.inria.spirals.npefix.main.all.Launcher.instrument(Launcher.java:109)
+	at fr.inria.spirals.npefix.main.run.Main.run(Main.java:61)
+	at fr.inria.spirals.npefix.main.run.Main.main(Main.java:48)
+Command exited with non-zero status 1
+134.26user 1.23system 1:22.37elapsed 164%CPU (0avgtext+0avgdata 1715660maxresident)k
+22408inputs+8704outputs (8major+446169minor)pagefaults 0swaps
+
+
+Node: graphene-104.nancy.grid5000.fr
+
+
+
+Date: Thu Dec 27 02:29:21 EST 2018
+

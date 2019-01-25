@@ -1,0 +1,99 @@
+cd /tmp/Kali_Defects4J_Math_59;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/home/tdurieux/openjdk-1.7.0/bin/:$PATH";
+export JAVA_HOME="/home/tdurieux/openjdk-1.7.0/bin/";
+timeout 120m java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../libs/jmetal.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/arja.jar us.msu.cse.repair.Main \
+	Kali \
+	-DexternalProjRoot /home/tdurieux/defects4j4repair/script/../libs/arja_external \
+	-DsrcJavaDir /tmp/Kali_Defects4J_Math_59/src/main/java/ \
+	-DbinJavaDir /tmp/Kali_Defects4J_Math_59/target/classes/ \
+	-DbinTestDir /tmp/Kali_Defects4J_Math_59/target/test-classes/ \
+	-DstopFirst true \
+	-DdiffFormat true \
+	-Ddependences /tmp/Kali_Defects4J_Math_59/target/classes/:/tmp/Kali_Defects4J_Math_59/target/test-classes/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar;
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+Fault localization starts...
+Number of positive tests: 2234
+Number of negative tests: 1
+Fault localization is finished!
+AST parsing starts...
+AST parsing is finished!
+Detection of local variables starts...
+Detection of local variables is finished!
+Detection of fields starts...
+Detection of fields is finished!
+Detection of methods starts...
+Detection of methods is finished!
+Ingredient screener starts...
+Ingredient screener is finished!
+Initialization of manipulations starts...
+Initialization of manipulations is finished!
+Filtering of the tests starts...
+Number of positive tests considered: 67
+Filtering of the tests is finished!
+Exception in thread "main" java.lang.NoClassDefFoundError: org/eclipse/jdt/internal/formatter/align/Alignment
+	at org.eclipse.jdt.internal.formatter.Scribe.createAlignment(Scribe.java:717)
+	at org.eclipse.jdt.internal.formatter.Scribe.createAlignment(Scribe.java:709)
+	at org.eclipse.jdt.internal.formatter.CodeFormatterVisitor.visit(CodeFormatterVisitor.java:3180)
+	at org.eclipse.jdt.internal.compiler.ast.Assignment.traverse(Assignment.java:258)
+	at org.eclipse.jdt.internal.formatter.CodeFormatterVisitor.formatStatements(CodeFormatterVisitor.java:2108)
+	at org.eclipse.jdt.internal.formatter.CodeFormatterVisitor.formatBlock(CodeFormatterVisitor.java:1349)
+	at org.eclipse.jdt.internal.formatter.CodeFormatterVisitor.visit(CodeFormatterVisitor.java:3250)
+	at org.eclipse.jdt.internal.compiler.ast.Block.traverse(Block.java:138)
+	at org.eclipse.jdt.internal.formatter.CodeFormatterVisitor.formatStatements(CodeFormatterVisitor.java:2108)
+	at org.eclipse.jdt.internal.formatter.CodeFormatterVisitor.format(CodeFormatterVisitor.java:943)
+	at org.eclipse.jdt.internal.formatter.DefaultCodeFormatter.internalFormatStatements(DefaultCodeFormatter.java:397)
+	at org.eclipse.jdt.internal.formatter.DefaultCodeFormatter.formatStatements(DefaultCodeFormatter.java:264)
+	at org.eclipse.jdt.internal.formatter.DefaultCodeFormatter.format(DefaultCodeFormatter.java:170)
+	at org.eclipse.jdt.internal.formatter.DefaultCodeFormatter.format(DefaultCodeFormatter.java:149)
+	at org.eclipse.jdt.internal.core.dom.rewrite.ASTRewriteFormatter.formatString(ASTRewriteFormatter.java:246)
+	at org.eclipse.jdt.internal.core.dom.rewrite.ASTRewriteFormatter.formatNode(ASTRewriteFormatter.java:376)
+	at org.eclipse.jdt.internal.core.dom.rewrite.ASTRewriteFormatter.getFormattedResult(ASTRewriteFormatter.java:187)
+	at org.eclipse.jdt.internal.core.dom.rewrite.ASTRewriteAnalyzer.doTextInsert(ASTRewriteAnalyzer.java:1339)
+	at org.eclipse.jdt.internal.core.dom.rewrite.ASTRewriteAnalyzer$ListRewriter.rewriteList(ASTRewriteAnalyzer.java:754)
+	at org.eclipse.jdt.internal.core.dom.rewrite.ASTRewriteAnalyzer$ListRewriter.rewriteList(ASTRewriteAnalyzer.java:784)
+	at org.eclipse.jdt.internal.core.dom.rewrite.ASTRewriteAnalyzer.visit(ASTRewriteAnalyzer.java:3526)
+	at org.eclipse.jdt.core.dom.SwitchStatement.accept0(SwitchStatement.java:174)
+	at org.eclipse.jdt.core.dom.ASTNode.accept(ASTNode.java:2711)
+	at org.eclipse.jdt.core.dom.rewrite.ASTRewrite.internalRewriteAST(ASTRewrite.java:297)
+	at org.eclipse.jdt.core.dom.rewrite.ASTRewrite.rewriteAST(ASTRewrite.java:228)
+	at us.msu.cse.repair.core.AbstractRepairProblem.getModifiedJavaSources(AbstractRepairProblem.java:539)
+	at us.msu.cse.repair.algorithms.kali.Kali.runTests(Kali.java:155)
+	at us.msu.cse.repair.algorithms.kali.Kali.insertReturn(Kali.java:108)
+	at us.msu.cse.repair.algorithms.kali.Kali.insertReturn(Kali.java:89)
+	at us.msu.cse.repair.algorithms.kali.Kali.execute(Kali.java:52)
+	at us.msu.cse.repair.algorithms.kali.KaliAlgInterface.execute(KaliAlgInterface.java:24)
+	at us.msu.cse.repair.core.AbstractRepairAlgorithm.execute(AbstractRepairAlgorithm.java:18)
+	at us.msu.cse.repair.KaliMain.main(KaliMain.java:16)
+	at us.msu.cse.repair.Main.main(Main.java:14)
+Caused by: java.lang.ClassNotFoundException: org.eclipse.jdt.internal.formatter.align.Alignment
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:363)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:354)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:425)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
+	... 34 more
+Caused by: java.util.zip.ZipException: error reading zip file
+	at java.util.zip.ZipFile.read(Native Method)
+	at java.util.zip.ZipFile.access$1400(ZipFile.java:56)
+	at java.util.zip.ZipFile$ZipFileInputStream.read(ZipFile.java:679)
+	at java.util.zip.ZipFile$ZipFileInflaterInputStream.fill(ZipFile.java:415)
+	at java.util.zip.InflaterInputStream.read(InflaterInputStream.java:158)
+	at sun.misc.Resource.getBytes(Resource.java:124)
+	at java.net.URLClassLoader.defineClass(URLClassLoader.java:444)
+	at java.net.URLClassLoader.access$100(URLClassLoader.java:71)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	... 40 more
+
+
+Node: grisou-36.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 17:26:48 EST 2018
+

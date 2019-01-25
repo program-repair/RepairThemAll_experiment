@@ -1,0 +1,668 @@
+cd /tmp/DynaMoth_Defects4J_Lang_49;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/DynaMoth_Defects4J_Lang_49/target/classes/:/tmp/DynaMoth_Defects4J_Lang_49/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+09:57:10.249 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+09:57:10.269 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Defects4J_Lang_49/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_49/target/tests/, file:/tmp/DynaMoth_Defects4J_Lang_49/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_49/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+09:57:10.269 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+09:57:10.269 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.MultiFormatTest, org.apache.commons.lang.text.MultiFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+09:57:10.271 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.MultiFormatTest, org.apache.commons.lang.text.MultiFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=7, outputFolder=., json=true}
+09:57:10.272 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+09:57:10.296 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 953 MB
+09:57:10.296 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+09:57:10.296 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 990 MB
+09:57:10.296 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+09:57:10.297 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+09:57:10.297 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+09:57:32.251 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+09:57:32.251 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:470 which is executed by 1 tests
+-1589107165
+09:57:32.578 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+09:57:32.578 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:468 which is executed by 1 tests
+-1589107165
+09:57:32.891 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:57:33.046 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (124 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:57:33.833 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+09:57:33.833 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:467 which is executed by 1 tests
+-1589107165
+09:57:33.932 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:57:34.055 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (116 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:57:34.286 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:57:34.414 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (117 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:57:34.617 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+09:57:34.617 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:466 which is executed by 1 tests
+-1589107165
+09:57:34.709 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+09:57:34.709 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:151 which is executed by 5 tests
+-1589107165
+09:57:34.849 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:57:34.960 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (104 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:57:35.147 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+09:57:35.147 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:150 which is executed by 5 tests
+-1589107165
+09:57:35.236 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:57:35.338 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (97 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:57:35.521 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+09:57:35.521 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:146 which is executed by 5 tests
+-1589107165
+09:57:35.610 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:57:35.704 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (88 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:57:35.880 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:57:35.976 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (92 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:57:36.162 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+09:57:36.162 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:610 which is executed by 9 tests
+-1589107165
+09:57:36.257 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+09:57:36.257 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:609 which is executed by 9 tests
+-1589107165
+09:57:36.346 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+09:57:36.347 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:606 which is executed by 9 tests
+-1589107165
+09:57:36.436 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:57:36.537 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (86 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:58:04.648 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+09:58:04.649 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:603 which is executed by 9 tests
+-1589107165
+09:58:04.754 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:58:04.846 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (87 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:58:29.431 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+09:58:29.431 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:601 which is executed by 9 tests
+-1589107165
+09:58:29.531 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:58:29.631 [pool-40-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (95 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:58:54.074 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+09:58:54.074 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:600 which is executed by 9 tests
+-1589107165
+09:58:54.174 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:58:54.258 [pool-44-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (80 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:59:20.488 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:59:20.574 [pool-48-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (81 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:12.815 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+10:00:12.815 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:596 which is executed by 9 tests
+-1589107165
+10:00:12.915 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:12.999 [pool-52-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (80 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:13.170 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+10:00:13.170 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:590 which is executed by 9 tests
+-1589107165
+10:00:13.255 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+10:00:13.256 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:585 which is executed by 9 tests
+-1589107165
+10:00:13.341 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:13.438 [pool-56-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (88 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:13.592 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:13.676 [pool-60-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (80 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:13.852 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+10:00:13.852 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:582 which is executed by 9 tests
+-1589107165
+10:00:13.947 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:14.048 [pool-64-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (91 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:00:17.262 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+10:00:17.263 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:581 which is executed by 9 tests
+-1589107165
+10:00:17.348 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+10:00:17.348 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:579 which is executed by 9 tests
+-1589107165
+10:00:17.433 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:00:17.528 [pool-68-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (83 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:03:37.671 [pool-67-thread-1] DEBUG xxl.java.junit.TestSuiteExecution - Timeout after 200 seconds. Infinite loop?
+10:03:37.672 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.util.concurrent.TimeoutException
+10:03:37.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+10:03:37.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:578 which is executed by 9 tests
+-1589107165
+10:03:37.759 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:03:37.868 [pool-71-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (88 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:06:58.008 [pool-70-thread-1] DEBUG xxl.java.junit.TestSuiteExecution - Timeout after 200 seconds. Infinite loop?
+10:06:58.008 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.util.concurrent.TimeoutException
+10:06:58.008 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #21
+10:06:58.008 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:572 which is executed by 10 tests
+-1589107165
+10:06:58.145 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:06:58.261 [pool-74-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (100 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:10:18.437 [pool-73-thread-1] DEBUG xxl.java.junit.TestSuiteExecution - Timeout after 200 seconds. Infinite loop?
+10:10:18.437 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.util.concurrent.TimeoutException
+10:10:18.437 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #22
+10:10:18.437 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:571 which is executed by 10 tests
+-1589107165
+10:10:18.582 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:10:18.729 [pool-77-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (112 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:13:39.009 [pool-76-thread-1] DEBUG xxl.java.junit.TestSuiteExecution - Timeout after 200 seconds. Infinite loop?
+10:13:39.009 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.util.concurrent.TimeoutException
+10:13:39.013 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:13:39.128 [pool-80-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (84 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:16:59.423 [pool-79-thread-1] DEBUG xxl.java.junit.TestSuiteExecution - Timeout after 200 seconds. Infinite loop?
+10:16:59.423 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.util.concurrent.TimeoutException
+10:16:59.423 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #23
+10:16:59.424 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:153 which is executed by 16 tests
+-1589107165
+10:16:59.588 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #24
+10:16:59.588 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:145 which is executed by 16 tests
+-1589107165
+10:16:59.757 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:16:59.927 [pool-83-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (131 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:17:00.300 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:17:00.437 [pool-87-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (101 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:17:00.719 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #25
+10:17:00.720 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:142 which is executed by 16 tests
+-1589107165
+10:17:00.838 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:17:01.012 [pool-91-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (133 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:17:01.397 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<1> but was:<100>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:17:01.657 [pool-95-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (236 ms)
+<> Total tests run: 25
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testReduce(org.apache.commons.lang.math.FractionTest)
+[expected:<1> but was:<100>]
+junit.framework.AssertionFailedError: expected:<1> but was:<100>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:17:02.069 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #26
+10:17:02.069 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:377 which is executed by 22 tests
+-1589107165
+10:17:02.225 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #27
+10:17:02.226 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.math.Fraction:368 which is executed by 22 tests
+-1589107165
+10:17:02.424 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+10:17:02.648 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 87
+10:17:02.648 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1788
+10:17:02.648 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 25
+10:17:02.649 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 0
+10:17:02.649 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 1192178ms
+10:17:02.649 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+3246.71user 4.37system 19:53.89elapsed 272%CPU (0avgtext+0avgdata 4225560maxresident)k
+56800inputs+6584outputs (8major+1257558minor)pagefaults 0swaps
+
+
+Node: graphene-58.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 10:17:03 EST 2018
+

@@ -1,0 +1,1502 @@
+cd /tmp/DynaMoth_Defects4J_Lang_56;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/DynaMoth_Defects4J_Lang_56/target/classes/:/tmp/DynaMoth_Defects4J_Lang_56/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+09:52:31.249 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+09:52:31.252 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Defects4J_Lang_56/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_56/target/tests/, file:/tmp/DynaMoth_Defects4J_Lang_56/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_56/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+09:52:31.252 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+09:52:31.253 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+09:52:31.255 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=7, outputFolder=., json=true}
+09:52:31.255 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+09:52:31.269 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 958 MB
+09:52:31.269 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+09:52:31.269 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 990 MB
+09:52:31.270 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+09:52:31.271 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+09:52:31.271 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+09:52:53.142 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+09:52:53.143 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:288 which is executed by 1 tests
+-723213736
+09:52:53.432 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+09:52:53.432 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:286 which is executed by 1 tests
+-723213736
+09:52:53.533 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:53.592 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (31 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:54.527 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+09:52:54.528 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:284 which is executed by 1 tests
+-723213736
+09:52:54.615 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:54.626 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:54.821 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+09:52:54.821 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:283 which is executed by 1 tests
+-723213736
+09:52:54.913 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+09:52:54.913 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:282 which is executed by 1 tests
+-723213736
+09:52:54.994 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:55.003 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:55.178 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+09:52:55.178 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:279 which is executed by 1 tests
+-723213736
+09:52:55.258 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:55.267 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:55.425 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+09:52:55.425 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:276 which is executed by 1 tests
+-723213736
+09:52:55.534 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:55.556 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:55.705 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:55.713 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:55.870 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+09:52:55.870 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:275 which is executed by 1 tests
+-723213736
+09:52:55.949 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+09:52:55.949 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:274 which is executed by 1 tests
+-723213736
+09:52:56.028 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:56.036 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:56.185 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+09:52:56.185 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:273 which is executed by 1 tests
+-723213736
+09:52:56.263 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+09:52:56.263 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:272 which is executed by 1 tests
+-723213736
+09:52:56.340 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:56.349 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:56.500 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+09:52:56.500 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:271 which is executed by 1 tests
+-723213736
+09:52:56.625 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:56.633 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:56.769 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:56.777 [pool-40-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:56.913 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+09:52:56.913 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:270 which is executed by 1 tests
+-723213736
+09:52:56.989 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:56.997 [pool-44-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:57.137 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:52:57.144 [pool-48-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:52:57.270 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+09:52:57.270 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:269 which is executed by 1 tests
+-723213736
+09:52:57.347 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+09:52:57.347 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableRuntimeException:194 which is executed by 2 tests
+-1574081718
+09:52:57.423 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+09:52:57.423 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableRuntimeException:193 which is executed by 2 tests
+-1574081718
+09:52:57.510 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:57.536 [pool-52-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (24 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:57.681 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+09:52:57.681 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:115 which is executed by 21 tests
+940369602
+09:52:57.754 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:57.768 [pool-56-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (12 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:57.903 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+09:52:57.903 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableRuntimeException:201 which is executed by 4 tests
+-1574081718
+09:52:57.978 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+09:52:57.978 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableRuntimeException:200 which is executed by 4 tests
+-1574081718
+09:52:58.052 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:58.069 [pool-60-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (12 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:58.187 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+09:52:58.187 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:119 which is executed by 27 tests
+940369602
+09:52:58.257 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #21
+09:52:58.257 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:114 which is executed by 22 tests
+940369602
+09:52:58.327 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:58.340 [pool-64-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (11 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:58.448 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:58.461 [pool-68-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:58.566 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #22
+09:52:58.566 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:113 which is executed by 5 tests
+940369602
+09:52:58.647 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:58.661 [pool-72-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (12 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:58.767 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #23
+09:52:58.767 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:111 which is executed by 5 tests
+940369602
+09:52:58.839 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:58.852 [pool-76-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:58.962 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #24
+09:52:58.962 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableRuntimeException:116 which is executed by 5 tests
+-1574081718
+09:52:59.034 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:59.052 [pool-80-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (11 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:59.148 [pool-79-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+NestableRuntimeException.java:49: error: missing return statement
+    }
+    ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+09:52:59.149 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #25
+09:52:59.149 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableRuntimeException:115 which is executed by 5 tests
+-1574081718
+09:52:59.220 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:59.234 [pool-82-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (11 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:59.328 [pool-81-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+NestableRuntimeException.java:47: error: missing return statement
+    }
+    ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+09:52:59.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:59.347 [pool-84-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:59.452 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #26
+09:52:59.452 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:167 which is executed by 8 tests
+-1899260190
+09:52:59.560 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #27
+09:52:59.560 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableRuntimeException:113 which is executed by 9 tests
+-1574081718
+09:52:59.656 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:59.668 [pool-88-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:52:59.776 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #28
+09:52:59.776 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableDelegate:319 which is executed by 10 tests
+1686824824
+09:52:59.855 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:52:59.867 [pool-92-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:00.041 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #29
+09:53:00.041 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableDelegate:315 which is executed by 10 tests
+1686824824
+09:53:00.120 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:00.133 [pool-96-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (11 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:00.269 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #30
+09:53:00.269 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableDelegate:314 which is executed by 10 tests
+1686824824
+09:53:00.348 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:00.360 [pool-100-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:00.490 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:00.503 [pool-104-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (11 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:00.665 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #31
+09:53:00.665 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableDelegate:313 which is executed by 10 tests
+1686824824
+09:53:00.746 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:00.762 [pool-108-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:00.901 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:00.923 [pool-112-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:01.049 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #32
+09:53:01.050 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableDelegate:311 which is executed by 10 tests
+1686824824
+09:53:01.126 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #33
+09:53:01.127 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:223 which is executed by 11 tests
+-723213736
+09:53:01.201 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #34
+09:53:01.201 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:192 which is executed by 11 tests
+-723213736
+09:53:01.275 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #35
+09:53:01.275 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:991 which is executed by 12 tests
+-1899260190
+09:53:01.378 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:01.396 [pool-116-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:02.250 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #36
+09:53:02.250 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:984 which is executed by 12 tests
+-1899260190
+09:53:02.373 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:02.387 [pool-120-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (11 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:03.068 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:03.079 [pool-124-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:03.759 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #37
+09:53:03.759 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:983 which is executed by 12 tests
+-1899260190
+09:53:03.861 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #38
+09:53:03.861 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:980 which is executed by 12 tests
+-1899260190
+09:53:03.960 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:03.973 [pool-128-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:04.638 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:04.649 [pool-132-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:05.282 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #39
+09:53:05.282 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.ExceptionUtils:431 which is executed by 12 tests
+-1056180797
+09:53:05.372 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #40
+09:53:05.372 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.exception.NestableRuntimeException:102 which is executed by 16 tests
+-1574081718
+09:53:05.442 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #41
+09:53:05.442 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:1008 which is executed by 18 tests
+-1899260190
+09:53:05.550 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #42
+09:53:05.551 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:1007 which is executed by 18 tests
+-1899260190
+09:53:05.651 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:05.664 [pool-136-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:06.284 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #43
+09:53:06.284 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:1006 which is executed by 18 tests
+-1899260190
+09:53:06.405 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:06.417 [pool-140-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:07.038 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #44
+09:53:07.038 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:1005 which is executed by 18 tests
+-1899260190
+09:53:07.137 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:07.154 [pool-144-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:07.772 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #45
+09:53:07.772 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:1004 which is executed by 18 tests
+-1899260190
+09:53:07.873 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:07.885 [pool-148-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:08.484 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #46
+09:53:08.485 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:1003 which is executed by 18 tests
+-1899260190
+09:53:08.583 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:08.595 [pool-152-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:09.214 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #47
+09:53:09.214 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:1002 which is executed by 18 tests
+-1899260190
+09:53:09.315 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #48
+09:53:09.315 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:220 which is executed by 18 tests
+-1899260190
+09:53:09.410 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #49
+09:53:09.411 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:215 which is executed by 18 tests
+-1899260190
+09:53:09.506 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:09.517 [pool-156-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:10.153 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#test_getInstance_String_Locale
+09:53:10.154 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.DateFormatUtilsTest#testDateTimeISO
+09:53:10.159 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.DateFormatUtilsTest#testFormatUTC
+09:53:10.160 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.DateFormatUtilsTest#testFormat
+09:53:10.163 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#test_getInstance
+09:53:10.163 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#test_getInstance_String
+09:53:10.164 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.DateFormatUtilsTest#testDateISO
+09:53:10.165 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.DateFormatUtilsTest#testTimeNoTISO
+09:53:10.166 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#test_getInstance_String_TimeZone
+09:53:10.166 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.DateFormatUtilsTest#testSMTP
+09:53:10.167 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#testMilleniumBug
+09:53:10.168 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.DurationFormatUtilsTest#testFormatPeriodISO
+09:53:10.169 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#testSimpleDate
+09:53:10.170 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#test_getInstance_String_TimeZone_Locale
+09:53:10.171 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#testShortDateStyleWithLocales
+09:53:10.172 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#testLowYearPadding
+09:53:10.172 [pool-155-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.DateFormatUtilsTest#testTimeISO
+09:53:10.204 [pool-155-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Applying patch: org.apache.commons.lang.time.FastDateFormat:215: PRECONDITION false
+09:53:10.835 [pool-155-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Running test suite to check the patch "false" is working
+09:53:10.858 [pool-155-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Failing tests [testSimpleDate(org.apache.commons.lang.time.FastDateFormatTest): null, testShortDateStyleWithLocales(org.apache.commons.lang.time.FastDateFormatTest): null, testMilleniumBug(org.apache.commons.lang.time.FastDateFormatTest): null, test_getInstance(org.apache.commons.lang.time.FastDateFormatTest): null, testLowYearPadding(org.apache.commons.lang.time.FastDateFormatTest): null, test_getInstance_String_TimeZone_Locale(org.apache.commons.lang.time.FastDateFormatTest): null, test_getInstance_String(org.apache.commons.lang.time.FastDateFormatTest): null, test_getInstance_String_TimeZone(org.apache.commons.lang.time.FastDateFormatTest): null, test_getInstance_String_Locale(org.apache.commons.lang.time.FastDateFormatTest): null, testFormatPeriodISO(org.apache.commons.lang.time.DurationFormatUtilsTest): null, testFormatUTC(org.apache.commons.lang.time.DateFormatUtilsTest): null, testTimeISO(org.apache.commons.lang.time.DateFormatUtilsTest): null, testSMTP(org.apache.commons.lang.time.DateFormatUtilsTest): null, testDateTimeISO(org.apache.commons.lang.time.DateFormatUtilsTest): null, testTimeNoTISO(org.apache.commons.lang.time.DateFormatUtilsTest): null, testDateISO(org.apache.commons.lang.time.DateFormatUtilsTest): null, testFormat(org.apache.commons.lang.time.DateFormatUtilsTest): null]
+09:53:10.858 [pool-155-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Could not find a valid patch in SourceLocation org.apache.commons.lang.time.FastDateFormat:215
+09:53:10.858 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:10.870 [pool-213-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:11.533 [pool-212-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#testMilleniumBug
+09:53:11.534 [pool-212-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.DurationFormatUtilsTest#testFormatPeriodISO
+09:53:11.535 [pool-212-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#testSimpleDate
+09:53:11.538 [pool-212-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#test_getInstance_String_TimeZone_Locale
+09:53:11.539 [pool-212-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#testShortDateStyleWithLocales
+09:53:11.539 [pool-212-thread-1] DEBUG f.i.l.r.n.s.d.DynamothSynthesizer - Ignore the test org.apache.commons.lang.time.FastDateFormatTest#testLowYearPadding
+java -cp /tmp/DynaMoth_Defects4J_Lang_56/target/classes:/tmp/DynaMoth_Defects4J_Lang_56/target/tests:/tmp/DynaMoth_Defects4J_Lang_56/target/classes:/tmp/DynaMoth_Defects4J_Lang_56/target/tests:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/home/tdurieux/defects4j4repair/repair_tools/nopol.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar: fr.inria.lille.repair.MethodTestRunner org.apache.commons.lang.time.DateFormatUtilsTest#testDateISO org.apache.commons.lang.time.DateFormatUtilsTest#testTimeNoTISO org.apache.commons.lang.time.FastDateFormatTest#testLang303 org.apache.commons.lang.time.FastDateFormatTest#test_getInstance_String_TimeZone org.apache.commons.lang.time.DateFormatUtilsTest#testSMTP org.apache.commons.lang.time.FastDateFormatTest#test_getInstance_String_Locale org.apache.commons.lang.time.DateFormatUtilsTest#testDateTimeISO org.apache.commons.lang.time.DateFormatUtilsTest#testFormatUTC org.apache.commons.lang.time.DateFormatUtilsTest#testFormat org.apache.commons.lang.time.FastDateFormatTest#test_getInstance org.apache.commons.lang.time.FastDateFormatTest#test_getInstance_String org.apache.commons.lang.time.DateFormatUtilsTest#testTimeISO 
+09:53:11.885 [pool-212-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - ClassPrepareEvent
+09:53:11.925 [pool-212-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] org.apache.commons.lang.time.FastDateFormat
+09:53:11.951 [pool-212-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] java.lang.String
+09:53:11.960 [pool-212-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] java.util.TimeZone
+09:53:11.985 [pool-212-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] java.util.Locale
+09:53:12.001 [pool-212-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] java.util.Map
+09:53:12.255 [pool-212-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - BreakpointEvent
+09:53:12.259 [pool-212-thread-1] INFO  f.i.l.r.s.DynamothCodeGenesisImpl - [test] org.apache.commons.lang.time.DateFormatUtilsTest#testDateISO iteration 0
+09:53:12.263 [pool-212-thread-1] DEBUG f.i.l.r.s.c.SpoonElementsCollector - [data] format=null
+09:53:12.265 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - Collect Level 1
+09:53:12.266 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] pattern
+09:53:12.266 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] timeZone
+09:53:12.267 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] locale
+09:53:12.268 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat
+09:53:12.268 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] format
+09:53:12.294 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] pattern.length()
+09:53:12.298 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.FULL
+09:53:12.298 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.LONG
+09:53:12.298 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.MEDIUM
+09:53:12.299 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.SHORT
+09:53:12.354 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getDateInstance((int) 0)
+09:53:12.356 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getDateInstance((int) 1)
+09:53:12.358 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getTimeInstance((int) 0)
+09:53:12.360 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getTimeInstance((int) 1)
+09:53:12.367 [pool-246-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.format(java.lang.Object) ["yyyy-MM-dd'T'HH:mm:ss"]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.369 [pool-247-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.format(java.lang.Object) [instance of org.apache.commons.lang.time.FastDateFormat(id=417)]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.372 [pool-248-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.parseObject(java.lang.String) ["yyyy-MM-dd'T'HH:mm:ss"]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.373 [pool-212-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - BreakpointEvent
+09:53:12.374 [pool-212-thread-1] INFO  f.i.l.r.s.DynamothCodeGenesisImpl - [test] org.apache.commons.lang.time.DateFormatUtilsTest#testDateISO iteration 1
+09:53:12.374 [pool-212-thread-1] DEBUG f.i.l.r.s.c.SpoonElementsCollector - [data] format=null
+09:53:12.375 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - Collect Level 1
+09:53:12.375 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] pattern
+09:53:12.375 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] timeZone
+09:53:12.376 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] locale
+09:53:12.376 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat
+09:53:12.376 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] format
+09:53:12.385 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] pattern.length()
+09:53:12.386 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.FULL
+09:53:12.386 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.LONG
+09:53:12.386 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.MEDIUM
+09:53:12.386 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.SHORT
+09:53:12.398 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getDateInstance((int) 0)
+09:53:12.402 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getDateInstance((int) 1)
+09:53:12.404 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getTimeInstance((int) 0)
+09:53:12.407 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getTimeInstance((int) 1)
+09:53:12.410 [pool-254-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.format(java.lang.Object) ["yyyy-MM-dd'T'HH:mm:ssZZ"]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.414 [pool-255-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.format(java.lang.Object) [instance of org.apache.commons.lang.time.FastDateFormat(id=584)]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.417 [pool-256-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.parseObject(java.lang.String) ["yyyy-MM-dd'T'HH:mm:ssZZ"]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.418 [pool-212-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - BreakpointEvent
+09:53:12.424 [pool-212-thread-1] INFO  f.i.l.r.s.DynamothCodeGenesisImpl - [test] org.apache.commons.lang.time.DateFormatUtilsTest#testDateISO iteration 2
+09:53:12.424 [pool-212-thread-1] DEBUG f.i.l.r.s.c.SpoonElementsCollector - [data] format=null
+09:53:12.424 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - Collect Level 1
+09:53:12.425 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] pattern
+09:53:12.425 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] timeZone
+09:53:12.425 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] locale
+09:53:12.426 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat
+09:53:12.426 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] format
+09:53:12.435 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] pattern.length()
+09:53:12.437 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.FULL
+09:53:12.437 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.LONG
+09:53:12.437 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.MEDIUM
+09:53:12.437 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.SHORT
+09:53:12.450 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getDateInstance((int) 0)
+09:53:12.451 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getDateInstance((int) 1)
+09:53:12.454 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getTimeInstance((int) 0)
+09:53:12.456 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getTimeInstance((int) 1)
+09:53:12.459 [pool-262-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.format(java.lang.Object) ["yyyy-MM-dd"]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.461 [pool-263-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.format(java.lang.Object) [instance of org.apache.commons.lang.time.FastDateFormat(id=592)]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.464 [pool-264-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.parseObject(java.lang.String) ["yyyy-MM-dd"]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.465 [pool-212-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - BreakpointEvent
+09:53:12.465 [pool-212-thread-1] INFO  f.i.l.r.s.DynamothCodeGenesisImpl - [test] org.apache.commons.lang.time.DateFormatUtilsTest#testDateISO iteration 3
+09:53:12.466 [pool-212-thread-1] DEBUG f.i.l.r.s.c.SpoonElementsCollector - [data] format=null
+09:53:12.466 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - Collect Level 1
+09:53:12.466 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] pattern
+09:53:12.466 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] timeZone
+09:53:12.467 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] locale
+09:53:12.467 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat
+09:53:12.467 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] format
+09:53:12.476 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] pattern.length()
+09:53:12.479 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.FULL
+09:53:12.479 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.LONG
+09:53:12.479 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.MEDIUM
+09:53:12.479 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.SHORT
+09:53:12.489 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getDateInstance((int) 0)
+09:53:12.490 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getDateInstance((int) 1)
+09:53:12.491 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getTimeInstance((int) 0)
+09:53:12.492 [pool-212-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] emptyFormat.getTimeInstance((int) 1)
+09:53:12.495 [pool-270-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.format(java.lang.Object) ["yyyy-MM-ddZZ"]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.498 [pool-271-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.format(java.lang.Object) [instance of org.apache.commons.lang.time.FastDateFormat(id=598)]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.500 [pool-272-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method java.text.Format.parseObject(java.lang.String) ["yyyy-MM-ddZZ"]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:434) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:53:12.501 [pool-212-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - BreakpointEvent
+09:53:12.502 [pool-212-thread-1] INFO  f.i.l.r.s.DynamothCodeGenesisImpl - [test] org.apache.commons.lang.time.DateFormatUtilsTest#testDateISO iteration 4
+java.lang.ArrayIndexOutOfBoundsException: 4
+	at fr.inria.lille.repair.synthesis.DynamothCodeGenesisImpl.processBreakPointEvents(DynamothCodeGenesisImpl.java:283)
+	at fr.inria.lille.repair.synthesis.DynamothCodeGenesisImpl.processVMEvents(DynamothCodeGenesisImpl.java:178)
+	at fr.inria.lille.repair.synthesis.DynamothCodeGenesisImpl.run(DynamothCodeGenesisImpl.java:147)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:142)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+========= Info ==========
+Nb constants             14
+Nb method invocations    1
+Nb field access          0
+Nb variables             3
+Total                    18
+Nb evaluated expressions 1
+Init Execution time      712 ms
+Collect Execution time   250 ms
+Combine Execution time   3.0 ms
+Nb Combination par sec   333 combinations/sec
+Total Execution time     965 ms
+Nb line execution        5
+Nb results               1
+
+Results:
+1. format == null
+
+
+========================
+         Stat
+========================
+Operators: 
+EQ 1
+Methods: 
+getInstance(java.lang.String,java.util.TimeZone,java.util.Locale) 4
+init() 1
+put(K,V) 1
+getDefaultPattern() 1
+get(java.lang.Object) 1
+Variable: 
+format 6
+org.apache.commons.lang.time.FastDateFormat.cInstanceCache 4
+pattern 4
+timeZone 2
+emptyFormat 2
+locale 2
+
+ & 14 & 1 & 0 & 3 & 18 & 1 & 967 ms & 5 &
+09:53:12.507 [pool-212-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Applying patch: org.apache.commons.lang.time.FastDateFormat:215: CONDITIONAL format == null
+09:53:13.545 [pool-212-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Running test suite to check the patch "format == null" is working
+09:53:13.577 [pool-212-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Failing tests [testLang303(org.apache.commons.lang.time.FastDateFormatTest): java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+09:53:13.577 [pool-212-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Could not find a valid patch in SourceLocation org.apache.commons.lang.time.FastDateFormat:215
+09:53:13.577 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #50
+09:53:13.578 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:214 which is executed by 18 tests
+-1899260190
+09:53:13.677 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #51
+09:53:13.678 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.time.FastDateFormat:213 which is executed by 18 tests
+-1899260190
+09:53:13.775 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #52
+09:53:13.775 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:133 which is executed by 18 tests
+940369602
+09:53:13.843 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:13.854 [pool-292-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:13.946 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #53
+09:53:13.946 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:132 which is executed by 18 tests
+940369602
+09:53:14.013 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #54
+09:53:14.013 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:108 which is executed by 21 tests
+940369602
+09:53:14.080 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:14.091 [pool-296-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:14.193 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #55
+09:53:14.193 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:107 which is executed by 22 tests
+940369602
+09:53:14.275 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:14.286 [pool-300-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:14.376 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #56
+09:53:14.376 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:104 which is executed by 22 tests
+940369602
+09:53:14.443 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #57
+09:53:14.443 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.SerializationUtils:101 which is executed by 24 tests
+940369602
+09:53:14.510 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:14.521 [pool-304-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:14.612 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+09:53:14.623 [pool-308-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang303(org.apache.commons.lang.time.FastDateFormatTest)
+[java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField]
+org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:111)
+    at org.apache.commons.lang.SerializationUtils.serialize(SerializationUtils.java:133)
+    at org.apache.commons.lang.time.FastDateFormatTest.testLang303(FastDateFormatTest.java:288)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+09:53:14.720 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+09:53:14.791 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 77
+09:53:14.791 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1700
+09:53:14.791 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 46
+09:53:14.791 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 2
+09:53:14.791 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 43474ms
+09:53:14.791 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+92.31user 3.75system 0:45.23elapsed 212%CPU (0avgtext+0avgdata 666372maxresident)k
+60520inputs+5704outputs (11major+371660minor)pagefaults 0swaps
+
+
+Node: graphene-70.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 09:53:15 EST 2018
+

@@ -1,0 +1,1217 @@
+cd /tmp/DynaMoth_Defects4J_Lang_62;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 3 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/DynaMoth_Defects4J_Lang_62/target/classes/:/tmp/DynaMoth_Defects4J_Lang_62/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+10:00:42.191 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+10:00:42.194 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Defects4J_Lang_62/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_62/target/tests/, file:/tmp/DynaMoth_Defects4J_Lang_62/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_62/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+10:00:42.194 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+10:00:42.195 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+10:00:42.197 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=3, outputFolder=., json=true}
+10:00:42.197 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+10:00:42.209 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 958 MB
+10:00:42.209 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+10:00:42.209 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 990 MB
+10:00:42.209 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+10:00:42.210 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+10:00:42.210 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+10:01:03.521 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+10:01:03.522 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:288 which is executed by 1 tests
+-723213736
+10:01:03.806 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+10:01:03.806 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:286 which is executed by 1 tests
+-723213736
+10:01:03.901 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:03.959 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (33 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:04.913 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+10:01:04.913 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:284 which is executed by 1 tests
+-723213736
+10:01:04.995 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:05.033 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:05.210 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+10:01:05.211 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:283 which is executed by 1 tests
+-723213736
+10:01:05.291 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+10:01:05.291 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:282 which is executed by 1 tests
+-723213736
+10:01:05.372 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:05.381 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:05.549 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+10:01:05.549 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:279 which is executed by 1 tests
+-723213736
+10:01:05.629 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:05.637 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:05.790 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+10:01:05.790 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:276 which is executed by 1 tests
+-723213736
+10:01:05.869 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:05.924 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:06.070 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:06.078 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:06.219 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+10:01:06.219 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:275 which is executed by 1 tests
+-723213736
+10:01:06.296 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+10:01:06.296 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:274 which is executed by 1 tests
+-723213736
+10:01:06.373 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:06.383 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:06.521 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+10:01:06.522 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:273 which is executed by 1 tests
+-723213736
+10:01:06.597 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+10:01:06.597 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:272 which is executed by 1 tests
+-723213736
+10:01:06.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:06.682 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:06.814 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+10:01:06.815 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:271 which is executed by 1 tests
+-723213736
+10:01:06.897 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:06.905 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:07.116 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:07.123 [pool-40-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:07.246 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+10:01:07.246 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:270 which is executed by 1 tests
+-723213736
+10:01:07.322 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:07.330 [pool-44-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:07.449 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+10:01:07.456 [pool-48-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+10:01:07.572 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+10:01:07.572 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:269 which is executed by 1 tests
+-723213736
+10:01:07.647 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+10:01:07.647 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:853 which is executed by 3 tests
+-2037470238
+10:01:07.744 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+10:01:07.745 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:852 which is executed by 3 tests
+-2037470238
+10:01:07.836 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+10:01:07.836 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:848 which is executed by 3 tests
+-2037470238
+10:01:07.926 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:07.938 [pool-52-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:08.218 [pool-51-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Entities.java:361: error: variable entityValue might not have been initialized
+                if (entityValue == (-1)) {
+                    ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:01:08.220 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+10:01:08.220 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:845 which is executed by 3 tests
+-2037470238
+10:01:08.310 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:08.319 [pool-54-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:08.528 [pool-53-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Entities.java:359: error: variable entityValue might not have been initialized
+                if (entityValue == (-1)) {
+                    ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:01:08.529 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:08.538 [pool-56-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:08.764 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+10:01:08.764 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:843 which is executed by 3 tests
+-2037470238
+10:01:08.851 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+10:01:08.852 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:840 which is executed by 3 tests
+-2037470238
+10:01:08.939 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:08.952 [pool-60-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:09.159 [pool-59-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Entities.java:359: error: variable entityValue might not have been initialized
+                if (entityValue == (-1)) {
+                    ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:01:09.160 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:09.172 [pool-62-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:09.373 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #21
+10:01:09.373 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:192 which is executed by 4 tests
+-723213736
+10:01:09.446 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #22
+10:01:09.446 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:862 which is executed by 5 tests
+-2037470238
+10:01:09.533 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:09.550 [pool-66-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:09.752 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #23
+10:01:09.752 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:869 which is executed by 6 tests
+-2037470238
+10:01:09.838 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #24
+10:01:09.838 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:865 which is executed by 6 tests
+-2037470238
+10:01:09.924 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #25
+10:01:09.924 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:864 which is executed by 6 tests
+-2037470238
+10:01:10.011 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:10.020 [pool-70-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:10.229 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #26
+10:01:10.229 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:857 which is executed by 6 tests
+-2037470238
+10:01:10.313 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:10.325 [pool-74-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:10.510 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:10.520 [pool-78-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:10.703 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #27
+10:01:10.703 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:839 which is executed by 6 tests
+-2037470238
+10:01:10.788 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:10.797 [pool-82-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:10.961 [pool-81-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Entities.java:359: error: variable entityValue might not have been initialized
+                if (entityValue == (-1)) {
+                    ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:01:10.962 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:10.973 [pool-84-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:11.183 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #28
+10:01:11.183 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:837 which is executed by 6 tests
+-2037470238
+10:01:11.267 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:11.276 [pool-88-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:11.445 [pool-87-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Entities.java:359: error: variable entityValue might not have been initialized
+                if (entityValue == (-1)) {
+                    ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+10:01:11.445 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:11.468 [pool-90-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:11.663 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #29
+10:01:11.663 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:835 which is executed by 6 tests
+-2037470238
+10:01:11.747 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #30
+10:01:11.747 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:830 which is executed by 6 tests
+-2037470238
+10:01:11.830 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:11.840 [pool-94-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:12.027 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:12.035 [pool-98-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:12.248 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #31
+10:01:12.249 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:829 which is executed by 6 tests
+-2037470238
+10:01:12.332 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #32
+10:01:12.332 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:825 which is executed by 6 tests
+-2037470238
+10:01:12.415 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:12.424 [pool-102-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:12.617 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:12.625 [pool-106-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:12.819 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #33
+10:01:12.820 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:824 which is executed by 6 tests
+-2037470238
+10:01:12.902 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #34
+10:01:12.902 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:823 which is executed by 6 tests
+-2037470238
+10:01:12.986 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:12.995 [pool-110-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:13.193 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:13.202 [pool-114-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:13.381 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #35
+10:01:13.381 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:822 which is executed by 6 tests
+-2037470238
+10:01:13.463 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #36
+10:01:13.464 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:821 which is executed by 6 tests
+-2037470238
+10:01:13.545 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:13.554 [pool-118-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:13.739 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #37
+10:01:13.739 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:820 which is executed by 6 tests
+-2037470238
+10:01:13.820 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:13.829 [pool-122-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:14.044 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #38
+10:01:14.044 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:819 which is executed by 6 tests
+-2037470238
+10:01:14.126 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #39
+10:01:14.126 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:815 which is executed by 8 tests
+-2037470238
+10:01:14.207 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:14.220 [pool-126-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:14.421 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:14.433 [pool-130-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:14.634 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #40
+10:01:14.635 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:814 which is executed by 8 tests
+-2037470238
+10:01:14.715 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #41
+10:01:14.715 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities$PrimitiveEntityMap:429 which is executed by 16 tests
+-2037470238
+10:01:14.886 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #42
+10:01:14.886 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities$PrimitiveEntityMap:428 which is executed by 16 tests
+-2037470238
+10:01:14.965 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:14.975 [pool-134-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:15.164 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #43
+10:01:15.164 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities$PrimitiveEntityMap:427 which is executed by 16 tests
+-2037470238
+10:01:15.243 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:15.251 [pool-138-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:15.420 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #44
+10:01:15.420 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:714 which is executed by 20 tests
+-2037470238
+10:01:15.501 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #45
+10:01:15.501 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.Entities:713 which is executed by 20 tests
+-2037470238
+10:01:15.580 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:15.588 [pool-142-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:15.770 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #46
+10:01:15.770 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.IntHashMap:319 which is executed by 23 tests
+-47379808
+10:01:15.840 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #47
+10:01:15.840 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.IntHashMap:318 which is executed by 23 tests
+-47379808
+10:01:15.908 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:15.926 [pool-146-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:16.029 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #48
+10:01:16.029 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.IntHashMap:317 which is executed by 23 tests
+-47379808
+10:01:16.098 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:16.111 [pool-150-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:16.214 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #49
+10:01:16.214 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.IntHashMap:316 which is executed by 23 tests
+-47379808
+10:01:16.283 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #50
+10:01:16.283 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.IntHashMap:307 which is executed by 23 tests
+-47379808
+10:01:16.352 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:16.361 [pool-154-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:16.458 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:16.466 [pool-158-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:16.581 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #51
+10:01:16.581 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.IntHashMap:299 which is executed by 23 tests
+-47379808
+10:01:16.649 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:01:16.658 [pool-162-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testNumberOverflow(org.apache.commons.lang.EntitiesTest)
+[expected:<[&#12345678;]> but was:<[慎]>]
+junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:01:16.759 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #52
+10:01:16.759 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.IntHashMap:298 which is executed by 23 tests
+-47379808
+10:01:16.851 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #53
+10:01:16.851 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.IntHashMap:297 which is executed by 23 tests
+-47379808
+10:01:16.919 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #54
+10:01:16.919 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.IntHashMap:296 which is executed by 23 tests
+-47379808
+10:01:16.992 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+10:01:17.057 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 77
+10:01:17.057 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1698
+10:01:17.057 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 43
+10:01:17.058 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 0
+10:01:17.058 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 34804ms
+10:01:17.058 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+71.09user 3.07system 0:36.30elapsed 204%CPU (0avgtext+0avgdata 668716maxresident)k
+56504inputs+5480outputs (8major+359188minor)pagefaults 0swaps
+
+
+Node: graphene-31.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 10:01:17 EST 2018
+

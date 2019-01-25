@@ -1,0 +1,300 @@
+cd /tmp/Nopol_Bug_dot_jar_Commons-Math_b01fcc31;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4g -Xms1g -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis smt \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source src/main/java \
+	--classpath "target/classes:target/test-classes:/home/tdurieux/.m2/repository/junit/junit/4.4/junit-4.4.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+09:03:09.142 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/main/java]
+09:03:09.174 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/Nopol_Bug_dot_jar_Commons-Math_b01fcc31/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Commons-Math_b01fcc31/target/test-classes/, file:/home/tdurieux/.m2/repository/junit/junit/4.4/junit-4.4.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+09:03:09.174 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+09:03:09.174 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.math.ArgumentOutsideDomainExceptionTest, org.apache.commons.math.ConvergenceExceptionTest, org.apache.commons.math.DuplicateSampleAbscissaExceptionTest, org.apache.commons.math.FunctionEvaluationExceptionTest, org.apache.commons.math.MathConfigurationExceptionTest, org.apache.commons.math.MathExceptionTest, org.apache.commons.math.MaxIterationsExceededExceptionTest, org.apache.commons.math.analysis.integration.LegendreGaussIntegratorTest, org.apache.commons.math.analysis.integration.RombergIntegratorTest, org.apache.commons.math.analysis.integration.SimpsonIntegratorTest, org.apache.commons.math.analysis.integration.TrapezoidIntegratorTest, org.apache.commons.math.analysis.interpolation.DividedDifferenceInterpolatorTest, org.apache.commons.math.analysis.interpolation.LoessInterpolatorTest, org.apache.commons.math.analysis.interpolation.NevilleInterpolatorTest, org.apache.commons.math.analysis.interpolation.SplineInterpolatorTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionLagrangeFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionNewtonFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialSplineFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialsUtilsTest, org.apache.commons.math.analysis.solvers.BisectionSolverTest, org.apache.commons.math.analysis.solvers.BrentSolverTest, org.apache.commons.math.analysis.solvers.LaguerreSolverTest, org.apache.commons.math.analysis.solvers.MullerSolverTest, org.apache.commons.math.analysis.solvers.NewtonSolverTest, org.apache.commons.math.analysis.solvers.RiddersSolverTest, org.apache.commons.math.analysis.solvers.UnivariateRealSolverFactoryImplTest, org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtilsTest, org.apache.commons.math.complex.ComplexFieldTest, org.apache.commons.math.complex.ComplexFormatTest, org.apache.commons.math.complex.ComplexTest, org.apache.commons.math.complex.ComplexUtilsTest, org.apache.commons.math.complex.FrenchComplexFormatTest, org.apache.commons.math.distribution.BetaDistributionTest, org.apache.commons.math.distribution.BinomialDistributionTest, org.apache.commons.math.distribution.CauchyDistributionTest, org.apache.commons.math.distribution.ChiSquareDistributionTest, org.apache.commons.math.distribution.ExponentialDistributionTest, org.apache.commons.math.distribution.FDistributionTest, org.apache.commons.math.distribution.GammaDistributionTest, org.apache.commons.math.distribution.HypergeometricDistributionTest, org.apache.commons.math.distribution.NormalDistributionTest, org.apache.commons.math.distribution.PascalDistributionTest, org.apache.commons.math.distribution.PoissonDistributionTest, org.apache.commons.math.distribution.TDistributionTest, org.apache.commons.math.distribution.WeibullDistributionTest, org.apache.commons.math.distribution.ZipfDistributionTest, org.apache.commons.math.estimation.EstimatedParameterTest, org.apache.commons.math.estimation.GaussNewtonEstimatorTest, org.apache.commons.math.estimation.LevenbergMarquardtEstimatorTest, org.apache.commons.math.estimation.MinpackTest, org.apache.commons.math.estimation.WeightedMeasurementTest, org.apache.commons.math.fraction.BigFractionFieldTest, org.apache.commons.math.fraction.BigFractionFormatTest, org.apache.commons.math.fraction.BigFractionTest, org.apache.commons.math.fraction.FractionFieldTest, org.apache.commons.math.fraction.FractionFormatTest, org.apache.commons.math.fraction.FractionTest, org.apache.commons.math.genetics.BinaryChromosomeTest, org.apache.commons.math.genetics.BinaryMutationTest, org.apache.commons.math.genetics.ChromosomeTest, org.apache.commons.math.genetics.ElitisticListPopulationTest, org.apache.commons.math.genetics.FitnessCachingTest, org.apache.commons.math.genetics.FixedGenerationCountTest, org.apache.commons.math.genetics.GeneticAlgorithmTestBinary, org.apache.commons.math.genetics.GeneticAlgorithmTestPermutations, org.apache.commons.math.genetics.ListPopulationTest, org.apache.commons.math.genetics.OnePointCrossoverTest, org.apache.commons.math.genetics.RandomKeyMutationTest, org.apache.commons.math.genetics.RandomKeyTest, org.apache.commons.math.genetics.TournamentSelectionTest, org.apache.commons.math.geometry.FrenchVector3DFormatTest, org.apache.commons.math.geometry.RotationOrderTest, org.apache.commons.math.geometry.RotationTest, org.apache.commons.math.geometry.Vector3DFormatTest, org.apache.commons.math.geometry.Vector3DTest, org.apache.commons.math.linear.Array2DRowRealMatrixTest, org.apache.commons.math.linear.ArrayFieldVectorTest, org.apache.commons.math.linear.ArrayRealVectorTest, org.apache.commons.math.linear.BiDiagonalTransformerTest, org.apache.commons.math.linear.BigMatrixImplTest, org.apache.commons.math.linear.BlockFieldMatrixTest, org.apache.commons.math.linear.BlockRealMatrixTest, org.apache.commons.math.linear.CholeskyDecompositionImplTest, org.apache.commons.math.linear.CholeskySolverTest, org.apache.commons.math.linear.EigenDecompositionImplTest, org.apache.commons.math.linear.EigenSolverTest, org.apache.commons.math.linear.FieldLUDecompositionImplTest, org.apache.commons.math.linear.FieldMatrixImplTest, org.apache.commons.math.linear.FrenchRealVectorFormatTest, org.apache.commons.math.linear.InvalidMatrixExceptionTest, org.apache.commons.math.linear.LUDecompositionImplTest, org.apache.commons.math.linear.LUSolverTest, org.apache.commons.math.linear.MatrixIndexExceptionTest, org.apache.commons.math.linear.MatrixUtilsTest, org.apache.commons.math.linear.QRDecompositionImplTest, org.apache.commons.math.linear.QRSolverTest, org.apache.commons.math.linear.RealMatrixImplTest, org.apache.commons.math.linear.RealVectorFormatTest, org.apache.commons.math.linear.SingularValueDecompositionImplTest, org.apache.commons.math.linear.SingularValueSolverTest, org.apache.commons.math.linear.SparseFieldMatrixTest, org.apache.commons.math.linear.SparseFieldVectorTest, org.apache.commons.math.linear.SparseRealMatrixTest, org.apache.commons.math.linear.SparseRealVectorTest, org.apache.commons.math.linear.TriDiagonalTransformerTest, org.apache.commons.math.ode.ContinuousOutputModelTest, org.apache.commons.math.ode.FirstOrderConverterTest, org.apache.commons.math.ode.nonstiff.AdamsBashforthIntegratorTest, org.apache.commons.math.ode.nonstiff.AdamsMoultonIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.EulerIntegratorTest, org.apache.commons.math.ode.nonstiff.EulerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GillIntegratorTest, org.apache.commons.math.ode.nonstiff.GillStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.HighamHall54IntegratorTest, org.apache.commons.math.ode.nonstiff.HighamHall54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.MidpointIntegratorTest, org.apache.commons.math.ode.nonstiff.MidpointStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesIntegratorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesStepInterpolatorTest, org.apache.commons.math.ode.sampling.DummyStepInterpolatorTest, org.apache.commons.math.ode.sampling.NordsieckStepInterpolatorTest, org.apache.commons.math.ode.sampling.StepNormalizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateRealOptimizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateVectorialOptimizerTest, org.apache.commons.math.optimization.MultiStartMultivariateRealOptimizerTest, org.apache.commons.math.optimization.MultiStartUnivariateRealOptimizerTest, org.apache.commons.math.optimization.direct.MultiDirectionalTest, org.apache.commons.math.optimization.direct.NelderMeadTest, org.apache.commons.math.optimization.fitting.HarmonicFitterTest, org.apache.commons.math.optimization.fitting.PolynomialFitterTest, org.apache.commons.math.optimization.general.GaussNewtonOptimizerTest, org.apache.commons.math.optimization.general.LevenbergMarquardtOptimizerTest, org.apache.commons.math.optimization.general.MinpackTest, org.apache.commons.math.optimization.general.NonLinearConjugateGradientOptimizerTest, org.apache.commons.math.optimization.linear.SimplexSolverTest, org.apache.commons.math.optimization.linear.SimplexTableauTest, org.apache.commons.math.optimization.univariate.BrentMinimizerTest, org.apache.commons.math.random.AbstractRandomGeneratorTest, org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.EmpiricalDistributionTest, org.apache.commons.math.random.GaussianRandomGeneratorTest, org.apache.commons.math.random.MersenneTwisterTest, org.apache.commons.math.random.RandomAdaptorTest, org.apache.commons.math.random.RandomDataTest, org.apache.commons.math.random.UncorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.UniformRandomGeneratorTest, org.apache.commons.math.random.ValueServerTest, org.apache.commons.math.special.BetaTest, org.apache.commons.math.special.ErfTest, org.apache.commons.math.special.GammaTest, org.apache.commons.math.stat.CertifiedDataTest, org.apache.commons.math.stat.FrequencyTest, org.apache.commons.math.stat.StatUtilsTest, org.apache.commons.math.stat.clustering.EuclideanIntegerPointTest, org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest, org.apache.commons.math.stat.correlation.CovarianceTest, org.apache.commons.math.stat.correlation.PearsonsCorrelationTest, org.apache.commons.math.stat.correlation.SpearmansRankCorrelationTest, org.apache.commons.math.stat.data.LewTest, org.apache.commons.math.stat.data.LotteryTest, org.apache.commons.math.stat.descriptive.AbstractUnivariateStatisticTest, org.apache.commons.math.stat.descriptive.AggregateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.InteractionTest, org.apache.commons.math.stat.descriptive.ListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MixedListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.StatisticalSummaryValuesTest, org.apache.commons.math.stat.descriptive.SummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedDescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedMultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.moment.FirstMomentTest, org.apache.commons.math.stat.descriptive.moment.FourthMomentTest, org.apache.commons.math.stat.descriptive.moment.GeometricMeanTest, org.apache.commons.math.stat.descriptive.moment.KurtosisTest, org.apache.commons.math.stat.descriptive.moment.MeanTest, org.apache.commons.math.stat.descriptive.moment.SecondMomentTest, org.apache.commons.math.stat.descriptive.moment.SkewnessTest, org.apache.commons.math.stat.descriptive.moment.StandardDeviationTest, org.apache.commons.math.stat.descriptive.moment.ThirdMomentTest, org.apache.commons.math.stat.descriptive.moment.VarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialCovarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialMeanTest, org.apache.commons.math.stat.descriptive.rank.MaxTest, org.apache.commons.math.stat.descriptive.rank.MedianTest, org.apache.commons.math.stat.descriptive.rank.MinTest, org.apache.commons.math.stat.descriptive.rank.PercentileTest, org.apache.commons.math.stat.descriptive.summary.ProductTest, org.apache.commons.math.stat.descriptive.summary.SumLogTest, org.apache.commons.math.stat.descriptive.summary.SumSqTest, org.apache.commons.math.stat.descriptive.summary.SumTest, org.apache.commons.math.stat.inference.ChiSquareFactoryTest, org.apache.commons.math.stat.inference.ChiSquareTestTest, org.apache.commons.math.stat.inference.OneWayAnovaTest, org.apache.commons.math.stat.inference.TTestFactoryTest, org.apache.commons.math.stat.inference.TTestTest, org.apache.commons.math.stat.inference.TestUtilsTest, org.apache.commons.math.stat.ranking.NaturalRankingTest, org.apache.commons.math.stat.regression.GLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.OLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.SimpleRegressionTest, org.apache.commons.math.transform.FastCosineTransformerTest, org.apache.commons.math.transform.FastFourierTransformerTest, org.apache.commons.math.transform.FastHadamardTransformerTest, org.apache.commons.math.transform.FastSineTransformerTest, org.apache.commons.math.util.BigRealFieldTest, org.apache.commons.math.util.BigRealTest, org.apache.commons.math.util.ContinuedFractionTest, org.apache.commons.math.util.DefaultTransformerTest, org.apache.commons.math.util.MathUtilsTest, org.apache.commons.math.util.OpenIntToDoubleHashMapTest, org.apache.commons.math.util.OpenIntToFieldTest, org.apache.commons.math.util.ResizableDoubleArrayTest, org.apache.commons.math.util.TransformerMapTest]
+09:03:09.176 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=SMT, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/main/java], projectClasspath='[Ljava.net.URL;@66d33a', projectTests=[org.apache.commons.math.ArgumentOutsideDomainExceptionTest, org.apache.commons.math.ConvergenceExceptionTest, org.apache.commons.math.DuplicateSampleAbscissaExceptionTest, org.apache.commons.math.FunctionEvaluationExceptionTest, org.apache.commons.math.MathConfigurationExceptionTest, org.apache.commons.math.MathExceptionTest, org.apache.commons.math.MaxIterationsExceededExceptionTest, org.apache.commons.math.analysis.integration.LegendreGaussIntegratorTest, org.apache.commons.math.analysis.integration.RombergIntegratorTest, org.apache.commons.math.analysis.integration.SimpsonIntegratorTest, org.apache.commons.math.analysis.integration.TrapezoidIntegratorTest, org.apache.commons.math.analysis.interpolation.DividedDifferenceInterpolatorTest, org.apache.commons.math.analysis.interpolation.LoessInterpolatorTest, org.apache.commons.math.analysis.interpolation.NevilleInterpolatorTest, org.apache.commons.math.analysis.interpolation.SplineInterpolatorTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionLagrangeFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionNewtonFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialSplineFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialsUtilsTest, org.apache.commons.math.analysis.solvers.BisectionSolverTest, org.apache.commons.math.analysis.solvers.BrentSolverTest, org.apache.commons.math.analysis.solvers.LaguerreSolverTest, org.apache.commons.math.analysis.solvers.MullerSolverTest, org.apache.commons.math.analysis.solvers.NewtonSolverTest, org.apache.commons.math.analysis.solvers.RiddersSolverTest, org.apache.commons.math.analysis.solvers.UnivariateRealSolverFactoryImplTest, org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtilsTest, org.apache.commons.math.complex.ComplexFieldTest, org.apache.commons.math.complex.ComplexFormatTest, org.apache.commons.math.complex.ComplexTest, org.apache.commons.math.complex.ComplexUtilsTest, org.apache.commons.math.complex.FrenchComplexFormatTest, org.apache.commons.math.distribution.BetaDistributionTest, org.apache.commons.math.distribution.BinomialDistributionTest, org.apache.commons.math.distribution.CauchyDistributionTest, org.apache.commons.math.distribution.ChiSquareDistributionTest, org.apache.commons.math.distribution.ExponentialDistributionTest, org.apache.commons.math.distribution.FDistributionTest, org.apache.commons.math.distribution.GammaDistributionTest, org.apache.commons.math.distribution.HypergeometricDistributionTest, org.apache.commons.math.distribution.NormalDistributionTest, org.apache.commons.math.distribution.PascalDistributionTest, org.apache.commons.math.distribution.PoissonDistributionTest, org.apache.commons.math.distribution.TDistributionTest, org.apache.commons.math.distribution.WeibullDistributionTest, org.apache.commons.math.distribution.ZipfDistributionTest, org.apache.commons.math.estimation.EstimatedParameterTest, org.apache.commons.math.estimation.GaussNewtonEstimatorTest, org.apache.commons.math.estimation.LevenbergMarquardtEstimatorTest, org.apache.commons.math.estimation.MinpackTest, org.apache.commons.math.estimation.WeightedMeasurementTest, org.apache.commons.math.fraction.BigFractionFieldTest, org.apache.commons.math.fraction.BigFractionFormatTest, org.apache.commons.math.fraction.BigFractionTest, org.apache.commons.math.fraction.FractionFieldTest, org.apache.commons.math.fraction.FractionFormatTest, org.apache.commons.math.fraction.FractionTest, org.apache.commons.math.genetics.BinaryChromosomeTest, org.apache.commons.math.genetics.BinaryMutationTest, org.apache.commons.math.genetics.ChromosomeTest, org.apache.commons.math.genetics.ElitisticListPopulationTest, org.apache.commons.math.genetics.FitnessCachingTest, org.apache.commons.math.genetics.FixedGenerationCountTest, org.apache.commons.math.genetics.GeneticAlgorithmTestBinary, org.apache.commons.math.genetics.GeneticAlgorithmTestPermutations, org.apache.commons.math.genetics.ListPopulationTest, org.apache.commons.math.genetics.OnePointCrossoverTest, org.apache.commons.math.genetics.RandomKeyMutationTest, org.apache.commons.math.genetics.RandomKeyTest, org.apache.commons.math.genetics.TournamentSelectionTest, org.apache.commons.math.geometry.FrenchVector3DFormatTest, org.apache.commons.math.geometry.RotationOrderTest, org.apache.commons.math.geometry.RotationTest, org.apache.commons.math.geometry.Vector3DFormatTest, org.apache.commons.math.geometry.Vector3DTest, org.apache.commons.math.linear.Array2DRowRealMatrixTest, org.apache.commons.math.linear.ArrayFieldVectorTest, org.apache.commons.math.linear.ArrayRealVectorTest, org.apache.commons.math.linear.BiDiagonalTransformerTest, org.apache.commons.math.linear.BigMatrixImplTest, org.apache.commons.math.linear.BlockFieldMatrixTest, org.apache.commons.math.linear.BlockRealMatrixTest, org.apache.commons.math.linear.CholeskyDecompositionImplTest, org.apache.commons.math.linear.CholeskySolverTest, org.apache.commons.math.linear.EigenDecompositionImplTest, org.apache.commons.math.linear.EigenSolverTest, org.apache.commons.math.linear.FieldLUDecompositionImplTest, org.apache.commons.math.linear.FieldMatrixImplTest, org.apache.commons.math.linear.FrenchRealVectorFormatTest, org.apache.commons.math.linear.InvalidMatrixExceptionTest, org.apache.commons.math.linear.LUDecompositionImplTest, org.apache.commons.math.linear.LUSolverTest, org.apache.commons.math.linear.MatrixIndexExceptionTest, org.apache.commons.math.linear.MatrixUtilsTest, org.apache.commons.math.linear.QRDecompositionImplTest, org.apache.commons.math.linear.QRSolverTest, org.apache.commons.math.linear.RealMatrixImplTest, org.apache.commons.math.linear.RealVectorFormatTest, org.apache.commons.math.linear.SingularValueDecompositionImplTest, org.apache.commons.math.linear.SingularValueSolverTest, org.apache.commons.math.linear.SparseFieldMatrixTest, org.apache.commons.math.linear.SparseFieldVectorTest, org.apache.commons.math.linear.SparseRealMatrixTest, org.apache.commons.math.linear.SparseRealVectorTest, org.apache.commons.math.linear.TriDiagonalTransformerTest, org.apache.commons.math.ode.ContinuousOutputModelTest, org.apache.commons.math.ode.FirstOrderConverterTest, org.apache.commons.math.ode.nonstiff.AdamsBashforthIntegratorTest, org.apache.commons.math.ode.nonstiff.AdamsMoultonIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.EulerIntegratorTest, org.apache.commons.math.ode.nonstiff.EulerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GillIntegratorTest, org.apache.commons.math.ode.nonstiff.GillStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.HighamHall54IntegratorTest, org.apache.commons.math.ode.nonstiff.HighamHall54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.MidpointIntegratorTest, org.apache.commons.math.ode.nonstiff.MidpointStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesIntegratorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesStepInterpolatorTest, org.apache.commons.math.ode.sampling.DummyStepInterpolatorTest, org.apache.commons.math.ode.sampling.NordsieckStepInterpolatorTest, org.apache.commons.math.ode.sampling.StepNormalizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateRealOptimizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateVectorialOptimizerTest, org.apache.commons.math.optimization.MultiStartMultivariateRealOptimizerTest, org.apache.commons.math.optimization.MultiStartUnivariateRealOptimizerTest, org.apache.commons.math.optimization.direct.MultiDirectionalTest, org.apache.commons.math.optimization.direct.NelderMeadTest, org.apache.commons.math.optimization.fitting.HarmonicFitterTest, org.apache.commons.math.optimization.fitting.PolynomialFitterTest, org.apache.commons.math.optimization.general.GaussNewtonOptimizerTest, org.apache.commons.math.optimization.general.LevenbergMarquardtOptimizerTest, org.apache.commons.math.optimization.general.MinpackTest, org.apache.commons.math.optimization.general.NonLinearConjugateGradientOptimizerTest, org.apache.commons.math.optimization.linear.SimplexSolverTest, org.apache.commons.math.optimization.linear.SimplexTableauTest, org.apache.commons.math.optimization.univariate.BrentMinimizerTest, org.apache.commons.math.random.AbstractRandomGeneratorTest, org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.EmpiricalDistributionTest, org.apache.commons.math.random.GaussianRandomGeneratorTest, org.apache.commons.math.random.MersenneTwisterTest, org.apache.commons.math.random.RandomAdaptorTest, org.apache.commons.math.random.RandomDataTest, org.apache.commons.math.random.UncorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.UniformRandomGeneratorTest, org.apache.commons.math.random.ValueServerTest, org.apache.commons.math.special.BetaTest, org.apache.commons.math.special.ErfTest, org.apache.commons.math.special.GammaTest, org.apache.commons.math.stat.CertifiedDataTest, org.apache.commons.math.stat.FrequencyTest, org.apache.commons.math.stat.StatUtilsTest, org.apache.commons.math.stat.clustering.EuclideanIntegerPointTest, org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest, org.apache.commons.math.stat.correlation.CovarianceTest, org.apache.commons.math.stat.correlation.PearsonsCorrelationTest, org.apache.commons.math.stat.correlation.SpearmansRankCorrelationTest, org.apache.commons.math.stat.data.LewTest, org.apache.commons.math.stat.data.LotteryTest, org.apache.commons.math.stat.descriptive.AbstractUnivariateStatisticTest, org.apache.commons.math.stat.descriptive.AggregateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.InteractionTest, org.apache.commons.math.stat.descriptive.ListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MixedListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.StatisticalSummaryValuesTest, org.apache.commons.math.stat.descriptive.SummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedDescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedMultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.moment.FirstMomentTest, org.apache.commons.math.stat.descriptive.moment.FourthMomentTest, org.apache.commons.math.stat.descriptive.moment.GeometricMeanTest, org.apache.commons.math.stat.descriptive.moment.KurtosisTest, org.apache.commons.math.stat.descriptive.moment.MeanTest, org.apache.commons.math.stat.descriptive.moment.SecondMomentTest, org.apache.commons.math.stat.descriptive.moment.SkewnessTest, org.apache.commons.math.stat.descriptive.moment.StandardDeviationTest, org.apache.commons.math.stat.descriptive.moment.ThirdMomentTest, org.apache.commons.math.stat.descriptive.moment.VarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialCovarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialMeanTest, org.apache.commons.math.stat.descriptive.rank.MaxTest, org.apache.commons.math.stat.descriptive.rank.MedianTest, org.apache.commons.math.stat.descriptive.rank.MinTest, org.apache.commons.math.stat.descriptive.rank.PercentileTest, org.apache.commons.math.stat.descriptive.summary.ProductTest, org.apache.commons.math.stat.descriptive.summary.SumLogTest, org.apache.commons.math.stat.descriptive.summary.SumSqTest, org.apache.commons.math.stat.descriptive.summary.SumTest, org.apache.commons.math.stat.inference.ChiSquareFactoryTest, org.apache.commons.math.stat.inference.ChiSquareTestTest, org.apache.commons.math.stat.inference.OneWayAnovaTest, org.apache.commons.math.stat.inference.TTestFactoryTest, org.apache.commons.math.stat.inference.TTestTest, org.apache.commons.math.stat.inference.TestUtilsTest, org.apache.commons.math.stat.ranking.NaturalRankingTest, org.apache.commons.math.stat.regression.GLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.OLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.SimpleRegressionTest, org.apache.commons.math.transform.FastCosineTransformerTest, org.apache.commons.math.transform.FastFourierTransformerTest, org.apache.commons.math.transform.FastHadamardTransformerTest, org.apache.commons.math.transform.FastSineTransformerTest, org.apache.commons.math.util.BigRealFieldTest, org.apache.commons.math.util.BigRealTest, org.apache.commons.math.util.ContinuedFractionTest, org.apache.commons.math.util.DefaultTransformerTest, org.apache.commons.math.util.MathUtilsTest, org.apache.commons.math.util.OpenIntToDoubleHashMapTest, org.apache.commons.math.util.OpenIntToFieldTest, org.apache.commons.math.util.ResizableDoubleArrayTest, org.apache.commons.math.util.TransformerMapTest], complianceLevel=7, outputFolder=., json=true}
+09:03:09.177 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+09:03:09.183 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 930 MB
+09:03:09.183 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+09:03:09.183 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 981 MB
+09:03:09.183 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+09:03:09.184 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+09:03:09.185 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+09:03:27.304 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+09:03:27.305 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.optimization.linear.SimplexTableau:214 which is executed by 1 tests
+-1081517891
+09:03:27.620 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+09:03:27.620 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.optimization.linear.SimplexTableau:213 which is executed by 1 tests
+-1081517891
+09:03:27.726 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+09:03:27.726 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.optimization.linear.SimplexTableau:212 which is executed by 1 tests
+-1081517891
+09:03:27.835 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.commons.math.optimization.linear.SimplexTableau.initialize(SimplexTableau.java:249)
+    at org.apache.commons.math.optimization.linear.SimplexTableau.<init>(SimplexTableau.java:115)
+    at org.apache.commons.math.optimization.linear.SimplexSolver.doOptimize(SimplexSolver.java:186)
+    at org.apache.commons.math.optimization.linear.AbstractLinearOptimizer.optimize(AbstractLinearOptimizer.java:106)
+    at org.apache.commons.math.optimization.linear.SimplexSolverTest.testMath290(SimplexSolverTest.java:83)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+09:03:28.039 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (175 ms)
+<> Total tests run: 15
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testMath290(org.apache.commons.math.optimization.linear.SimplexSolverTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.optimization.linear.SimplexTableau.initialize(SimplexTableau.java:249)
+    at org.apache.commons.math.optimization.linear.SimplexTableau.<init>(SimplexTableau.java:115)
+    at org.apache.commons.math.optimization.linear.SimplexSolver.doOptimize(SimplexSolver.java:186)
+    at org.apache.commons.math.optimization.linear.AbstractLinearOptimizer.optimize(AbstractLinearOptimizer.java:106)
+    at org.apache.commons.math.optimization.linear.SimplexSolverTest.testMath290(SimplexSolverTest.java:83)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+09:03:29.146 [pool-5-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+java.lang.NullPointerException
+    at org.apache.commons.math.optimization.linear.SimplexTableau.initialize(SimplexTableau.java:131)
+    at org.apache.commons.math.optimization.linear.SimplexTableau.<init>(SimplexTableau.java:30)
+    at org.apache.commons.math.optimization.linear.SimplexSolver.doOptimize(SimplexSolver.java:186)
+    at org.apache.commons.math.optimization.linear.AbstractLinearOptimizer.optimize(AbstractLinearOptimizer.java:106)
+    at org.apache.commons.math.optimization.linear.SimplexSolverTest.testMath290(SimplexSolverTest.java:83)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+09:03:29.148 [pool-6-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testMath290(org.apache.commons.math.optimization.linear.SimplexSolverTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.optimization.linear.SimplexTableau.initialize(SimplexTableau.java:131)
+    at org.apache.commons.math.optimization.linear.SimplexTableau.<init>(SimplexTableau.java:30)
+    at org.apache.commons.math.optimization.linear.SimplexSolver.doOptimize(SimplexSolver.java:186)
+    at org.apache.commons.math.optimization.linear.AbstractLinearOptimizer.optimize(AbstractLinearOptimizer.java:106)
+    at org.apache.commons.math.optimization.linear.SimplexSolverTest.testMath290(SimplexSolverTest.java:83)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+09:03:29.153 [pool-7-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+java.lang.NullPointerException
+    at org.apache.commons.math.optimization.linear.SimplexTableau.initialize(SimplexTableau.java:131)
+    at org.apache.commons.math.optimization.linear.SimplexTableau.<init>(SimplexTableau.java:30)
+    at org.apache.commons.math.optimization.linear.SimplexSolver.doOptimize(SimplexSolver.java:186)
+    at org.apache.commons.math.optimization.linear.AbstractLinearOptimizer.optimize(AbstractLinearOptimizer.java:106)
+    at org.apache.commons.math.optimization.linear.SimplexSolverTest.testMath290(SimplexSolverTest.java:83)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+09:03:29.157 [pool-8-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testMath290(org.apache.commons.math.optimization.linear.SimplexSolverTest)
+[null]
+java.lang.NullPointerException    at org.apache.commons.math.optimization.linear.SimplexTableau.initialize(SimplexTableau.java:131)
+    at org.apache.commons.math.optimization.linear.SimplexTableau.<init>(SimplexTableau.java:30)
+    at org.apache.commons.math.optimization.linear.SimplexSolver.doOptimize(SimplexSolver.java:186)
+    at org.apache.commons.math.optimization.linear.AbstractLinearOptimizer.optimize(AbstractLinearOptimizer.java:106)
+    at org.apache.commons.math.optimization.linear.SimplexSolverTest.testMath290(SimplexSolverTest.java:83)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+09:03:29.158 [pool-3-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 1. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.optimization.linear.SimplexTableau:212.
+09:03:29.158 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+09:03:29.158 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.optimization.linear.Relationship:61 which is executed by 1 tests
+-97531303
+09:03:29.246 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+09:03:29.246 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.optimization.linear.Relationship:57 which is executed by 1 tests
+-97531303
+09:03:29.325 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+09:03:29.326 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.optimization.linear.Relationship:25 which is executed by 2 tests
+-97531303
+09:03:29.403 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+09:03:29.403 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator:822 which is executed by 4 tests
+2138339591
+09:03:29.518 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:863)
+09:03:29.572 [pool-10-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (51 ms)
+<> Total tests run: 3
+<> Ignored tests: 0
+<> Failed tests: 1
+~ derivativesConsistency(org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest)
+[expected:<-98.69895610335308> but was:<-98.69895609303683>]
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:863)
+
+09:03:30.063 [pool-11-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:500)
+09:03:30.073 [pool-12-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ derivativesConsistency(org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest)
+[expected:<-98.69895610335308> but was:<-98.69895609303683>]
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:500)
+
+09:03:30.081 [pool-13-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (7 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+09:03:30.100 [pool-14-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (9 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+09:03:30.134 [pool-15-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (30 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+junit.framework.AssertionFailedError
+    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertTrue(Assert.java:31)
+    at junit.framework.TestCase.assertTrue(TestCase.java:201)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest.testIntegratorControls(GraggBulirschStoerIntegratorTest.java:182)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+09:03:30.357 [pool-16-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (217 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testIntegratorControls(org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest)
+[null]
+junit.framework.AssertionFailedError    at junit.framework.Assert.fail(Assert.java:55)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertTrue(Assert.java:31)
+    at junit.framework.TestCase.assertTrue(TestCase.java:201)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest.testIntegratorControls(GraggBulirschStoerIntegratorTest.java:182)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:500)
+09:03:30.364 [pool-17-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (5 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ derivativesConsistency(org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest)
+[expected:<-98.69895610335308> but was:<-98.69895609303683>]
+java.lang.AssertionError: expected:<-98.69895610335308> but was:<-98.69895609303683>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:494)
+    at org.junit.Assert.assertEquals(Assert.java:592)
+    at org.apache.commons.math.ode.sampling.StepInterpolatorTestUtils$1.handleStep(StepInterpolatorTestUtils.java:73)
+    at org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.integrate(GraggBulirschStoerIntegrator.java:500)
+
+09:03:30.372 [pool-18-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (7 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+09:03:30.385 [pool-19-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (12 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+09:03:30.576 [pool-20-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (189 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+09:03:30.782 [pool-21-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (199 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+09:03:31.036 [pool-9-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+09:03:31.334 [pool-9-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+09:03:39.026 [pool-9-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+! of arity: 1
+|| of arity: 2
+&& of arity: 2
+09:08:55.413 [pool-9-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Successful code synthesis: (!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)
+09:08:55.414 [pool-9-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Applying patch: org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator:822: PRECONDITION (!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)
+09:08:55.692 [pool-9-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Running test suite to check the patch "(!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)" is working
+09:08:55.900 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+09:08:56.192 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 388
+09:08:56.192 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 2885
+09:08:56.192 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 2
+09:08:56.192 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 1
+09:08:56.192 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb inputs in SMT : 76
+09:08:56.192 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT level: 3
+09:08:56.192 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT components: [7] [== of arity: 2, != of arity: 2, < of arity: 2, <= of arity: 2, ! of arity: 1, || of arity: 2, && of arity: 2]
+09:08:56.192 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol -                   class java.lang.Boolean: 7
+09:08:56.193 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb variables in SMT : 83
+09:08:56.193 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 346761ms
+09:08:56.193 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+09:08:56.193 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----PATCH FOUND----
+09:08:56.193 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - (!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)
+09:08:56.217 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb test that executes the patch: 4
+09:08:56.218 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator:822: PRECONDITION
+09:08:56.245 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - --- a/src/main/java/org/apache/commons/math/ode/nonstiff/GraggBulirschStoerIntegrator.java
++++ b/src/main/java/org/apache/commons/math/ode/nonstiff/GraggBulirschStoerIntegrator.java
+@@ -821,3 +821,5 @@
+               hNew = hInt;
+-              reject = true;
++              if ((!((org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegrator.this.stepControl3 <= hInt) && (18 < interpError))) || (previousRejected)) {
++                reject = true;
++              }
+             }
+
+PATCH
+404.80user 2.00system 5:48.77elapsed 116%CPU (0avgtext+0avgdata 780736maxresident)k
+62392inputs+6064outputs (24major+420375minor)pagefaults 0swaps
+
+
+Node: graphene-16.nancy.grid5000.fr
+
+
+
+Date: Sat Dec 29 09:08:56 EST 2018
+

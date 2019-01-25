@@ -1,0 +1,2479 @@
+cd /tmp/DynaMoth_Defects4J_Lang_61;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 3 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/DynaMoth_Defects4J_Lang_61/target/classes/:/tmp/DynaMoth_Defects4J_Lang_61/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+09:55:59.714 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+09:55:59.717 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Defects4J_Lang_61/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_61/target/tests/, file:/tmp/DynaMoth_Defects4J_Lang_61/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_61/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+09:55:59.717 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+09:55:59.718 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+09:55:59.720 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=3, outputFolder=., json=true}
+09:55:59.720 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+09:55:59.735 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 958 MB
+09:55:59.735 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+09:55:59.735 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 990 MB
+09:55:59.736 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+09:55:59.737 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+09:55:59.737 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+09:56:20.272 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+09:56:20.272 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:288 which is executed by 1 tests
+-723213736
+09:56:20.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+09:56:20.576 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:286 which is executed by 1 tests
+-723213736
+09:56:20.674 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:20.734 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (33 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:21.658 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+09:56:21.658 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:284 which is executed by 1 tests
+-723213736
+09:56:21.743 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:21.762 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:21.955 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+09:56:21.956 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:283 which is executed by 1 tests
+-723213736
+09:56:22.036 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+09:56:22.037 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:282 which is executed by 1 tests
+-723213736
+09:56:22.117 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:22.127 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:22.297 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+09:56:22.297 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:279 which is executed by 1 tests
+-723213736
+09:56:22.384 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:22.397 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (6 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:22.556 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+09:56:22.556 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:276 which is executed by 1 tests
+-723213736
+09:56:22.643 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:22.652 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:22.828 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:22.837 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:22.975 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+09:56:22.975 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:275 which is executed by 1 tests
+-723213736
+09:56:23.052 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+09:56:23.053 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:274 which is executed by 1 tests
+-723213736
+09:56:23.129 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:23.138 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:23.273 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+09:56:23.274 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:273 which is executed by 1 tests
+-723213736
+09:56:23.349 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+09:56:23.350 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:272 which is executed by 1 tests
+-723213736
+09:56:23.425 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:23.435 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:23.562 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+09:56:23.562 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:271 which is executed by 1 tests
+-723213736
+09:56:23.637 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:23.646 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:23.862 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:23.869 [pool-40-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:24.000 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+09:56:24.001 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:270 which is executed by 1 tests
+-723213736
+09:56:24.076 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:24.083 [pool-44-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:24.216 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<4> but was:<5>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+09:56:24.224 [pool-48-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 11
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCountriesByLanguage(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<4> but was:<5>]
+junit.framework.AssertionFailedError: expected:<4> but was:<5>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+
+09:56:24.344 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+09:56:24.344 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:269 which is executed by 1 tests
+-723213736
+09:56:24.418 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+09:56:24.418 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1747 which is executed by 2 tests
+370441291
+09:56:24.551 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+09:56:24.551 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1209 which is executed by 2 tests
+370441291
+09:56:24.674 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+09:56:24.674 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1206 which is executed by 2 tests
+370441291
+09:56:24.819 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:24.841 [pool-52-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 73
+<> Ignored tests: 0
+<> Failed tests: 2
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:25.421 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+09:56:25.421 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1205 which is executed by 2 tests
+370441291
+09:56:25.544 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:25.565 [pool-58-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (13 ms)
+<> Total tests run: 73
+<> Ignored tests: 0
+<> Failed tests: 2
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:25.949 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:25.969 [pool-64-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (13 ms)
+<> Total tests run: 73
+<> Ignored tests: 0
+<> Failed tests: 2
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:26.353 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+09:56:26.353 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1204 which is executed by 2 tests
+370441291
+09:56:26.468 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+09:56:26.468 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1203 which is executed by 2 tests
+370441291
+09:56:26.582 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:26.603 [pool-70-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (12 ms)
+<> Total tests run: 73
+<> Ignored tests: 0
+<> Failed tests: 2
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:26.945 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:26.966 [pool-76-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (12 ms)
+<> Total tests run: 73
+<> Ignored tests: 0
+<> Failed tests: 2
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:27.318 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #21
+09:56:27.318 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1202 which is executed by 2 tests
+370441291
+09:56:27.431 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #22
+09:56:27.432 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1189 which is executed by 2 tests
+370441291
+09:56:27.543 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:27.564 [pool-82-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (13 ms)
+<> Total tests run: 73
+<> Ignored tests: 0
+<> Failed tests: 2
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:27.885 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #23
+09:56:27.885 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1188 which is executed by 2 tests
+370441291
+09:56:28.011 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:28.046 [pool-88-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 73
+<> Ignored tests: 0
+<> Failed tests: 2
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:02.076 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #24
+09:57:02.076 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1187 which is executed by 2 tests
+370441291
+09:57:02.215 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:02.234 [pool-94-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (12 ms)
+<> Total tests run: 73
+<> Ignored tests: 0
+<> Failed tests: 2
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:02.560 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #25
+09:57:02.561 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1186 which is executed by 2 tests
+370441291
+09:57:02.669 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #26
+09:57:02.669 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1185 which is executed by 2 tests
+370441291
+09:57:02.777 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:02.796 [pool-100-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (11 ms)
+<> Total tests run: 73
+<> Ignored tests: 0
+<> Failed tests: 2
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:03.129 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:03.148 [pool-106-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (11 ms)
+<> Total tests run: 73
+<> Ignored tests: 0
+<> Failed tests: 2
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:03.468 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #27
+09:57:03.468 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1184 which is executed by 2 tests
+370441291
+09:57:03.572 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #28
+09:57:03.572 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1784 which is executed by 9 tests
+370441291
+09:57:03.677 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #29
+09:57:03.678 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1781 which is executed by 9 tests
+370441291
+09:57:03.783 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:03.806 [pool-112-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:04.115 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #30
+09:57:04.115 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1780 which is executed by 9 tests
+370441291
+09:57:04.221 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:04.244 [pool-118-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:04.551 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:04.575 [pool-124-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:04.899 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #31
+09:57:04.899 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1779 which is executed by 9 tests
+370441291
+09:57:05.006 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:05.029 [pool-130-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:05.341 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #32
+09:57:05.341 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1778 which is executed by 9 tests
+370441291
+09:57:05.446 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:05.469 [pool-136-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:05.802 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #33
+09:57:05.802 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1776 which is executed by 9 tests
+370441291
+09:57:05.908 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #34
+09:57:05.908 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1775 which is executed by 9 tests
+370441291
+09:57:06.012 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #35
+09:57:06.012 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1772 which is executed by 9 tests
+370441291
+09:57:06.115 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:06.137 [pool-142-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:06.422 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:06.444 [pool-148-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:06.765 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #36
+09:57:06.765 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1769 which is executed by 9 tests
+370441291
+09:57:06.872 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:06.894 [pool-154-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:07.182 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:07.205 [pool-160-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (13 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:07.502 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #37
+09:57:07.502 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1766 which is executed by 9 tests
+370441291
+09:57:07.633 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:07.656 [pool-166-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:07.949 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:07.971 [pool-172-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:08.264 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #38
+09:57:08.265 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1765 which is executed by 9 tests
+370441291
+09:57:08.368 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #39
+09:57:08.368 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1762 which is executed by 9 tests
+370441291
+09:57:08.484 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:08.506 [pool-178-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:08.815 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:08.839 [pool-184-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:09.143 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #40
+09:57:09.143 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1761 which is executed by 9 tests
+370441291
+09:57:09.244 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:09.266 [pool-190-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:09.574 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #41
+09:57:09.574 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1116 which is executed by 15 tests
+370441291
+09:57:09.676 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #42
+09:57:09.677 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1115 which is executed by 15 tests
+370441291
+09:57:09.776 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:09.798 [pool-196-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:43.764 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #43
+09:57:43.764 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:1114 which is executed by 15 tests
+370441291
+09:57:43.882 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:43.904 [pool-202-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:44.192 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #44
+09:57:44.193 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:192 which is executed by 4 tests
+-723213736
+09:57:44.265 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #45
+09:57:44.265 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:477 which is executed by 114 tests
+370441291
+09:57:44.366 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:44.389 [pool-208-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:47.905 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #46
+09:57:47.906 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:476 which is executed by 114 tests
+370441291
+09:57:48.007 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:48.037 [pool-214-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (13 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:48.345 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #47
+09:57:48.345 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:475 which is executed by 114 tests
+370441291
+09:57:48.442 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:48.464 [pool-220-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:48.753 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #48
+09:57:48.753 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:474 which is executed by 114 tests
+370441291
+09:57:48.855 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #49
+09:57:48.855 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:479 which is executed by 115 tests
+370441291
+09:57:48.952 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #50
+09:57:48.952 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:473 which is executed by 115 tests
+370441291
+09:57:49.050 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:49.142 [pool-226-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:49.418 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:49.440 [pool-232-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:49.743 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #51
+09:57:49.743 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:472 which is executed by 115 tests
+370441291
+09:57:49.839 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #52
+09:57:49.840 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:469 which is executed by 115 tests
+370441291
+09:57:49.936 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:49.958 [pool-238-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:50.246 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:50.277 [pool-244-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:50.553 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #53
+09:57:50.553 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:233 which is executed by 171 tests
+370441291
+09:57:50.658 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #54
+09:57:50.658 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:228 which is executed by 171 tests
+370441291
+09:57:50.755 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:50.777 [pool-250-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:51.043 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+java.lang.ArrayIndexOutOfBoundsException
+    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:51.064 [pool-256-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 146
+<> Ignored tests: 0
+<> Failed tests: 4
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+~ testIndexOfLang294(org.apache.commons.lang.text.StrBuilderTest)
+[expected:<-1> but was:<6>]
+junit.framework.AssertionFailedError: expected:<-1> but was:<6>    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.failNotEquals(Assert.java:329)
+    at junit.framework.Assert.assertEquals(Assert.java:78)
+    at junit.framework.Assert.assertEquals(Assert.java:234)
+    at junit.framework.Assert.assertEquals(Assert.java:241)
+    at junit.framework.TestCase.assertEquals(TestCase.java:409)
+~ testLang294(org.apache.commons.lang.text.StrBuilderTest)
+[null]
+java.lang.ArrayIndexOutOfBoundsException    at java.lang.System.arraycopy(Native Method)
+    at org.apache.commons.lang.text.StrBuilder.deleteImpl(StrBuilder.java:1114)
+    at org.apache.commons.lang.text.StrBuilder.deleteAll(StrBuilder.java:1188)
+    at org.apache.commons.lang.text.StrBuilderTest.testLang294(StrBuilderTest.java:1734)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:51.350 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #55
+09:57:51.350 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.text.StrBuilder:182 which is executed by 171 tests
+370441291
+09:57:51.453 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+09:57:51.526 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 77
+09:57:51.526 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1698
+09:57:51.526 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 47
+09:57:51.526 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 0
+09:57:51.526 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 111742ms
+09:57:51.527 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+186.91user 4.98system 1:53.34elapsed 169%CPU (0avgtext+0avgdata 4243180maxresident)k
+56512inputs+5824outputs (8major+1255934minor)pagefaults 0swaps
+
+
+Node: graphene-85.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 09:57:52 EST 2018
+

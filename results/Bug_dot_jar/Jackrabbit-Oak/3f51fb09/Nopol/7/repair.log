@@ -1,0 +1,690 @@
+cd /tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4g -Xms1g -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis smt \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source oak-core/src/main/java \
+	--classpath "oak-core/target/classes:oak-core/target/test-classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-commons/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-mk-api/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-mk/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-mk-remote/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-mongomk/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-it/mk/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-jcr/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-sling/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-http/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-lucene/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-run/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-it/osgi/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-bench/base/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-bench/latest/target/classes:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-mk-perf/target/classes:/home/tdurieux/.m2/repository/ch/qos/logback/logback-core/1.0.1/logback-core-1.0.1.jar:/home/tdurieux/.m2/repository/com/google/guava/guava/13.0.1/guava-13.0.1.jar:/home/tdurieux/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.2/jackson-core-asl-1.9.2.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-http/0.6-SNAPSHOT/oak-http-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-net/1.3.0/ops4j-base-net-1.3.0.jar:/home/tdurieux/.m2/repository/org/osgi/org.osgi.core/4.2.0/org.osgi.core-4.2.0.jar:/home/tdurieux/.m2/repository/org/sonatype/aether/aether-spi/1.11/aether-spi-1.11.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/swissbox/pax-swissbox-optional-jcl/1.5.0/pax-swissbox-optional-jcl-1.5.0.jar:/home/tdurieux/.m2/repository/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar:/home/tdurieux/.m2/repository/com/cedarsoft/commons/xml-commons/5.0.9/xml-commons-5.0.9.jar:/home/tdurieux/.m2/repository/org/mongodb/mongo-java-driver/2.7.1/mongo-java-driver-2.7.1.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/exam/pax-exam-junit4/2.4.0/pax-exam-junit4-2.4.0.jar:/home/tdurieux/.m2/repository/com/cedarsoft/commons/crypt/5.0.9/crypt-5.0.9.jar:/home/tdurieux/.m2/repository/org/json/json/20090211/json-20090211.jar:/home/tdurieux/.m2/repository/org/apache/xbean/xbean-reflect/3.4/xbean-reflect-3.4.jar:/home/tdurieux/.m2/repository/commons-pool/commons-pool/1.5.4/commons-pool-1.5.4.jar:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-io/8.1.2.v20120308/jetty-io-8.1.2.v20120308.jar:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-lang/1.3.0/ops4j-base-lang-1.3.0.jar:/home/tdurieux/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/exam/pax-exam/2.4.0/pax-exam-2.4.0.jar:/home/tdurieux/.m2/repository/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar:/home/tdurieux/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/home/tdurieux/.m2/repository/org/apache/maven/maven-model-builder/3.0.3/maven-model-builder-3.0.3.jar:/home/tdurieux/.m2/repository/com/google/code/findbugs/jsr305/2.0.0/jsr305-2.0.0.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-commons/0.6-SNAPSHOT/oak-commons-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-spi-commons/2.6-SNAPSHOT/jackrabbit-spi-commons-2.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/mockito/mockito-all/1.9.0-rc1/mockito-all-1.9.0-rc1.jar:/home/tdurieux/.m2/repository/org/sonatype/aether/aether-impl/1.11/aether-impl-1.11.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-lucene/0.6-SNAPSHOT/oak-lucene-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/com/ibm/icu/icu4j/2.6.1/icu4j-2.6.1.jar:/home/tdurieux/.m2/repository/commons-io/commons-io/2.2/commons-io-2.2.jar:/home/tdurieux/.m2/repository/org/apache/lucene/lucene-analyzers-common/4.0.0/lucene-analyzers-common-4.0.0.jar:/home/tdurieux/.m2/repository/org/apache/lucene/lucene-core/3.6.0/lucene-core-3.6.0.jar:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-spi/1.3.0/ops4j-base-spi-1.3.0.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-jcr/0.6-SNAPSHOT/oak-jcr-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-core/0.6-SNAPSHOT/oak-core-0.6-SNAPSHOT-tests.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/url/pax-url-classpath/1.4.0/pax-url-classpath-1.4.0.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/tinybundles/tinybundles/1.0.0/tinybundles-1.0.0.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/swissbox/pax-swissbox-core/1.5.0/pax-swissbox-core-1.5.0.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-mongomk/0.6-SNAPSHOT/oak-mongomk-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/apache/sling/org.apache.sling.jcr.api/2.1.0/org.apache.sling.jcr.api-2.1.0.jar:/home/tdurieux/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar:/home/tdurieux/.m2/repository/org/apache/maven/wagon/wagon-file/1.0-beta-7/wagon-file-1.0-beta-7.jar:/home/tdurieux/.m2/repository/org/apache/maven/wagon/wagon-http-shared/1.0-beta-7/wagon-http-shared-1.0-beta-7.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-mk-api/0.6-SNAPSHOT/oak-mk-api-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/com/google/collections/google-collections/1.0/google-collections-1.0.jar:/home/tdurieux/.m2/repository/org/slf4j/slf4j-nop/1.5.8/slf4j-nop-1.5.8.jar:/home/tdurieux/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.0.0/jackson-databind-2.0.0.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/swissbox/pax-swissbox-framework/1.5.0/pax-swissbox-framework-1.5.0.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-core/2.6-SNAPSHOT/jackrabbit-core-2.6-SNAPSHOT-tests.jar:/home/tdurieux/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-smile/2.0.2/jackson-dataformat-smile-2.0.2.jar:/home/tdurieux/.m2/repository/com/cedarsoft/commons/test-utils/5.0.9/test-utils-5.0.9.jar:/home/tdurieux/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/url/pax-url-commons/1.4.0/pax-url-commons-1.4.0.jar:/home/tdurieux/.m2/repository/org/sonatype/aether/aether-connector-wagon/1.11/aether-connector-wagon-1.11.jar:/home/tdurieux/.m2/repository/asm/asm/3.0/asm-3.0.jar:/home/tdurieux/.m2/repository/org/sonatype/aether/aether-api/1.11/aether-api-1.11.jar:/home/tdurieux/.m2/repository/biz/aQute/bndlib/1.50.0/bndlib-1.50.0.jar:/home/tdurieux/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.0.0/jackson-core-2.0.0.jar:/home/tdurieux/.m2/repository/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar:/home/tdurieux/.m2/repository/org/easytesting/fest-reflect/1.2/fest-reflect-1.2.jar:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:/home/tdurieux/.m2/repository/commons-dbcp/commons-dbcp/1.3/commons-dbcp-1.3.jar:/home/tdurieux/.m2/repository/javax/jcr/jcr/2.0/jcr-2.0.jar:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-http/8.1.2.v20120308/jetty-http-8.1.2.v20120308.jar:/home/tdurieux/.m2/repository/xml-apis/xml-apis/1.3.02/xml-apis-1.3.02.jar:/home/tdurieux/.m2/repository/org/apache/geronimo/specs/geronimo-atinject_1.0_spec/1.0/geronimo-atinject_1.0_spec-1.0.jar:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-store/1.3.0/ops4j-base-store-1.3.0.jar:/home/tdurieux/.m2/repository/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar:/home/tdurieux/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.2/jackson-mapper-asl-1.9.2.jar:/home/tdurieux/.m2/repository/org/apache/maven/wagon/wagon-provider-api/1.0-beta-7/wagon-provider-api-1.0-beta-7.jar:/home/tdurieux/.m2/repository/org/apache/sling/org.apache.sling.commons.osgi/2.1.0/org.apache.sling.commons.osgi-2.1.0.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-api/2.6-SNAPSHOT/jackrabbit-api-2.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-it-mk/0.6-SNAPSHOT/oak-it-mk-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/commons-codec/commons-codec/1.2/commons-codec-1.2.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-spi/2.6-SNAPSHOT/jackrabbit-spi-2.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/com/h2database/h2/1.3.158/h2-1.3.158.jar:/home/tdurieux/.m2/repository/jaxen/jaxen/1.1.3/jaxen-1.1.3.jar:/home/tdurieux/.m2/repository/commons-codec/commons-codec/1.5/commons-codec-1.5.jar:/home/tdurieux/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-mk-remote/0.6-SNAPSHOT/oak-mk-remote-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/apache/derby/derby/10.5.3.0_1/derby-10.5.3.0_1.jar:/home/tdurieux/.m2/repository/org/slf4j/jcl-over-slf4j/1.6.4/jcl-over-slf4j-1.6.4.jar:/home/tdurieux/.m2/repository/concurrent/concurrent/1.3.4/concurrent-1.3.4.jar:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-io/1.3.0/ops4j-base-io-1.3.0.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-webdav/2.6-SNAPSHOT/jackrabbit-webdav-2.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/url/pax-url-aether/1.3.3/pax-url-aether-1.3.3.jar:/home/tdurieux/.m2/repository/org/eclipse/jetty/orbit/javax.servlet/3.0.0.v201112011016/javax.servlet-3.0.0.v201112011016.jar:/home/tdurieux/.m2/repository/org/apache/maven/maven-model/3.0.3/maven-model-3.0.3.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/swissbox/pax-swissbox-lifecycle/1.5.0/pax-swissbox-lifecycle-1.5.0.jar:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-util-property/1.3.0/ops4j-base-util-property-1.3.0.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/url/pax-url-link/1.4.0/pax-url-link-1.4.0.jar:/home/tdurieux/.m2/repository/commons-io/commons-io/2.0.1/commons-io-2.0.1.jar:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-server/8.1.2.v20120308/jetty-server-8.1.2.v20120308.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-jcr-tests/2.6-SNAPSHOT/jackrabbit-jcr-tests-2.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/apache/maven/maven-aether-provider/3.0.3/maven-aether-provider-3.0.3.jar:/home/tdurieux/.m2/repository/com/jamonapi/jamon/2.4/jamon-2.4.jar:/home/tdurieux/.m2/repository/org/apache/felix/org.apache.felix.framework/4.0.2/org.apache.felix.framework-4.0.2.jar:/home/tdurieux/.m2/repository/org/apache/felix/org.apache.felix.scr.annotations/1.7.0/org.apache.felix.scr.annotations-1.7.0.jar:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-util/8.1.2.v20120308/jetty-util-8.1.2.v20120308.jar:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-monitors/1.3.0/ops4j-base-monitors-1.3.0.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-mk/0.6-SNAPSHOT/oak-mk-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/mongodb/mongo-java-driver/2.9.1/mongo-java-driver-2.9.1.jar:/home/tdurieux/.m2/repository/org/sonatype/aether/aether-util/1.11/aether-util-1.11.jar:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-servlet/8.1.2.v20120308/jetty-servlet-8.1.2.v20120308.jar:/home/tdurieux/.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar:/home/tdurieux/.m2/repository/org/jdom/jdom/1.1.2/jdom-1.1.2.jar:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-exec/1.3.0/ops4j-base-exec-1.3.0.jar:/home/tdurieux/.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/exam/pax-exam-link-assembly/2.4.0/pax-exam-link-assembly-2.4.0.jar:/home/tdurieux/.m2/repository/org/codehaus/plexus/plexus-classworlds/2.4/plexus-classworlds-2.4.jar:/home/tdurieux/.m2/repository/org/osgi/org.osgi.compendium/4.2.0/org.osgi.compendium-4.2.0.jar:/home/tdurieux/.m2/repository/commons-io/commons-io/1.4/commons-io-1.4.jar:/home/tdurieux/.m2/repository/jdom/jdom/1.0/jdom-1.0.jar:/home/tdurieux/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.jar:/home/tdurieux/.m2/repository/org/apache/maven/wagon/wagon-http-lightweight/1.0-beta-7/wagon-http-lightweight-1.0-beta-7.jar:/home/tdurieux/.m2/repository/org/apache/commons/commons-math/2.0/commons-math-2.0.jar:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-security/8.1.2.v20120308/jetty-security-8.1.2.v20120308.jar:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-continuation/8.1.2.v20120308/jetty-continuation-8.1.2.v20120308.jar:/home/tdurieux/.m2/repository/org/apache/maven/maven-repository-metadata/3.0.3/maven-repository-metadata-3.0.3.jar:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.1/logback-classic-1.0.1.jar:/home/tdurieux/.m2/repository/xmlunit/xmlunit/1.3/xmlunit-1.3.jar:/home/tdurieux/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.0.0/jackson-annotations-2.0.0.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-core/0.6-SNAPSHOT/oak-core-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar:/home/tdurieux/.m2/repository/org/slf4j/slf4j-simple/1.6.1/slf4j-simple-1.6.1.jar:/home/tdurieux/.m2/repository/org/easytesting/fest-util/1.1.6/fest-util-1.1.6.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/exam/pax-exam-container-native/2.4.0/pax-exam-container-native-2.4.0.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/swissbox/pax-swissbox-property/1.5.0/pax-swissbox-property-1.5.0.jar:/home/tdurieux/.m2/repository/xalan/xalan/2.6.0/xalan-2.6.0.jar:/home/tdurieux/.m2/repository/org/easytesting/fest-assert/1.4/fest-assert-1.4.jar:/home/tdurieux/.m2/repository/org/apache/tika/tika-core/1.0/tika-core-1.0.jar:/home/tdurieux/.m2/repository/org/slf4j/jul-to-slf4j/1.6.4/jul-to-slf4j-1.6.4.jar:/home/tdurieux/.m2/repository/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar:/home/tdurieux/.m2/repository/junit/junit/4.10/junit-4.10.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-jcr-commons/2.6-SNAPSHOT/jackrabbit-jcr-commons-2.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/ops4j/pax/exam/pax-exam-spi/2.4.0/pax-exam-spi-2.4.0.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-bench-base/0.6-SNAPSHOT/oak-bench-base-0.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar:/home/tdurieux/.m2/repository/xom/xom/1.0/xom-1.0.jar:/home/tdurieux/.m2/repository/org/apache/tika/tika-core/1.2/tika-core-1.2.jar:/home/tdurieux/.m2/repository/org/apache/lucene/lucene-core/4.0.0/lucene-core-4.0.0.jar:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-jcr-server/2.6-SNAPSHOT/jackrabbit-jcr-server-2.6-SNAPSHOT.jar:/home/tdurieux/.m2/repository/org/apache/tika/tika-core/1.1/tika-core-1.1.jar:/home/tdurieux/.m2/repository/org/codehaus/plexus/plexus-container-default/1.5.4/plexus-container-default-1.5.4.jar:/home/tdurieux/.m2/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+10:20:01.518 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [oak-core/src/main/java]
+10:20:01.527 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-core/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-core/target/test-classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-commons/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-mk-api/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-mk/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-mk-remote/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-mongomk/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-it/mk/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-jcr/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-sling/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-http/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-lucene/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-run/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-it/osgi/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-bench/base/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-bench/latest/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Jackrabbit-Oak_3f51fb09/oak-mk-perf/target/classes/, file:/home/tdurieux/.m2/repository/ch/qos/logback/logback-core/1.0.1/logback-core-1.0.1.jar, file:/home/tdurieux/.m2/repository/com/google/guava/guava/13.0.1/guava-13.0.1.jar, file:/home/tdurieux/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.2/jackson-core-asl-1.9.2.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-http/0.6-SNAPSHOT/oak-http-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-net/1.3.0/ops4j-base-net-1.3.0.jar, file:/home/tdurieux/.m2/repository/org/osgi/org.osgi.core/4.2.0/org.osgi.core-4.2.0.jar, file:/home/tdurieux/.m2/repository/org/sonatype/aether/aether-spi/1.11/aether-spi-1.11.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/swissbox/pax-swissbox-optional-jcl/1.5.0/pax-swissbox-optional-jcl-1.5.0.jar, file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar, file:/home/tdurieux/.m2/repository/com/cedarsoft/commons/xml-commons/5.0.9/xml-commons-5.0.9.jar, file:/home/tdurieux/.m2/repository/org/mongodb/mongo-java-driver/2.7.1/mongo-java-driver-2.7.1.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/exam/pax-exam-junit4/2.4.0/pax-exam-junit4-2.4.0.jar, file:/home/tdurieux/.m2/repository/com/cedarsoft/commons/crypt/5.0.9/crypt-5.0.9.jar, file:/home/tdurieux/.m2/repository/org/json/json/20090211/json-20090211.jar, file:/home/tdurieux/.m2/repository/org/apache/xbean/xbean-reflect/3.4/xbean-reflect-3.4.jar, file:/home/tdurieux/.m2/repository/commons-pool/commons-pool/1.5.4/commons-pool-1.5.4.jar, file:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-io/8.1.2.v20120308/jetty-io-8.1.2.v20120308.jar, file:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-lang/1.3.0/ops4j-base-lang-1.3.0.jar, file:/home/tdurieux/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/exam/pax-exam/2.4.0/pax-exam-2.4.0.jar, file:/home/tdurieux/.m2/repository/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar, file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar, file:/home/tdurieux/.m2/repository/org/apache/maven/maven-model-builder/3.0.3/maven-model-builder-3.0.3.jar, file:/home/tdurieux/.m2/repository/com/google/code/findbugs/jsr305/2.0.0/jsr305-2.0.0.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-commons/0.6-SNAPSHOT/oak-commons-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-spi-commons/2.6-SNAPSHOT/jackrabbit-spi-commons-2.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/mockito/mockito-all/1.9.0-rc1/mockito-all-1.9.0-rc1.jar, file:/home/tdurieux/.m2/repository/org/sonatype/aether/aether-impl/1.11/aether-impl-1.11.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-lucene/0.6-SNAPSHOT/oak-lucene-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/com/ibm/icu/icu4j/2.6.1/icu4j-2.6.1.jar, file:/home/tdurieux/.m2/repository/commons-io/commons-io/2.2/commons-io-2.2.jar, file:/home/tdurieux/.m2/repository/org/apache/lucene/lucene-analyzers-common/4.0.0/lucene-analyzers-common-4.0.0.jar, file:/home/tdurieux/.m2/repository/org/apache/lucene/lucene-core/3.6.0/lucene-core-3.6.0.jar, file:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-spi/1.3.0/ops4j-base-spi-1.3.0.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-jcr/0.6-SNAPSHOT/oak-jcr-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-core/0.6-SNAPSHOT/oak-core-0.6-SNAPSHOT-tests.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/url/pax-url-classpath/1.4.0/pax-url-classpath-1.4.0.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/tinybundles/tinybundles/1.0.0/tinybundles-1.0.0.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/swissbox/pax-swissbox-core/1.5.0/pax-swissbox-core-1.5.0.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-mongomk/0.6-SNAPSHOT/oak-mongomk-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/apache/sling/org.apache.sling.jcr.api/2.1.0/org.apache.sling.jcr.api-2.1.0.jar, file:/home/tdurieux/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar, file:/home/tdurieux/.m2/repository/org/apache/maven/wagon/wagon-file/1.0-beta-7/wagon-file-1.0-beta-7.jar, file:/home/tdurieux/.m2/repository/org/apache/maven/wagon/wagon-http-shared/1.0-beta-7/wagon-http-shared-1.0-beta-7.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-mk-api/0.6-SNAPSHOT/oak-mk-api-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/com/google/collections/google-collections/1.0/google-collections-1.0.jar, file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-nop/1.5.8/slf4j-nop-1.5.8.jar, file:/home/tdurieux/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.0.0/jackson-databind-2.0.0.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/swissbox/pax-swissbox-framework/1.5.0/pax-swissbox-framework-1.5.0.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-core/2.6-SNAPSHOT/jackrabbit-core-2.6-SNAPSHOT-tests.jar, file:/home/tdurieux/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-smile/2.0.2/jackson-dataformat-smile-2.0.2.jar, file:/home/tdurieux/.m2/repository/com/cedarsoft/commons/test-utils/5.0.9/test-utils-5.0.9.jar, file:/home/tdurieux/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/url/pax-url-commons/1.4.0/pax-url-commons-1.4.0.jar, file:/home/tdurieux/.m2/repository/org/sonatype/aether/aether-connector-wagon/1.11/aether-connector-wagon-1.11.jar, file:/home/tdurieux/.m2/repository/asm/asm/3.0/asm-3.0.jar, file:/home/tdurieux/.m2/repository/org/sonatype/aether/aether-api/1.11/aether-api-1.11.jar, file:/home/tdurieux/.m2/repository/biz/aQute/bndlib/1.50.0/bndlib-1.50.0.jar, file:/home/tdurieux/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.0.0/jackson-core-2.0.0.jar, file:/home/tdurieux/.m2/repository/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar, file:/home/tdurieux/.m2/repository/org/easytesting/fest-reflect/1.2/fest-reflect-1.2.jar, file:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar, file:/home/tdurieux/.m2/repository/commons-dbcp/commons-dbcp/1.3/commons-dbcp-1.3.jar, file:/home/tdurieux/.m2/repository/javax/jcr/jcr/2.0/jcr-2.0.jar, file:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-http/8.1.2.v20120308/jetty-http-8.1.2.v20120308.jar, file:/home/tdurieux/.m2/repository/xml-apis/xml-apis/1.3.02/xml-apis-1.3.02.jar, file:/home/tdurieux/.m2/repository/org/apache/geronimo/specs/geronimo-atinject_1.0_spec/1.0/geronimo-atinject_1.0_spec-1.0.jar, file:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-store/1.3.0/ops4j-base-store-1.3.0.jar, file:/home/tdurieux/.m2/repository/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar, file:/home/tdurieux/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.2/jackson-mapper-asl-1.9.2.jar, file:/home/tdurieux/.m2/repository/org/apache/maven/wagon/wagon-provider-api/1.0-beta-7/wagon-provider-api-1.0-beta-7.jar, file:/home/tdurieux/.m2/repository/org/apache/sling/org.apache.sling.commons.osgi/2.1.0/org.apache.sling.commons.osgi-2.1.0.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-api/2.6-SNAPSHOT/jackrabbit-api-2.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-it-mk/0.6-SNAPSHOT/oak-it-mk-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/commons-codec/commons-codec/1.2/commons-codec-1.2.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-spi/2.6-SNAPSHOT/jackrabbit-spi-2.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/com/h2database/h2/1.3.158/h2-1.3.158.jar, file:/home/tdurieux/.m2/repository/jaxen/jaxen/1.1.3/jaxen-1.1.3.jar, file:/home/tdurieux/.m2/repository/commons-codec/commons-codec/1.5/commons-codec-1.5.jar, file:/home/tdurieux/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-mk-remote/0.6-SNAPSHOT/oak-mk-remote-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/apache/derby/derby/10.5.3.0_1/derby-10.5.3.0_1.jar, file:/home/tdurieux/.m2/repository/org/slf4j/jcl-over-slf4j/1.6.4/jcl-over-slf4j-1.6.4.jar, file:/home/tdurieux/.m2/repository/concurrent/concurrent/1.3.4/concurrent-1.3.4.jar, file:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-io/1.3.0/ops4j-base-io-1.3.0.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-webdav/2.6-SNAPSHOT/jackrabbit-webdav-2.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/url/pax-url-aether/1.3.3/pax-url-aether-1.3.3.jar, file:/home/tdurieux/.m2/repository/org/eclipse/jetty/orbit/javax.servlet/3.0.0.v201112011016/javax.servlet-3.0.0.v201112011016.jar, file:/home/tdurieux/.m2/repository/org/apache/maven/maven-model/3.0.3/maven-model-3.0.3.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/swissbox/pax-swissbox-lifecycle/1.5.0/pax-swissbox-lifecycle-1.5.0.jar, file:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-util-property/1.3.0/ops4j-base-util-property-1.3.0.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/url/pax-url-link/1.4.0/pax-url-link-1.4.0.jar, file:/home/tdurieux/.m2/repository/commons-io/commons-io/2.0.1/commons-io-2.0.1.jar, file:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-server/8.1.2.v20120308/jetty-server-8.1.2.v20120308.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-jcr-tests/2.6-SNAPSHOT/jackrabbit-jcr-tests-2.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/apache/maven/maven-aether-provider/3.0.3/maven-aether-provider-3.0.3.jar, file:/home/tdurieux/.m2/repository/com/jamonapi/jamon/2.4/jamon-2.4.jar, file:/home/tdurieux/.m2/repository/org/apache/felix/org.apache.felix.framework/4.0.2/org.apache.felix.framework-4.0.2.jar, file:/home/tdurieux/.m2/repository/org/apache/felix/org.apache.felix.scr.annotations/1.7.0/org.apache.felix.scr.annotations-1.7.0.jar, file:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-util/8.1.2.v20120308/jetty-util-8.1.2.v20120308.jar, file:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-monitors/1.3.0/ops4j-base-monitors-1.3.0.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-mk/0.6-SNAPSHOT/oak-mk-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/mongodb/mongo-java-driver/2.9.1/mongo-java-driver-2.9.1.jar, file:/home/tdurieux/.m2/repository/org/sonatype/aether/aether-util/1.11/aether-util-1.11.jar, file:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-servlet/8.1.2.v20120308/jetty-servlet-8.1.2.v20120308.jar, file:/home/tdurieux/.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar, file:/home/tdurieux/.m2/repository/org/jdom/jdom/1.1.2/jdom-1.1.2.jar, file:/home/tdurieux/.m2/repository/org/ops4j/base/ops4j-base-exec/1.3.0/ops4j-base-exec-1.3.0.jar, file:/home/tdurieux/.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/exam/pax-exam-link-assembly/2.4.0/pax-exam-link-assembly-2.4.0.jar, file:/home/tdurieux/.m2/repository/org/codehaus/plexus/plexus-classworlds/2.4/plexus-classworlds-2.4.jar, file:/home/tdurieux/.m2/repository/org/osgi/org.osgi.compendium/4.2.0/org.osgi.compendium-4.2.0.jar, file:/home/tdurieux/.m2/repository/commons-io/commons-io/1.4/commons-io-1.4.jar, file:/home/tdurieux/.m2/repository/jdom/jdom/1.0/jdom-1.0.jar, file:/home/tdurieux/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.jar, file:/home/tdurieux/.m2/repository/org/apache/maven/wagon/wagon-http-lightweight/1.0-beta-7/wagon-http-lightweight-1.0-beta-7.jar, file:/home/tdurieux/.m2/repository/org/apache/commons/commons-math/2.0/commons-math-2.0.jar, file:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-security/8.1.2.v20120308/jetty-security-8.1.2.v20120308.jar, file:/home/tdurieux/.m2/repository/org/eclipse/jetty/jetty-continuation/8.1.2.v20120308/jetty-continuation-8.1.2.v20120308.jar, file:/home/tdurieux/.m2/repository/org/apache/maven/maven-repository-metadata/3.0.3/maven-repository-metadata-3.0.3.jar, file:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.1/logback-classic-1.0.1.jar, file:/home/tdurieux/.m2/repository/xmlunit/xmlunit/1.3/xmlunit-1.3.jar, file:/home/tdurieux/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.0.0/jackson-annotations-2.0.0.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-core/0.6-SNAPSHOT/oak-core-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar, file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-simple/1.6.1/slf4j-simple-1.6.1.jar, file:/home/tdurieux/.m2/repository/org/easytesting/fest-util/1.1.6/fest-util-1.1.6.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/exam/pax-exam-container-native/2.4.0/pax-exam-container-native-2.4.0.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/swissbox/pax-swissbox-property/1.5.0/pax-swissbox-property-1.5.0.jar, file:/home/tdurieux/.m2/repository/xalan/xalan/2.6.0/xalan-2.6.0.jar, file:/home/tdurieux/.m2/repository/org/easytesting/fest-assert/1.4/fest-assert-1.4.jar, file:/home/tdurieux/.m2/repository/org/apache/tika/tika-core/1.0/tika-core-1.0.jar, file:/home/tdurieux/.m2/repository/org/slf4j/jul-to-slf4j/1.6.4/jul-to-slf4j-1.6.4.jar, file:/home/tdurieux/.m2/repository/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar, file:/home/tdurieux/.m2/repository/junit/junit/4.10/junit-4.10.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-jcr-commons/2.6-SNAPSHOT/jackrabbit-jcr-commons-2.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/ops4j/pax/exam/pax-exam-spi/2.4.0/pax-exam-spi-2.4.0.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/oak-bench-base/0.6-SNAPSHOT/oak-bench-base-0.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar, file:/home/tdurieux/.m2/repository/xom/xom/1.0/xom-1.0.jar, file:/home/tdurieux/.m2/repository/org/apache/tika/tika-core/1.2/tika-core-1.2.jar, file:/home/tdurieux/.m2/repository/org/apache/lucene/lucene-core/4.0.0/lucene-core-4.0.0.jar, file:/home/tdurieux/.m2/repository/org/apache/jackrabbit/jackrabbit-jcr-server/2.6-SNAPSHOT/jackrabbit-jcr-server-2.6-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/org/apache/tika/tika-core/1.1/tika-core-1.1.jar, file:/home/tdurieux/.m2/repository/org/codehaus/plexus/plexus-container-default/1.5.4/plexus-container-default-1.5.4.jar, file:/home/tdurieux/.m2/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+10:20:01.528 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+10:20:01.528 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.jackrabbit.mk.test.DataStoreIT, org.apache.jackrabbit.mk.test.MicroKernelIT, org.apache.jackrabbit.oak.api.ContentSessionTest, org.apache.jackrabbit.oak.api.QueryTest, org.apache.jackrabbit.oak.api.RootTest, org.apache.jackrabbit.oak.api.TreeTest, org.apache.jackrabbit.oak.api.UniquePropertyTest, org.apache.jackrabbit.oak.core.DefaultConflictHandlerTest, org.apache.jackrabbit.oak.core.LargeMoveTest, org.apache.jackrabbit.oak.core.RootImplFuzzIT, org.apache.jackrabbit.oak.core.RootImplTest, org.apache.jackrabbit.oak.core.TreeImplTest, org.apache.jackrabbit.oak.kernel.JsopDiffTest, org.apache.jackrabbit.oak.kernel.KernelNodeBuilderTest, org.apache.jackrabbit.oak.kernel.KernelNodeStateTest, org.apache.jackrabbit.oak.kernel.KernelNodeStoreTest, org.apache.jackrabbit.oak.kernel.LargeKernelNodeStateTest, org.apache.jackrabbit.oak.kernel.TypeCodesTest, org.apache.jackrabbit.oak.namepath.GlobalNameMapperTest, org.apache.jackrabbit.oak.namepath.NamePathMapperImplTest, org.apache.jackrabbit.oak.plugins.index.IndexHookManagerDiffTest, org.apache.jackrabbit.oak.plugins.index.IndexHookManagerTest, org.apache.jackrabbit.oak.plugins.index.nodetype.NodeTypeIndexTest, org.apache.jackrabbit.oak.plugins.index.old.IndexTest, org.apache.jackrabbit.oak.plugins.index.old.PrefixIndexTest, org.apache.jackrabbit.oak.plugins.index.old.PropertyIndexTest, org.apache.jackrabbit.oak.plugins.index.old.QueryTest, org.apache.jackrabbit.oak.plugins.index.old.mk.ConflictingMoveTest, org.apache.jackrabbit.oak.plugins.index.old.mk.EverythingIT, org.apache.jackrabbit.oak.plugins.index.old.mk.LargeObjectTest, org.apache.jackrabbit.oak.plugins.index.old.mk.MoveNodeIT, org.apache.jackrabbit.oak.plugins.index.old.mk.hash.HashTest, org.apache.jackrabbit.oak.plugins.index.old.mk.json.fast.JsopObjectTest, org.apache.jackrabbit.oak.plugins.index.old.mk.large.CreateNodesTraverseTest, org.apache.jackrabbit.oak.plugins.index.old.mk.large.CreateRandomNodesTraverseTest, org.apache.jackrabbit.oak.plugins.index.old.mk.large.DescendantCountTest, org.apache.jackrabbit.oak.plugins.index.old.mk.large.LargeNodeTest, org.apache.jackrabbit.oak.plugins.index.old.mk.large.ManyRevisionsTest, org.apache.jackrabbit.oak.plugins.index.old.mk.mem.MemoryNodeTest, org.apache.jackrabbit.oak.plugins.index.old.mk.simple.AscendingClockTest, org.apache.jackrabbit.oak.plugins.index.old.mk.simple.MoveNodeIT, org.apache.jackrabbit.oak.plugins.index.old.mk.simple.NodeVersionTest, org.apache.jackrabbit.oak.plugins.index.old.mk.simple.SimpleKernelTest, org.apache.jackrabbit.oak.plugins.index.old.mk.wrapper.IndexWrapperTest, org.apache.jackrabbit.oak.plugins.index.old.mk.wrapper.SecurityWrapperTest, org.apache.jackrabbit.oak.plugins.index.old.mk.wrapper.VirtualRepositoryWrapperTest, org.apache.jackrabbit.oak.plugins.index.p2.Property2IndexQueryTest, org.apache.jackrabbit.oak.plugins.index.p2.Property2IndexTest, org.apache.jackrabbit.oak.plugins.index.p2.strategy.ContentMirrorStoreStrategyTest, org.apache.jackrabbit.oak.plugins.index.property.PropertyIndexQueryTest, org.apache.jackrabbit.oak.plugins.index.property.PropertyIndexTest, org.apache.jackrabbit.oak.plugins.memory.MemoryNodeBuilderTest, org.apache.jackrabbit.oak.plugins.memory.MemoryPropertyBuilderTest, org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest, org.apache.jackrabbit.oak.plugins.name.NameValidatorTest, org.apache.jackrabbit.oak.plugins.name.ReadWriteNamespaceRegistryTest, org.apache.jackrabbit.oak.query.ast.FullTextTest, org.apache.jackrabbit.oak.query.ast.LikePatternTest, org.apache.jackrabbit.oak.query.index.FilterTest, org.apache.jackrabbit.oak.query.index.TraversingIndexQueryTest, org.apache.jackrabbit.oak.query.index.TraversingIndexTest, org.apache.jackrabbit.oak.security.ConfigurationParametersTest, org.apache.jackrabbit.oak.security.authentication.DefaultLoginModuleTest, org.apache.jackrabbit.oak.security.authentication.GuestDefaultLoginModuleTest, org.apache.jackrabbit.oak.security.authentication.TokenDefaultLoginModuleTest, org.apache.jackrabbit.oak.security.authentication.TokenLoginModuleTest, org.apache.jackrabbit.oak.security.authentication.token.TokenAuthenticationTest, org.apache.jackrabbit.oak.security.authentication.token.TokenInfoTest, org.apache.jackrabbit.oak.security.authentication.token.TokenProviderImplTest, org.apache.jackrabbit.oak.security.authentication.user.UserAuthenticationTest, org.apache.jackrabbit.oak.security.authorization.ACLTest, org.apache.jackrabbit.oak.security.authorization.AccessControlManagerImplTest, org.apache.jackrabbit.oak.security.authorization.AccessControlValidatorTest, org.apache.jackrabbit.oak.security.authorization.PermissionProviderImplTest, org.apache.jackrabbit.oak.security.principal.PrincipalImplTest, org.apache.jackrabbit.oak.security.principal.PrincipalProviderImplTest, org.apache.jackrabbit.oak.security.user.UserManagerImplTest, org.apache.jackrabbit.oak.security.user.UserProviderTest, org.apache.jackrabbit.oak.security.user.UserValidatorTest, org.apache.jackrabbit.oak.security.user.query.UserQueryManagerTest, org.apache.jackrabbit.oak.spi.commit.SubtreeValidatorTest, org.apache.jackrabbit.oak.spi.security.authentication.AbstractLoginModuleTest, org.apache.jackrabbit.oak.spi.security.authentication.GuestLoginModuleTest, org.apache.jackrabbit.oak.spi.security.authentication.external.ExternalLoginModuleTest, org.apache.jackrabbit.oak.spi.security.authorization.ACETest, org.apache.jackrabbit.oak.spi.security.authorization.AllPermissionsTest, org.apache.jackrabbit.oak.spi.security.authorization.ImmutableACLTest, org.apache.jackrabbit.oak.spi.security.principal.EveryonePrincipalTest, org.apache.jackrabbit.oak.spi.security.user.action.PasswordValidationActionTest, org.apache.jackrabbit.oak.spi.security.user.util.PasswordUtilityTest, org.apache.jackrabbit.oak.util.ArrayUtilsTest, org.apache.jackrabbit.oak.util.JsopUtilTest]
+10:20:01.530 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=SMT, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[oak-core/src/main/java], projectClasspath='[Ljava.net.URL;@66d33a', projectTests=[org.apache.jackrabbit.mk.test.DataStoreIT, org.apache.jackrabbit.mk.test.MicroKernelIT, org.apache.jackrabbit.oak.api.ContentSessionTest, org.apache.jackrabbit.oak.api.QueryTest, org.apache.jackrabbit.oak.api.RootTest, org.apache.jackrabbit.oak.api.TreeTest, org.apache.jackrabbit.oak.api.UniquePropertyTest, org.apache.jackrabbit.oak.core.DefaultConflictHandlerTest, org.apache.jackrabbit.oak.core.LargeMoveTest, org.apache.jackrabbit.oak.core.RootImplFuzzIT, org.apache.jackrabbit.oak.core.RootImplTest, org.apache.jackrabbit.oak.core.TreeImplTest, org.apache.jackrabbit.oak.kernel.JsopDiffTest, org.apache.jackrabbit.oak.kernel.KernelNodeBuilderTest, org.apache.jackrabbit.oak.kernel.KernelNodeStateTest, org.apache.jackrabbit.oak.kernel.KernelNodeStoreTest, org.apache.jackrabbit.oak.kernel.LargeKernelNodeStateTest, org.apache.jackrabbit.oak.kernel.TypeCodesTest, org.apache.jackrabbit.oak.namepath.GlobalNameMapperTest, org.apache.jackrabbit.oak.namepath.NamePathMapperImplTest, org.apache.jackrabbit.oak.plugins.index.IndexHookManagerDiffTest, org.apache.jackrabbit.oak.plugins.index.IndexHookManagerTest, org.apache.jackrabbit.oak.plugins.index.nodetype.NodeTypeIndexTest, org.apache.jackrabbit.oak.plugins.index.old.IndexTest, org.apache.jackrabbit.oak.plugins.index.old.PrefixIndexTest, org.apache.jackrabbit.oak.plugins.index.old.PropertyIndexTest, org.apache.jackrabbit.oak.plugins.index.old.QueryTest, org.apache.jackrabbit.oak.plugins.index.old.mk.ConflictingMoveTest, org.apache.jackrabbit.oak.plugins.index.old.mk.EverythingIT, org.apache.jackrabbit.oak.plugins.index.old.mk.LargeObjectTest, org.apache.jackrabbit.oak.plugins.index.old.mk.MoveNodeIT, org.apache.jackrabbit.oak.plugins.index.old.mk.hash.HashTest, org.apache.jackrabbit.oak.plugins.index.old.mk.json.fast.JsopObjectTest, org.apache.jackrabbit.oak.plugins.index.old.mk.large.CreateNodesTraverseTest, org.apache.jackrabbit.oak.plugins.index.old.mk.large.CreateRandomNodesTraverseTest, org.apache.jackrabbit.oak.plugins.index.old.mk.large.DescendantCountTest, org.apache.jackrabbit.oak.plugins.index.old.mk.large.LargeNodeTest, org.apache.jackrabbit.oak.plugins.index.old.mk.large.ManyRevisionsTest, org.apache.jackrabbit.oak.plugins.index.old.mk.mem.MemoryNodeTest, org.apache.jackrabbit.oak.plugins.index.old.mk.simple.AscendingClockTest, org.apache.jackrabbit.oak.plugins.index.old.mk.simple.MoveNodeIT, org.apache.jackrabbit.oak.plugins.index.old.mk.simple.NodeVersionTest, org.apache.jackrabbit.oak.plugins.index.old.mk.simple.SimpleKernelTest, org.apache.jackrabbit.oak.plugins.index.old.mk.wrapper.IndexWrapperTest, org.apache.jackrabbit.oak.plugins.index.old.mk.wrapper.SecurityWrapperTest, org.apache.jackrabbit.oak.plugins.index.old.mk.wrapper.VirtualRepositoryWrapperTest, org.apache.jackrabbit.oak.plugins.index.p2.Property2IndexQueryTest, org.apache.jackrabbit.oak.plugins.index.p2.Property2IndexTest, org.apache.jackrabbit.oak.plugins.index.p2.strategy.ContentMirrorStoreStrategyTest, org.apache.jackrabbit.oak.plugins.index.property.PropertyIndexQueryTest, org.apache.jackrabbit.oak.plugins.index.property.PropertyIndexTest, org.apache.jackrabbit.oak.plugins.memory.MemoryNodeBuilderTest, org.apache.jackrabbit.oak.plugins.memory.MemoryPropertyBuilderTest, org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest, org.apache.jackrabbit.oak.plugins.name.NameValidatorTest, org.apache.jackrabbit.oak.plugins.name.ReadWriteNamespaceRegistryTest, org.apache.jackrabbit.oak.query.ast.FullTextTest, org.apache.jackrabbit.oak.query.ast.LikePatternTest, org.apache.jackrabbit.oak.query.index.FilterTest, org.apache.jackrabbit.oak.query.index.TraversingIndexQueryTest, org.apache.jackrabbit.oak.query.index.TraversingIndexTest, org.apache.jackrabbit.oak.security.ConfigurationParametersTest, org.apache.jackrabbit.oak.security.authentication.DefaultLoginModuleTest, org.apache.jackrabbit.oak.security.authentication.GuestDefaultLoginModuleTest, org.apache.jackrabbit.oak.security.authentication.TokenDefaultLoginModuleTest, org.apache.jackrabbit.oak.security.authentication.TokenLoginModuleTest, org.apache.jackrabbit.oak.security.authentication.token.TokenAuthenticationTest, org.apache.jackrabbit.oak.security.authentication.token.TokenInfoTest, org.apache.jackrabbit.oak.security.authentication.token.TokenProviderImplTest, org.apache.jackrabbit.oak.security.authentication.user.UserAuthenticationTest, org.apache.jackrabbit.oak.security.authorization.ACLTest, org.apache.jackrabbit.oak.security.authorization.AccessControlManagerImplTest, org.apache.jackrabbit.oak.security.authorization.AccessControlValidatorTest, org.apache.jackrabbit.oak.security.authorization.PermissionProviderImplTest, org.apache.jackrabbit.oak.security.principal.PrincipalImplTest, org.apache.jackrabbit.oak.security.principal.PrincipalProviderImplTest, org.apache.jackrabbit.oak.security.user.UserManagerImplTest, org.apache.jackrabbit.oak.security.user.UserProviderTest, org.apache.jackrabbit.oak.security.user.UserValidatorTest, org.apache.jackrabbit.oak.security.user.query.UserQueryManagerTest, org.apache.jackrabbit.oak.spi.commit.SubtreeValidatorTest, org.apache.jackrabbit.oak.spi.security.authentication.AbstractLoginModuleTest, org.apache.jackrabbit.oak.spi.security.authentication.GuestLoginModuleTest, org.apache.jackrabbit.oak.spi.security.authentication.external.ExternalLoginModuleTest, org.apache.jackrabbit.oak.spi.security.authorization.ACETest, org.apache.jackrabbit.oak.spi.security.authorization.AllPermissionsTest, org.apache.jackrabbit.oak.spi.security.authorization.ImmutableACLTest, org.apache.jackrabbit.oak.spi.security.principal.EveryonePrincipalTest, org.apache.jackrabbit.oak.spi.security.user.action.PasswordValidationActionTest, org.apache.jackrabbit.oak.spi.security.user.util.PasswordUtilityTest, org.apache.jackrabbit.oak.util.ArrayUtilsTest, org.apache.jackrabbit.oak.util.JsopUtilTest], complianceLevel=7, outputFolder=., json=true}
+10:20:01.530 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+10:20:01.536 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 889 MB
+10:20:01.536 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+10:20:01.536 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 981 MB
+10:20:01.536 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+10:20:01.537 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+10:20:01.538 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+10:21:36.326 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+10:21:36.327 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:66 which is executed by 2 tests
+10:21:36.327 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:66
+10:21:36.327 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+10:21:36.327 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:60 which is executed by 2 tests
+10:21:36.328 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:60
+10:21:36.328 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+10:21:36.328 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:59 which is executed by 2 tests
+10:21:36.328 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:59
+10:21:36.328 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+10:21:36.328 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:58 which is executed by 2 tests
+10:21:36.328 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:58
+10:21:36.328 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+10:21:36.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:57 which is executed by 2 tests
+10:21:36.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:57
+10:21:36.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+10:21:36.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:55 which is executed by 2 tests
+10:21:36.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.jackrabbit.mk.test.AbstractMicroKernelIT:55
+10:21:36.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+10:21:36.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.oak.plugins.value.ValueFactoryImpl:80 which is executed by 2 tests
+-1884214214
+10:21:36.820 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+10:21:36.821 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.oak.plugins.memory.EmptyPropertyState:188 which is executed by 2 tests
+1860861840
+10:21:37.018 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-nop/1.5.8/slf4j-nop-1.5.8.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.1/logback-classic-1.0.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-simple/1.6.1/slf4j-simple-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: The requested version 1.5.8 by your slf4j binding is not compatible with [1.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:37.117 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (53 ms)
+<> Total tests run: 4
+<> Ignored tests: 0
+<> Failed tests: 4
+~ namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>]
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+~ pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>]
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+~ namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>]
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+~ pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>]
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:21:38.966 [pool-3-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+EmptyPropertyState.java:112: error: missing return statement
+    }
+    ^
+10:21:38.972 [pool-3-thread-1] ERROR f.i.l.r.n.s.ConstraintModelBuilder - Unable to compile the change: 
+public abstract class EmptyPropertyState implements org.apache.jackrabbit.oak.api.PropertyState {
+    private final java.lang.String name;
+
+    protected EmptyPropertyState(@javax.annotation.Nonnull
+    java.lang.String name) {
+        this.name = com.google.common.base.Preconditions.checkNotNull(name);
+    }
+
+    public static org.apache.jackrabbit.oak.api.PropertyState emptyProperty(java.lang.String name, final org.apache.jackrabbit.oak.api.Type<?> type) {
+        if (!(type.isArray())) {
+            throw new java.lang.IllegalArgumentException(("Not an array type:" + type));
+        }
+        return new org.apache.jackrabbit.oak.plugins.memory.EmptyPropertyState(name) {
+            @java.lang.Override
+            public org.apache.jackrabbit.oak.api.Type<?> getType() {
+                return type;
+            }
+        };
+    }
+
+    @javax.annotation.Nonnull
+    @java.lang.Override
+    public java.lang.String getName() {
+        return name;
+    }
+
+    @java.lang.Override
+    public boolean isArray() {
+        return true;
+    }
+
+    @java.lang.SuppressWarnings("unchecked")
+    @javax.annotation.Nonnull
+    @java.lang.Override
+    public <T> T getValue(org.apache.jackrabbit.oak.api.Type<T> type) {
+        com.google.common.base.Preconditions.checkArgument(type.isArray(), "Type must be an array type");
+        return ((T) (java.util.Collections.emptyList()));
+    }
+
+    @javax.annotation.Nonnull
+    @java.lang.Override
+    public <T> T getValue(org.apache.jackrabbit.oak.api.Type<T> type, int index) {
+        throw new java.lang.IndexOutOfBoundsException(java.lang.String.valueOf(index));
+    }
+
+    @java.lang.Override
+    public long size() {
+        throw new java.lang.IllegalStateException("Not a single valued property");
+    }
+
+    @java.lang.Override
+    public long size(int index) {
+        throw new java.lang.IndexOutOfBoundsException(java.lang.String.valueOf(index));
+    }
+
+    @java.lang.Override
+    public int count() {
+        return 0;
+    }
+
+    @java.lang.Override
+    public boolean equals(java.lang.Object other) {
+        if ((this) == other) {
+            return true;
+        }else
+            if (other instanceof org.apache.jackrabbit.oak.api.PropertyState) {
+                org.apache.jackrabbit.oak.api.PropertyState that = ((org.apache.jackrabbit.oak.api.PropertyState) (other));
+                if (!(getName().equals(that.getName()))) {
+                    return false;
+                }
+                if (!(getType().equals(that.getType()))) {
+                    return false;
+                }
+                if ((getType().tag()) == (javax.jcr.PropertyType.BINARY)) {
+                    return com.google.common.collect.Iterables.elementsEqual(getValue(org.apache.jackrabbit.oak.api.Type.BINARIES), that.getValue(org.apache.jackrabbit.oak.api.Type.BINARIES));
+                }else {
+                    return com.google.common.collect.Iterables.elementsEqual(getValue(org.apache.jackrabbit.oak.api.Type.STRINGS), that.getValue(org.apache.jackrabbit.oak.api.Type.STRINGS));
+                }
+            }else {
+                return false;
+            }
+
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        if (isArray()) {
+            return ((getName()) + '=') + (getValue(org.apache.jackrabbit.oak.api.Type.STRINGS));
+        }else {
+            boolean spoonDefaultValue = false;
+            try {
+                spoonDefaultValue = true;
+            } catch (java.lang.Exception __NopolProcessorException) {
+            }
+            boolean runtimeAngelicValue = fr.inria.lille.repair.nopol.synth.AngelicExecution.angelicValue(spoonDefaultValue);
+            if (fr.inria.lille.commons.trace.RuntimeValues.instance(0).isEnabled()) {
+                fr.inria.lille.commons.trace.RuntimeValues.instance(0).collectionStarts();
+                try{fr.inria.lille.commons.trace.RuntimeValues.instance(0).collectInput("org.apache.jackrabbit.oak.plugins.memory.EmptyPropertyState.this.name",org.apache.jackrabbit.oak.plugins.memory.EmptyPropertyState.this.name);} catch (Exception ex1) {ex1.printStackTrace();};
+                fr.inria.lille.commons.trace.RuntimeValues.instance(0).collectOutput(runtimeAngelicValue);
+                fr.inria.lille.commons.trace.RuntimeValues.instance(0).collectionEnds();
+            }
+            if (runtimeAngelicValue)
+                return ((getName()) + '=') + (getValue(org.apache.jackrabbit.oak.api.Type.STRING));
+
+        }
+    }
+}
+10:21:38.972 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+10:21:38.973 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+10:21:38.973 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.oak.plugins.memory.EmptyPropertyState:184 which is executed by 2 tests
+1860861840
+10:21:39.195 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-nop/1.5.8/slf4j-nop-1.5.8.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.1/logback-classic-1.0.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-simple/1.6.1/slf4j-simple-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: The requested version 1.5.8 by your slf4j binding is not compatible with [1.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:39.250 [pool-6-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (41 ms)
+<> Total tests run: 4
+<> Ignored tests: 0
+<> Failed tests: 4
+~ namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>]
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+~ pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>]
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+~ namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>]
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+~ pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>]
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-nop/1.5.8/slf4j-nop-1.5.8.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.1/logback-classic-1.0.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-simple/1.6.1/slf4j-simple-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: The requested version 1.5.8 by your slf4j binding is not compatible with [1.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:39.675 [pool-7-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (38 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>]
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:39.680 [pool-8-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (4 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>]
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+java.lang.AssertionError: expected:<name=[oak-prefix:value]> but was:<name=[jcr-prefix:value]>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:39.682 [pool-9-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<name=[oak-prefix:value]> but was:<name=[jcr-prefix:value]>]
+java.lang.AssertionError: expected:<name=[oak-prefix:value]> but was:<name=[jcr-prefix:value]>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+java.lang.AssertionError: expected:<path=[oak-prefix:a/oak-prefix:b]> but was:<path=[jcr-prefix:a/jcr-prefix:b]>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:39.684 [pool-10-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<path=[oak-prefix:a/oak-prefix:b]> but was:<path=[jcr-prefix:a/jcr-prefix:b]>]
+java.lang.AssertionError: expected:<path=[oak-prefix:a/oak-prefix:b]> but was:<path=[jcr-prefix:a/jcr-prefix:b]>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:21:39.684 [pool-5-thread-1] DEBUG tests.output - Failing tests with false: 
+[namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest): expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>, pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest): expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>]
+10:21:39.685 [pool-5-thread-1] DEBUG tests.output - Failing tests with true: 
+[namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest): expected:<name=[oak-prefix:value]> but was:<name=[jcr-prefix:value]>, pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest): expected:<path=[oak-prefix:a/oak-prefix:b]> but was:<path=[jcr-prefix:a/jcr-prefix:b]>]
+10:21:39.685 [pool-5-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.jackrabbit.oak.plugins.memory.EmptyPropertyState:184.
+10:21:39.685 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+10:21:39.685 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.oak.plugins.memory.PropertyStates:72 which is executed by 2 tests
+1413279832
+10:21:39.877 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+10:21:39.877 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.jackrabbit.oak.namepath.LocalNameMapper:58 which is executed by 3 tests
+-759612840
+10:21:40.053 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-nop/1.5.8/slf4j-nop-1.5.8.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.1/logback-classic-1.0.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-simple/1.6.1/slf4j-simple-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: The requested version 1.5.8 by your slf4j binding is not compatible with [1.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:40.148 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (40 ms)
+<> Total tests run: 4
+<> Ignored tests: 0
+<> Failed tests: 4
+~ namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>]
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+~ pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>]
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+~ namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>]
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+~ pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>]
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-nop/1.5.8/slf4j-nop-1.5.8.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.1/logback-classic-1.0.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-simple/1.6.1/slf4j-simple-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: The requested version 1.5.8 by your slf4j binding is not compatible with [1.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+10:21:40.539 [pool-13-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (34 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:21:40.547 [pool-14-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:40.549 [pool-15-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>]
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:40.556 [pool-16-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>]
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:21:40.560 [pool-17-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:21:40.567 [pool-18-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+org.junit.ComparisonFailure: expected:</[]foo:bar> but was:</[oak-]foo:bar>
+    at org.junit.Assert.assertEquals(Assert.java:115)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.namepath.NamePathMapperImplTest.testOakToJcr(NamePathMapperImplTest.java:151)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+10:21:40.627 [pool-19-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (46 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testOakToJcr(org.apache.jackrabbit.oak.namepath.NamePathMapperImplTest)
+[expected:</[]foo:bar> but was:</[oak-]foo:bar>]
+org.junit.ComparisonFailure: expected:</[]foo:bar> but was:</[oak-]foo:bar>    at org.junit.Assert.assertEquals(Assert.java:115)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.namepath.NamePathMapperImplTest.testOakToJcr(NamePathMapperImplTest.java:151)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:40.635 [pool-20-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ namePropertyFromNameValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>]
+java.lang.AssertionError: expected:<name=oak-prefix:value> but was:<name=jcr-prefix:value>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.namePropertyFromNameValue(PropertyStatesTest.java:46)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+10:21:40.637 [pool-21-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ pathPropertyFromPathValue(org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest)
+[expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>]
+java.lang.AssertionError: expected:<path=oak-prefix:a/oak-prefix:b> but was:<path=jcr-prefix:a/jcr-prefix:b>    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at org.apache.jackrabbit.oak.plugins.memory.PropertyStatesTest.pathPropertyFromPathValue(PropertyStatesTest.java:54)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+10:21:40.638 [pool-22-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:21:40.642 [pool-23-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+10:21:40.978 [pool-11-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+10:21:41.088 [pool-11-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+10:21:41.155 [pool-11-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Successful code synthesis: (oakPrefix.length()) != (jcrPrefix.length())
+10:21:41.156 [pool-11-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Applying patch: org.apache.jackrabbit.oak.namepath.LocalNameMapper:58: PRECONDITION (oakPrefix.length()) != (jcrPrefix.length())
+10:21:41.433 [pool-11-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Running test suite to check the patch "(oakPrefix.length()) != (jcrPrefix.length())" is working
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-nop/1.5.8/slf4j-nop-1.5.8.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.1/logback-classic-1.0.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-simple/1.6.1/slf4j-simple-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: The requested version 1.5.8 by your slf4j binding is not compatible with [1.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+10:21:41.505 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+10:21:41.714 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 439
+10:21:41.714 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 2649
+10:21:41.714 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 3
+10:21:41.714 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 1
+10:21:41.715 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb inputs in SMT : 3
+10:21:41.715 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT level: 2
+10:21:41.715 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT components: [4] [== of arity: 2, != of arity: 2, < of arity: 2, <= of arity: 2]
+10:21:41.715 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol -                   class java.lang.Boolean: 4
+10:21:41.715 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb variables in SMT : 21
+10:21:41.715 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 99989ms
+10:21:41.715 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+10:21:41.715 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----PATCH FOUND----
+10:21:41.715 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - (oakPrefix.length()) != (jcrPrefix.length())
+10:21:41.932 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb test that executes the patch: 3
+10:21:41.933 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - org.apache.jackrabbit.oak.namepath.LocalNameMapper:58: PRECONDITION
+10:21:41.945 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - --- a/oak-core/src/main/java/org/apache/jackrabbit/oak/namepath/LocalNameMapper.java
++++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/namepath/LocalNameMapper.java
+@@ -57,3 +57,5 @@
+                         } else {
+-                            return jcrPrefix + oakName.substring(colon);
++                            if ((oakPrefix.length()) != (jcrPrefix.length())) {
++                                return jcrPrefix + oakName.substring(colon);
++                            }
+                         }
+
+PATCH
+145.76user 4.38system 1:42.77elapsed 146%CPU (0avgtext+0avgdata 1664372maxresident)k
+64144inputs+175576outputs (35major+682407minor)pagefaults 0swaps
+
+
+Node: graphene-45.nancy.grid5000.fr
+
+
+
+Date: Sat Dec 29 10:21:42 EST 2018
+

@@ -1,0 +1,635 @@
+cd /tmp/Nopol_Defects4J_Lang_44;
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8;
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4048m -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis smt \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 3 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/Nopol_Defects4J_Lang_44/target/classes/:/tmp/Nopol_Defects4J_Lang_44/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+18:42:23.919 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+18:42:23.923 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/Nopol_Defects4J_Lang_44/target/classes/, file:/tmp/Nopol_Defects4J_Lang_44/target/tests/, file:/tmp/Nopol_Defects4J_Lang_44/target/classes/, file:/tmp/Nopol_Defects4J_Lang_44/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+18:42:23.923 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+18:42:23.924 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.reflect.ConstructorUtilsTest, org.apache.commons.lang.reflect.ConstructorUtilsTest, org.apache.commons.lang.reflect.FieldUtilsTest, org.apache.commons.lang.reflect.FieldUtilsTest, org.apache.commons.lang.reflect.MethodUtilsTest, org.apache.commons.lang.reflect.MethodUtilsTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+18:42:23.927 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=SMT, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@66d33a', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.reflect.ConstructorUtilsTest, org.apache.commons.lang.reflect.ConstructorUtilsTest, org.apache.commons.lang.reflect.FieldUtilsTest, org.apache.commons.lang.reflect.FieldUtilsTest, org.apache.commons.lang.reflect.MethodUtilsTest, org.apache.commons.lang.reflect.MethodUtilsTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=3, outputFolder=., json=true}
+18:42:23.927 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 8
+18:42:23.938 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 212 MB
+18:42:23.938 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+18:42:23.938 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 241 MB
+18:42:23.938 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+18:42:23.940 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+18:42:23.940 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+18:42:54.067 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+18:42:54.068 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.NumberUtils:302 which is executed by 3 tests
+-1898474807
+18:42:54.464 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:54.527 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (24 ms)
+<> Total tests run: 20
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:56.009 [pool-5-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:56.021 [pool-6-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:42:56.022 [pool-3-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:56.023 [pool-3-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:56.023 [pool-3-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.NumberUtils:302.
+18:42:56.023 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+18:42:56.024 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.NumberUtils:301 which is executed by 3 tests
+-1898474807
+18:42:56.169 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:56.194 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 20
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:56.547 [pool-9-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:56.550 [pool-10-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:42:56.551 [pool-7-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:56.551 [pool-7-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:56.551 [pool-7-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.NumberUtils:301.
+18:42:56.552 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:56.573 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 20
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:56.861 [pool-13-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:56.872 [pool-14-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:42:56.873 [pool-11-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:56.873 [pool-11-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:56.874 [pool-11-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.NumberUtils:301.
+18:42:56.874 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+18:42:56.874 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.NumberUtils:300 which is executed by 3 tests
+-1898474807
+18:42:57.003 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:57.022 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (12 ms)
+<> Total tests run: 20
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:57.318 [pool-17-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:57.320 [pool-18-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:42:57.321 [pool-15-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:57.322 [pool-15-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:57.322 [pool-15-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.NumberUtils:300.
+18:42:57.322 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+18:42:57.323 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.NumberUtils:297 which is executed by 3 tests
+-1898474807
+18:42:57.447 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:57.467 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (13 ms)
+<> Total tests run: 20
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:57.711 [pool-21-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:57.714 [pool-22-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:42:57.715 [pool-19-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:57.715 [pool-19-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:57.715 [pool-19-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.NumberUtils:297.
+18:42:57.716 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:57.734 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (12 ms)
+<> Total tests run: 20
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:57.965 [pool-25-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:57.967 [pool-26-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:67)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:42:57.968 [pool-23-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:57.968 [pool-23-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang457(org.apache.commons.lang.NumberUtilsTest): String index out of range: 0]
+18:42:57.968 [pool-23-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.NumberUtils:297.
+18:42:57.968 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+18:42:57.969 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.NumberUtils:193 which is executed by 3 tests
+-1898474807
+18:42:58.091 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:58.109 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (12 ms)
+<> Total tests run: 20
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:193)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:42:58.532 [pool-29-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:93)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:58.536 [pool-30-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:93)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.NumberFormatException: 92233720368547758070L is not a valid number.
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:100)
+    at org.apache.commons.lang.NumberUtilsTest.testCreateNumber(NumberUtilsTest.java:73)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+18:42:58.545 [pool-31-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testCreateNumber(org.apache.commons.lang.NumberUtilsTest)
+[92233720368547758070L is not a valid number.]
+java.lang.NumberFormatException: 92233720368547758070L is not a valid number.    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:100)
+    at org.apache.commons.lang.NumberUtilsTest.testCreateNumber(NumberUtilsTest.java:73)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+
+18:42:58.548 [pool-32-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+junit.framework.AssertionFailedError: isNumber(String)/createNumber(String) 21 failed
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.lang.NumberUtilsTest.testIsNumber(NumberUtilsTest.java:421)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+18:42:58.561 [pool-33-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (6 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testIsNumber(org.apache.commons.lang.NumberUtilsTest)
+[isNumber(String)/createNumber(String) 21 failed]
+junit.framework.AssertionFailedError: isNumber(String)/createNumber(String) 21 failed    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.lang.NumberUtilsTest.testIsNumber(NumberUtilsTest.java:421)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+18:42:58.567 [pool-34-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (3 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:93)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:42:58.569 [pool-35-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang457(org.apache.commons.lang.NumberUtilsTest)
+[String index out of range: 0]
+java.lang.StringIndexOutOfBoundsException: String index out of range: 0    at java.lang.String.charAt(String.java:658)
+    at org.apache.commons.lang.NumberUtils.createNumber(NumberUtils.java:93)
+    at org.apache.commons.lang.NumberUtilsTest.testLang457(NumberUtilsTest.java:528)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:42:58.572 [pool-36-thread-1] INFO  f.i.l.r.n.s.ConstraintModelBuilder$1PassingListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+18:42:58.576 [pool-37-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+18:42:58.579 [pool-38-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 0
+
+18:42:58.929 [pool-27-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+18:42:59.059 [pool-27-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Operators:
+== of arity: 2
+!= of arity: 2
+< of arity: 2
+<= of arity: 2
+18:42:59.158 [pool-27-thread-1] DEBUG f.i.l.c.s.ConstraintBasedSynthesis - Successful code synthesis: (1) != (val.length())
+18:42:59.159 [pool-27-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Applying patch: org.apache.commons.lang.NumberUtils:193: PRECONDITION (1) != (val.length())
+18:42:59.366 [pool-27-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Running test suite to check the patch "(1) != (val.length())" is working
+18:42:59.618 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+18:42:59.717 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 85
+18:42:59.717 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1887
+18:42:59.717 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 7
+18:42:59.717 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 1
+18:42:59.718 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb inputs in SMT : 5
+18:42:59.718 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT level: 2
+18:42:59.718 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT components: [4] [== of arity: 2, != of arity: 2, < of arity: 2, <= of arity: 2]
+18:42:59.719 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol -                   class java.lang.Boolean: 4
+18:42:59.719 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb variables in SMT : 22
+18:42:59.719 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 35704ms
+18:42:59.719 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+18:42:59.719 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----PATCH FOUND----
+18:42:59.719 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - (1) != (val.length())
+18:42:59.739 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb test that executes the patch: 3
+18:42:59.740 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - org.apache.commons.lang.NumberUtils:193: PRECONDITION
+18:42:59.769 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - --- a/src/java/org/apache/commons/lang/NumberUtils.java
++++ b/src/java/org/apache/commons/lang/NumberUtils.java
+@@ -192,12 +192,14 @@
+                 case 'L' :
+-                    if (dec == null
++                    if ((1) != (val.length())) {
++                        if (dec == null
+                         && exp == null
+                         && (numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
+-                        try {
+-                            return createLong(numeric);
+-                        } catch (NumberFormatException nfe) {
+-                            //Too big for a long
++                            try {
++                                return createLong(numeric);
++                            } catch (NumberFormatException nfe) {
++                                //Too big for a long
++                            }
++                            return createBigInteger(numeric);
++                            
+                         }
+-                        return createBigInteger(numeric);
+-
+                     }
+
+PATCH
+81.97user 3.14system 0:37.88elapsed 224%CPU (0avgtext+0avgdata 654668maxresident)k
+75736inputs+5456outputs (28major+335585minor)pagefaults 0swaps
+
+
+Node: granduc-3.luxembourg.grid5000.fr
+
+
+
+Date: Wed Nov 28 18:43:00 EST 2018
+

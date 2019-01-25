@@ -1,0 +1,480 @@
+cd /tmp/Nopol_Bug_dot_jar_Commons-Math_a4b1948b;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4g -Xms1g -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis smt \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source src/main/java \
+	--classpath "target/classes:target/test-classes:/home/tdurieux/.m2/repository/junit/junit/4.4/junit-4.4.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+09:53:50.152 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/main/java]
+09:53:50.169 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/Nopol_Bug_dot_jar_Commons-Math_a4b1948b/target/classes/, file:/tmp/Nopol_Bug_dot_jar_Commons-Math_a4b1948b/target/test-classes/, file:/home/tdurieux/.m2/repository/junit/junit/4.4/junit-4.4.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+09:53:50.169 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+09:53:50.170 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.math.ConvergenceExceptionTest, org.apache.commons.math.MathConfigurationExceptionTest, org.apache.commons.math.MathExceptionTest, org.apache.commons.math.MaxIterationsExceededExceptionTest, org.apache.commons.math.analysis.FunctionUtilsTest, org.apache.commons.math.analysis.integration.LegendreGaussIntegratorTest, org.apache.commons.math.analysis.integration.RombergIntegratorTest, org.apache.commons.math.analysis.integration.SimpsonIntegratorTest, org.apache.commons.math.analysis.integration.TrapezoidIntegratorTest, org.apache.commons.math.analysis.interpolation.BicubicSplineInterpolatingFunctionTest, org.apache.commons.math.analysis.interpolation.BicubicSplineInterpolatorTest, org.apache.commons.math.analysis.interpolation.DividedDifferenceInterpolatorTest, org.apache.commons.math.analysis.interpolation.LinearInterpolatorTest, org.apache.commons.math.analysis.interpolation.LoessInterpolatorTest, org.apache.commons.math.analysis.interpolation.MicrosphereInterpolatorTest, org.apache.commons.math.analysis.interpolation.NevilleInterpolatorTest, org.apache.commons.math.analysis.interpolation.SmoothingPolynomialBicubicSplineInterpolatorTest, org.apache.commons.math.analysis.interpolation.SplineInterpolatorTest, org.apache.commons.math.analysis.interpolation.TricubicSplineInterpolatingFunctionTest, org.apache.commons.math.analysis.interpolation.TricubicSplineInterpolatorTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionLagrangeFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionNewtonFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialSplineFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialsUtilsTest, org.apache.commons.math.analysis.solvers.BisectionSolverTest, org.apache.commons.math.analysis.solvers.BrentSolverTest, org.apache.commons.math.analysis.solvers.LaguerreSolverTest, org.apache.commons.math.analysis.solvers.MullerSolver2Test, org.apache.commons.math.analysis.solvers.MullerSolverTest, org.apache.commons.math.analysis.solvers.NewtonSolverTest, org.apache.commons.math.analysis.solvers.RiddersSolverTest, org.apache.commons.math.analysis.solvers.SecantSolverTest, org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtilsTest, org.apache.commons.math.complex.ComplexFieldTest, org.apache.commons.math.complex.ComplexFormatTest, org.apache.commons.math.complex.ComplexTest, org.apache.commons.math.complex.ComplexUtilsTest, org.apache.commons.math.complex.FrenchComplexFormatTest, org.apache.commons.math.dfp.DfpDecTest, org.apache.commons.math.dfp.DfpMathTest, org.apache.commons.math.dfp.DfpTest, org.apache.commons.math.distribution.BetaDistributionTest, org.apache.commons.math.distribution.BinomialDistributionTest, org.apache.commons.math.distribution.CauchyDistributionTest, org.apache.commons.math.distribution.ChiSquareDistributionTest, org.apache.commons.math.distribution.ExponentialDistributionTest, org.apache.commons.math.distribution.FDistributionTest, org.apache.commons.math.distribution.GammaDistributionTest, org.apache.commons.math.distribution.HypergeometricDistributionTest, org.apache.commons.math.distribution.NormalDistributionTest, org.apache.commons.math.distribution.PascalDistributionTest, org.apache.commons.math.distribution.PoissonDistributionTest, org.apache.commons.math.distribution.TDistributionTest, org.apache.commons.math.distribution.WeibullDistributionTest, org.apache.commons.math.distribution.ZipfDistributionTest, org.apache.commons.math.exception.DimensionMismatchExceptionTest, org.apache.commons.math.exception.MatrixDimensionMismatchExceptionTest, org.apache.commons.math.exception.MaxCountExceededExceptionTest, org.apache.commons.math.exception.NonMonotonousSequenceExceptionTest, org.apache.commons.math.exception.NotPositiveExceptionTest, org.apache.commons.math.exception.NotStrictlyPositiveExceptionTest, org.apache.commons.math.exception.NumberIsTooLargeExceptionTest, org.apache.commons.math.exception.NumberIsTooSmallExceptionTest, org.apache.commons.math.exception.OutOfRangeExceptionTest, org.apache.commons.math.exception.util.ArgUtilsTest, org.apache.commons.math.exception.util.MessageFactoryTest, org.apache.commons.math.fraction.BigFractionFieldTest, org.apache.commons.math.fraction.BigFractionFormatTest, org.apache.commons.math.fraction.BigFractionTest, org.apache.commons.math.fraction.FractionFieldTest, org.apache.commons.math.fraction.FractionFormatTest, org.apache.commons.math.fraction.FractionTest, org.apache.commons.math.genetics.BinaryChromosomeTest, org.apache.commons.math.genetics.BinaryMutationTest, org.apache.commons.math.genetics.ChromosomeTest, org.apache.commons.math.genetics.ElitisticListPopulationTest, org.apache.commons.math.genetics.FitnessCachingTest, org.apache.commons.math.genetics.FixedGenerationCountTest, org.apache.commons.math.genetics.GeneticAlgorithmTestBinary, org.apache.commons.math.genetics.GeneticAlgorithmTestPermutations, org.apache.commons.math.genetics.ListPopulationTest, org.apache.commons.math.genetics.OnePointCrossoverTest, org.apache.commons.math.genetics.RandomKeyMutationTest, org.apache.commons.math.genetics.RandomKeyTest, org.apache.commons.math.genetics.TournamentSelectionTest, org.apache.commons.math.geometry.FrenchVector3DFormatTest, org.apache.commons.math.geometry.RotationOrderTest, org.apache.commons.math.geometry.RotationTest, org.apache.commons.math.geometry.Vector3DFormatTest, org.apache.commons.math.geometry.Vector3DTest, org.apache.commons.math.linear.AbstractRealVectorTest, org.apache.commons.math.linear.Array2DRowRealMatrixTest, org.apache.commons.math.linear.ArrayFieldVectorTest, org.apache.commons.math.linear.ArrayRealVectorTest, org.apache.commons.math.linear.BiDiagonalTransformerTest, org.apache.commons.math.linear.BlockFieldMatrixTest, org.apache.commons.math.linear.BlockRealMatrixTest, org.apache.commons.math.linear.CholeskyDecompositionImplTest, org.apache.commons.math.linear.CholeskySolverTest, org.apache.commons.math.linear.EigenDecompositionImplTest, org.apache.commons.math.linear.EigenSolverTest, org.apache.commons.math.linear.FieldLUDecompositionImplTest, org.apache.commons.math.linear.FieldMatrixImplTest, org.apache.commons.math.linear.FrenchRealVectorFormatTest, org.apache.commons.math.linear.LUDecompositionImplTest, org.apache.commons.math.linear.LUSolverTest, org.apache.commons.math.linear.MatrixUtilsTest, org.apache.commons.math.linear.QRDecompositionImplTest, org.apache.commons.math.linear.QRSolverTest, org.apache.commons.math.linear.RealVectorFormatTest, org.apache.commons.math.linear.SingularValueDecompositionImplTest, org.apache.commons.math.linear.SingularValueSolverTest, org.apache.commons.math.linear.SparseFieldMatrixTest, org.apache.commons.math.linear.SparseFieldVectorTest, org.apache.commons.math.linear.SparseRealMatrixTest, org.apache.commons.math.linear.SparseRealVectorTest, org.apache.commons.math.linear.TriDiagonalTransformerTest, org.apache.commons.math.ode.ContinuousOutputModelTest, org.apache.commons.math.ode.FirstOrderConverterTest, org.apache.commons.math.ode.events.EventStateTest, org.apache.commons.math.ode.nonstiff.AdamsBashforthIntegratorTest, org.apache.commons.math.ode.nonstiff.AdamsMoultonIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.EulerIntegratorTest, org.apache.commons.math.ode.nonstiff.EulerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GillIntegratorTest, org.apache.commons.math.ode.nonstiff.GillStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.HighamHall54IntegratorTest, org.apache.commons.math.ode.nonstiff.HighamHall54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.MidpointIntegratorTest, org.apache.commons.math.ode.nonstiff.MidpointStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesIntegratorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesStepInterpolatorTest, org.apache.commons.math.ode.sampling.DummyStepInterpolatorTest, org.apache.commons.math.ode.sampling.NordsieckStepInterpolatorTest, org.apache.commons.math.ode.sampling.StepNormalizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateRealOptimizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateVectorialOptimizerTest, org.apache.commons.math.optimization.MultiStartMultivariateRealOptimizerTest, org.apache.commons.math.optimization.direct.PowellOptimizerTest, org.apache.commons.math.optimization.direct.SimplexOptimizerMultiDirectionalTest, org.apache.commons.math.optimization.direct.SimplexOptimizerNelderMeadTest, org.apache.commons.math.optimization.fitting.CurveFitterTest, org.apache.commons.math.optimization.fitting.GaussianFitterTest, org.apache.commons.math.optimization.fitting.HarmonicFitterTest, org.apache.commons.math.optimization.fitting.ParametricGaussianFunctionTest, org.apache.commons.math.optimization.fitting.PolynomialFitterTest, org.apache.commons.math.optimization.general.GaussNewtonOptimizerTest, org.apache.commons.math.optimization.general.LevenbergMarquardtOptimizerTest, org.apache.commons.math.optimization.general.MinpackTest, org.apache.commons.math.optimization.general.NonLinearConjugateGradientOptimizerTest, org.apache.commons.math.optimization.linear.SimplexSolverTest, org.apache.commons.math.optimization.linear.SimplexTableauTest, org.apache.commons.math.optimization.univariate.BracketFinderTest, org.apache.commons.math.optimization.univariate.BrentOptimizerTest, org.apache.commons.math.optimization.univariate.MultiStartUnivariateRealOptimizerTest, org.apache.commons.math.random.AbstractRandomGeneratorTest, org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.EmpiricalDistributionTest, org.apache.commons.math.random.GaussianRandomGeneratorTest, org.apache.commons.math.random.MersenneTwisterTest, org.apache.commons.math.random.RandomAdaptorTest, org.apache.commons.math.random.RandomDataTest, org.apache.commons.math.random.UncorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.UniformRandomGeneratorTest, org.apache.commons.math.random.ValueServerTest, org.apache.commons.math.random.Well1024aTest, org.apache.commons.math.random.Well19937aTest, org.apache.commons.math.random.Well19937cTest, org.apache.commons.math.random.Well44497aTest, org.apache.commons.math.random.Well44497bTest, org.apache.commons.math.random.Well512aTest, org.apache.commons.math.special.BetaTest, org.apache.commons.math.special.ErfTest, org.apache.commons.math.special.GammaTest, org.apache.commons.math.stat.CertifiedDataTest, org.apache.commons.math.stat.FrequencyTest, org.apache.commons.math.stat.StatUtilsTest, org.apache.commons.math.stat.clustering.EuclideanIntegerPointTest, org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest, org.apache.commons.math.stat.correlation.CovarianceTest, org.apache.commons.math.stat.correlation.PearsonsCorrelationTest, org.apache.commons.math.stat.correlation.SpearmansRankCorrelationTest, org.apache.commons.math.stat.data.LewTest, org.apache.commons.math.stat.data.LotteryTest, org.apache.commons.math.stat.descriptive.AbstractUnivariateStatisticTest, org.apache.commons.math.stat.descriptive.AggregateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.InteractionTest, org.apache.commons.math.stat.descriptive.ListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MixedListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.StatisticalSummaryValuesTest, org.apache.commons.math.stat.descriptive.SummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedDescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedMultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.moment.FirstMomentTest, org.apache.commons.math.stat.descriptive.moment.FourthMomentTest, org.apache.commons.math.stat.descriptive.moment.GeometricMeanTest, org.apache.commons.math.stat.descriptive.moment.KurtosisTest, org.apache.commons.math.stat.descriptive.moment.MeanTest, org.apache.commons.math.stat.descriptive.moment.SecondMomentTest, org.apache.commons.math.stat.descriptive.moment.SemiVarianceTest, org.apache.commons.math.stat.descriptive.moment.SkewnessTest, org.apache.commons.math.stat.descriptive.moment.StandardDeviationTest, org.apache.commons.math.stat.descriptive.moment.ThirdMomentTest, org.apache.commons.math.stat.descriptive.moment.VarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialCovarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialMeanTest, org.apache.commons.math.stat.descriptive.rank.MaxTest, org.apache.commons.math.stat.descriptive.rank.MedianTest, org.apache.commons.math.stat.descriptive.rank.MinTest, org.apache.commons.math.stat.descriptive.rank.PercentileTest, org.apache.commons.math.stat.descriptive.summary.ProductTest, org.apache.commons.math.stat.descriptive.summary.SumLogTest, org.apache.commons.math.stat.descriptive.summary.SumSqTest, org.apache.commons.math.stat.descriptive.summary.SumTest, org.apache.commons.math.stat.inference.ChiSquareFactoryTest, org.apache.commons.math.stat.inference.ChiSquareTestTest, org.apache.commons.math.stat.inference.MannWhitneyUTestTest, org.apache.commons.math.stat.inference.OneWayAnovaTest, org.apache.commons.math.stat.inference.TTestFactoryTest, org.apache.commons.math.stat.inference.TTestTest, org.apache.commons.math.stat.inference.TestUtilsTest, org.apache.commons.math.stat.inference.WilcoxonSignedRankTestTest, org.apache.commons.math.stat.ranking.NaturalRankingTest, org.apache.commons.math.stat.regression.GLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.OLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.SimpleRegressionTest, org.apache.commons.math.transform.FastCosineTransformerTest, org.apache.commons.math.transform.FastFourierTransformerTest, org.apache.commons.math.transform.FastHadamardTransformerTest, org.apache.commons.math.transform.FastSineTransformerTest, org.apache.commons.math.util.BigRealFieldTest, org.apache.commons.math.util.BigRealTest, org.apache.commons.math.util.ContinuedFractionTest, org.apache.commons.math.util.DefaultTransformerTest, org.apache.commons.math.util.FastMathTest, org.apache.commons.math.util.IncrementorTest, org.apache.commons.math.util.MathUtilsTest, org.apache.commons.math.util.MultidimensionalCounterTest, org.apache.commons.math.util.OpenIntToDoubleHashMapTest, org.apache.commons.math.util.OpenIntToFieldTest, org.apache.commons.math.util.PairTest, org.apache.commons.math.util.ResizableDoubleArrayTest, org.apache.commons.math.util.TransformerMapTest]
+09:53:50.172 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=SMT, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/main/java], projectClasspath='[Ljava.net.URL;@66d33a', projectTests=[org.apache.commons.math.ConvergenceExceptionTest, org.apache.commons.math.MathConfigurationExceptionTest, org.apache.commons.math.MathExceptionTest, org.apache.commons.math.MaxIterationsExceededExceptionTest, org.apache.commons.math.analysis.FunctionUtilsTest, org.apache.commons.math.analysis.integration.LegendreGaussIntegratorTest, org.apache.commons.math.analysis.integration.RombergIntegratorTest, org.apache.commons.math.analysis.integration.SimpsonIntegratorTest, org.apache.commons.math.analysis.integration.TrapezoidIntegratorTest, org.apache.commons.math.analysis.interpolation.BicubicSplineInterpolatingFunctionTest, org.apache.commons.math.analysis.interpolation.BicubicSplineInterpolatorTest, org.apache.commons.math.analysis.interpolation.DividedDifferenceInterpolatorTest, org.apache.commons.math.analysis.interpolation.LinearInterpolatorTest, org.apache.commons.math.analysis.interpolation.LoessInterpolatorTest, org.apache.commons.math.analysis.interpolation.MicrosphereInterpolatorTest, org.apache.commons.math.analysis.interpolation.NevilleInterpolatorTest, org.apache.commons.math.analysis.interpolation.SmoothingPolynomialBicubicSplineInterpolatorTest, org.apache.commons.math.analysis.interpolation.SplineInterpolatorTest, org.apache.commons.math.analysis.interpolation.TricubicSplineInterpolatingFunctionTest, org.apache.commons.math.analysis.interpolation.TricubicSplineInterpolatorTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionLagrangeFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionNewtonFormTest, org.apache.commons.math.analysis.polynomials.PolynomialFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialSplineFunctionTest, org.apache.commons.math.analysis.polynomials.PolynomialsUtilsTest, org.apache.commons.math.analysis.solvers.BisectionSolverTest, org.apache.commons.math.analysis.solvers.BrentSolverTest, org.apache.commons.math.analysis.solvers.LaguerreSolverTest, org.apache.commons.math.analysis.solvers.MullerSolver2Test, org.apache.commons.math.analysis.solvers.MullerSolverTest, org.apache.commons.math.analysis.solvers.NewtonSolverTest, org.apache.commons.math.analysis.solvers.RiddersSolverTest, org.apache.commons.math.analysis.solvers.SecantSolverTest, org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtilsTest, org.apache.commons.math.complex.ComplexFieldTest, org.apache.commons.math.complex.ComplexFormatTest, org.apache.commons.math.complex.ComplexTest, org.apache.commons.math.complex.ComplexUtilsTest, org.apache.commons.math.complex.FrenchComplexFormatTest, org.apache.commons.math.dfp.DfpDecTest, org.apache.commons.math.dfp.DfpMathTest, org.apache.commons.math.dfp.DfpTest, org.apache.commons.math.distribution.BetaDistributionTest, org.apache.commons.math.distribution.BinomialDistributionTest, org.apache.commons.math.distribution.CauchyDistributionTest, org.apache.commons.math.distribution.ChiSquareDistributionTest, org.apache.commons.math.distribution.ExponentialDistributionTest, org.apache.commons.math.distribution.FDistributionTest, org.apache.commons.math.distribution.GammaDistributionTest, org.apache.commons.math.distribution.HypergeometricDistributionTest, org.apache.commons.math.distribution.NormalDistributionTest, org.apache.commons.math.distribution.PascalDistributionTest, org.apache.commons.math.distribution.PoissonDistributionTest, org.apache.commons.math.distribution.TDistributionTest, org.apache.commons.math.distribution.WeibullDistributionTest, org.apache.commons.math.distribution.ZipfDistributionTest, org.apache.commons.math.exception.DimensionMismatchExceptionTest, org.apache.commons.math.exception.MatrixDimensionMismatchExceptionTest, org.apache.commons.math.exception.MaxCountExceededExceptionTest, org.apache.commons.math.exception.NonMonotonousSequenceExceptionTest, org.apache.commons.math.exception.NotPositiveExceptionTest, org.apache.commons.math.exception.NotStrictlyPositiveExceptionTest, org.apache.commons.math.exception.NumberIsTooLargeExceptionTest, org.apache.commons.math.exception.NumberIsTooSmallExceptionTest, org.apache.commons.math.exception.OutOfRangeExceptionTest, org.apache.commons.math.exception.util.ArgUtilsTest, org.apache.commons.math.exception.util.MessageFactoryTest, org.apache.commons.math.fraction.BigFractionFieldTest, org.apache.commons.math.fraction.BigFractionFormatTest, org.apache.commons.math.fraction.BigFractionTest, org.apache.commons.math.fraction.FractionFieldTest, org.apache.commons.math.fraction.FractionFormatTest, org.apache.commons.math.fraction.FractionTest, org.apache.commons.math.genetics.BinaryChromosomeTest, org.apache.commons.math.genetics.BinaryMutationTest, org.apache.commons.math.genetics.ChromosomeTest, org.apache.commons.math.genetics.ElitisticListPopulationTest, org.apache.commons.math.genetics.FitnessCachingTest, org.apache.commons.math.genetics.FixedGenerationCountTest, org.apache.commons.math.genetics.GeneticAlgorithmTestBinary, org.apache.commons.math.genetics.GeneticAlgorithmTestPermutations, org.apache.commons.math.genetics.ListPopulationTest, org.apache.commons.math.genetics.OnePointCrossoverTest, org.apache.commons.math.genetics.RandomKeyMutationTest, org.apache.commons.math.genetics.RandomKeyTest, org.apache.commons.math.genetics.TournamentSelectionTest, org.apache.commons.math.geometry.FrenchVector3DFormatTest, org.apache.commons.math.geometry.RotationOrderTest, org.apache.commons.math.geometry.RotationTest, org.apache.commons.math.geometry.Vector3DFormatTest, org.apache.commons.math.geometry.Vector3DTest, org.apache.commons.math.linear.AbstractRealVectorTest, org.apache.commons.math.linear.Array2DRowRealMatrixTest, org.apache.commons.math.linear.ArrayFieldVectorTest, org.apache.commons.math.linear.ArrayRealVectorTest, org.apache.commons.math.linear.BiDiagonalTransformerTest, org.apache.commons.math.linear.BlockFieldMatrixTest, org.apache.commons.math.linear.BlockRealMatrixTest, org.apache.commons.math.linear.CholeskyDecompositionImplTest, org.apache.commons.math.linear.CholeskySolverTest, org.apache.commons.math.linear.EigenDecompositionImplTest, org.apache.commons.math.linear.EigenSolverTest, org.apache.commons.math.linear.FieldLUDecompositionImplTest, org.apache.commons.math.linear.FieldMatrixImplTest, org.apache.commons.math.linear.FrenchRealVectorFormatTest, org.apache.commons.math.linear.LUDecompositionImplTest, org.apache.commons.math.linear.LUSolverTest, org.apache.commons.math.linear.MatrixUtilsTest, org.apache.commons.math.linear.QRDecompositionImplTest, org.apache.commons.math.linear.QRSolverTest, org.apache.commons.math.linear.RealVectorFormatTest, org.apache.commons.math.linear.SingularValueDecompositionImplTest, org.apache.commons.math.linear.SingularValueSolverTest, org.apache.commons.math.linear.SparseFieldMatrixTest, org.apache.commons.math.linear.SparseFieldVectorTest, org.apache.commons.math.linear.SparseRealMatrixTest, org.apache.commons.math.linear.SparseRealVectorTest, org.apache.commons.math.linear.TriDiagonalTransformerTest, org.apache.commons.math.ode.ContinuousOutputModelTest, org.apache.commons.math.ode.FirstOrderConverterTest, org.apache.commons.math.ode.events.EventStateTest, org.apache.commons.math.ode.nonstiff.AdamsBashforthIntegratorTest, org.apache.commons.math.ode.nonstiff.AdamsMoultonIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaIntegratorTest, org.apache.commons.math.ode.nonstiff.ClassicalRungeKuttaStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853IntegratorTest, org.apache.commons.math.ode.nonstiff.DormandPrince853StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.EulerIntegratorTest, org.apache.commons.math.ode.nonstiff.EulerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GillIntegratorTest, org.apache.commons.math.ode.nonstiff.GillStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerIntegratorTest, org.apache.commons.math.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.HighamHall54IntegratorTest, org.apache.commons.math.ode.nonstiff.HighamHall54StepInterpolatorTest, org.apache.commons.math.ode.nonstiff.MidpointIntegratorTest, org.apache.commons.math.ode.nonstiff.MidpointStepInterpolatorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesIntegratorTest, org.apache.commons.math.ode.nonstiff.ThreeEighthesStepInterpolatorTest, org.apache.commons.math.ode.sampling.DummyStepInterpolatorTest, org.apache.commons.math.ode.sampling.NordsieckStepInterpolatorTest, org.apache.commons.math.ode.sampling.StepNormalizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateRealOptimizerTest, org.apache.commons.math.optimization.MultiStartDifferentiableMultivariateVectorialOptimizerTest, org.apache.commons.math.optimization.MultiStartMultivariateRealOptimizerTest, org.apache.commons.math.optimization.direct.PowellOptimizerTest, org.apache.commons.math.optimization.direct.SimplexOptimizerMultiDirectionalTest, org.apache.commons.math.optimization.direct.SimplexOptimizerNelderMeadTest, org.apache.commons.math.optimization.fitting.CurveFitterTest, org.apache.commons.math.optimization.fitting.GaussianFitterTest, org.apache.commons.math.optimization.fitting.HarmonicFitterTest, org.apache.commons.math.optimization.fitting.ParametricGaussianFunctionTest, org.apache.commons.math.optimization.fitting.PolynomialFitterTest, org.apache.commons.math.optimization.general.GaussNewtonOptimizerTest, org.apache.commons.math.optimization.general.LevenbergMarquardtOptimizerTest, org.apache.commons.math.optimization.general.MinpackTest, org.apache.commons.math.optimization.general.NonLinearConjugateGradientOptimizerTest, org.apache.commons.math.optimization.linear.SimplexSolverTest, org.apache.commons.math.optimization.linear.SimplexTableauTest, org.apache.commons.math.optimization.univariate.BracketFinderTest, org.apache.commons.math.optimization.univariate.BrentOptimizerTest, org.apache.commons.math.optimization.univariate.MultiStartUnivariateRealOptimizerTest, org.apache.commons.math.random.AbstractRandomGeneratorTest, org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.EmpiricalDistributionTest, org.apache.commons.math.random.GaussianRandomGeneratorTest, org.apache.commons.math.random.MersenneTwisterTest, org.apache.commons.math.random.RandomAdaptorTest, org.apache.commons.math.random.RandomDataTest, org.apache.commons.math.random.UncorrelatedRandomVectorGeneratorTest, org.apache.commons.math.random.UniformRandomGeneratorTest, org.apache.commons.math.random.ValueServerTest, org.apache.commons.math.random.Well1024aTest, org.apache.commons.math.random.Well19937aTest, org.apache.commons.math.random.Well19937cTest, org.apache.commons.math.random.Well44497aTest, org.apache.commons.math.random.Well44497bTest, org.apache.commons.math.random.Well512aTest, org.apache.commons.math.special.BetaTest, org.apache.commons.math.special.ErfTest, org.apache.commons.math.special.GammaTest, org.apache.commons.math.stat.CertifiedDataTest, org.apache.commons.math.stat.FrequencyTest, org.apache.commons.math.stat.StatUtilsTest, org.apache.commons.math.stat.clustering.EuclideanIntegerPointTest, org.apache.commons.math.stat.clustering.KMeansPlusPlusClustererTest, org.apache.commons.math.stat.correlation.CovarianceTest, org.apache.commons.math.stat.correlation.PearsonsCorrelationTest, org.apache.commons.math.stat.correlation.SpearmansRankCorrelationTest, org.apache.commons.math.stat.data.LewTest, org.apache.commons.math.stat.data.LotteryTest, org.apache.commons.math.stat.descriptive.AbstractUnivariateStatisticTest, org.apache.commons.math.stat.descriptive.AggregateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.DescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.InteractionTest, org.apache.commons.math.stat.descriptive.ListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MixedListUnivariateImplTest, org.apache.commons.math.stat.descriptive.MultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.StatisticalSummaryValuesTest, org.apache.commons.math.stat.descriptive.SummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedDescriptiveStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedMultivariateSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.SynchronizedSummaryStatisticsTest, org.apache.commons.math.stat.descriptive.moment.FirstMomentTest, org.apache.commons.math.stat.descriptive.moment.FourthMomentTest, org.apache.commons.math.stat.descriptive.moment.GeometricMeanTest, org.apache.commons.math.stat.descriptive.moment.KurtosisTest, org.apache.commons.math.stat.descriptive.moment.MeanTest, org.apache.commons.math.stat.descriptive.moment.SecondMomentTest, org.apache.commons.math.stat.descriptive.moment.SemiVarianceTest, org.apache.commons.math.stat.descriptive.moment.SkewnessTest, org.apache.commons.math.stat.descriptive.moment.StandardDeviationTest, org.apache.commons.math.stat.descriptive.moment.ThirdMomentTest, org.apache.commons.math.stat.descriptive.moment.VarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialCovarianceTest, org.apache.commons.math.stat.descriptive.moment.VectorialMeanTest, org.apache.commons.math.stat.descriptive.rank.MaxTest, org.apache.commons.math.stat.descriptive.rank.MedianTest, org.apache.commons.math.stat.descriptive.rank.MinTest, org.apache.commons.math.stat.descriptive.rank.PercentileTest, org.apache.commons.math.stat.descriptive.summary.ProductTest, org.apache.commons.math.stat.descriptive.summary.SumLogTest, org.apache.commons.math.stat.descriptive.summary.SumSqTest, org.apache.commons.math.stat.descriptive.summary.SumTest, org.apache.commons.math.stat.inference.ChiSquareFactoryTest, org.apache.commons.math.stat.inference.ChiSquareTestTest, org.apache.commons.math.stat.inference.MannWhitneyUTestTest, org.apache.commons.math.stat.inference.OneWayAnovaTest, org.apache.commons.math.stat.inference.TTestFactoryTest, org.apache.commons.math.stat.inference.TTestTest, org.apache.commons.math.stat.inference.TestUtilsTest, org.apache.commons.math.stat.inference.WilcoxonSignedRankTestTest, org.apache.commons.math.stat.ranking.NaturalRankingTest, org.apache.commons.math.stat.regression.GLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.OLSMultipleLinearRegressionTest, org.apache.commons.math.stat.regression.SimpleRegressionTest, org.apache.commons.math.transform.FastCosineTransformerTest, org.apache.commons.math.transform.FastFourierTransformerTest, org.apache.commons.math.transform.FastHadamardTransformerTest, org.apache.commons.math.transform.FastSineTransformerTest, org.apache.commons.math.util.BigRealFieldTest, org.apache.commons.math.util.BigRealTest, org.apache.commons.math.util.ContinuedFractionTest, org.apache.commons.math.util.DefaultTransformerTest, org.apache.commons.math.util.FastMathTest, org.apache.commons.math.util.IncrementorTest, org.apache.commons.math.util.MathUtilsTest, org.apache.commons.math.util.MultidimensionalCounterTest, org.apache.commons.math.util.OpenIntToDoubleHashMapTest, org.apache.commons.math.util.OpenIntToFieldTest, org.apache.commons.math.util.PairTest, org.apache.commons.math.util.ResizableDoubleArrayTest, org.apache.commons.math.util.TransformerMapTest], complianceLevel=7, outputFolder=., json=true}
+09:53:50.173 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+09:53:50.180 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 925 MB
+09:53:50.180 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+09:53:50.180 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 981 MB
+09:53:50.180 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+09:53:50.181 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+09:53:50.181 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+09:54:32.288 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+09:54:32.288 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.util.MathUtils:498 which is executed by 30 tests
+-1550426518
+09:54:32.636 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:33.154 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (486 ms)
+<> Total tests run: 64
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:34.934 [pool-5-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (30 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:34.937 [pool-6-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:54:34.938 [pool-3-thread-1] DEBUG tests.output - Failing tests with false: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:34.938 [pool-3-thread-1] DEBUG tests.output - Failing tests with true: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:34.938 [pool-3-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.util.MathUtils:498.
+09:54:34.939 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+09:54:34.939 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.util.MathUtils:426 which is executed by 155 tests
+-1550426518
+09:54:35.096 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+09:54:35.096 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.util.MathUtils:503 which is executed by 262 tests
+-1550426518
+09:54:35.237 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+09:54:35.237 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.util.MathUtils:501 which is executed by 262 tests
+-1550426518
+09:54:35.372 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+09:54:35.373 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.util.MathUtils:497 which is executed by 262 tests
+-1550426518
+09:54:35.510 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:35.997 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (479 ms)
+<> Total tests run: 64
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:36.478 [pool-9-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (26 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:36.489 [pool-10-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:54:36.489 [pool-7-thread-1] DEBUG tests.output - Failing tests with false: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:36.489 [pool-7-thread-1] DEBUG tests.output - Failing tests with true: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:36.490 [pool-7-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.util.MathUtils:497.
+09:54:36.490 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:36.965 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (468 ms)
+<> Total tests run: 64
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:37.410 [pool-13-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (26 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:37.412 [pool-14-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:54:37.412 [pool-11-thread-1] DEBUG tests.output - Failing tests with false: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:37.413 [pool-11-thread-1] DEBUG tests.output - Failing tests with true: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:37.413 [pool-11-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.util.MathUtils:497.
+09:54:37.413 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+09:54:37.413 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.util.MathUtils:494 which is executed by 262 tests
+-1550426518
+09:54:37.542 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:38.041 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (492 ms)
+<> Total tests run: 64
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:38.381 [pool-17-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (27 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:38.383 [pool-18-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:54:38.384 [pool-15-thread-1] DEBUG tests.output - Failing tests with false: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:38.384 [pool-15-thread-1] DEBUG tests.output - Failing tests with true: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:38.384 [pool-15-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.util.MathUtils:494.
+09:54:38.384 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:38.844 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (454 ms)
+<> Total tests run: 64
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:39.168 [pool-21-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (25 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:39.171 [pool-22-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:54:39.172 [pool-19-thread-1] DEBUG tests.output - Failing tests with false: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:39.172 [pool-19-thread-1] DEBUG tests.output - Failing tests with true: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:39.172 [pool-19-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.util.MathUtils:494.
+09:54:39.172 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+09:54:39.172 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.util.MathUtils:491 which is executed by 262 tests
+-1550426518
+09:54:39.299 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+09:54:39.300 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.util.MathUtils:490 which is executed by 262 tests
+-1550426518
+09:54:39.426 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+09:54:39.427 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.util.MathUtils:488 which is executed by 262 tests
+-1550426518
+09:54:39.554 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:40.042 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (481 ms)
+<> Total tests run: 64
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:40.409 [pool-25-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (27 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:54:40.412 [pool-26-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest)
+[1.0f == 1.0f + 1 ulp]
+junit.framework.AssertionFailedError: 1.0f == 1.0f + 1 ulp    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.TestCase.assertTrue(TestCase.java:192)
+    at org.apache.commons.math.util.MathUtilsTest.testFloatEqualsWithAllowedUlps(MathUtilsTest.java:371)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:54:40.413 [pool-23-thread-1] DEBUG tests.output - Failing tests with false: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:40.413 [pool-23-thread-1] DEBUG tests.output - Failing tests with true: 
+[testFloatEqualsWithAllowedUlps(org.apache.commons.math.util.MathUtilsTest): 1.0f == 1.0f + 1 ulp]
+09:54:40.414 [pool-23-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.math.util.MathUtils:488.
+09:54:40.414 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+09:54:40.414 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.math.util.FastMath:3247 which is executed by 264 tests
+1033054629
+09:54:40.617 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+09:54:40.868 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 501
+09:54:40.868 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 3157
+09:54:40.868 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 6
+09:54:40.868 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 0
+09:54:40.868 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb inputs in SMT : 0
+09:54:40.871 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT level: 0
+09:54:40.872 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb variables in SMT : 0
+09:54:40.872 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 50468ms
+09:54:40.872 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+114.82user 2.12system 0:52.31elapsed 223%CPU (0avgtext+0avgdata 991504maxresident)k
+45208inputs+5400outputs (3major+381051minor)pagefaults 0swaps
+
+
+Node: graphene-24.nancy.grid5000.fr
+
+
+
+Date: Sat Dec 29 09:54:41 EST 2018
+

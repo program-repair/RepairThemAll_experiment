@@ -1,0 +1,783 @@
+cd /tmp/DynaMoth_Defects4J_Lang_52;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/DynaMoth_Defects4J_Lang_52/target/classes/:/tmp/DynaMoth_Defects4J_Lang_52/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+09:56:29.420 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+09:56:29.424 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Defects4J_Lang_52/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_52/target/tests/, file:/tmp/DynaMoth_Defects4J_Lang_52/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_52/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+09:56:29.424 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+09:56:29.424 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+09:56:29.426 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=7, outputFolder=., json=true}
+09:56:29.426 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+09:56:29.436 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 958 MB
+09:56:29.436 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+09:56:29.436 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 990 MB
+09:56:29.436 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+09:56:29.437 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+09:56:29.437 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+09:56:51.602 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+09:56:51.603 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:224 which is executed by 1 tests
+16862144
+09:56:51.895 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:52.291 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (371 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:53.079 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+09:56:53.079 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:138 which is executed by 1 tests
+16862144
+09:56:53.164 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:53.315 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (147 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:53.503 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+09:56:53.504 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:122 which is executed by 1 tests
+16862144
+09:56:53.632 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+09:56:53.632 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:231 which is executed by 2 tests
+16862144
+09:56:53.715 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:53.871 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (153 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:54.039 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+09:56:54.039 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:230 which is executed by 2 tests
+16862144
+09:56:54.121 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:54.298 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (174 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:54.456 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+09:56:54.456 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:229 which is executed by 2 tests
+16862144
+09:56:54.539 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:54.690 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (146 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:54.844 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+09:56:54.844 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:173 which is executed by 2 tests
+16862144
+09:56:54.924 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:55.094 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (165 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:55.243 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+09:56:55.243 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:150 which is executed by 2 tests
+16862144
+09:56:55.330 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:55.484 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (151 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:55.625 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+09:56:55.625 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:227 which is executed by 3 tests
+16862144
+09:56:55.724 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:55.881 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (155 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:56.027 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+09:56:56.027 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:226 which is executed by 3 tests
+16862144
+09:56:56.105 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:56.266 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (145 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:56.427 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+09:56:56.427 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:223 which is executed by 3 tests
+16862144
+09:56:56.506 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:56.682 [pool-40-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (153 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:56.812 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:56.960 [pool-44-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (145 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:57.103 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+09:56:57.103 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:242 which is executed by 4 tests
+16862144
+09:56:57.180 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+09:56:57.180 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:237 which is executed by 4 tests
+16862144
+09:56:57.256 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:57.405 [pool-48-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (145 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:57.547 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+09:56:57.547 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:221 which is executed by 4 tests
+16862144
+09:56:57.623 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:57.787 [pool-52-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (158 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:57.916 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+09:56:57.916 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:190 which is executed by 4 tests
+16862144
+09:56:57.992 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:58.150 [pool-56-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (154 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:58.282 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:58.436 [pool-60-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (152 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:58.568 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+09:56:58.568 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:188 which is executed by 4 tests
+16862144
+09:56:58.644 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:58.794 [pool-64-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (147 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:58.918 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:59.077 [pool-68-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (157 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:59.206 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+09:56:59.207 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:186 which is executed by 4 tests
+16862144
+09:56:59.282 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:59.430 [pool-72-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (144 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:59.555 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:56:59.729 [pool-76-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (172 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:56:59.855 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+09:56:59.855 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:184 which is executed by 4 tests
+16862144
+09:56:59.930 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:00.078 [pool-80-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (145 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:00.207 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:00.372 [pool-84-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (162 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:00.491 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+09:57:00.491 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:181 which is executed by 4 tests
+16862144
+09:57:00.564 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+09:57:00.564 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:180 which is executed by 4 tests
+16862144
+09:57:00.639 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:00.785 [pool-88-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (144 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:00.914 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #21
+09:57:00.915 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:179 which is executed by 4 tests
+16862144
+09:57:00.988 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:01.135 [pool-92-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (144 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:01.245 [pool-91-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+StringEscapeUtils.java:54: error: variable sz might not have been initialized
+        for (int i = 0; i < sz; i++) {
+                            ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+09:57:01.246 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #22
+09:57:01.246 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:175 which is executed by 4 tests
+16862144
+09:57:01.320 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:01.482 [pool-94-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (159 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:01.604 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:01.760 [pool-98-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (154 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:01.882 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #23
+09:57:01.882 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:172 which is executed by 4 tests
+16862144
+09:57:01.955 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:02.111 [pool-102-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (153 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:02.256 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:02.405 [pool-106-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (146 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:02.520 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #24
+09:57:02.520 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:155 which is executed by 4 tests
+16862144
+09:57:02.593 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #25
+09:57:02.593 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:154 which is executed by 4 tests
+16862144
+09:57:02.762 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:02.918 [pool-110-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (153 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:03.043 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #26
+09:57:03.043 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:153 which is executed by 4 tests
+16862144
+09:57:03.115 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #27
+09:57:03.116 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:149 which is executed by 4 tests
+16862144
+09:57:03.188 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:03.335 [pool-114-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (144 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:03.453 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:57:03.609 [pool-118-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (153 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaScript(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>]
+junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaScript(StringEscapeUtilsTest.java:187)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:57:03.726 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+09:57:03.823 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 77
+09:57:03.824 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1734
+09:57:03.824 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 30
+09:57:03.824 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 0
+09:57:03.824 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 34308ms
+09:57:03.824 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+66.79user 2.57system 0:35.76elapsed 193%CPU (0avgtext+0avgdata 657464maxresident)k
+57432inputs+5408outputs (8major+332800minor)pagefaults 0swaps
+
+
+Node: graphene-63.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 09:57:04 EST 2018
+

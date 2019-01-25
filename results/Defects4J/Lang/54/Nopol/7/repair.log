@@ -1,0 +1,888 @@
+cd /tmp/Nopol_Defects4J_Lang_54;
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8;
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4048m -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis smt \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/Nopol_Defects4J_Lang_54/target/classes/:/tmp/Nopol_Defects4J_Lang_54/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+18:35:42.122 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+18:35:42.126 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/Nopol_Defects4J_Lang_54/target/classes/, file:/tmp/Nopol_Defects4J_Lang_54/target/tests/, file:/tmp/Nopol_Defects4J_Lang_54/target/classes/, file:/tmp/Nopol_Defects4J_Lang_54/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+18:35:42.126 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+18:35:42.126 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+18:35:42.129 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=SMT, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@66d33a', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=7, outputFolder=., json=true}
+18:35:42.130 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 8
+18:35:42.142 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 214 MB
+18:35:42.142 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+18:35:42.143 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 241 MB
+18:35:42.143 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+18:35:42.144 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+18:35:42.144 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+18:36:10.670 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+18:36:10.671 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:116 which is executed by 2 tests
+-723213736
+18:36:11.052 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:11.133 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (47 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:71)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:12.442 [pool-5-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (9 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:71)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:64)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:12.447 [pool-6-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:64)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:36:12.448 [pool-3-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:12.449 [pool-3-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:12.449 [pool-3-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:116.
+18:36:12.449 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+18:36:12.450 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:115 which is executed by 3 tests
+-723213736
+18:36:12.618 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:12.635 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (10 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:78)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:13.049 [pool-9-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (3 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:78)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:72)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:13.052 [pool-10-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:72)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:36:13.053 [pool-7-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:13.053 [pool-7-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:13.053 [pool-7-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:115.
+18:36:13.053 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:13.065 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:78)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:13.369 [pool-13-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:78)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:72)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:13.372 [pool-14-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:72)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:36:13.373 [pool-11-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:13.374 [pool-11-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:13.374 [pool-11-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:115.
+18:36:13.374 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+18:36:13.374 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:114 which is executed by 3 tests
+-723213736
+18:36:13.503 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+18:36:13.503 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:113 which is executed by 3 tests
+-723213736
+18:36:13.627 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+18:36:13.628 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:110 which is executed by 3 tests
+-723213736
+18:36:13.757 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:13.770 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:63)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:14.056 [pool-17-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (3 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:63)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:63)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:14.059 [pool-18-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:63)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:36:14.060 [pool-15-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:14.061 [pool-15-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:14.061 [pool-15-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:110.
+18:36:14.061 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:14.073 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:63)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:14.325 [pool-21-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:63)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:58)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:14.328 [pool-22-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:58)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:36:14.328 [pool-19-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:14.328 [pool-19-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:14.329 [pool-19-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:110.
+18:36:14.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+18:36:14.329 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:107 which is executed by 4 tests
+-723213736
+18:36:14.458 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:14.471 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:63)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:14.722 [pool-25-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (3 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:63)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.ComparisonFailure: expected:<fr[]> but was:<fr[__posix]>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:142)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+18:36:14.728 [pool-26-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (3 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[expected:<fr[]> but was:<fr[__posix]>]
+junit.framework.ComparisonFailure: expected:<fr[]> but was:<fr[__posix]>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:142)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+18:36:14.729 [pool-23-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:14.729 [pool-23-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): expected:<fr[]> but was:<fr[__posix]>]
+18:36:14.729 [pool-23-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:107.
+18:36:14.729 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+18:36:14.730 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:104 which is executed by 4 tests
+-723213736
+18:36:14.855 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:14.868 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:70)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:15.116 [pool-29-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:70)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:70)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:15.119 [pool-30-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (0 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:70)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:36:15.120 [pool-27-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:15.120 [pool-27-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:15.120 [pool-27-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:104.
+18:36:15.121 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:15.132 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:70)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:15.434 [pool-33-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:70)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:59)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:15.437 [pool-34-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:59)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:36:15.444 [pool-31-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:15.444 [pool-31-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:15.444 [pool-31-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:104.
+18:36:15.444 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+18:36:15.444 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:103 which is executed by 4 tests
+-723213736
+18:36:15.628 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+18:36:15.628 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:102 which is executed by 4 tests
+-723213736
+18:36:15.748 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+18:36:15.749 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:99 which is executed by 4 tests
+-723213736
+18:36:16.050 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:16.075 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:67)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:16.298 [pool-37-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:67)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:67)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:16.301 [pool-38-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:67)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:36:16.302 [pool-35-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:16.302 [pool-35-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:16.302 [pool-35-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:99.
+18:36:16.302 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:16.313 [pool-40-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:67)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:16.530 [pool-41-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:67)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:51)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:16.533 [pool-42-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:51)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:36:16.533 [pool-39-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:16.533 [pool-39-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:16.534 [pool-39-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:99.
+18:36:16.534 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+18:36:16.534 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:98 which is executed by 4 tests
+-723213736
+18:36:16.653 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+18:36:16.653 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:95 which is executed by 4 tests
+-723213736
+18:36:16.772 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:16.784 [pool-44-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:60)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:16.992 [pool-45-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (3 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:60)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:60)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:16.999 [pool-46-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (5 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:60)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+18:36:17.000 [pool-43-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:17.001 [pool-43-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:17.001 [pool-43-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:95.
+18:36:17.001 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:17.013 [pool-48-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 12
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:116)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:60)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+18:36:17.511 [pool-49-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (2 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[Invalid locale format: fr__POSIX]
+java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX    at org.apache.commons.lang.LocaleUtils.toLocale(LocaleUtils.java:60)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:140)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+junit.framework.AssertionFailedError: valid locale
+    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertNotNull(Assert.java:256)
+    at junit.framework.TestCase.assertNotNull(TestCase.java:426)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:141)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+18:36:17.514 [pool-50-thread-1] INFO  f.i.l.c.t.SpecificationTestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testLang328(org.apache.commons.lang.LocaleUtilsTest)
+[valid locale]
+junit.framework.AssertionFailedError: valid locale    at junit.framework.Assert.fail(Assert.java:57)
+    at junit.framework.Assert.assertTrue(Assert.java:22)
+    at junit.framework.Assert.assertNotNull(Assert.java:256)
+    at junit.framework.TestCase.assertNotNull(TestCase.java:426)
+    at org.apache.commons.lang.LocaleUtilsTest.assertValidToLocale(LocaleUtilsTest.java:141)
+    at org.apache.commons.lang.LocaleUtilsTest.testLang328(LocaleUtilsTest.java:505)
+
+18:36:17.515 [pool-47-thread-1] DEBUG tests.output - Failing tests with false: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): Invalid locale format: fr__POSIX]
+18:36:17.515 [pool-47-thread-1] DEBUG tests.output - Failing tests with true: 
+[testLang328(org.apache.commons.lang.LocaleUtilsTest): valid locale]
+18:36:17.516 [pool-47-thread-1] INFO  f.i.l.r.n.synth.SMTNopolSynthesizer - Not enough specifications: 0. A trivial patch is "true" or "false", please write new tests specifying SourceLocation org.apache.commons.lang.LocaleUtils:95.
+18:36:17.516 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+18:36:17.516 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:223 which is executed by 12 tests
+-723213736
+18:36:17.655 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+18:36:17.655 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.LocaleUtils:192 which is executed by 12 tests
+-723213736
+18:36:17.779 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+18:36:17.903 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 77
+18:36:17.903 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1721
+18:36:17.903 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 12
+18:36:17.904 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 0
+18:36:17.904 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb inputs in SMT : 0
+18:36:17.907 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb SMT level: 0
+18:36:17.908 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb variables in SMT : 0
+18:36:17.908 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 35661ms
+18:36:17.908 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+77.83user 3.02system 0:37.66elapsed 214%CPU (0avgtext+0avgdata 633856maxresident)k
+56424inputs+5464outputs (7major+317910minor)pagefaults 0swaps
+
+
+Node: granduc-9.luxembourg.grid5000.fr
+
+
+
+Date: Wed Nov 28 18:36:18 EST 2018
+

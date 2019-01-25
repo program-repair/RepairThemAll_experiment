@@ -1,0 +1,706 @@
+cd /tmp/DynaMoth_Defects4J_Lang_46;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -d64 -Xmx4g -Xms1g -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 3 \
+	--source src/java/ \
+	--classpath "target/classes/:target/tests/:/tmp/DynaMoth_Defects4J_Lang_46/target/classes/:/tmp/DynaMoth_Defects4J_Lang_46/target/tests/:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+09:59:07.236 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/java]
+09:59:07.239 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Defects4J_Lang_46/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_46/target/tests/, file:/tmp/DynaMoth_Defects4J_Lang_46/target/classes/, file:/tmp/DynaMoth_Defects4J_Lang_46/target/tests/, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar, file:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+09:59:07.240 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+09:59:07.240 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest]
+09:59:07.242 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsAddTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsRemoveTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.ArrayUtilsTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BitFieldTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.BooleanUtilsTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharEncodingTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharRangeTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharSetUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.CharUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.ClassUtilsTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesPerformanceTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.EntitiesTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IllegalClassExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IncompleteArgumentExceptionTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.IntHashMapTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.LocaleUtilsTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NotImplementedExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NullArgumentExceptionTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberRangeTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.NumberUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.ObjectUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.RandomStringUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.SerializationUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringEscapeUtilsTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsEqualsIndexOfTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsIsTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsStartsEndsWithTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsSubstringTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.StringUtilsTrimEmptyTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.SystemUtilsTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.UnhandledExceptionTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.ValidateTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.WordUtilsTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.CompareToBuilderTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.DefaultToStringStyleTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.EqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderAndEqualsBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.HashCodeBuilderTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.MultiLineToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ReflectionToStringBuilderExcludeTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.ShortPrefixToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.SimpleToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.StandardToStringStyleTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringBuilderTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.builder.ToStringStyleTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.EnumUtilsTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enum.ValuedEnumTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumEqualsTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.EnumUtilsTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.enums.ValuedEnumTest, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.ExceptionUtilsTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableDelegateTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableErrorTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.exception.NestableRuntimeExceptionTestCase, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.DoubleRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FloatRangeTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.FractionTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IEEE754rUtilsTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.IntRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.LongRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberRangeTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.NumberUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RandomUtilsTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.math.RangeTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableBooleanTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableByteTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableDoubleTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableFloatTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableIntTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableLongTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableObjectTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.mutable.MutableShortTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.CompositeFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.ExtendedMessageFormatTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderAppendInsertTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrBuilderTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrLookupTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrMatcherTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrSubstitutorTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.text.StrTokenizerTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateFormatUtilsTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsFragmentTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DateUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.DurationFormatUtilsTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.FastDateFormatTest, org.apache.commons.lang.time.StopWatchTest, org.apache.commons.lang.time.StopWatchTest], complianceLevel=3, outputFolder=., json=true}
+09:59:07.242 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 4
+09:59:07.254 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 958 MB
+09:59:07.254 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+09:59:07.254 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 990 MB
+09:59:07.254 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+09:59:07.256 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+09:59:07.256 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+09:59:29.279 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+09:59:29.280 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:246 which is executed by 2 tests
+16862144
+09:59:29.559 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:29.944 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (360 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:30.812 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+09:59:30.812 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:245 which is executed by 2 tests
+16862144
+09:59:30.902 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:31.056 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (148 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:31.320 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+09:59:31.321 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:244 which is executed by 2 tests
+16862144
+09:59:31.410 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:31.561 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (147 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+java -cp /tmp/DynaMoth_Defects4J_Lang_46/target/classes:/tmp/DynaMoth_Defects4J_Lang_46/target/tests:/tmp/DynaMoth_Defects4J_Lang_46/target/classes:/tmp/DynaMoth_Defects4J_Lang_46/target/tests:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/easymock.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/cglib.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/asm.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/Lang/lib/commons-io.jar:/home/tdurieux/defects4j4repair/script/../benchmarks/defects4j/framework/projects/lib/junit-4.11.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/home/tdurieux/defects4j4repair/repair_tools/nopol.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar: fr.inria.lille.repair.MethodTestRunner org.apache.commons.lang.StringEscapeUtilsTest#testEscapeJavaWithSlash org.apache.commons.lang.StringEscapeUtilsTest#testEscapeJavaScript 
+09:59:32.107 [pool-11-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - ClassPrepareEvent
+09:59:32.192 [pool-11-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] java.lang.String
+09:59:32.196 [pool-11-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] java.io.StringWriter
+09:59:32.197 [pool-11-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] org.apache.commons.lang.StringEscapeUtils
+09:59:32.198 [pool-11-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] java.io.IOException
+09:59:32.201 [pool-11-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] java.io.Writer
+09:59:32.202 [pool-11-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] java.lang.IllegalArgumentException
+09:59:32.567 [pool-11-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - BreakpointEvent
+09:59:32.572 [pool-11-thread-1] INFO  f.i.l.r.s.DynamothCodeGenesisImpl - [test] org.apache.commons.lang.StringEscapeUtilsTest#testEscapeJavaWithSlash iteration 0
+09:59:32.579 [pool-11-thread-1] DEBUG f.i.l.r.s.c.SpoonElementsCollector - [data] out=instance of java.io.StringWriter(id=356)
+09:59:32.580 [pool-11-thread-1] DEBUG f.i.l.r.s.c.SpoonElementsCollector - [data] '\'='\'
+09:59:32.582 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - Collect Level 1
+09:59:32.583 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] out
+09:59:32.583 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] str
+09:59:32.584 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] escapeSingleQuote
+09:59:32.585 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] sz
+09:59:32.585 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] i
+09:59:32.585 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] ch
+09:59:32.617 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] out.getBuffer()
+09:59:32.621 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] str.length()
+09:59:32.683 [pool-11-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - BreakpointEvent
+09:59:32.685 [pool-11-thread-1] INFO  f.i.l.r.s.DynamothCodeGenesisImpl - [test] org.apache.commons.lang.StringEscapeUtilsTest#testEscapeJavaScript iteration 0
+09:59:32.687 [pool-11-thread-1] DEBUG f.i.l.r.s.c.SpoonElementsCollector - [data] out=instance of java.io.StringWriter(id=464)
+09:59:32.687 [pool-11-thread-1] DEBUG f.i.l.r.s.c.SpoonElementsCollector - [data] '\'='\'
+09:59:32.687 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - Collect Level 1
+09:59:32.688 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] out
+09:59:32.688 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] str
+09:59:32.689 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] escapeSingleQuote
+09:59:32.692 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] sz
+09:59:32.693 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] i
+09:59:32.693 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] ch
+09:59:32.704 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] out.getBuffer()
+09:59:32.707 [pool-11-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] str.length()
+09:59:32.710 [pool-11-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - Exit
+
+
+========= Info ==========
+Nb constants             5
+Nb method invocations    2
+Nb field access          0
+Nb variables             6
+Total                    13
+Nb evaluated expressions 1
+Init Execution time      789 ms
+Collect Execution time   144 ms
+Combine Execution time   44.0 ms
+Nb Combination par sec   23 combinations/sec
+Total Execution time     978 ms
+Nb line execution        2
+Nb results               1
+
+Results:
+1. value == 0
+
+
+========================
+         Stat
+========================
+Operators: 
+PLUS 5
+GT 4
+EQ 3
+LT 2
+MUL 1
+Methods: 
+write(int) 19
+write(java.lang.String) 5
+hex(char) 5
+length() 2
+escapeJavaStyleString(java.io.Writer,java.lang.String,boolean) 1
+printStackTrace() 1
+toString() 1
+charAt(int) 1
+Variable: 
+out 25
+ch 13
+str 6
+i 3
+sz 2
+writer 2
+escapeSingleQuotes 1
+escapeSingleQuote 1
+ioe 1
+
+ & 5 & 2 & 0 & 6 & 13 & 1 & 979 ms & 2 &
+09:59:32.757 [pool-11-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Applying patch: org.apache.commons.lang.StringEscapeUtils:244: PRECONDITION value == 0
+09:59:32.912 [pool-11-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+StringEscapeUtils.java:112: error: cannot find symbol
+                                    if (value == 0)
+                                        ^
+  symbol:   variable value
+  location: class org.apache.commons.lang.StringEscapeUtils
+09:59:32.915 [pool-11-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Patch malformed value == 0
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99) ~[nopol.jar:na]
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67) ~[nopol.jar:na]
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203) ~[nopol.jar:na]
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177) ~[nopol.jar:na]
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130) ~[nopol.jar:na]
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140) ~[nopol.jar:na]
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135) ~[nopol.jar:na]
+	at fr.inria.lille.repair.nopol.patch.TestPatch.passesAllTests(TestPatch.java:60) ~[nopol.jar:na]
+	at fr.inria.lille.repair.nopol.NoPol.isOk(NoPol.java:317) [nopol.jar:na]
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:302) [nopol.jar:na]
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81) [nopol.jar:na]
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+09:59:32.916 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: invalid patch
+09:59:32.916 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+09:59:32.916 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:86 which is executed by 4 tests
+16862144
+09:59:33.004 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+09:59:33.005 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:253 which is executed by 5 tests
+16862144
+09:59:33.094 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+09:59:33.095 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:248 which is executed by 5 tests
+16862144
+09:59:33.183 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:33.345 [pool-23-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (154 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:33.517 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+09:59:33.517 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:228 which is executed by 5 tests
+16862144
+09:59:33.627 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:33.776 [pool-27-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (146 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:33.941 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+09:59:33.941 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:197 which is executed by 5 tests
+16862144
+09:59:34.035 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:34.204 [pool-31-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (164 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:34.357 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:34.518 [pool-35-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (145 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:34.665 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+09:59:34.666 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:195 which is executed by 5 tests
+16862144
+09:59:34.749 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:34.921 [pool-39-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (168 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:35.061 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:35.211 [pool-43-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (146 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:35.358 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+09:59:35.358 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:193 which is executed by 5 tests
+16862144
+09:59:35.440 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:35.599 [pool-47-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (156 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:35.738 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:35.885 [pool-51-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (144 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:36.024 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+09:59:36.024 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:191 which is executed by 5 tests
+16862144
+09:59:36.104 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:36.268 [pool-55-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (161 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:36.410 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:36.556 [pool-59-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (143 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:36.691 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+09:59:36.691 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:188 which is executed by 5 tests
+16862144
+09:59:36.770 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+09:59:36.770 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:187 which is executed by 5 tests
+16862144
+09:59:36.850 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:37.011 [pool-63-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (157 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:37.145 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+09:59:37.145 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:186 which is executed by 5 tests
+16862144
+09:59:37.223 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:37.374 [pool-67-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (148 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:37.490 [pool-66-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+StringEscapeUtils.java:62: error: variable sz might not have been initialized
+        for (int i = 0; i < sz; i++) {
+                            ^
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+09:59:37.491 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+09:59:37.491 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:182 which is executed by 5 tests
+16862144
+09:59:37.581 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:37.736 [pool-69-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (147 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:37.873 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:38.022 [pool-73-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (144 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:38.183 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+09:59:38.184 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:179 which is executed by 5 tests
+16862144
+09:59:38.260 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:38.407 [pool-77-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (143 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:38.623 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:38.802 [pool-81-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (145 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:38.947 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+09:59:38.947 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:161 which is executed by 5 tests
+16862144
+09:59:39.024 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+09:59:39.024 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:160 which is executed by 5 tests
+16862144
+09:59:39.101 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:39.248 [pool-85-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (142 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:39.381 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+09:59:39.382 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:159 which is executed by 5 tests
+16862144
+09:59:39.460 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+09:59:39.460 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.commons.lang.StringEscapeUtils:155 which is executed by 5 tests
+16862144
+09:59:39.536 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:39.687 [pool-89-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (148 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:39.817 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+09:59:39.963 [pool-93-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (143 ms)
+<> Total tests run: 18
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testEscapeJavaWithSlash(org.apache.commons.lang.StringEscapeUtilsTest)
+[expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>]
+junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>    at junit.framework.Assert.assertEquals(Assert.java:100)
+    at junit.framework.Assert.assertEquals(Assert.java:107)
+    at junit.framework.TestCase.assertEquals(TestCase.java:269)
+    at org.apache.commons.lang.StringEscapeUtilsTest.testEscapeJavaWithSlash(StringEscapeUtilsTest.java:113)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+09:59:40.102 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+09:59:40.178 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 80
+09:59:40.178 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 1817
+09:59:40.178 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 22
+09:59:40.178 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 1
+09:59:40.178 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 32868ms
+09:59:40.179 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+66.84user 2.60system 0:34.38elapsed 202%CPU (0avgtext+0avgdata 646032maxresident)k
+60640inputs+5416outputs (11major+368703minor)pagefaults 0swaps
+
+
+Node: graphene-52.nancy.grid5000.fr
+
+
+
+Date: Sat Dec  1 09:59:40 EST 2018
+

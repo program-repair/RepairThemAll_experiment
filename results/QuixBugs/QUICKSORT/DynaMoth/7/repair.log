@@ -1,0 +1,133 @@
+cd /tmp/DynaMoth_QuixBugs_QUICKSORT_;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4g -Xms1g -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 8 \
+	--source src/main/java \
+	--classpath "target/classes:target/test-classes:/home/tdurieux/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+12:03:35.295 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [src/main/java]
+12:03:35.298 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_QuixBugs_QUICKSORT_/target/classes/, file:/tmp/DynaMoth_QuixBugs_QUICKSORT_/target/test-classes/, file:/home/tdurieux/.m2/repository/junit/junit/4.11/junit-4.11.jar, file:/home/tdurieux/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+12:03:35.298 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+12:03:35.298 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [java_testcases.junit.QUICKSORT_Test]
+12:03:35.299 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[src/main/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[java_testcases.junit.QUICKSORT_Test], complianceLevel=8, outputFolder=., json=true}
+12:03:35.299 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 32
+12:03:35.303 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 940 MB
+12:03:35.304 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+12:03:35.304 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 981 MB
+12:03:35.304 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+12:03:35.305 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+12:03:35.305 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+12:03:37.525 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+12:03:37.525 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation java_programs.QUICKSORT:27 which is executed by 12 tests
+-206672660
+12:03:37.690 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.junit.ComparisonFailure: expected:<[1,[1,2,3,3,3,4,5,5,5,6,7,8,9,9],9]> but was:<[1,[2,3,4,5,6,7,8],9]>
+    at org.junit.Assert.assertEquals(Assert.java:115)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at java_testcases.junit.QUICKSORT_Test.test_1(QUICKSORT_Test.java:16)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+12:03:37.725 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (14 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_1(java_testcases.junit.QUICKSORT_Test)
+[expected:<[1,[1,2,3,3,3,4,5,5,5,6,7,8,9,9],9]> but was:<[1,[2,3,4,5,6,7,8],9]>]
+org.junit.ComparisonFailure: expected:<[1,[1,2,3,3,3,4,5,5,5,6,7,8,9,9],9]> but was:<[1,[2,3,4,5,6,7,8],9]>    at org.junit.Assert.assertEquals(Assert.java:115)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at java_testcases.junit.QUICKSORT_Test.test_1(QUICKSORT_Test.java:16)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+12:03:38.088 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+12:03:38.088 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation java_programs.QUICKSORT:26 which is executed by 12 tests
+-206672660
+12:03:38.128 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+org.junit.ComparisonFailure: expected:<[1,[1,2,3,3,3,4,5,5,5,6,7,8,9,9],9]> but was:<[1,[2,3,4,5,6,7,8],9]>
+    at org.junit.Assert.assertEquals(Assert.java:115)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at java_testcases.junit.QUICKSORT_Test.test_1(QUICKSORT_Test.java:16)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+12:03:38.139 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (8 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_1(java_testcases.junit.QUICKSORT_Test)
+[expected:<[1,[1,2,3,3,3,4,5,5,5,6,7,8,9,9],9]> but was:<[1,[2,3,4,5,6,7,8],9]>]
+org.junit.ComparisonFailure: expected:<[1,[1,2,3,3,3,4,5,5,5,6,7,8,9,9],9]> but was:<[1,[2,3,4,5,6,7,8],9]>    at org.junit.Assert.assertEquals(Assert.java:115)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at java_testcases.junit.QUICKSORT_Test.test_1(QUICKSORT_Test.java:16)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+12:03:38.219 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+org.junit.ComparisonFailure: expected:<[1,[1,2,3,3,3,4,5,5,5,6,7,8,9,9],9]> but was:<[1,[2,3,4,5,6,7,8],9]>
+    at org.junit.Assert.assertEquals(Assert.java:115)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at java_testcases.junit.QUICKSORT_Test.test_1(QUICKSORT_Test.java:16)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+12:03:38.229 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (7 ms)
+<> Total tests run: 13
+<> Ignored tests: 0
+<> Failed tests: 1
+~ test_1(java_testcases.junit.QUICKSORT_Test)
+[expected:<[1,[1,2,3,3,3,4,5,5,5,6,7,8,9,9],9]> but was:<[1,[2,3,4,5,6,7,8],9]>]
+org.junit.ComparisonFailure: expected:<[1,[1,2,3,3,3,4,5,5,5,6,7,8,9,9],9]> but was:<[1,[2,3,4,5,6,7,8],9]>    at org.junit.Assert.assertEquals(Assert.java:115)
+    at org.junit.Assert.assertEquals(Assert.java:144)
+    at java_testcases.junit.QUICKSORT_Test.test_1(QUICKSORT_Test.java:16)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+12:03:38.348 [pool-11-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Applying patch: java_programs.QUICKSORT:26: CONDITIONAL true
+12:03:38.414 [pool-11-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Running test suite to check the patch "true" is working
+12:03:38.426 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+12:03:38.436 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 3
+12:03:38.436 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 9
+12:03:38.436 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 3
+12:03:38.436 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 1
+12:03:38.437 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 3133ms
+12:03:38.437 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+12:03:38.437 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----PATCH FOUND----
+12:03:38.437 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - true
+12:03:38.437 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb test that executes the patch: 12
+12:03:38.437 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - java_programs.QUICKSORT:26: CONDITIONAL
+12:03:38.445 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - --- a/src/main/java/QUICKSORT.java
++++ b/src/main/java/QUICKSORT.java
+@@ -25,3 +25,3 @@
+                 lesser.add(x);
+-            } else if (x > pivot) {
++            } else if (true) {
+                 greater.add(x);
+
+PATCH
+6.82user 0.68system 0:04.03elapsed 186%CPU (0avgtext+0avgdata 369684maxresident)k
+45632inputs+5128outputs (3major+119162minor)pagefaults 0swaps
+
+
+Node: grisou-50.nancy.grid5000.fr
+
+
+
+Date: Sun Dec  2 12:03:38 EST 2018
+
