@@ -15,7 +15,15 @@ nb_patch = 0
 patch_per_tool = {}
 patch_per_bench = {}
 repaired_bugs = {}
+tool_bugs = {}
+bugs_tool = {}
 results = []
+times = {
+    'patched': {},
+    'timeout': {},
+    'nopatch': {},
+    'error': {}
+}
 
 total_time = 0
 for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
@@ -31,6 +39,19 @@ for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
                 tool_path = os.path.join(bug_path, repair_tool)
                 for seed in natural_sort(os.listdir(tool_path)):
                     seed_path = os.path.join(tool_path, seed)
+                    
+                    is_error = False
+                    stat = None
+                    repair_log_path = os.path.join(seed_path, "repair.log")
+                    if not os.path.exists(repair_log_path): 
+                        is_error = True
+                    else:
+                        stat = os.stat(repair_log_path)
+                        #if stat.st_size < 20000:
+                        with open(repair_log_path) as fd:
+                            content = fd.read()
+                            if 'Exception in thread "main"' in content or 'Usage: ' in content:
+                                is_error = True
                     results_path = os.path.join(seed_path, "result.json")
                     if os.path.exists(results_path):
                         with open(results_path) as fd:
@@ -38,19 +59,44 @@ for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
                             if 'repair_begin' in data:
                                 begin = datetime.datetime.strptime(data['repair_begin'], "%Y-%m-%d %H:%M:%S.%f")
                                 end = datetime.datetime.strptime(data['repair_end'], "%Y-%m-%d %H:%M:%S.%f")
-                                total_time += (end - begin).total_seconds()
+                                time_spend = (end - begin).total_seconds()
+
+                                times_dict = times['nopatch']
+                                if 'patches' in data and len(data['patches']) > 0:
+                                    times_dict = times['patched']
+                                elif is_error:
+                                    times_dict = times['error']
+                                if benchmark not in times_dict:
+                                    times_dict[benchmark] = {}
+                                
+                                if repair_tool not in times_dict[benchmark]:
+                                    times_dict[benchmark][repair_tool] = []
+
+                                times_dict[benchmark][repair_tool].append(time_spend)
+
+                                total_time += time_spend
                             if repair_tool not in patch_per_tool:
                                 patch_per_tool[repair_tool] = {}
                             if benchmark not in patch_per_bench:
                                 patch_per_bench[benchmark] = 0
                             if benchmark not in patch_per_tool[repair_tool]:
-                                patch_per_tool[repair_tool][benchmark] = 0
+                                patch_per_tool[repair_tool][benchmark] = []
                                 
                             if 'patches' in data and len(data['patches']) > 0:
-                                patch_per_tool[repair_tool][benchmark] += 1 
+                                unique_bug_id = "%s_%s_%s" % (benchmark, project, bug_id)
+                                if unique_bug_id not in tool_bugs:
+                                    tool_bugs[unique_bug_id] = []
+                                tool_bugs[unique_bug_id].append(repair_tool)
+
+                                if repair_tool not in bugs_tool:
+                                    bugs_tool[repair_tool] = []
+                                bugs_tool[repair_tool].append(unique_bug_id)
+
+
+                                patch_per_tool[repair_tool][benchmark].append(unique_bug_id)
                                 patch_per_bench[benchmark] += 1 
                                 nb_patch += 1
-                                unique_bug_id = "%s_%s_%s" % (benchmark, project, bug_id)
+                                
                                 nb_tool_patch = len(data['patches'])
                                 total_nb_patch += nb_tool_patch
                                 data['patches'] = [data['patches'][0]]
@@ -73,13 +119,30 @@ for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
                                 )
                                     
                                 repaired_bugs[unique_bug_id]['tools'].append(repair_tool)
-                    else:
-                        stderr_path = os.path.join(seed_path, "grid5k.stderr.log")
-                        if os.path.exists(stderr_path):
-                            with open(stderr_path) as fd:
-                                # timeout
-                                if "KILLED" in fd.read():
-                                    total_time += 2 * 3600 # 2h
+                    elif is_error:
+                        times_dict = times['error']
+                        if benchmark not in times_dict:
+                            times_dict[benchmark] = {}
+                        
+                        if repair_tool not in times_dict[benchmark]:
+                            times_dict[benchmark][repair_tool] = []
+
+                        times_dict[benchmark][repair_tool].append(1)
+                    stderr_path = os.path.join(seed_path, "grid5k.stderr.log")
+                    if os.path.exists(stderr_path):
+                        with open(stderr_path) as fd:
+                            # timeout
+                            if "KILLED" in fd.read():
+                                times_dict = times['timeout']
+                                if benchmark not in times_dict:
+                                    times_dict[benchmark] = {}
+                                
+                                if repair_tool not in times_dict[benchmark]:
+                                    times_dict[benchmark][repair_tool] = []
+                                    
+                                times_dict[benchmark][repair_tool].append(2 * 3600)
+                                
+                                total_time += 2 * 3600 # 2h
                             
 
 with open(os.path.join(ROOT, "docs", "data", "patches.json"), "w+") as fd:
@@ -116,7 +179,7 @@ for repair_tool in patch_per_tool:
     for benchmark in benchmarks:
         nb_patches = 0
         if benchmark in patch_per_tool[repair_tool]:
-            nb_patches = patch_per_tool[repair_tool][benchmark]
+            nb_patches = len(patch_per_tool[repair_tool][benchmark])
         nb_patch_tool += nb_patches
         line += " {:{width}} |".format(nb_patches, width=len(benchmark))
     line += " {:5} |".format(nb_patch_tool)
@@ -131,7 +194,72 @@ for benchmark in benchmarks:
 line += " {:5} |".format(nb_patch)
 print(line + "\n")
 
-print("Total generated patch: %d\n" % total_nb_patch)
+print("\nTotal generated patch: %d\n" % total_nb_patch)
+
+line = "            "
+for repair_tool in sorted(patch_per_tool):
+    line += "& {0} ".format(repair_tool)
+print("%s \\\\" % line)
+
+for repair_tool_line in sorted(patch_per_tool):
+    line = " {0:10} ".format(repair_tool_line)
+    for repair_tool_column in sorted(patch_per_tool):
+        number = 0
+        if repair_tool_line == repair_tool_column:
+            # count unique
+            for p in bugs_tool[repair_tool_column]:
+                if len(tool_bugs[p]) == 1:
+                    number += 1
+        else:
+            for p in bugs_tool[repair_tool_column]:
+                if p in bugs_tool[repair_tool_line]:
+                    number += 1
+        line += ("& {0:" + str(len(repair_tool_column)) + "} ").format(number)
+    print("%s \\\\" % line)
 
 
-print "Execution time %s " % datetime.timedelta(seconds=total_time)
+for state in times:
+    print(state)
+    line = " {0:15} ".format(' ')
+    for tool in sorted(patch_per_tool):
+        line += "& {0:7} ".format(tool)
+    print("%s & Total \\\\" % line)
+    total_tools = {}
+    for bench in sorted(times[state]):
+        line = " {0:15} ".format(bench)
+        total = []
+        for tool in sorted(patch_per_tool):
+            if tool not in total_tools:
+                total_tools[tool] = []
+            if tool not in times[state][bench]:
+                line += "& {0:7} ".format(0)
+            else:
+                total += times[state][bench][tool]
+                total_tools[tool] += times[state][bench][tool]
+                if state == "timeout" or state == 'error':
+                    line += "& {0:7} ".format(len(times[state][bench][tool]))
+                    continue
+                total_tool = sum(times[state][bench][tool])
+                average_tool = total_tool/len(times[state][bench][tool])
+                line += "& {0:7} ".format(str(datetime.timedelta(seconds=average_tool)).split('.', 2)[0])
+        if 'xtotal' not in total_tools:
+            total_tools['xtotal'] = []
+        total_tools['xtotal'] += total
+        if state == "timeout" or state == 'error':
+            line += "& {0:7} ".format(len(total))
+        else:
+            total_tool = sum(total)
+            average_tool = total_tool/len(total)
+            line += "& {0:7} ".format(str(datetime.timedelta(seconds=average_tool)).split('.', 2)[0])
+        print("%s \\\\" % line)
+    line = ' {0:15} '.format('Total')
+    for tool in sorted(total_tools):
+        if state == "timeout" or state == 'error':
+            line += "& {0:7} ".format(len(total_tools[tool]))
+            continue
+        total_tool = sum(total_tools[tool])
+        average_tool = total_tool/len(total_tools[tool])
+        line += "& {0:7} ".format(str(datetime.timedelta(seconds=average_tool)).split('.', 2)[0])
+    print("%s \\\\" % line)
+
+print("Execution time %s " % datetime.timedelta(seconds=total_time))
