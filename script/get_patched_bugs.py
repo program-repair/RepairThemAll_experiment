@@ -190,7 +190,7 @@ for i in natural_sort(repaired_bugs.iterkeys()):
     if len(bug_id) > 8:
         bug_id = bug_id[-8:]
     project = bug['project'].split("-")[-1]
-    print ("| {:3} | {:14} | {:21} | {:1} | {:11} |".format(index, bug['benchmark'], ("%s %s" % (project, bug_id)).strip(), len(bug['tools']), " ".join(bug['tools'])))
+    print ("| {:3} | {:14} | {:21} | {:1} | {:11} |".format(index, bench_name(bug['benchmark']), ("%s %s" % (project, bug_id)).strip(), len(bug['tools']), " ".join(bug['tools'])))
 
 print("\n")
 benchmarks = ["Bears", "Bug_dot_jar", "Defects4J", "IntroClassJava", "QuixBugs"]
@@ -225,7 +225,7 @@ print("\nTotal generated patch: %d\n" % total_nb_patch)
 
 line = "            "
 for repair_tool in sorted(patch_per_tool):
-    line += "& {0} ".format(tool_name(repair_tool))
+    line += ("& {0:11} ").format(tool_name(repair_tool))
 print("%s \\\\\\midrule" % line)
 
 for repair_tool_line in sorted(patch_per_tool):
@@ -238,13 +238,15 @@ for repair_tool_line in sorted(patch_per_tool):
                 for p in bugs_tool[repair_tool_column]:
                     if len(tool_bugs[p]) == 1:
                         number += 1
+		line += ("& {0:11} ").format("\\textbf{" + str(number) + "}")
+		print("%s \\\\" % line)
+		break
         else:
             if repair_tool_column in bugs_tool:
                 for p in bugs_tool[repair_tool_column]:
                     if repair_tool_line in bugs_tool and p in bugs_tool[repair_tool_line]:
                         number += 1
-        line += ("& {0:" + str(len(tool_name(repair_tool_column))) + "} ").format(number)
-    print("%s \\\\" % line)
+        	line += ("& {0:11} ").format(number)
 
 times_tools = {
     'patched': {},
@@ -322,5 +324,21 @@ for state in times_tools:
             average_tool = total/len(total_bench[bench])
         line += "& {:{width}} ".format(format_time(datetime.timedelta(seconds=average_tool)), width=len(bench_name(bench)))
     print("%s \\\\" % line)
+
+repaired_benchmarks = {}
+for i in natural_sort(repaired_bugs.iterkeys()):
+	bug = repaired_bugs[i]
+	if bug['benchmark'] not in repaired_benchmarks:
+	    repaired_benchmarks[bug['benchmark']] = 0            
+	repaired_benchmarks[bug['benchmark']] += 1
+
+print("Benchmark      & \# Fixed bugs &    \% \\\\\\midrule")
+total = 0
+for benchmark in natural_sort(repaired_benchmarks):
+    print (("{:" + str(len("IntroClassJava")) + "} & {:" + str(len("\# Fixed bugs")) + "} & {:5} \\\\").format(bench_name(benchmark), repaired_benchmarks[benchmark], percent(repaired_benchmarks[benchmark], nb_bugs_bench[benchmark])))
+    total += repaired_benchmarks[benchmark]
+
+print("\\midrule")
+print(("{:" + str(len("IntroClassJava")) + "} & {:" + str(len("\# Fixed bugs")) + "} & {:5} \\\\").format("Total", total, percent(total, nb_bugs)))
 
 print("Execution time %s " % datetime.timedelta(seconds=total_time))
