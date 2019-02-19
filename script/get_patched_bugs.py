@@ -3,18 +3,23 @@ import json
 import re
 import datetime
 
+benchmarks = ["Bears", "Bugs.jar", "Defects4J", "IntroClassJava", "QuixBugs"]
+tools = ["Arja", "GenProg", "Kali", "RSRepair", "Cardumen", "jGenProg", "jKali", "jMutRepair", "Nopol", "DynaMoth", "NPEFix"]
+
 def percent(value, total):
     return int(value * 10000 / total)/100.0
 
 def bench_name(name):
-    benchmarks = ["Bears", "Bug_dot_jar", "Defects4J", "IntroClassJava", "QuixBugs", "xtotal"]
+    benchmarks = ["Bears", "Bugs.jar", "Defects4J", "IntroClassJava", "QuixBugs", "xtotal"]
     benchmark_names = ["Bears", "Bugs.jar", "Defects4J", "IntroClassJava", "QuixBugs", "Average"]
     return benchmark_names[benchmarks.index(name)]
 
+
+
 def tool_name(name):
-    tools = ["Arja", "Cardumen", "DynaMoth", "GenProg", "Kali", "NPEFix", "Nopol", "RSRepair", "jGenProg", "jKali", "jMutRepair", "xtotal"]
-    tool_names = ["Arja", "Cardumen", "DynaMoth", "GenProg-A", "Kali-A", "NPEFix", "Nopol", "RSRepair-A", "jGenProg", "jKali", "jMutRepair", "Average"]
-    return tool_names[tools.index(name)]
+    t = tools + ["xtotal"]
+    tool_names = ["Arja", "GenProg-A", "Kali-A", "RSRepair-A", "Cardumen","jGenProg", "jKali", "jMutRepair", "Nopol", "DynaMoth", "NPEFix", "Average"]
+    return tool_names[t.index(name)]
 
 def format_time(t):
     t = str(datetime.timedelta(seconds=average_tool)).split('.', 2)[0]
@@ -31,12 +36,12 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 
 nb_bugs_bench = {
     "Bears": 251,
-    "Bug_dot_jar": 1158,
+    "Bugs.jar": 1158,
     "Defects4J": 395,
     "IntroClassJava": 297,
     "QuixBugs": 40,
 }
-nb_bugs = 2051
+nb_bugs = 2141
 total_nb_patch = 0
 nb_patch = 0
 total_attempts = 0
@@ -53,9 +58,15 @@ times = {
     'error': {}
 }
 
+rvs = {}
+not_runned = []
+
 total_time = 0
-for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
+for benchmark in benchmarks:
     benchmark_path = os.path.join(ROOT, "results", benchmark)
+
+    if benchmark not in rvs:
+        rvs[benchmark] = []
     for project in natural_sort(os.listdir(benchmark_path)):
         project_path = os.path.join(benchmark_path, project)
         folders = os.listdir(project_path)
@@ -72,8 +83,12 @@ for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
                     is_error = False
                     stat = None
                     repair_log_path = os.path.join(seed_path, "repair.log")
+                    if not os.path.exists(repair_log_path):
+                        repair_log_path = os.path.join(seed_path, "repair.log.gz")
+                    
                     if not os.path.exists(repair_log_path): 
                         is_error = True
+                        not_runned.append("%s\t%s\t%s_%s" % (repair_tool, bench_name(benchmark), project, bug_id))
                     else:
                         stat = os.stat(repair_log_path)
                         #if stat.st_size < 20000:
@@ -91,6 +106,7 @@ for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
                                 time_spend = (end - begin).total_seconds()
 
                                 times_dict = times['nopatch']
+                                rvs[benchmark].append('patches' in data and len(data['patches']) > 0)
                                 if 'patches' in data and len(data['patches']) > 0:
                                     times_dict = times['patched']
                                 elif is_error:
@@ -116,6 +132,7 @@ for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
                                 
                             if 'patches' in data and len(data['patches']) > 0:
                                 unique_bug_id = "%s_%s_%s" % (benchmark, project, bug_id)
+                                
                                 if unique_bug_id not in tool_bugs:
                                     tool_bugs[unique_bug_id] = []
                                 tool_bugs[unique_bug_id].append(repair_tool)
@@ -160,6 +177,9 @@ for benchmark in natural_sort(os.listdir(os.path.join(ROOT, "results"))):
                             times_dict[benchmark][repair_tool] = []
 
                         times_dict[benchmark][repair_tool].append(1)
+                        rvs[benchmark].append(False)
+                    else:
+                        rvs[benchmark].append(False)
                     stderr_path = os.path.join(seed_path, "grid5k.stderr.log")
                     if os.path.exists(stderr_path):
                         with open(stderr_path) as fd:
@@ -193,23 +213,23 @@ for i in natural_sort(repaired_bugs.iterkeys()):
     print ("| {:3} | {:14} | {:21} | {:1} | {:11} |".format(index, bench_name(bug['benchmark']), ("%s %s" % (project, bug_id)).strip(), len(bug['tools']), " ".join(bug['tools'])))
 
 print("\n")
-benchmarks = ["Bears", "Bug_dot_jar", "Defects4J", "IntroClassJava", "QuixBugs"]
 line = " Repair Tools "
 for benchmark in benchmarks:
     line += "& {:} ".format(bench_name(benchmark))
 line += "& Total \\\\\\midrule"
 print(line)
 
-for repair_tool in sorted(patch_per_tool):
+nb_patch_tool = {}
+for repair_tool in tools:
     line = " {:12} ".format(tool_name(repair_tool))
-    nb_patch_tool = 0
+    nb_patch_tool[repair_tool] = 0
     for benchmark in benchmarks:
         nb_patches = 0
         if benchmark in patch_per_tool[repair_tool]:
             nb_patches = len(patch_per_tool[repair_tool][benchmark])
-        nb_patch_tool += nb_patches
-        line += "& {:{width}} ".format(nb_patches, width=len(bench_name(benchmark)))
-    line += "& {:5} \\\\".format(nb_patch_tool)
+        nb_patch_tool[repair_tool] += nb_patches
+        line += "& {:{width}} ".format("%d (%d\\%%)" % (nb_patches, percent(nb_patches, nb_bugs_bench[benchmark])), width=len(bench_name(benchmark)))
+    line += "& {:5} \\\\".format("%d (%d\\%%)" % (nb_patch_tool[repair_tool], percent(nb_patch_tool[repair_tool], nb_bugs)))
     print(line)
 print(" \\midrule")
 line = "     Total    "
@@ -224,13 +244,14 @@ print(line + "\n")
 print("\nTotal generated patch: %d\n" % total_nb_patch)
 
 line = "            "
-for repair_tool in sorted(patch_per_tool):
+for repair_tool in tools:
     line += ("& {0:11} ").format(tool_name(repair_tool))
 print("%s \\\\\\midrule" % line)
 
-for repair_tool_line in sorted(patch_per_tool):
+overlaps = {}
+for repair_tool_line in tools:
     line = " {0:10} ".format(tool_name((repair_tool_line)))
-    for repair_tool_column in sorted(patch_per_tool):
+    for repair_tool_column in tools:
         number = 0
         if repair_tool_line == repair_tool_column:
             if repair_tool_column in bugs_tool:
@@ -238,15 +259,37 @@ for repair_tool_line in sorted(patch_per_tool):
                 for p in bugs_tool[repair_tool_column]:
                     if len(tool_bugs[p]) == 1:
                         number += 1
-		line += ("& {0:11} ").format("\\textbf{" + str(number) + "}")
-		print("%s \\\\" % line)
-		break
+            line += ("& {0:11} ").format("\\textbf{%s\\%% (%d)}" % (percent(number, nb_patch_tool[repair_tool_column]), number))
         else:
             if repair_tool_column in bugs_tool:
                 for p in bugs_tool[repair_tool_column]:
                     if repair_tool_line in bugs_tool and p in bugs_tool[repair_tool_line]:
                         number += 1
-        	line += ("& {0:11} ").format(number)
+            p = percent(number, nb_patch_tool[repair_tool_line])
+
+            if repair_tool_line not in overlaps:
+                overlaps[repair_tool_line] = {
+                    "40-50": [],
+                    "50-60": [],
+                    "60-70": [],
+                    "70-80": [],
+                    "80-100": [],
+                }
+            
+            for s in overlaps[repair_tool_line]:
+                (min, max) = s.split("-")
+                if int(min)<= p and p < int(max):
+                    overlaps[repair_tool_line][s].append('%s (%d)' % (tool_name(repair_tool_column), number)) 
+                    break
+            line += ("& {0:11} ").format("\\cca{%s}\\%% (%d)"  % (p, number))
+    print("%s \\\\" % line)
+
+print(" {0:10} & 0-20 \\% & 20-40 \\% & 40-60 \\% & 60-80 \\% & 80-100 \\% \\\\ \\midrule".format(''))
+for tool in sorted(overlaps):
+    line = " {0:10} ".format(tool_name(tool))
+    for c in sorted(overlaps[tool]):
+        line += '& %s ' % ", ".join(overlaps[tool][c])
+    print("%s \\\\" % line)
 
 times_tools = {
     'patched': {},
@@ -256,7 +299,7 @@ times_tools = {
 }
 for state in times:
     for bench in sorted(times[state]):
-        for tool in sorted(patch_per_tool):
+        for tool in tools:
             if tool not in times_tools[state]:
                 times_tools[state][tool] = {}
             if bench not in times_tools[state][tool]:
@@ -274,7 +317,7 @@ for state in times_tools:
     print("%s& Average \\\\\\midrule" % line)
 
     total_bench = {}
-    for tool in sorted(times_tools[state]):
+    for tool in tools:
         line = " {0:11} ".format(tool_name(tool))
 
         total_tools = []
@@ -342,3 +385,7 @@ print("\\midrule")
 print(("{:" + str(len("IntroClassJava")) + "} & {:" + str(len("\# Fixed bugs")) + "} & {:5} \\\\").format("Total", total, percent(total, nb_bugs)))
 
 print("Execution time %s " % datetime.timedelta(seconds=total_time))
+
+with open('not_runned.csv', 'w') as fd:
+    for t in not_runned:
+        fd.write(t +'\n')
