@@ -14,8 +14,6 @@ def bench_name(name):
     benchmark_names = ["Bears", "Bugs.jar", "Defects4J", "IntroClassJava", "QuixBugs", "Average"]
     return benchmark_names[benchmarks.index(name)]
 
-
-
 def tool_name(name):
     t = tools + ["xtotal"]
     tool_names = ["Arja", "GenProg-A", "Kali-A", "RSRepair-A", "Cardumen","jGenProg", "jKali", "jMutRepair", "Nopol", "DynaMoth", "NPEFix", "Average"]
@@ -41,7 +39,10 @@ nb_bugs_bench = {
     "IntroClassJava": 297,
     "QuixBugs": 40,
 }
-nb_bugs = 2141
+nb_bugs = 0
+for benchmark in benchmarks:
+    nb_bugs += nb_bugs_bench[benchmark]
+
 total_nb_patch = 0
 nb_patch = 0
 total_attempts = 0
@@ -220,13 +221,21 @@ line += "& Total \\\\\\midrule"
 print(line)
 
 nb_patch_tool = {}
+nb_patch_tool_bench = {}
 for repair_tool in tools:
     line = " {:12} ".format(tool_name(repair_tool))
     nb_patch_tool[repair_tool] = 0
+    nb_patch_tool_bench[repair_tool] = {}
     for benchmark in benchmarks:
         nb_patches = 0
+        t = benchmark
+        if t != 'Defects4J':
+            t = 'Others'
+        if t not in nb_patch_tool_bench[repair_tool]:
+            nb_patch_tool_bench[repair_tool][t] = 0
         if benchmark in patch_per_tool[repair_tool]:
             nb_patches = len(patch_per_tool[repair_tool][benchmark])
+        nb_patch_tool_bench[repair_tool][t] += nb_patches
         nb_patch_tool[repair_tool] += nb_patches
         line += "& {:{width}} ".format("%d (%d\\%%)" % (nb_patches, percent(nb_patches, nb_bugs_bench[benchmark])), width=len(bench_name(benchmark)))
     line += "& {:5} \\\\".format("%d (%d\\%%)" % (nb_patch_tool[repair_tool], percent(nb_patch_tool[repair_tool], nb_bugs)))
@@ -240,6 +249,15 @@ for benchmark in benchmarks:
     line += "& {:{width}} ".format(nb_patches, width=len(bench_name(benchmark)))
 line += "& {:5} \\\\".format(nb_patch)
 print(line + "\n")
+
+print()
+for repair_tool in tools:
+    print('|                | # Patched | # Non-Patched |')
+    print('| -------------- | --------- | ------------- |')
+    print('| %s on Defects  | %d | %d |' % (repair_tool, nb_patch_tool_bench[repair_tool]['Defects4J'], nb_bugs_bench['Defects4J'] - nb_patch_tool_bench[repair_tool]['Defects4J']))
+    print('| %s on Others  | %d | %d |' % (repair_tool, nb_patch_tool_bench[repair_tool]['Others'], (nb_bugs - nb_bugs_bench['Defects4J']) - nb_patch_tool_bench[repair_tool]['Others']))
+
+print()
 
 print("\nTotal generated patch: %d\n" % total_nb_patch)
 
