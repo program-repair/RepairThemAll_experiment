@@ -1,0 +1,852 @@
+{
+  "repair_end": "2019-05-04 23:46:19.399801", 
+  "repair_begin": "2019-05-04 23:44:39.287878", 
+  "patches": [
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && org.mockito.internal.invocation.InvocationMatcher.serialVersionUID.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && org.mockito.internal.invocation.InvocationMatcher.serialVersionUID.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && org.mockito.internal.invocation.InvocationMatcher.serialVersionUID.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && org.mockito.internal.invocation.InvocationMatcher.serialVersionUID.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && org.mockito.internal.invocation.InvocationMatcher.serialVersionUID.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && arguments.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! isVarArgs.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && matchers.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && matchers.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && matchers.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && matchers.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && matchers.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = args;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = isVarArgs;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/InvocationMatcher.java\n+++ internal/invocation/InvocationMatcher.java\n@@ -148,6 +148,13 @@\n     private boolean isVariableArgument(Invocation invocation, int position) {\n-        return invocation.getRawArguments().length - 1 == position\n-                && invocation.getRawArguments()[position] != null\n-                && invocation.getRawArguments()[position].getClass().isArray()\n-                && invocation.getMethod().isVarArgs();\n+        if (invocation.getRawArguments()[position] == null) {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && this.getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        } else {\n+            return invocation.getRawArguments().length - 1 == position\n+            && invocation.getRawArguments()[position] != null\n+            && invocation.getRawArguments()[position].getClass().isArray()\n+            && invocation.getMethod().isVarArgs();\n+        }\n     }\n--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,4 +21,10 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n-        if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n-            return args == null ? new Object[0] : args;\n+        if (args[args.length - 1] == null) {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && ! args.getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n+        } else {\n+            if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n+                return args == null ? new Object[0] : args;\n+            }\n         }\n@@ -43,6 +49,14 @@\n         for (Object arg : arguments) {\n-            if (arg != null && arg.getClass().isArray()) {\n-                matchers.add(new ArrayEquals(arg));\n+            if (arg == null) {\n+                if (arg != null && matchers.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             } else {\n-                matchers.add(new Equals(arg));\n+                if (arg != null && arg.getClass().isArray()) {\n+                    matchers.add(new ArrayEquals(arg));\n+                } else {\n+                    matchers.add(new Equals(arg));\n+                }\n             }\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 44, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 1732, 
+          "sourceEnd": 1734
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = isVarArgs;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }, 
+    {
+      "diff": "--- internal/invocation/ArgumentsProcessor.java\n+++ internal/invocation/ArgumentsProcessor.java\n@@ -21,2 +21,5 @@\n     public static Object[] expandVarArgs(final boolean isVarArgs, final Object[] args) {\n+        if (args[args.length - 1] == null) {\n+            args[args.length - 1] = isVarArgs;\n+        }\n         if (!isVarArgs || new ArrayUtils().isEmpty(args) || args[args.length - 1] != null && !args[args.length - 1].getClass().isArray()) {\n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 22, 
+          "class": "org.mockito.internal.invocation.ArgumentsProcessor", 
+          "sourceStart": 766, 
+          "sourceEnd": 786
+        }
+      ]
+    }
+  ]
+}

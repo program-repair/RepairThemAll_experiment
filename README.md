@@ -221,8 +221,8 @@
 | 217 | Defects4J      | Chart 19              | 1 | Arja        |
 | 218 | Defects4J      | Chart 21              | 1 | Nopol       |
 | 219 | Defects4J      | Chart 24              | 1 | Cardumen    |
-| 220 | Defects4J      | Chart 25              | 9 | Arja DynaMoth GenProg jGenProg jKali jMutRepair Kali Nopol RSRepair |
-| 221 | Defects4J      | Chart 26              | 1 | Kali        |
+| 220 | Defects4J      | Chart 25              | 10 | Arja DynaMoth GenProg jGenProg jKali jMutRepair Kali Nopol NPEFix RSRepair |
+| 221 | Defects4J      | Chart 26              | 2 | Kali NPEFix |
 | 222 | Defects4J      | Closure 1             | 5 | Arja DynaMoth GenProg Kali Nopol |
 | 223 | Defects4J      | Closure 2             | 2 | DynaMoth Nopol |
 | 224 | Defects4J      | Closure 3             | 4 | Arja DynaMoth Kali Nopol |
@@ -377,105 +377,176 @@
 | 373 | Defects4J      | Math 85               | 10 | Arja Cardumen DynaMoth GenProg jGenProg jKali jMutRepair Kali Nopol RSRepair |
 | 374 | Defects4J      | Math 87               | 1 | Nopol       |
 | 375 | Defects4J      | Math 88               | 2 | jMutRepair Nopol |
-| 376 | Defects4J      | Math 95               | 6 | Arja Cardumen GenProg jGenProg Kali RSRepair |
-| 377 | Defects4J      | Math 98               | 1 | Arja        |
-| 378 | Defects4J      | Math 103              | 3 | Arja GenProg RSRepair |
-| 379 | Defects4J      | Math 105              | 2 | DynaMoth Nopol |
-| 380 | Defects4J      | Mockito 8             | 1 | DynaMoth    |
-| 381 | Defects4J      | Mockito 10            | 2 | Arja Kali   |
-| 382 | Defects4J      | Time 11               | 1 | DynaMoth    |
-| 383 | Defects4J      | Time 14               | 1 | Nopol       |
-| 384 | IntroClassJava | checksum 9111_005     | 1 | Arja        |
-| 385 | IntroClassJava | digits 8b7c_005       | 1 | DynaMoth    |
-| 386 | IntroClassJava | digits 363f_000       | 1 | jMutRepair  |
-| 387 | IntroClassJava | digits aaca_004       | 1 | Nopol       |
-| 388 | IntroClassJava | digits 36a6_000       | 1 | jMutRepair  |
-| 389 | IntroClassJava | digits 96d2_004       | 2 | jGenProg RSRepair |
-| 390 | IntroClassJava | digits 540f_004       | 2 | Arja RSRepair |
-| 391 | IntroClassJava | digits 393c_002       | 3 | Arja GenProg RSRepair |
-| 392 | IntroClassJava | digits beb4_003       | 8 | Arja DynaMoth GenProg jGenProg jKali Kali Nopol RSRepair |
-| 393 | IntroClassJava | digits 3516_001       | 2 | Arja GenProg |
-| 394 | IntroClassJava | digits 070c_000       | 7 | Arja DynaMoth GenProg jGenProg jKali Kali RSRepair |
-| 395 | IntroClassJava | digits 66dc_000       | 1 | jMutRepair  |
-| 396 | IntroClassJava | digits 66dc_002       | 1 | jMutRepair  |
-| 397 | IntroClassJava | digits 9d9a_002       | 2 | Arja RSRepair |
-| 398 | IntroClassJava | grade bf82_001        | 2 | jMutRepair Nopol |
-| 399 | IntroClassJava | grade bf82_003        | 2 | jMutRepair Nopol |
-| 400 | IntroClassJava | grade 07ce_000        | 1 | jMutRepair  |
-| 401 | IntroClassJava | grade 07ce_001        | 1 | jMutRepair  |
-| 402 | IntroClassJava | median 8b7c_003       | 3 | Arja GenProg RSRepair |
-| 403 | IntroClassJava | median 3ff6_003       | 1 | Nopol       |
-| 404 | IntroClassJava | median 8ee9_000       | 4 | Arja GenProg Nopol RSRepair |
-| 405 | IntroClassJava | median 69ac_003       | 2 | jMutRepair Nopol |
-| 406 | IntroClassJava | median 7829_003       | 2 | jMutRepair Nopol |
-| 407 | IntroClassJava | median 7829_006       | 2 | GenProg RSRepair |
-| 408 | IntroClassJava | median 708f_007       | 1 | Nopol       |
-| 409 | IntroClassJava | median 4c62_000       | 2 | jMutRepair Nopol |
-| 410 | IntroClassJava | median aaca_003       | 3 | Arja jMutRepair Nopol |
-| 411 | IntroClassJava | median a389_000       | 2 | jMutRepair Nopol |
-| 412 | IntroClassJava | median 36a6_000       | 1 | jGenProg    |
-| 413 | IntroClassJava | median 474f_010       | 2 | GenProg RSRepair |
-| 414 | IntroClassJava | median 96d2_000       | 1 | Nopol       |
-| 415 | IntroClassJava | median 678b_012       | 1 | Nopol       |
-| 416 | IntroClassJava | median 678b_015       | 1 | Nopol       |
-| 417 | IntroClassJava | median 540f_000       | 3 | Arja GenProg RSRepair |
-| 418 | IntroClassJava | median 540f_002       | 3 | Arja GenProg RSRepair |
-| 419 | IntroClassJava | median 540f_003       | 1 | Nopol       |
-| 420 | IntroClassJava | median 17f7_010       | 4 | Arja GenProg Nopol RSRepair |
-| 421 | IntroClassJava | median 5144_010       | 2 | jMutRepair Nopol |
-| 422 | IntroClassJava | median 9e93_000       | 3 | Arja jMutRepair Nopol |
-| 423 | IntroClassJava | median 6e92_001       | 1 | Nopol       |
-| 424 | IntroClassJava | smallest 8ee9_003     | 2 | Arja RSRepair |
-| 425 | IntroClassJava | smallest 7829_007     | 7 | Arja DynaMoth GenProg jKali Kali Nopol RSRepair |
-| 426 | IntroClassJava | smallest 7829_008     | 2 | jMutRepair Nopol |
-| 427 | IntroClassJava | smallest 4c62_001     | 2 | GenProg RSRepair |
-| 428 | IntroClassJava | smallest 24fa_007     | 2 | jMutRepair Nopol |
-| 429 | IntroClassJava | smallest a389_003     | 2 | jMutRepair Nopol |
-| 430 | IntroClassJava | smallest 36a6_001     | 2 | jMutRepair Nopol |
-| 431 | IntroClassJava | smallest 6ea5_000     | 2 | jMutRepair Nopol |
-| 432 | IntroClassJava | smallest 4fe6_003     | 2 | jMutRepair Nopol |
-| 433 | IntroClassJava | smallest bc7b_005     | 1 | Arja        |
-| 434 | IntroClassJava | smallest b98b_007     | 1 | Arja        |
-| 435 | IntroClassJava | smallest b98b_009     | 2 | Arja GenProg |
-| 436 | IntroClassJava | smallest 8b71_007     | 1 | RSRepair    |
-| 437 | IntroClassJava | smallest 841a_002     | 7 | Arja DynaMoth GenProg jKali Kali Nopol RSRepair |
-| 438 | IntroClassJava | smallest 841a_003     | 7 | Arja DynaMoth GenProg jKali Kali Nopol RSRepair |
-| 439 | IntroClassJava | smallest 17f7_005     | 1 | RSRepair    |
-| 440 | IntroClassJava | smallest c4ae_000     | 1 | GenProg     |
-| 441 | IntroClassJava | smallest 2912_000     | 2 | Arja RSRepair |
-| 442 | IntroClassJava | smallest 3b11_000     | 1 | GenProg     |
-| 443 | IntroClassJava | smallest b70d_000     | 2 | jMutRepair Nopol |
-| 444 | IntroClassJava | smallest 98a7_003     | 4 | Arja jMutRepair Nopol RSRepair |
-| 445 | IntroClassJava | smallest 6d0e_000     | 2 | jMutRepair Nopol |
-| 446 | QuixBugs       | DEPTH_FIRST_SEARCH    | 8 | Arja Cardumen DynaMoth GenProg jGenProg jKali Kali RSRepair |
-| 447 | QuixBugs       | DETECT_CYCLE          | 1 | NPEFix      |
-| 448 | QuixBugs       | HANOI                 | 1 | NPEFix      |
-| 449 | QuixBugs       | KNAPSACK              | 1 | jMutRepair  |
-| 450 | QuixBugs       | LEVENSHTEIN           | 1 | Cardumen    |
-| 451 | QuixBugs       | LIS                   | 4 | Arja GenProg jGenProg RSRepair |
-| 452 | QuixBugs       | MERGESORT             | 1 | Cardumen    |
-| 453 | QuixBugs       | NEXT_PERMUTATION      | 1 | jMutRepair  |
-| 454 | QuixBugs       | QUICKSORT             | 7 | Arja DynaMoth jKali jMutRepair Kali Nopol RSRepair |
-| 455 | QuixBugs       | RPN_EVAL              | 1 | Cardumen    |
-| 456 | QuixBugs       | SHORTEST_PATH_LENGTHS | 4 | Arja GenProg jGenProg RSRepair |
-| 457 | QuixBugs       | SQRT                  | 1 | GenProg     |
+| 376 | Defects4J      | Math 91               | 1 | NPEFix      |
+| 377 | Defects4J      | Math 95               | 6 | Arja Cardumen GenProg jGenProg Kali RSRepair |
+| 378 | Defects4J      | Math 98               | 2 | Arja NPEFix |
+| 379 | Defects4J      | Math 103              | 3 | Arja GenProg RSRepair |
+| 380 | Defects4J      | Math 105              | 2 | DynaMoth Nopol |
+| 381 | Defects4J      | Mockito 6             | 1 | NPEFix      |
+| 382 | Defects4J      | Mockito 8             | 1 | DynaMoth    |
+| 383 | Defects4J      | Mockito 10            | 2 | Arja Kali   |
+| 384 | Defects4J      | Time 11               | 1 | DynaMoth    |
+| 385 | Defects4J      | Time 14               | 1 | Nopol       |
+| 386 | IntroClassJava | checksum 9111_005     | 1 | Arja        |
+| 387 | IntroClassJava | digits 8b7c_005       | 1 | DynaMoth    |
+| 388 | IntroClassJava | digits 363f_000       | 1 | jMutRepair  |
+| 389 | IntroClassJava | digits aaca_004       | 1 | Nopol       |
+| 390 | IntroClassJava | digits 36a6_000       | 1 | jMutRepair  |
+| 391 | IntroClassJava | digits 96d2_004       | 2 | jGenProg RSRepair |
+| 392 | IntroClassJava | digits 540f_004       | 2 | Arja RSRepair |
+| 393 | IntroClassJava | digits 393c_002       | 3 | Arja GenProg RSRepair |
+| 394 | IntroClassJava | digits beb4_003       | 8 | Arja DynaMoth GenProg jGenProg jKali Kali Nopol RSRepair |
+| 395 | IntroClassJava | digits 3516_001       | 2 | Arja GenProg |
+| 396 | IntroClassJava | digits 070c_000       | 7 | Arja DynaMoth GenProg jGenProg jKali Kali RSRepair |
+| 397 | IntroClassJava | digits 66dc_000       | 1 | jMutRepair  |
+| 398 | IntroClassJava | digits 66dc_002       | 1 | jMutRepair  |
+| 399 | IntroClassJava | digits 9d9a_002       | 2 | Arja RSRepair |
+| 400 | IntroClassJava | grade bf82_001        | 2 | jMutRepair Nopol |
+| 401 | IntroClassJava | grade bf82_003        | 2 | jMutRepair Nopol |
+| 402 | IntroClassJava | grade 07ce_000        | 1 | jMutRepair  |
+| 403 | IntroClassJava | grade 07ce_001        | 1 | jMutRepair  |
+| 404 | IntroClassJava | median 8b7c_003       | 3 | Arja GenProg RSRepair |
+| 405 | IntroClassJava | median 3ff6_003       | 1 | Nopol       |
+| 406 | IntroClassJava | median 8ee9_000       | 4 | Arja GenProg Nopol RSRepair |
+| 407 | IntroClassJava | median 69ac_003       | 2 | jMutRepair Nopol |
+| 408 | IntroClassJava | median 7829_003       | 2 | jMutRepair Nopol |
+| 409 | IntroClassJava | median 7829_006       | 2 | GenProg RSRepair |
+| 410 | IntroClassJava | median 708f_007       | 1 | Nopol       |
+| 411 | IntroClassJava | median 4c62_000       | 2 | jMutRepair Nopol |
+| 412 | IntroClassJava | median aaca_003       | 3 | Arja jMutRepair Nopol |
+| 413 | IntroClassJava | median a389_000       | 2 | jMutRepair Nopol |
+| 414 | IntroClassJava | median 36a6_000       | 1 | jGenProg    |
+| 415 | IntroClassJava | median 474f_010       | 2 | GenProg RSRepair |
+| 416 | IntroClassJava | median 96d2_000       | 1 | Nopol       |
+| 417 | IntroClassJava | median 678b_012       | 1 | Nopol       |
+| 418 | IntroClassJava | median 678b_015       | 1 | Nopol       |
+| 419 | IntroClassJava | median 540f_000       | 3 | Arja GenProg RSRepair |
+| 420 | IntroClassJava | median 540f_002       | 3 | Arja GenProg RSRepair |
+| 421 | IntroClassJava | median 540f_003       | 1 | Nopol       |
+| 422 | IntroClassJava | median 17f7_010       | 4 | Arja GenProg Nopol RSRepair |
+| 423 | IntroClassJava | median 5144_010       | 2 | jMutRepair Nopol |
+| 424 | IntroClassJava | median 9e93_000       | 3 | Arja jMutRepair Nopol |
+| 425 | IntroClassJava | median 6e92_001       | 1 | Nopol       |
+| 426 | IntroClassJava | smallest 8ee9_003     | 2 | Arja RSRepair |
+| 427 | IntroClassJava | smallest 7829_007     | 7 | Arja DynaMoth GenProg jKali Kali Nopol RSRepair |
+| 428 | IntroClassJava | smallest 7829_008     | 2 | jMutRepair Nopol |
+| 429 | IntroClassJava | smallest 4c62_001     | 2 | GenProg RSRepair |
+| 430 | IntroClassJava | smallest 24fa_007     | 2 | jMutRepair Nopol |
+| 431 | IntroClassJava | smallest a389_003     | 2 | jMutRepair Nopol |
+| 432 | IntroClassJava | smallest 36a6_001     | 2 | jMutRepair Nopol |
+| 433 | IntroClassJava | smallest 6ea5_000     | 2 | jMutRepair Nopol |
+| 434 | IntroClassJava | smallest 4fe6_003     | 2 | jMutRepair Nopol |
+| 435 | IntroClassJava | smallest bc7b_005     | 1 | Arja        |
+| 436 | IntroClassJava | smallest b98b_007     | 1 | Arja        |
+| 437 | IntroClassJava | smallest b98b_009     | 2 | Arja GenProg |
+| 438 | IntroClassJava | smallest 8b71_007     | 1 | RSRepair    |
+| 439 | IntroClassJava | smallest 841a_002     | 7 | Arja DynaMoth GenProg jKali Kali Nopol RSRepair |
+| 440 | IntroClassJava | smallest 841a_003     | 7 | Arja DynaMoth GenProg jKali Kali Nopol RSRepair |
+| 441 | IntroClassJava | smallest 17f7_005     | 1 | RSRepair    |
+| 442 | IntroClassJava | smallest c4ae_000     | 1 | GenProg     |
+| 443 | IntroClassJava | smallest 2912_000     | 2 | Arja RSRepair |
+| 444 | IntroClassJava | smallest 3b11_000     | 1 | GenProg     |
+| 445 | IntroClassJava | smallest b70d_000     | 2 | jMutRepair Nopol |
+| 446 | IntroClassJava | smallest 98a7_003     | 4 | Arja jMutRepair Nopol RSRepair |
+| 447 | IntroClassJava | smallest 6d0e_000     | 2 | jMutRepair Nopol |
+| 448 | QuixBugs       | DEPTH_FIRST_SEARCH    | 8 | Arja Cardumen DynaMoth GenProg jGenProg jKali Kali RSRepair |
+| 449 | QuixBugs       | DETECT_CYCLE          | 1 | NPEFix      |
+| 450 | QuixBugs       | HANOI                 | 1 | NPEFix      |
+| 451 | QuixBugs       | KNAPSACK              | 1 | jMutRepair  |
+| 452 | QuixBugs       | LEVENSHTEIN           | 1 | Cardumen    |
+| 453 | QuixBugs       | LIS                   | 4 | Arja GenProg jGenProg RSRepair |
+| 454 | QuixBugs       | MERGESORT             | 1 | Cardumen    |
+| 455 | QuixBugs       | NEXT_PERMUTATION      | 1 | jMutRepair  |
+| 456 | QuixBugs       | QUICKSORT             | 7 | Arja DynaMoth jKali jMutRepair Kali Nopol RSRepair |
+| 457 | QuixBugs       | RPN_EVAL              | 1 | Cardumen    |
+| 458 | QuixBugs       | SHORTEST_PATH_LENGTHS | 4 | Arja GenProg jGenProg RSRepair |
+| 459 | QuixBugs       | SQRT                  | 1 | GenProg     |
 
 
-| Repair Tools | Bears | Bug_dot_jar | Defects4J | IntroClassJava | QuixBugs | Total |
-| ------------ | ----- | ----------- | --------- | -------------- | -------- | ----- |
-| Arja         | 12 (4%) | 21 (1%)  | 86 (21%)  | 23 (7%)        | 4 (10%)  | 146 (7%) |
-| GenProg-A    | 1 (0%)  | 9 (0%)   | 45 (11%)  | 18 (6%)        | 4 (10%)  | 77 (3%)  |
-| Kali-A       | 15 (5%) | 24 (2%)  | 72 (18%)  | 5 (1%)         | 2 (5%)   | 118 (5%) |
-| RSRepair-A   | 1 (0%)  | 6 (0%)   | 62 (15%)  | 22 (7%)        | 4 (10%)  | 95 (4%)  |
-| Cardumen     | 13 (5%) | 12 (1%)  | 17 (4%)   | 0 (0%)         | 4 (10%)  | 46 (2%)  |
-| jGenProg     | 13 (5%) | 14 (1%)  | 31 (7%)   | 4 (1%)         | 3 (7%)   | 65 (3%)  |
-| jKali        | 10 (3%) | 8 (0%)   | 27 (6%)   | 5 (1%)         | 2 (5%)   | 52 (2%)  |
-| jMutRepair   | 7 (2%)  | 11 (0%)  | 20 (5%)   | 24 (8%)        | 3 (7%)   | 65 (3%)  |
-| Nopol        | 1 (0%)  | 72 (6%)  | 107 (27%) | 32 (10%)       | 1 (2%)   | 213 (10%) |
-| DynaMoth     | 0 (0%)  | 124 (10%)| 74 (18%)  | 6 (2%)         | 2 (5%)   | 206 (10%) |
-| NPEFix       | 1 (0%)  | 3 (0%)   | 4 (1%)    | 0 (0%)         | 2 (5%)   | 10 (0%)  |
-|     Total    |    74   |      304 |       545 |            139 |       31 |     1093 |
+| Repair Tools | Bears   | Bugs.jar  | Defects4J | IntroClassJava | QuixBugs | Total |
+| ------------ | ------- | --------- | --------- | -------------- | -------- | ----- |
+| Arja         | 12 (4%) | 21 (1%)   | 86 (21%) | 23 (7%)       | 4 (10%) | 146 (6%) |
+| GenProg-A    | 1 (0%)  | 9 (0%)    | 45 (11%) | 18 (6%)       | 4 (10%) | 77 (3%)  |
+| Kali-A       | 15 (5%) | 24 (2%)   | 72 (18%) | 5 (1%)        | 2 (5%)  | 118 (5%) |
+| RSRepair-A   | 1 (0%)  | 6 (0%)    | 62 (15%) | 22 (7%)       | 4 (10%) | 95 (4%)  |
+| Cardumen     | 13 (5%) | 12 (1%)   | 17 (4%)  | 0 (0%)        | 4 (10%) | 46 (2%)  |
+| jGenProg     | 13 (5%) | 14 (1%)   | 31 (7%)  | 4 (1%)        | 3 (7%)  | 65 (3%)  |
+| jKali        | 10 (3%) | 8 (0%)    | 27 (6%)  | 5 (1%)        | 2 (5%)  | 52 (2%)  |
+| jMutRepair   | 7 (2%)  | 11 (0%)   | 20 (5%)  | 24 (8%)       | 3 (7%)  | 65 (3%)  |
+| Nopol        | 1 (0%)  | 72 (6%)   | 107 (27%) | 32 (10%)     | 1 (2%)  | 213 (9%) |
+| DynaMoth     | 0 (0%)  | 124 (10%) | 74 (18%) | 6 (2%)        | 2 (5%)  | 206 (9%) |
+| NPEFix       | 1 (0%)  | 3 (0%)    | 9 (2%)   | 0 (0%)        | 2 (5%)  | 15 (0%)  |
+|     Total    |      74 |      304 |       550 |           139 |      31 |  1098    |
 
-Total generated patch: 67021
 
-Execution time 313 days, 7:49:56.608857
+## Chi-square Test of independence
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| Arja on Defects  | 86 | 309 |
+| Arja on Others  | 60 | 1686 |
+Chi2 value= 170.43487132271886 p-value= 5.945480330471514e-39 Degrees of freedom= 1
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| GenProg on Defects  | 45 | 350 |
+| GenProg on Others  | 32 | 1714 |
+Chi2 value= 84.90652479289551 p-value= 3.128091736130167e-20 Degrees of freedom= 1
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| Kali on Defects  | 72 | 323 |
+| Kali on Others  | 46 | 1700 |
+Chi2 value= 150.4020168750391 p-value= 1.4160845009256217e-34 Degrees of freedom= 1
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| RSRepair on Defects  | 62 | 333 |
+| RSRepair on Others  | 33 | 1713 |
+Chi2 value= 144.80217516680622 p-value= 2.372523759882535e-33 Degrees of freedom= 1
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| Cardumen on Defects  | 17 | 378 |
+| Cardumen on Others  | 29 | 1717 |
+Chi2 value= 10.701973234378928 p-value= 0.0010702132907778191 Degrees of freedom= 1
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| jGenProg on Defects  | 31 | 364 |
+| jGenProg on Others  | 34 | 1712 |
+Chi2 value= 38.10114926497659 p-value= 6.717055566199569e-10 Degrees of freedom= 1
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| jKali on Defects  | 27 | 368 |
+| jKali on Others  | 25 | 1721 |
+Chi2 value= 39.69012031778793 p-value= 2.976273080413384e-10 Degrees of freedom= 1
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| jMutRepair on Defects  | 20 | 375 |
+| jMutRepair on Others  | 45 | 1701 |
+Chi2 value= 6.76253623850222 p-value= 0.009309135821381086 Degrees of freedom= 1
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| Nopol on Defects  | 107 | 288 |
+| Nopol on Others  | 106 | 1640 |
+Chi2 value= 158.83167769741897 p-value= 2.036659201530019e-36 Degrees of freedom= 1
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| DynaMoth on Defects  | 74 | 321 |
+| DynaMoth on Others  | 132 | 1614 |
+Chi2 value= 46.25197019724452 p-value= 1.0398193445599021e-11 Degrees of freedom= 1
+
+|                | # Patched | # Non-Patched |
+| -------------- | --------- | ------------- |
+| NPEFix on Defects  | 9 | 386 |
+| NPEFix on Others  | 6 | 1740 |
+Chi2 value= 17.333764012540335 p-value= 3.1356574417361234e-05 Degrees of freedom= 1
+
+Total generated patch: 67211
+
+Execution time 314 days, 12:29:19.419491

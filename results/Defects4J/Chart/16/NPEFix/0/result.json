@@ -1,6 +1,6 @@
 {
-  "repair_end": "2018-11-29 16:42:31.782818", 
-  "repair_begin": "2018-11-29 16:37:07.675662", 
+  "repair_end": "2019-05-05 03:32:04.991674", 
+  "repair_begin": "2019-05-05 03:26:52.235470", 
   "patches": [
     {
       "diff": "--- org/jfree/data/category/DefaultIntervalCategoryDataset.java\n+++ org/jfree/data/category/DefaultIntervalCategoryDataset.java\n@@ -573,7 +573,16 @@\n         int result = -1;\n-        for (int i = 0; i < this.categoryKeys.length; i++) {\n-            if (category.equals(this.categoryKeys[i])) {\n-                result = i;\n-                break;\n+        if (this.categoryKeys == null) {\n+            for (int i = 0; i < new Comparable[0].length; i++) {\n+                if (category.equals(this.categoryKeys[i])) {\n+                    result = i;\n+                    break;\n+                }\n             }\n+        } else {\n+            for (int i = 0; i < this.categoryKeys.length; i++) {\n+                if (category.equals(this.categoryKeys[i])) {\n+                    result = i;\n+                    break;\n+                }\n+            }\n         }\n", 

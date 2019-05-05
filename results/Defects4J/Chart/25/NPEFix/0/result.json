@@ -1,0 +1,1684 @@
+{
+  "repair_end": "2019-05-05 03:31:45.818429", 
+  "repair_begin": "2019-05-05 03:24:50.201028", 
+  "patches": [
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = rectY.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = rectY.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = rectX.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = rectX.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( valueDelta.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( valueDelta.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = transY2.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = transY2.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( rectX.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( rectX.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = rectWidth.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = rectWidth.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( transY2.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( transY2.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = transY1.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = transY1.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( rectWidth.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( rectWidth.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = column.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = column.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( transY1.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( transY1.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = org.jfree.chart.renderer.category.StatisticalBarRenderer.serialVersionUID.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = org.jfree.chart.renderer.category.StatisticalBarRenderer.serialVersionUID.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( column.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( column.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = org.jfree.chart.renderer.AbstractRenderer.ZERO.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = org.jfree.chart.renderer.AbstractRenderer.ZERO.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( org.jfree.chart.renderer.category.StatisticalBarRenderer.serialVersionUID.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( org.jfree.chart.renderer.category.StatisticalBarRenderer.serialVersionUID.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = rectHeight.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = rectHeight.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( org.jfree.chart.renderer.AbstractRenderer.ZERO.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( org.jfree.chart.renderer.AbstractRenderer.ZERO.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = org.jfree.chart.renderer.category.BarRenderer.BAR_OUTLINE_WIDTH_THRESHOLD.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = org.jfree.chart.renderer.category.BarRenderer.BAR_OUTLINE_WIDTH_THRESHOLD.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( highVal.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( highVal.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = categoryCount.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = categoryCount.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( rectHeight.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( rectHeight.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = org.jfree.chart.renderer.category.BarRenderer.DEFAULT_ITEM_MARGIN.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = org.jfree.chart.renderer.category.BarRenderer.DEFAULT_ITEM_MARGIN.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( org.jfree.chart.renderer.category.BarRenderer.BAR_OUTLINE_WIDTH_THRESHOLD.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( org.jfree.chart.renderer.category.BarRenderer.BAR_OUTLINE_WIDTH_THRESHOLD.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = seriesCount.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = seriesCount.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( categoryCount.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( categoryCount.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = meanValue.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = meanValue.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( org.jfree.chart.renderer.category.BarRenderer.DEFAULT_ITEM_MARGIN.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( org.jfree.chart.renderer.category.BarRenderer.DEFAULT_ITEM_MARGIN.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = uclip.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = uclip.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( seriesCount.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( seriesCount.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = row.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = row.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( uclip.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( uclip.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = lclip.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = lclip.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( row.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( row.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = value.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = value.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( lclip.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( lclip.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -314,3 +314,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = base.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 315, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11843, 
+          "sourceEnd": 11877
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -458,3 +458,8 @@\n         // standard deviation lines\n-            double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            double valueDelta;\n+            if (dataset.getStdDevValue(row, column) == null) {\n+                valueDelta = base.doubleValue();\n+            } else {\n+                valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n+            }\n             double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 459, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17435, 
+          "sourceEnd": 17469
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( value.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( value.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,6 +320,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( base.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,6 +464,18 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n-            double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    - valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            double lowVal;\n+            if (meanValue == null) {\n+                lowVal = rangeAxis.valueToJava2D( base.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                - valueDelta, dataArea, yAxisLocation);\n+            }\n \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,4 +320,13 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            if (meanValue == null) {\n+                meanValue = rectY;\n+            }\n             double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,4 +464,13 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            if (meanValue == null) {\n+                meanValue = rectY;\n+            }\n             double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,4 +320,13 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            if (meanValue == null) {\n+                meanValue = valueDelta;\n+            }\n             double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,4 +464,13 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            if (meanValue == null) {\n+                meanValue = valueDelta;\n+            }\n             double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,4 +320,13 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            if (meanValue == null) {\n+                meanValue = rectX;\n+            }\n             double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -403,3 +403,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectX.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -459,4 +464,13 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            if (meanValue == null) {\n+                meanValue = rectX;\n+            }\n             double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 462, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17679, 
+          "sourceEnd": 17687
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 460, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 17540, 
+          "sourceEnd": 17548
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 404, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 15565, 
+          "sourceEnd": 15573
+        }
+      ]
+    }, 
+    {
+      "diff": "--- org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n+++ org/jfree/chart/renderer/category/StatisticalBarRenderer.java\n@@ -259,3 +259,8 @@\n \n-        double value = meanValue.doubleValue();\n+        double value;\n+        if (meanValue == null) {\n+            value = rectY.doubleValue();\n+        } else {\n+            value = meanValue.doubleValue();\n+        }\n         double base = 0.0;\n@@ -315,4 +320,13 @@\n             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();\n-            double highVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n-                    + valueDelta, dataArea, yAxisLocation);\n+            double highVal;\n+            if (meanValue == null) {\n+                highVal = rangeAxis.valueToJava2D( rectY.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            } else {\n+                highVal = rangeAxis.valueToJava2D(meanValue.doubleValue()\n+                + valueDelta, dataArea, yAxisLocation);\n+            }\n+            if (meanValue == null) {\n+                meanValue = transY2;\n+            }\n             double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() \n", 
+      "locations": [
+        {
+          "executionCount": 0, 
+          "line": 316, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 11948, 
+          "sourceEnd": 11956
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 318, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 12087, 
+          "sourceEnd": 12095
+        }, 
+        {
+          "executionCount": 0, 
+          "line": 260, 
+          "class": "org.jfree.chart.renderer.category.StatisticalBarRenderer", 
+          "sourceStart": 9973, 
+          "sourceEnd": 9981
+        }
+      ]
+    }
+  ]
+}

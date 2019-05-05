@@ -1,0 +1,25 @@
+debconf: unable to initialize frontend: Dialog
+debconf: (Dialog frontend will not work on a dumb terminal, an emacs shell buffer, or without a controlling terminal.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (This frontend requires a controlling tty.)
+debconf: falling back to frontend: Teletype
+dpkg-preconfigure: unable to re-open stdin: 
+Traceback (most recent call last):
+  File "/home/tdurieux/defects4j4repair/script/runner/local/LocalRunner.py", line 42, in run
+    task.run()
+  File "/home/tdurieux/defects4j4repair/script/runner/RepairTask.py", line 27, in run
+    return self.tool.repair(self)
+  File "/home/tdurieux/defects4j4repair/script/core/repair_tools/Nopol.py", line 39, in repair
+    classpath = ":".join(bug.bin_folders() + bug.test_bin_folders())
+  File "/home/tdurieux/defects4j4repair/script/core/Bug.py", line 53, in bin_folders
+    return self.benchmark.bin_folders(self)
+  File "/home/tdurieux/defects4j4repair/script/core/benchmarks/BugDotJar.py", line 144, in bin_folders
+    info = self._get_project_info(bug)
+  File "/home/tdurieux/defects4j4repair/script/core/benchmarks/BugDotJar.py", line 96, in _get_project_info
+    info = json.loads(subprocess.check_output(cmd, shell=True))
+  File "/usr/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'cd /tmp/Nopol_Bug_dot_jar_Camel_1e54865c;
+mvn com.github.tdurieux:project-config-maven-plugin:1.0-SNAPSHOT:info -q;
+' returned non-zero exit status 1

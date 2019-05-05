@@ -1,0 +1,1232 @@
+cd /tmp/DynaMoth_Bug_dot_jar_Logging-Log4J2_3eb44094;
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+TZ="America/New_York"; export TZ;
+export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:$PATH";
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/";
+time java -Xmx4048m -cp /home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin//../lib/tools.jar fr.inria.lille.repair.Main \
+	--mode repair \
+	--type pre_then_cond \
+	--oracle angelic \
+	--synthesis dynamoth \
+	--flocal gzoltar \
+	--json \
+	--solver z3 \
+	--solver-path /home/tdurieux/defects4j4repair/script/../libs/z3/build/z3 \
+	--complianceLevel 7 \
+	--source log4j2-api/src/main/java \
+	--classpath "log4j2-api/target/classes:log4j2-api/target/test-classes:/tmp/DynaMoth_Bug_dot_jar_Logging-Log4J2_3eb44094/log4j2-core/target/classes:/home/tdurieux/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.2/jackson-core-asl-1.9.2.jar:/home/tdurieux/.m2/repository/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.0/geronimo-jms_1.1_spec-1.0.jar:/home/tdurieux/.m2/repository/org/mockejb/mockejb/0.6-beta2/mockejb-0.6-beta2.jar:/home/tdurieux/.m2/repository/junit/junit/4.3.1/junit-4.3.1.jar:/home/tdurieux/.m2/repository/org/apache/logging/rgoers/log4j2-core/1.99.0-SNAPSHOT/log4j2-core-1.99.0-SNAPSHOT-tests.jar:/home/tdurieux/.m2/repository/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar:/home/tdurieux/.m2/repository/org/slf4j/slf4j-ext/1.6.4/slf4j-ext-1.6.4.jar:/home/tdurieux/.m2/repository/ch/qos/logback/logback-core/1.0.0/logback-core-1.0.0.jar:/home/tdurieux/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.2/jackson-mapper-asl-1.9.2.jar:/home/tdurieux/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.0/logback-classic-1.0.0.jar:/home/tdurieux/.m2/repository/org/apache/logging/rgoers/log4j2-api/1.99.0-SNAPSHOT/log4j2-api-1.99.0-SNAPSHOT.jar:/home/tdurieux/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar:/home/tdurieux/.m2/repository/junit/junit/4.7/junit-4.7.jar:/home/tdurieux/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar:/home/tdurieux/.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar:/home/tdurieux/.m2/repository/cglib/cglib-full/2.0.2/cglib-full-2.0.2.jar:/home/tdurieux/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/home/tdurieux/.m2/repository/commons-codec/commons-codec/1.2/commons-codec-1.2.jar:/home/tdurieux/.m2/repository/org/apache/logging/rgoers/log4j2-core/1.99.0-SNAPSHOT/log4j2-core-1.99.0-SNAPSHOT.jar:/home/tdurieux/.m2/repository/ch/qos/cal10n/cal10n-api/0.7.4/cal10n-api-0.7.4.jar:/home/tdurieux/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar";
+	echo "\n\nNode: `hostname`\n";
+	echo "\n\nDate: `date`\n";
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en
+08:37:08.042 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Source files: [log4j2-api/src/main/java]
+08:37:08.045 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Classpath: [file:/tmp/DynaMoth_Bug_dot_jar_Logging-Log4J2_3eb44094/log4j2-api/target/classes/, file:/tmp/DynaMoth_Bug_dot_jar_Logging-Log4J2_3eb44094/log4j2-api/target/test-classes/, file:/tmp/DynaMoth_Bug_dot_jar_Logging-Log4J2_3eb44094/log4j2-core/target/classes/, file:/home/tdurieux/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.2/jackson-core-asl-1.9.2.jar, file:/home/tdurieux/.m2/repository/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.0/geronimo-jms_1.1_spec-1.0.jar, file:/home/tdurieux/.m2/repository/org/mockejb/mockejb/0.6-beta2/mockejb-0.6-beta2.jar, file:/home/tdurieux/.m2/repository/junit/junit/4.3.1/junit-4.3.1.jar, file:/home/tdurieux/.m2/repository/org/apache/logging/rgoers/log4j2-core/1.99.0-SNAPSHOT/log4j2-core-1.99.0-SNAPSHOT-tests.jar, file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar, file:/home/tdurieux/.m2/repository/org/slf4j/slf4j-ext/1.6.4/slf4j-ext-1.6.4.jar, file:/home/tdurieux/.m2/repository/ch/qos/logback/logback-core/1.0.0/logback-core-1.0.0.jar, file:/home/tdurieux/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.2/jackson-mapper-asl-1.9.2.jar, file:/home/tdurieux/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar, file:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.0/logback-classic-1.0.0.jar, file:/home/tdurieux/.m2/repository/org/apache/logging/rgoers/log4j2-api/1.99.0-SNAPSHOT/log4j2-api-1.99.0-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar, file:/home/tdurieux/.m2/repository/junit/junit/4.7/junit-4.7.jar, file:/home/tdurieux/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar, file:/home/tdurieux/.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar, file:/home/tdurieux/.m2/repository/cglib/cglib-full/2.0.2/cglib-full-2.0.2.jar, file:/home/tdurieux/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar, file:/home/tdurieux/.m2/repository/commons-codec/commons-codec/1.2/commons-codec-1.2.jar, file:/home/tdurieux/.m2/repository/org/apache/logging/rgoers/log4j2-core/1.99.0-SNAPSHOT/log4j2-core-1.99.0-SNAPSHOT.jar, file:/home/tdurieux/.m2/repository/ch/qos/cal10n/cal10n-api/0.7.4/cal10n-api-0.7.4.jar, file:/home/tdurieux/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar, file:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar]
+08:37:08.046 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Statement type: PRE_THEN_COND
+08:37:08.046 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Args: [org.apache.logging.log4j.EventLoggerTest, org.apache.logging.log4j.LevelTest, org.apache.logging.log4j.LoggerTest, org.apache.logging.log4j.message.MapMessageTest, org.apache.logging.log4j.message.ParameterizedMessageTest, org.apache.logging.log4j.message.StructuredDataMessageTest, org.apache.logging.log4j.message.ThreadDumpMessageTest]
+08:37:08.048 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Config: Config{synthesisDepth=3, collectStaticMethods=true, collectStaticFields=false, collectLiterals=false, onlyOneSynthesisResult=true, sortExpressions=true, maxLineInvocationPerTest=250, timeoutMethodInvocation=2000, dataCollectionTimeoutInSecondForSynthesis=900, addWeight=0.19478, subWeight=0.04554, mulWeight=0.0102, divWeight=0.00613, andWeight=0.10597, orWeight=0.05708, eqWeight=0.22798, nEqWeight=0.0, lessEqWeight=0.0255, lessWeight=0.0947, methodCallWeight=0.1, fieldAccessWeight=0.08099, constantWeight=0.14232, variableWeight=0.05195, mode=REPAIR, type=PRE_THEN_COND, synthesis=DYNAMOTH, oracle=ANGELIC, solver=Z3, solverPath='/home/tdurieux/defects4j4repair/script/../libs/z3/build/z3', projectSources=[log4j2-api/src/main/java], projectClasspath='[Ljava.net.URL;@2ff4f00f', projectTests=[org.apache.logging.log4j.EventLoggerTest, org.apache.logging.log4j.LevelTest, org.apache.logging.log4j.LoggerTest, org.apache.logging.log4j.message.MapMessageTest, org.apache.logging.log4j.message.ParameterizedMessageTest, org.apache.logging.log4j.message.StructuredDataMessageTest, org.apache.logging.log4j.message.ThreadDumpMessageTest], complianceLevel=7, outputFolder=., json=true}
+08:37:08.048 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Available processors (cores): 24
+08:37:08.054 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Free memory: 455 MB
+08:37:08.054 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Maximum memory: 3 GB
+08:37:08.054 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Total memory available to JVM: 483 MB
+08:37:08.054 [main] INFO  fr.inria.lille.repair.nopol.NoPol - Java version: 1.8.0_181
+08:37:08.055 [main] INFO  fr.inria.lille.repair.nopol.NoPol - JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+08:37:08.055 [main] INFO  fr.inria.lille.repair.nopol.NoPol - PATH: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/:/usr/lib/oar/oardodo:/usr/lib/oar/oardodo:/usr/local/bin:/usr/bin:/bin:/usr/games
+08:37:12.864 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #1
+08:37:12.865 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.LogManager:129 which is executed by 10 tests
+806644714
+08:37:13.162 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #2
+08:37:13.162 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:199 which is executed by 1 tests
+08:37:13.163 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:199
+08:37:13.163 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #3
+08:37:13.163 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:198 which is executed by 1 tests
+08:37:13.163 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:198
+08:37:13.163 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #4
+08:37:13.163 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:194 which is executed by 1 tests
+08:37:13.163 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:194
+08:37:13.164 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #5
+08:37:13.164 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:192 which is executed by 1 tests
+08:37:13.164 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:192
+08:37:13.164 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #6
+08:37:13.164 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:187 which is executed by 1 tests
+08:37:13.164 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:187
+08:37:13.164 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #7
+08:37:13.165 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:186 which is executed by 1 tests
+08:37:13.165 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:186
+08:37:13.165 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #8
+08:37:13.165 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:185 which is executed by 1 tests
+08:37:13.165 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:185
+08:37:13.165 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #9
+08:37:13.165 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:184 which is executed by 1 tests
+08:37:13.166 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:184
+08:37:13.166 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #10
+08:37:13.166 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:183 which is executed by 1 tests
+08:37:13.166 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:183
+08:37:13.166 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #11
+08:37:13.166 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:182 which is executed by 1 tests
+08:37:13.167 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:182
+08:37:13.167 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #12
+08:37:13.167 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:181 which is executed by 1 tests
+08:37:13.167 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:181
+08:37:13.167 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #13
+08:37:13.167 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:180 which is executed by 1 tests
+08:37:13.168 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.selector.ClassLoaderContextSelector:180
+08:37:13.168 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #14
+08:37:13.168 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.spi.AbstractLogger:1162 which is executed by 1 tests
+921533555
+08:37:13.390 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #15
+08:37:13.390 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.spi.AbstractLogger:1160 which is executed by 1 tests
+921533555
+08:37:13.531 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:13.604 [pool-4-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (43 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:14.574 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #16
+08:37:14.575 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.spi.AbstractLogger:1159 which is executed by 1 tests
+921533555
+08:37:14.695 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:14.720 [pool-8-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (22 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:15.121 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:15.145 [pool-12-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (21 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:15.488 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #17
+08:37:15.488 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.LogManager:204 which is executed by 1 tests
+806644714
+08:37:15.560 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:15.584 [pool-16-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (20 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:15.784 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #18
+08:37:15.784 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.LogManager:203 which is executed by 1 tests
+806644714
+08:37:15.850 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:15.881 [pool-20-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (27 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:16.038 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:16.066 [pool-24-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (19 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:16.395 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #19
+08:37:16.395 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.LogManager:202 which is executed by 1 tests
+806644714
+08:37:16.474 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:16.495 [pool-28-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (18 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:16.657 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #20
+08:37:16.657 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.LogManager:198 which is executed by 1 tests
+806644714
+08:37:16.720 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #21
+08:37:16.720 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.LogManager:194 which is executed by 1 tests
+806644714
+08:37:16.783 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:16.807 [pool-32-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (19 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:16.941 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:16.963 [pool-36-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (18 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:17.089 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #22
+08:37:17.090 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.LogManager:184 which is executed by 1 tests
+806644714
+08:37:17.162 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:17.181 [pool-40-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:17.313 [pool-39-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+LogManager.java:113: error: variable cl might not have been initialized
+        if (cl == null) {
+            ^
+Note: LogManager.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+08:37:17.315 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #23
+08:37:17.315 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.LogManager:183 which is executed by 1 tests
+806644714
+08:37:17.395 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:17.416 [pool-42-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:17.526 [pool-41-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+LogManager.java:111: error: variable cl might not have been initialized
+        if (cl == null) {
+            ^
+Note: LogManager.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99)
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203)
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177)
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140)
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135)
+	at fr.inria.lille.repair.nopol.synth.dynamoth.DynamothSynthesizer.findAngelicValuesAndBuildPatch(DynamothSynthesizer.java:69)
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:295)
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81)
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+08:37:17.527 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:17.548 [pool-44-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:17.671 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #24
+08:37:17.671 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.helpers.Loader:231 which is executed by 1 tests
+08:37:17.671 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.helpers.Loader:231
+08:37:17.671 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #25
+08:37:17.671 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.helpers.Loader:220 which is executed by 1 tests
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.helpers.Loader:220
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #26
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.helpers.Loader:219 which is executed by 1 tests
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.helpers.Loader:219
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #27
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.helpers.Loader:214 which is executed by 1 tests
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.helpers.Loader:214
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #28
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.helpers.Loader:211 which is executed by 1 tests
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.helpers.Loader:211
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #29
+08:37:17.672 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.helpers.Loader:210 which is executed by 1 tests
+08:37:17.673 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.helpers.Loader:210
+08:37:17.673 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #30
+08:37:17.673 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.helpers.Loader:207 which is executed by 1 tests
+08:37:17.673 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.helpers.Loader:207
+08:37:17.673 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #31
+08:37:17.673 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.helpers.Loader:204 which is executed by 1 tests
+08:37:17.673 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.helpers.Loader:204
+08:37:17.673 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #32
+08:37:17.673 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:37 which is executed by 1 tests
+2053294147
+08:37:17.761 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #33
+08:37:17.762 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:228 which is executed by 1 tests
+2053294147
+08:37:17.840 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:17.863 [pool-48-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (19 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:18.120 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #34
+08:37:18.121 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:227 which is executed by 1 tests
+2053294147
+08:37:18.191 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:18.212 [pool-52-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:18.410 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:18.430 [pool-56-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:18.606 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #35
+08:37:18.606 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:187 which is executed by 1 tests
+2053294147
+08:37:18.683 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #36
+08:37:18.684 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:178 which is executed by 1 tests
+2053294147
+08:37:18.764 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:18.785 [pool-60-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (18 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:18.970 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:18.990 [pool-64-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:19.178 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #37
+08:37:19.179 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:177 which is executed by 1 tests
+2053294147
+08:37:19.262 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:19.282 [pool-68-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:19.447 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #38
+08:37:19.448 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:176 which is executed by 1 tests
+2053294147
+08:37:19.511 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:19.531 [pool-72-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:19.673 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:19.693 [pool-76-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:19.867 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #39
+08:37:19.867 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:175 which is executed by 1 tests
+2053294147
+08:37:19.938 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #40
+08:37:19.939 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:173 which is executed by 1 tests
+2053294147
+08:37:20.000 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:20.020 [pool-80-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:20.165 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #41
+08:37:20.165 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:172 which is executed by 1 tests
+2053294147
+08:37:20.228 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:20.248 [pool-84-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:20.408 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:20.430 [pool-88-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (20 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:20.570 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #42
+08:37:20.570 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:171 which is executed by 1 tests
+2053294147
+08:37:20.636 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:20.655 [pool-92-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:20.798 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #43
+08:37:20.798 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:170 which is executed by 1 tests
+2053294147
+08:37:20.863 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #44
+08:37:20.864 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:167 which is executed by 1 tests
+2053294147
+08:37:20.940 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:20.975 [pool-96-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:21.114 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:21.132 [pool-100-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:21.267 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #45
+08:37:21.267 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:164 which is executed by 1 tests
+2053294147
+08:37:21.330 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #46
+08:37:21.330 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:161 which is executed by 1 tests
+2053294147
+08:37:21.391 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:21.423 [pool-104-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (29 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:21.557 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #47
+08:37:21.557 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:160 which is executed by 1 tests
+2053294147
+08:37:21.619 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #48
+08:37:21.619 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:159 which is executed by 1 tests
+2053294147
+08:37:21.678 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:21.698 [pool-108-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:21.834 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #49
+08:37:21.834 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:157 which is executed by 1 tests
+2053294147
+08:37:21.895 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:21.914 [pool-112-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:22.051 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #50
+08:37:22.051 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:155 which is executed by 1 tests
+2053294147
+08:37:22.113 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:22.135 [pool-116-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (19 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:22.270 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #51
+08:37:22.270 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:154 which is executed by 1 tests
+2053294147
+08:37:22.331 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #52
+08:37:22.332 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:152 which is executed by 1 tests
+2053294147
+08:37:22.392 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:22.413 [pool-120-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (17 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:22.565 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #53
+08:37:22.565 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:151 which is executed by 1 tests
+2053294147
+08:37:22.640 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:22.659 [pool-124-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:22.825 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:22.844 [pool-128-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:23.009 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #54
+08:37:23.009 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:150 which is executed by 1 tests
+2053294147
+08:37:23.069 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #55
+08:37:23.070 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger:69 which is executed by 1 tests
+2053294147
+08:37:23.127 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #56
+08:37:23.128 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.MarkerManager:67 which is executed by 1 tests
+1720315380
+08:37:23.185 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #57
+08:37:23.185 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.MarkerManager:66 which is executed by 1 tests
+1720315380
+08:37:23.238 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:23.258 [pool-132-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:23.366 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #58
+08:37:23.366 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.MarkerManager:41 which is executed by 1 tests
+1720315380
+08:37:23.421 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #59
+08:37:23.421 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.MarkerManager:40 which is executed by 1 tests
+1720315380
+08:37:23.474 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:23.493 [pool-136-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (15 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:23.599 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #60
+08:37:23.599 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.core.helpers.OptionConverter:98 which is executed by 1 tests
+08:37:23.599 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - cannot spoon SourceLocation org.apache.logging.log4j.core.helpers.OptionConverter:98
+08:37:23.599 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #61
+08:37:23.599 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger$BoundedQueue:263 which is executed by 1 tests
+2053294147
+08:37:23.659 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #62
+08:37:23.659 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.status.StatusLogger$BoundedQueue:260 which is executed by 1 tests
+2053294147
+08:37:23.730 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.NullPointerException
+    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+08:37:23.751 [pool-140-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (16 ms)
+<> Total tests run: 1
+<> Ignored tests: 0
+<> Failed tests: 1
+~ structuredData(org.apache.logging.log4j.EventLoggerTest)
+[null]
+java.lang.NullPointerException    at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:129)
+    at org.apache.logging.log4j.EventLoggerTest.<init>(EventLoggerTest.java:34)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+08:37:23.884 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #63
+08:37:23.884 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.Level:100 which is executed by 2 tests
+73313125
+08:37:23.957 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #64
+08:37:23.957 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.Level:96 which is executed by 2 tests
+73313125
+08:37:24.025 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalAdder
+java.lang.IllegalArgumentException: No enum constant org.apache.logging.log4j.Level.Information
+    at java.lang.Enum.valueOf(Enum.java:238)
+    at org.apache.logging.log4j.Level.valueOf(Level.java:35)
+    at org.apache.logging.log4j.Level.toLevel(Level.java:100)
+    at org.apache.logging.log4j.LevelTest.testDefault(LevelTest.java:39)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+08:37:24.029 [pool-144-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (3 ms)
+<> Total tests run: 2
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testDefault(org.apache.logging.log4j.LevelTest)
+[No enum constant org.apache.logging.log4j.Level.Information]
+java.lang.IllegalArgumentException: No enum constant org.apache.logging.log4j.Level.Information    at java.lang.Enum.valueOf(Enum.java:238)
+    at org.apache.logging.log4j.Level.valueOf(Level.java:35)
+    at org.apache.logging.log4j.Level.toLevel(Level.java:100)
+    at org.apache.logging.log4j.LevelTest.testDefault(LevelTest.java:39)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+08:37:24.107 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - looking with class fr.inria.lille.repair.nopol.spoon.smt.ConditionalReplacer
+java.lang.IllegalArgumentException: No enum constant org.apache.logging.log4j.Level.Information
+    at java.lang.Enum.valueOf(Enum.java:238)
+    at org.apache.logging.log4j.Level.valueOf(Level.java:35)
+    at org.apache.logging.log4j.Level.toLevel(Level.java:100)
+    at org.apache.logging.log4j.LevelTest.testDefault(LevelTest.java:39)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+08:37:24.110 [pool-148-thread-1] INFO  xxl.java.junit.TestCasesListener - Tests run finished (1 ms)
+<> Total tests run: 2
+<> Ignored tests: 0
+<> Failed tests: 1
+~ testDefault(org.apache.logging.log4j.LevelTest)
+[No enum constant org.apache.logging.log4j.Level.Information]
+java.lang.IllegalArgumentException: No enum constant org.apache.logging.log4j.Level.Information    at java.lang.Enum.valueOf(Enum.java:238)
+    at org.apache.logging.log4j.Level.valueOf(Level.java:35)
+    at org.apache.logging.log4j.Level.toLevel(Level.java:100)
+    at org.apache.logging.log4j.LevelTest.testDefault(LevelTest.java:39)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+java -cp /tmp/DynaMoth_Bug_dot_jar_Logging-Log4J2_3eb44094/log4j2-api/target/classes:/tmp/DynaMoth_Bug_dot_jar_Logging-Log4J2_3eb44094/log4j2-api/target/test-classes:/tmp/DynaMoth_Bug_dot_jar_Logging-Log4J2_3eb44094/log4j2-core/target/classes:/home/tdurieux/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.2/jackson-core-asl-1.9.2.jar:/home/tdurieux/.m2/repository/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.0/geronimo-jms_1.1_spec-1.0.jar:/home/tdurieux/.m2/repository/org/mockejb/mockejb/0.6-beta2/mockejb-0.6-beta2.jar:/home/tdurieux/.m2/repository/junit/junit/4.3.1/junit-4.3.1.jar:/home/tdurieux/.m2/repository/org/apache/logging/rgoers/log4j2-core/1.99.0-SNAPSHOT/log4j2-core-1.99.0-SNAPSHOT-tests.jar:/home/tdurieux/.m2/repository/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar:/home/tdurieux/.m2/repository/org/slf4j/slf4j-ext/1.6.4/slf4j-ext-1.6.4.jar:/home/tdurieux/.m2/repository/ch/qos/logback/logback-core/1.0.0/logback-core-1.0.0.jar:/home/tdurieux/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.2/jackson-mapper-asl-1.9.2.jar:/home/tdurieux/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar:/home/tdurieux/.m2/repository/ch/qos/logback/logback-classic/1.0.0/logback-classic-1.0.0.jar:/home/tdurieux/.m2/repository/org/apache/logging/rgoers/log4j2-api/1.99.0-SNAPSHOT/log4j2-api-1.99.0-SNAPSHOT.jar:/home/tdurieux/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar:/home/tdurieux/.m2/repository/junit/junit/4.7/junit-4.7.jar:/home/tdurieux/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar:/home/tdurieux/.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar:/home/tdurieux/.m2/repository/cglib/cglib-full/2.0.2/cglib-full-2.0.2.jar:/home/tdurieux/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/home/tdurieux/.m2/repository/commons-codec/commons-codec/1.2/commons-codec-1.2.jar:/home/tdurieux/.m2/repository/org/apache/logging/rgoers/log4j2-core/1.99.0-SNAPSHOT/log4j2-core-1.99.0-SNAPSHOT.jar:/home/tdurieux/.m2/repository/ch/qos/cal10n/cal10n-api/0.7.4/cal10n-api-0.7.4.jar:/home/tdurieux/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar:/home/tdurieux/defects4j4repair/script/../repair_tools/nopol.jar:/home/tdurieux/defects4j4repair/repair_tools/nopol.jar:/usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar: fr.inria.lille.repair.MethodTestRunner org.apache.logging.log4j.LevelTest#testDefault org.apache.logging.log4j.LevelTest#testGoodLevels 
+08:37:24.558 [pool-147-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - ClassPrepareEvent
+08:37:24.600 [pool-147-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] java.lang.String
+08:37:24.601 [pool-147-thread-1] DEBUG f.i.l.r.s.c.spoon.ClassCollector - [class] org.apache.logging.log4j.Level
+08:37:24.672 [pool-147-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - BreakpointEvent
+08:37:24.676 [pool-147-thread-1] INFO  f.i.l.r.s.DynamothCodeGenesisImpl - [test] org.apache.logging.log4j.LevelTest#testDefault iteration 0
+08:37:24.684 [pool-147-thread-1] DEBUG f.i.l.r.s.c.SpoonElementsCollector - [data] sArg="Information"
+08:37:24.685 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - Collect Level 1
+08:37:24.686 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] sArg
+08:37:24.687 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel
+08:37:24.712 [pool-154-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method org.apache.logging.log4j.Level.valueOf(java.lang.String) ["Information"]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.InvokableTypeImpl.invokeMethod(InvokableTypeImpl.java:129) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:439) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+08:37:24.720 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] sArg.length()
+08:37:24.724 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.OFF
+08:37:24.724 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.FATAL
+08:37:24.724 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.ERROR
+08:37:24.724 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.WARN
+08:37:24.724 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.INFO
+08:37:24.724 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.DEBUG
+08:37:24.724 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.TRACE
+08:37:24.724 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.ALL
+08:37:24.727 [pool-156-thread-1] ERROR f.i.l.r.s.c.DynamothDataCollector - Unable to invoke the method org.apache.logging.log4j.Level.valueOf(java.lang.String) ["Information"]
+com.sun.jdi.InvocationException: Exception occurred in target VM
+	at com.sun.tools.jdi.InvokableTypeImpl.invokeMethod(InvokableTypeImpl.java:129) ~[tools.jar:na]
+	at com.sun.tools.jdi.ObjectReferenceImpl.invokeMethod(ObjectReferenceImpl.java:399) ~[tools.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:436) [nopol.jar:na]
+	at fr.inria.lille.repair.synthesis.collect.DynamothDataCollector$2.call(DynamothDataCollector.java:427) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+08:37:24.730 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel)
+08:37:24.732 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.isAtLeastAsSpecificAs((int) 0)
+08:37:24.733 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.isAtLeastAsSpecificAs((int) 1)
+08:37:24.766 [pool-147-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - BreakpointEvent
+08:37:24.767 [pool-147-thread-1] INFO  f.i.l.r.s.DynamothCodeGenesisImpl - [test] org.apache.logging.log4j.LevelTest#testGoodLevels iteration 0
+08:37:24.767 [pool-147-thread-1] DEBUG f.i.l.r.s.c.SpoonElementsCollector - [data] sArg="INFO"
+08:37:24.768 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - Collect Level 1
+08:37:24.768 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] sArg
+08:37:24.768 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel
+08:37:24.772 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg)
+08:37:24.775 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] sArg.length()
+08:37:24.776 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.OFF
+08:37:24.777 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.FATAL
+08:37:24.777 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.ERROR
+08:37:24.777 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.WARN
+08:37:24.777 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.INFO
+08:37:24.777 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.DEBUG
+08:37:24.777 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.TRACE
+08:37:24.777 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.ALL
+08:37:24.779 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.valueOf((java.lang.String) sArg)
+08:37:24.781 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel)
+08:37:24.782 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.isAtLeastAsSpecificAs((int) 0)
+08:37:24.783 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] defaultLevel.isAtLeastAsSpecificAs((int) 1)
+08:37:24.784 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).OFF
+08:37:24.785 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).FATAL
+08:37:24.785 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).ERROR
+08:37:24.785 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).WARN
+08:37:24.785 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).INFO
+08:37:24.785 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).DEBUG
+08:37:24.785 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).TRACE
+08:37:24.785 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).ALL
+08:37:24.789 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).valueOf((java.lang.String) sArg)
+08:37:24.790 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel)
+08:37:24.792 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel.OFF)
+08:37:24.793 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel.FATAL)
+08:37:24.795 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel.ERROR)
+08:37:24.796 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel.WARN)
+08:37:24.798 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel.INFO)
+08:37:24.799 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel.DEBUG)
+08:37:24.801 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel.TRACE)
+08:37:24.802 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((org.apache.logging.log4j.Level) defaultLevel.ALL)
+08:37:24.804 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((int) 0)
+08:37:24.805 [pool-147-thread-1] DEBUG f.i.l.r.s.c.DynamothDataCollector - [data] org.apache.logging.log4j.Level.valueOf((java.lang.String) sArg).isAtLeastAsSpecificAs((int) 1)
+08:37:24.809 [pool-147-thread-1] DEBUG f.i.l.r.s.DynamothCodeGenesisImpl - Exit
+
+
+========= Info ==========
+Nb constants             14
+Nb method invocations    1
+Nb field access          0
+Nb variables             3
+Total                    18
+Nb evaluated expressions 1
+Init Execution time      473 ms
+Collect Execution time   138 ms
+Combine Execution time   19.0 ms
+Nb Combination par sec   53 combinations/sec
+Total Execution time     630 ms
+Nb line execution        2
+Nb results               1
+
+Results:
+1. enterpriseNumber < 0
+
+
+========================
+         Stat
+========================
+Operators: 
+EQ 2
+Methods: 
+toLevel(java.lang.String,org.apache.logging.log4j.Level) 1
+valueOf(java.lang.String) 1
+Variable: 
+sArg 3
+level 2
+org.apache.logging.log4j.Level.DEBUG 2
+defaultLevel 2
+
+ & 14 & 1 & 0 & 3 & 18 & 1 & 631 ms & 2 &
+08:37:24.830 [pool-147-thread-1] INFO  f.i.l.repair.nopol.patch.TestPatch - Applying patch: org.apache.logging.log4j.Level:96: CONDITIONAL enterpriseNumber < 0
+08:37:24.904 [pool-147-thread-1] ERROR x.java.compiler.DynamicClassCompiler - [Compilation errors]
+Level.java:23: error: cannot find symbol
+        if (enterpriseNumber < 0) {
+            ^
+  symbol:   variable enterpriseNumber
+  location: class org.apache.logging.log4j.Level
+08:37:24.905 [pool-147-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Patch malformed enterpriseNumber < 0
+xxl.java.compiler.DynamicCompilationException: Aborting: dynamic compilation failed
+	at xxl.java.compiler.DynamicClassCompiler.runCompilationTask(DynamicClassCompiler.java:99) ~[nopol.jar:na]
+	at xxl.java.compiler.DynamicClassCompiler.javaBytecodeFor(DynamicClassCompiler.java:67) ~[nopol.jar:na]
+	at fr.inria.lille.commons.spoon.SpoonedFile.compilationFor(SpoonedFile.java:203) ~[nopol.jar:na]
+	at fr.inria.lille.commons.spoon.SpoonedFile.compileModelledClasses(SpoonedFile.java:177) ~[nopol.jar:na]
+	at fr.inria.lille.commons.spoon.SpoonedFile.dumpedToClassLoader(SpoonedFile.java:130) ~[nopol.jar:na]
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:140) ~[nopol.jar:na]
+	at fr.inria.lille.commons.spoon.SpoonedFile.processedAndDumpedToClassLoader(SpoonedFile.java:135) ~[nopol.jar:na]
+	at fr.inria.lille.repair.nopol.patch.TestPatch.passesAllTests(TestPatch.java:60) ~[nopol.jar:na]
+	at fr.inria.lille.repair.nopol.NoPol.isOk(NoPol.java:317) [nopol.jar:na]
+	at fr.inria.lille.repair.nopol.NoPol.runNopolProcessor(NoPol.java:302) [nopol.jar:na]
+	at fr.inria.lille.repair.nopol.NoPol.access$000(NoPol.java:81) [nopol.jar:na]
+	at fr.inria.lille.repair.nopol.NoPol$1.call(NoPol.java:260) [nopol.jar:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_181]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_181]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+08:37:24.905 [pool-2-thread-1] ERROR fr.inria.lille.repair.nopol.NoPol - Error ExecutionException java.util.concurrent.ExecutionException: java.lang.RuntimeException: invalid patch
+08:37:24.905 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - statement #65
+08:37:24.905 [pool-2-thread-1] DEBUG fr.inria.lille.repair.nopol.NoPol - Analysing SourceLocation org.apache.logging.log4j.Level:35 which is executed by 3 tests
+73313125
+08:37:24.957 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - ----INFORMATION----
+08:37:24.973 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb classes : 31
+08:37:24.973 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb methods : 282
+08:37:24.973 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements Analyzed : 38
+08:37:24.974 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - Nb Statements with Angelic Value Found : 1
+08:37:24.974 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - NoPol Execution time : 16918ms
+08:37:24.974 [pool-2-thread-1] INFO  fr.inria.lille.repair.nopol.NoPol - 
+NO_ANGELIC_VALUE
+Command exited with non-zero status 255
+65.56user 2.73system 0:18.24elapsed 374%CPU (0avgtext+0avgdata 971972maxresident)k
+52336inputs+5504outputs (18major+324494minor)pagefaults 0swaps
+
+
+Node: petitprince-16.luxembourg.grid5000.fr
+
+
+
+Date: Mon Dec 31 08:37:25 EST 2018
+
