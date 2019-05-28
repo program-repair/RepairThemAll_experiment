@@ -1,5 +1,44 @@
 # RepairThemAll Experiment
 
+This repository contains the raw results of the execution of 11 repair tools on 5 bug benchmarks.
+The execution framework that has been used is available at: https://github.com/program-repair/RepairThemAll
+
+```bibtex
+@inproceedings{RepairThemAll2019,
+  author    = {Thomas Durieux and Fernanda Madeiral and Matias Martinez and Rui Abreu},
+  title     = {Empirical Review of Java Program Repair Tools: A Large-Scale Experiment on 2 141 Bugs and 23 551 Repair Attempts},
+  booktitle = {Proceedings of the 2019 12th Joint Meeting on Foundations of Software
+               Engineering, {ESEC/FSE} 2019, TALLINN, ESTONIA, 26-30 AUGUST 2019},
+  year      = {2019},
+}
+```
+
+The data of this repository is also available as a website: http://program-repair.org/RepairThemAll_experiment
+
+## Repository Structure
+
+The repository is structured as follow:
+
+```
+- docs: content for the website
+- results: 
+-- <benchmark>
+--- <project>
+---- <bug_id>
+----- <repair tool>
+------<seed>
+------- grid5k.stderr.log  stderr of the execution
+------- grid5k.stdout.log stdout of the execution (without the repair)
+------- repair.log repair log
+------- result.json sandardize output 
+------- detailed_result.json raw output of the repair tool if it generates a json file
+- script
+-- get_patched_bugs.py the script that are used to generate the table for the paper
+```
+
+
+## Patches Bugs
+
 |  #  |    Benchmark   |         Bug           |   | Repair Tool |
 | --- | -------------- | --------------------- | - | ----------- |
 |   1 | Bears          | Rules 55669767        | 2 | Arja Kali   |
