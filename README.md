@@ -1,17 +1,18 @@
 # RepairThemAll Experiment
 
-This repository contains the raw results of the execution of 11 repair tools on 5 bug benchmarks.
-The execution framework that has been used is available at: https://github.com/program-repair/RepairThemAll
+This repository contains the raw results of the execution of 11 repair tools on 5 bug benchmarks presented in the following paper:
 
 ```bibtex
 @inproceedings{RepairThemAll2019,
   author    = {Thomas Durieux and Fernanda Madeiral and Matias Martinez and Rui Abreu},
-  title     = {Empirical Review of Java Program Repair Tools: A Large-Scale Experiment on 2 141 Bugs and 23 551 Repair Attempts},
-  booktitle = {Proceedings of the 2019 12th Joint Meeting on Foundations of Software
-               Engineering, {ESEC/FSE} 2019, TALLINN, ESTONIA, 26-30 AUGUST 2019},
+  title     = {{Empirical Review of Java Program Repair Tools: A Large-Scale Experiment on 2,141 Bugs and 23,551 Repair Attempts}},
+  booktitle = {Proceedings of the 27th ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESEC/FSE '19)},
   year      = {2019},
+  url       = {https://arxiv.org/abs/1905.11973}
 }
 ```
+
+The execution framework that has been used is available at: https://github.com/program-repair/RepairThemAll
 
 The data of this repository is also available as a website: http://program-repair.org/RepairThemAll_experiment
 
