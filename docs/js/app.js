@@ -90,7 +90,7 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 				}
 				return null;
 			}
-			if (benchmark == "Bug_dot_jar") {
+			if (benchmark == "Bugs.jar") {
 				for (var patch of humanPatches) {
 					if (patch.project.toLowerCase() == bug.project.toLowerCase() && bug.bug_id.indexOf(patch.commit) != -1) {
 						return patch;
@@ -223,8 +223,8 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 		$scope.sortReverse  = false;
 		$scope.match  = "all";
 		$scope.filters = {};
-		$scope.benchmarks = ["Bears", "Defects4J", "IntroClassJava", "Bug_dot_jar", "QuixBugs"];
-		$scope.tools = ["NPEFix", "Nopol", "DynaMoth", "GenProg", "jGenProg", "Kali", "jKali", "Arja", "RSRepair", "Cardumen", "jMutRepair"];
+		$scope.benchmarks = ["Bears", "Defects4J", "IntroClassJava", "Bugs.jar", "QuixBugs"];
+		$scope.tools = ["NPEFix", "Nopol", "DynaMoth", "GenProg-A", "jGenProg", "Kali-A", "jKali", "ARJA", "RSRepair-A", "Cardumen", "jMutRepair"];
 
 		$scope.human_patches = {};
 

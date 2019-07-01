@@ -9,6 +9,9 @@ tools = ["Arja", "GenProg", "Kali", "RSRepair", "Cardumen", "jGenProg", "jKali",
 def percent(value, total):
     return int(value * 10000 / total)/100.0
 
+def percent_round(value, total):
+    return int(round(percent(value, total), 0))
+
 def bench_name(name):
     benchmarks = ["Bears", "Bugs.jar", "Defects4J", "IntroClassJava", "QuixBugs", "xtotal"]
     benchmark_names = ["Bears", "Bugs.jar", "Defects4J", "IntroClassJava", "QuixBugs", "Average"]
@@ -16,7 +19,7 @@ def bench_name(name):
 
 def tool_name(name):
     t = tools + ["xtotal"]
-    tool_names = ["Arja", "GenProg-A", "Kali-A", "RSRepair-A", "Cardumen","jGenProg", "jKali", "jMutRepair", "Nopol", "DynaMoth", "NPEFix", "Average"]
+    tool_names = ["ARJA", "GenProg-A", "Kali-A", "RSRepair-A", "Cardumen","jGenProg", "jKali", "jMutRepair", "Nopol", "DynaMoth", "NPEFix", "Average"]
     return tool_names[t.index(name)]
 
 def format_time(t):
@@ -162,7 +165,7 @@ for benchmark in benchmarks:
                                         "benchmark": benchmark,
                                         "project": project,
                                         "bug_id": bug_id,
-                                        "tool": repair_tool,
+                                        "tool": tool_name(repair_tool),
                                         "result": data,
                                         "nb_patch": nb_tool_patch
                                     }
@@ -202,8 +205,8 @@ with open(os.path.join(ROOT, "docs", "data", "patches.json"), "w+") as fd:
     json.dump(results, fd)
       
 index = 0
-print("|  #  |    Benchmark   |         Bug           |   | Repair Tool |")
-print("| --- | -------------- | --------------------- | - | ----------- |")
+print("|  #  |    Benchmark   |          Bug           | # Repair Tools | Repair Tools |")
+print("| ---:| -------------- | ---------------------- | --------------:| ------------ |")
 for i in natural_sort(repaired_bugs.iterkeys()):
     bug = repaired_bugs[i]
     index += 1
@@ -211,7 +214,10 @@ for i in natural_sort(repaired_bugs.iterkeys()):
     if len(bug_id) > 8:
         bug_id = bug_id[-8:]
     project = bug['project'].split("-")[-1]
-    print ("| {:3} | {:14} | {:21} | {:1} | {:11} |".format(index, bench_name(bug['benchmark']), ("%s %s" % (project, bug_id)).strip(), len(bug['tools']), " ".join(bug['tools'])))
+    t = ""
+    for repair_tool in bug['tools']:
+    	t += tool_name(repair_tool) + " "
+    print ("| {:3} | {:14} | {:22} | {:16} | {:11} |".format(index, bench_name(bug['benchmark']), ("%s %s" % (project, bug_id)).strip(), len(bug['tools']), t))
 
 print("\n")
 line = " Repair Tools "
@@ -237,38 +243,61 @@ for repair_tool in tools:
             nb_patches = len(patch_per_tool[repair_tool][benchmark])
         nb_patch_tool_bench[repair_tool][t] += nb_patches
         nb_patch_tool[repair_tool] += nb_patches
-        line += "& {:{width}} ".format("%d (%d\\%%)" % (nb_patches, percent(nb_patches, nb_bugs_bench[benchmark])), width=len(bench_name(benchmark)))
-    line += "& {:5} \\\\".format("%d (%d\\%%)" % (nb_patch_tool[repair_tool], percent(nb_patch_tool[repair_tool], nb_bugs)))
+	if nb_patches > 0 and percent(nb_patches, nb_bugs_bench[benchmark]) < 1:
+		line += "& {:{width}} ".format("%d (<1\\%%)" % (nb_patches), width=len(bench_name(benchmark)))
+	else:
+        	line += "& {:{width}} ".format("%d (%d\\%%)" % (nb_patches, percent(nb_patches, nb_bugs_bench[benchmark])), width=len(bench_name(benchmark)))
+    if nb_patch_tool[repair_tool] > 0 and percent(nb_patch_tool[repair_tool], nb_bugs) < 1:
+	line += "& {:5} \\\\".format("%d (<1\\%%)" % (nb_patch_tool[repair_tool]))
+    else:
+	line += "& {:5} \\\\".format("%d (%d\\%%)" % (nb_patch_tool[repair_tool], percent(nb_patch_tool[repair_tool], nb_bugs)))
     print(line)
 print(" \\midrule")
-line = "     Total    "
+line = "Total "
 for benchmark in benchmarks:
     nb_patches = 0
     if benchmark in patch_per_bench:
         nb_patches = patch_per_bench[benchmark]
     line += "& {:{width}} ".format(nb_patches, width=len(bench_name(benchmark)))
 line += "& {:5} \\\\".format(nb_patch)
+print(line)
+
+repaired_benchmarks = {}
+for i in natural_sort(repaired_bugs.iterkeys()):
+	bug = repaired_bugs[i]
+	if bug['benchmark'] not in repaired_benchmarks:
+	    repaired_benchmarks[bug['benchmark']] = 0            
+	repaired_benchmarks[bug['benchmark']] += 1
+
+total = 0
+line = "Total unique "
+for benchmark in natural_sort(repaired_benchmarks):
+    line += "& {:{width}} ".format("%d (%d\\%%)" % (repaired_benchmarks[benchmark], percent(repaired_benchmarks[benchmark], nb_bugs_bench[benchmark])), width=len(bench_name(benchmark)))
+    total += repaired_benchmarks[benchmark]
+line += "& {:5} \\\\".format("%d (%d\\%%)" % (total, percent(total, nb_bugs)))
 print(line + "\n")
 
-print()
+
+
 for repair_tool in tools:
     print('|                | # Patched | # Non-Patched |')
     print('| -------------- | --------- | ------------- |')
-    print('| %s on Defects  | %d | %d |' % (repair_tool, nb_patch_tool_bench[repair_tool]['Defects4J'], nb_bugs_bench['Defects4J'] - nb_patch_tool_bench[repair_tool]['Defects4J']))
-    print('| %s on Others  | %d | %d |' % (repair_tool, nb_patch_tool_bench[repair_tool]['Others'], (nb_bugs - nb_bugs_bench['Defects4J']) - nb_patch_tool_bench[repair_tool]['Others']))
-
-print()
+    print('| %s on Defects4J  | %d | %d |' % (tool_name(repair_tool), nb_patch_tool_bench[repair_tool]['Defects4J'], nb_bugs_bench['Defects4J'] - nb_patch_tool_bench[repair_tool]['Defects4J']))
+    print('| %s on Others  | %d | %d |' % (tool_name(repair_tool), nb_patch_tool_bench[repair_tool]['Others'], (nb_bugs - nb_bugs_bench['Defects4J']) - nb_patch_tool_bench[repair_tool]['Others']))
 
 print("\nTotal generated patch: %d\n" % total_nb_patch)
 
+# for graph
+tool_totals = []
+
 line = "            "
 for repair_tool in tools:
-    line += ("& {0:11} ").format(tool_name(repair_tool))
+    line += ("& {0:11} ").format("\\multicolumn{1}{c}{%s}" % tool_name(repair_tool))
 print("%s \\\\\\midrule" % line)
 
 overlaps = {}
 for repair_tool_line in tools:
-    line = " {0:10} ".format(tool_name((repair_tool_line)))
+    line = " {0:10} ".format(tool_name(repair_tool_line))
     for repair_tool_column in tools:
         number = 0
         if repair_tool_line == repair_tool_column:
@@ -277,13 +306,21 @@ for repair_tool_line in tools:
                 for p in bugs_tool[repair_tool_column]:
                     if len(tool_bugs[p]) == 1:
                         number += 1
-            line += ("& {0:11} ").format("\\textbf{%s\\%% (%d)}" % (percent(number, nb_patch_tool[repair_tool_column]), number))
+            line += ("& {0:11} ").format("\\textbf{%s\\%% (%d)}" % (percent_round(number, nb_patch_tool[repair_tool_column]), number))
+	    tool_totals.append(
+				  {
+					"tool": tool_name(repair_tool_line),
+				        "unique": number,
+				        "overlapped": len(bugs_tool[repair_tool_column]) - number,
+					"total": len(bugs_tool[repair_tool_column])
+			           }
+			      )
         else:
             if repair_tool_column in bugs_tool:
                 for p in bugs_tool[repair_tool_column]:
                     if repair_tool_line in bugs_tool and p in bugs_tool[repair_tool_line]:
                         number += 1
-            p = percent(number, nb_patch_tool[repair_tool_line])
+            p = percent_round(number, nb_patch_tool[repair_tool_line])
 
             if repair_tool_line not in overlaps:
                 overlaps[repair_tool_line] = {
@@ -299,15 +336,24 @@ for repair_tool_line in tools:
                 if int(min)<= p and p < int(max):
                     overlaps[repair_tool_line][s].append('%s (%d)' % (tool_name(repair_tool_column), number)) 
                     break
-            line += ("& {0:11} ").format("\\cca{%s}\\%% (%d)"  % (p, number))
+	    if number < 10:
+		line += ("& {0:11} ").format("\\cca{%s}\\%% \\enspace(%d)"  % (p, number))
+	    else:
+            	line += ("& {0:11} ").format("\\cca{%s}\\%% (%d)"  % (p, number))
     print("%s \\\\" % line)
 
-print(" {0:10} & 0-20 \\% & 20-40 \\% & 40-60 \\% & 60-80 \\% & 80-100 \\% \\\\ \\midrule".format(''))
+print("\n {0:10} & 0-20 \\% & 20-40 \\% & 40-60 \\% & 60-80 \\% & 80-100 \\% \\\\ \\midrule".format(''))
 for tool in sorted(overlaps):
     line = " {0:10} ".format(tool_name(tool))
     for c in sorted(overlaps[tool]):
         line += '& %s ' % ", ".join(overlaps[tool][c])
     print("%s \\\\" % line)
+
+print "\nFor repairability graph"
+tool_totals_view = sorted(tool_totals, key = lambda i: i['total'],reverse=True)
+for repair_tool in tool_totals_view:
+    print "%s,%d,%d" % (repair_tool['tool'], repair_tool['unique'], repair_tool['overlapped'])
+
 
 times_tools = {
     'patched': {},
@@ -327,7 +373,7 @@ for state in times:
             times_tools[state][tool][bench] = times[state][bench][tool]
 
 for state in times_tools:
-    print(state)
+    print("\n" + state)
 
     line = " {0:11} ".format(' ')
     for benchmark in sorted(benchmarks):
@@ -376,7 +422,7 @@ for state in times_tools:
         if state == "timeout" or state == 'error':
             tmp = total_attempts
             if bench != "xtotal":
-                tmp = nb_bugs_bench[bench] * 11
+                tmp = nb_bugs_bench[bench] * len(tools)
             line += "& {:{width}} ".format(percent(len(total_bench[bench]), tmp), width=len(bench_name(bench)))
             continue
         total = sum(total_bench[bench])
@@ -385,22 +431,6 @@ for state in times_tools:
             average_tool = total/len(total_bench[bench])
         line += "& {:{width}} ".format(format_time(datetime.timedelta(seconds=average_tool)), width=len(bench_name(bench)))
     print("%s \\\\" % line)
-
-repaired_benchmarks = {}
-for i in natural_sort(repaired_bugs.iterkeys()):
-	bug = repaired_bugs[i]
-	if bug['benchmark'] not in repaired_benchmarks:
-	    repaired_benchmarks[bug['benchmark']] = 0            
-	repaired_benchmarks[bug['benchmark']] += 1
-
-print("Benchmark      & \# Fixed bugs &    \% \\\\\\midrule")
-total = 0
-for benchmark in natural_sort(repaired_benchmarks):
-    print (("{:" + str(len("IntroClassJava")) + "} & {:" + str(len("\# Fixed bugs")) + "} & {:5} \\\\").format(bench_name(benchmark), repaired_benchmarks[benchmark], percent(repaired_benchmarks[benchmark], nb_bugs_bench[benchmark])))
-    total += repaired_benchmarks[benchmark]
-
-print("\\midrule")
-print(("{:" + str(len("IntroClassJava")) + "} & {:" + str(len("\# Fixed bugs")) + "} & {:5} \\\\").format("Total", total, percent(total, nb_bugs)))
 
 print("Execution time %s " % datetime.timedelta(seconds=total_time))
 
