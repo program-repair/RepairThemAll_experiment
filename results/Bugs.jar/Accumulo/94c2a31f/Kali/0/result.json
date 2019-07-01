@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-29 11:55:48.774527", 
   "patches": [
     {
-      "diff": "--- /tmp/Kali_Bug_dot_jar_Accumulo_94c2a31f/minicluster/src/main/java/org/apache/accumulo/minicluster/MiniAccumuloCluster.java\t2018-12-29 05:54:52.773644000 -0500\n+++ /tmp/Kali_Bug_dot_jar_Accumulo_94c2a31f/patches_uql5/Patch_12/patched/tmp/Kali_Bug_dot_jar_Accumulo_94c2a31f/minicluster/src/main/java/org/apache/accumulo/minicluster/MiniAccumuloCluster.java\t2018-12-29 05:57:19.772658573 -0500\n@@ -390,7 +390,9 @@\n     if (tabletServerProcesses != null) {\n       for (Process tserver : tabletServerProcesses) {\n         try {\n-          stopProcessWithTimeout(tserver, 30, TimeUnit.SECONDS);\n+          if (true)\n+\t\t\t\treturn;\n+\t\tstopProcessWithTimeout(tserver, 30, TimeUnit.SECONDS);\n         } catch (ExecutionException e) {\n           log.warn(\"TabletServer did not fully stop after 30 seconds\", e);\n         } catch (TimeoutException e) {\n\n\n", 
       "edits": [
         {
           "path": "minicluster/src/main/java/org/apache/accumulo/minicluster/MiniAccumuloCluster.java", 
@@ -11,7 +10,8 @@
           "faulty": "stopProcessWithTimeout(tserver,30,TimeUnit.SECONDS);", 
           "type": "InsertReturn false"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Kali_Bug_dot_jar_Accumulo_94c2a31f/minicluster/src/main/java/org/apache/accumulo/minicluster/MiniAccumuloCluster.java\t2018-12-29 05:54:52.773644000 -0500\n+++ /tmp/Kali_Bug_dot_jar_Accumulo_94c2a31f/patches_uql5/Patch_12/patched/tmp/Kali_Bug_dot_jar_Accumulo_94c2a31f/minicluster/src/main/java/org/apache/accumulo/minicluster/MiniAccumuloCluster.java\t2018-12-29 05:57:19.772658573 -0500\n@@ -390,7 +390,9 @@\n     if (tabletServerProcesses != null) {\n       for (Process tserver : tabletServerProcesses) {\n         try {\n-          stopProcessWithTimeout(tserver, 30, TimeUnit.SECONDS);\n+          if (true)\n+\t\t\t\treturn;\n+\t\tstopProcessWithTimeout(tserver, 30, TimeUnit.SECONDS);\n         } catch (ExecutionException e) {\n           log.warn(\"TabletServer did not fully stop after 30 seconds\", e);\n         } catch (TimeoutException e) {\n\n\n"
     }
   ]
 }

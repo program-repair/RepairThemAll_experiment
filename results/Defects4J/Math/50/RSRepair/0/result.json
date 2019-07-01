@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 09:04:49.637884", 
   "patches": [
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_17/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:34.768437110 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final double functionValueAccuracy = getFunctionValueAccuracy();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -12,10 +11,10 @@
           "type": "Replace", 
           "seed": "final double functionValueAccuracy=getFunctionValueAccuracy();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_17/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:34.768437110 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final double functionValueAccuracy = getFunctionValueAccuracy();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_209/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:20:35.112328614 -0500\n@@ -183,11 +183,10 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    if (FastMath.abs(x1 - x0) < FastMath.max(\n+\t\t\t\t\t\t\trtol * FastMath.abs(x1), atol)) {\n+\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t}\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -31,10 +30,10 @@
           "type": "Replace", 
           "seed": "switch (allowed) {\ncase ANY_SIDE:\n  return x1;\ncase LEFT_SIDE:\nif (inverted) {\n  return x1;\n}\nbreak;\ncase RIGHT_SIDE:\nif (!inverted) {\nreturn x1;\n}\nbreak;\ncase BELOW_SIDE:\nif (f1 <= 0) {\nreturn x1;\n}\nbreak;\ncase ABOVE_SIDE:\nif (f1 >= 0) {\nreturn x1;\n}\nbreak;\ndefault :\nthrow new MathInternalError();\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_209/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:20:35.112328614 -0500\n@@ -183,11 +183,10 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    if (FastMath.abs(x1 - x0) < FastMath.max(\n+\t\t\t\t\t\t\trtol * FastMath.abs(x1), atol)) {\n+\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t}\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_831/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:32.264068234 -0500\n@@ -138,10 +138,6 @@\n         if (f0 == 0.0) {\n             return x0;\n         }\n-        if (f1 == 0.0) {\n-            return x1;\n-        }\n-\n         // Verify bracketing of initial solution.\n         verifyBracketing(x0, x1);\n \n@@ -185,7 +181,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        incrementEvaluationCount();\n+\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -50,10 +49,10 @@
           "type": "InsertBefore", 
           "seed": "incrementEvaluationCount();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_831/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:32.264068234 -0500\n@@ -138,10 +138,6 @@\n         if (f0 == 0.0) {\n             return x0;\n         }\n-        if (f1 == 0.0) {\n-            return x1;\n-        }\n-\n         // Verify bracketing of initial solution.\n         verifyBracketing(x0, x1);\n \n@@ -185,7 +181,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        incrementEvaluationCount();\n+\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_8/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:31.112440158 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -62,10 +61,10 @@
           "type": "Delete", 
           "seed": "switch (method) {\ncase ILLINOIS:\n  f0*=0.5;\nbreak;\ncase PEGASUS:\nf0*=f1 / (f1 + fx);\nbreak;\ncase REGULA_FALSI:\nif (x == x1) {\nx0=0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1),atol));\nf0=computeObjectiveValue(x0);\n}\nbreak;\ndefault :\nthrow new MathInternalError();\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_8/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:31.112440158 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_152/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:20:09.828350432 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -81,10 +80,10 @@
           "type": "InsertBefore", 
           "seed": "if (f1 == 0.0) {\n  return x1;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_152/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:20:09.828350432 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_909/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:12.604036503 -0500\n@@ -130,7 +130,8 @@\n         double x0 = getMin();\n         double x1 = getMax();\n         double f0 = computeObjectiveValue(x0);\n-        double f1 = computeObjectiveValue(x1);\n+        final double relativeAccuracy = getRelativeAccuracy();\n+\t\tdouble f1 = computeObjectiveValue(x1);\n \n         // If one of the bounds is the exact root, return it. Since these are\n         // not under-approximations or over-approximations, we can return them\n@@ -185,8 +186,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        double max = getMax();\n                     }\n                     break;\n                 default:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -107,10 +106,10 @@
           "type": "Replace", 
           "seed": "double max=getMax();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_909/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:12.604036503 -0500\n@@ -130,7 +130,8 @@\n         double x0 = getMin();\n         double x1 = getMax();\n         double f0 = computeObjectiveValue(x0);\n-        double f1 = computeObjectiveValue(x1);\n+        final double relativeAccuracy = getRelativeAccuracy();\n+\t\tdouble f1 = computeObjectiveValue(x1);\n \n         // If one of the bounds is the exact root, return it. Since these are\n         // not under-approximations or over-approximations, we can return them\n@@ -185,8 +186,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        double max = getMax();\n                     }\n                     break;\n                 default:\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_204/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:20:33.280330147 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double initial = getStartValue();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n@@ -236,7 +236,7 @@\n                                                      atol)) {\n                 switch (allowed) {\n                 case ANY_SIDE:\n-                    return x1;\n+                    ;\n                 case LEFT_SIDE:\n                     return inverted ? x1 : x0;\n                 case RIGHT_SIDE:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -126,10 +125,10 @@
           "type": "Delete", 
           "seed": "x0=x1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_204/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:20:33.280330147 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double initial = getStartValue();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n@@ -236,7 +236,7 @@\n                                                      atol)) {\n                 switch (allowed) {\n                 case ANY_SIDE:\n-                    return x1;\n+                    ;\n                 case LEFT_SIDE:\n                     return inverted ? x1 : x0;\n                 case RIGHT_SIDE:\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_265/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:21:00.960307697 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    final double startValue = getStartValue();\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -138,10 +137,10 @@
           "type": "Replace", 
           "seed": "final double startValue=getStartValue();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_265/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:21:00.960307697 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    final double startValue = getStartValue();\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_46/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:58.584417924 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double max = getMax();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -150,10 +149,10 @@
           "type": "Replace", 
           "seed": "double max=getMax();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_46/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:58.584417924 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double max = getMax();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_886/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:02.376044293 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        incrementEvaluationCount();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -162,10 +161,10 @@
           "type": "Replace", 
           "seed": "incrementEvaluationCount();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_886/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:02.376044293 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        incrementEvaluationCount();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_779/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:04.416091841 -0500\n@@ -185,7 +185,10 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (FastMath.abs(x1 - x0) < FastMath.max(rtol\n+\t\t\t\t\t\t\t\t* FastMath.abs(x1), atol)) {\n+\t\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -174,10 +173,10 @@
           "type": "Replace", 
           "seed": "if (FastMath.abs(x1 - x0) < FastMath.max(rtol * FastMath.abs(x1),atol)) {\n  return x1;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_779/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:04.416091841 -0500\n@@ -185,7 +185,10 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (FastMath.abs(x1 - x0) < FastMath.max(rtol\n+\t\t\t\t\t\t\t\t* FastMath.abs(x1), atol)) {\n+\t\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_285/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:21:21.204292210 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n@@ -236,7 +235,7 @@\n                                                      atol)) {\n                 switch (allowed) {\n                 case ANY_SIDE:\n-                    return x1;\n+                    final UnivariateRealSolver solver = new BrentSolver();\n                 case LEFT_SIDE:\n                     return inverted ? x1 : x0;\n                 case RIGHT_SIDE:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -193,10 +192,10 @@
           "type": "Replace", 
           "seed": "final UnivariateRealSolver solver=new BrentSolver();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_285/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:21:21.204292210 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n@@ -236,7 +235,7 @@\n                                                      atol)) {\n                 switch (allowed) {\n                 case ANY_SIDE:\n-                    return x1;\n+                    final UnivariateRealSolver solver = new BrentSolver();\n                 case LEFT_SIDE:\n                     return inverted ? x1 : x0;\n                 case RIGHT_SIDE:\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_109/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:44.220374045 -0500\n@@ -185,8 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        double y1 = computeObjectiveValue(x1);\n                     }\n                     break;\n                 default:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -212,10 +211,10 @@
           "type": "Delete", 
           "seed": "return (f1 >= 0) ? x1 : x0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_109/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:44.220374045 -0500\n@@ -185,8 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        double y1 = computeObjectiveValue(x1);\n                     }\n                     break;\n                 default:\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_349/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:22:06.712259940 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double y1 = computeObjectiveValue(x1);\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -224,10 +223,10 @@
           "type": "Replace", 
           "seed": "double y1=computeObjectiveValue(x1);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_349/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:22:06.712259940 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double y1 = computeObjectiveValue(x1);\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_544/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:44.052200524 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final double absoluteAccuracy = getAbsoluteAccuracy();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -236,10 +235,10 @@
           "type": "Replace", 
           "seed": "final double absoluteAccuracy=getAbsoluteAccuracy();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_544/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:44.052200524 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final double absoluteAccuracy = getAbsoluteAccuracy();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_762/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:25:57.388098040 -0500\n@@ -185,7 +185,9 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (fx == 0.0) {\n+\t\t\t\t\t\t\treturn x;\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -248,10 +247,10 @@
           "type": "Replace", 
           "seed": "if (fx == 0.0) {\n  return x;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_762/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:25:57.388098040 -0500\n@@ -185,7 +185,9 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (fx == 0.0) {\n+\t\t\t\t\t\t\treturn x;\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_817/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:26.196073252 -0500\n@@ -185,8 +185,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        double max = getMax();\n+                        final double relativeAccuracy = getRelativeAccuracy();\n                     }\n                     break;\n                 default:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -267,10 +266,10 @@
           "type": "Replace", 
           "seed": "final double relativeAccuracy=getRelativeAccuracy();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_817/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:26.196073252 -0500\n@@ -185,8 +185,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        double max = getMax();\n+                        final double relativeAccuracy = getRelativeAccuracy();\n                     }\n                     break;\n                 default:\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_22/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:42.296430920 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -286,10 +285,10 @@
           "type": "InsertBefore", 
           "seed": "switch (method) {\ncase ILLINOIS:\n  f0*=0.5;\nbreak;\ncase PEGASUS:\nf0*=f1 / (f1 + fx);\nbreak;\ncase REGULA_FALSI:\nif (x == x1) {\nx0=0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1),atol));\nf0=computeObjectiveValue(x0);\n}\nbreak;\ndefault :\nthrow new MathInternalError();\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_22/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:42.296430920 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_25/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:43.248430146 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -298,10 +297,10 @@
           "type": "Delete", 
           "seed": "f0*=0.5;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_25/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:43.248430146 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_416/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:22:42.748236575 -0500\n@@ -185,7 +185,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        f0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -310,10 +309,10 @@
           "type": "InsertBefore", 
           "seed": "f0=computeObjectiveValue(x0);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_416/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:22:42.748236575 -0500\n@@ -185,7 +185,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        f0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_459/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:01.628225011 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    double max = getMax();\n                     break;\n                 default:\n                     // Should never happen.\n@@ -234,7 +230,10 @@\n             // are satisfied with the current approximation.\n             if (FastMath.abs(x1 - x0) < FastMath.max(rtol * FastMath.abs(x1),\n                                                      atol)) {\n-                switch (allowed) {\n+                if (fx == 0.0) {\n+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\treturn x;\n+\t\t\t\t\t\t\t\t\t\t\t\t\t\t}\n+\t\t\t\tswitch (allowed) {\n                 case ANY_SIDE:\n                     return x1;\n                 case LEFT_SIDE:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -336,10 +335,10 @@
           "type": "InsertBefore", 
           "seed": "if (fx == 0.0) {\n  return x;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_459/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:01.628225011 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    double max = getMax();\n                     break;\n                 default:\n                     // Should never happen.\n@@ -234,7 +230,10 @@\n             // are satisfied with the current approximation.\n             if (FastMath.abs(x1 - x0) < FastMath.max(rtol * FastMath.abs(x1),\n                                                      atol)) {\n-                switch (allowed) {\n+                if (fx == 0.0) {\n+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\treturn x;\n+\t\t\t\t\t\t\t\t\t\t\t\t\t\t}\n+\t\t\t\tswitch (allowed) {\n                 case ANY_SIDE:\n                     return x1;\n                 case LEFT_SIDE:\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_299/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:21:44.048275595 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -355,10 +354,10 @@
           "type": "InsertBefore", 
           "seed": "f0*=f1 / (f1 + fx);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_299/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:21:44.048275595 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_542/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:43.608200770 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    final double min = getMin();\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -374,10 +373,10 @@
           "type": "Replace", 
           "seed": "x0=0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1),atol));"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_542/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:43.608200770 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    final double min = getMin();\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_35/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:53.756421722 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    x1 = x;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -386,10 +385,10 @@
           "type": "Replace", 
           "seed": "x1=x;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_35/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:53.756421722 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    x1 = x;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:04:34.144640983 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_124/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:19:56.240362759 -0500\n@@ -305,7 +305,8 @@\n         if (function == null) {\n             throw new NullArgumentException(LocalizedFormats.FUNCTION);\n         }\n-        final double fLo = function.value(lower);\n+        double oldx = Double.POSITIVE_INFINITY;\n+\t\tfinal double fLo = function.value(lower);\n         final double fHi = function.value(upper);\n         return (fLo >= 0 && fHi <= 0) || (fLo <= 0 && fHi >= 0);\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_124/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:56.240362759 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
@@ -405,10 +404,10 @@
           "type": "Delete", 
           "seed": "Complex oldz=new Complex(Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:04:34.144640983 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_124/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:19:56.240362759 -0500\n@@ -305,7 +305,8 @@\n         if (function == null) {\n             throw new NullArgumentException(LocalizedFormats.FUNCTION);\n         }\n-        final double fLo = function.value(lower);\n+        double oldx = Double.POSITIVE_INFINITY;\n+\t\tfinal double fLo = function.value(lower);\n         final double fHi = function.value(upper);\n         return (fLo >= 0 && fHi <= 0) || (fLo <= 0 && fHi >= 0);\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_124/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:56.240362759 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_914/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:14.504035074 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    f1 = fx;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -417,10 +416,10 @@
           "type": "Replace", 
           "seed": "f1=fx;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_914/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:14.504035074 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    f1 = fx;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_70/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:10.192408056 -0500\n@@ -185,7 +185,23 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (FastMath.abs(x1 - x0) < FastMath.max(rtol\n+\t\t\t\t\t\t\t\t* FastMath.abs(x1), atol)) {\n+\t\t\t\t\t\t\tswitch (allowed) {\n+\t\t\t\t\t\t\tcase ANY_SIDE:\n+\t\t\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t\t\tcase LEFT_SIDE:\n+\t\t\t\t\t\t\t\treturn inverted ? x1 : x0;\n+\t\t\t\t\t\t\tcase RIGHT_SIDE:\n+\t\t\t\t\t\t\t\treturn inverted ? x0 : x1;\n+\t\t\t\t\t\t\tcase BELOW_SIDE:\n+\t\t\t\t\t\t\t\treturn (f1 <= 0) ? x1 : x0;\n+\t\t\t\t\t\t\tcase ABOVE_SIDE:\n+\t\t\t\t\t\t\t\treturn (f1 >= 0) ? x1 : x0;\n+\t\t\t\t\t\t\tdefault:\n+\t\t\t\t\t\t\t\tthrow new MathInternalError();\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -429,10 +428,10 @@
           "type": "Replace", 
           "seed": "if (FastMath.abs(x1 - x0) < FastMath.max(rtol * FastMath.abs(x1),atol)) {\nswitch (allowed) {\ncase ANY_SIDE:\n    return x1;\ncase LEFT_SIDE:\n  return inverted ? x1 : x0;\ncase RIGHT_SIDE:\nreturn inverted ? x0 : x1;\ncase BELOW_SIDE:\nreturn (f1 <= 0) ? x1 : x0;\ncase ABOVE_SIDE:\nreturn (f1 >= 0) ? x1 : x0;\ndefault :\nthrow new MathInternalError();\n}\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_70/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:10.192408056 -0500\n@@ -185,7 +185,23 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (FastMath.abs(x1 - x0) < FastMath.max(rtol\n+\t\t\t\t\t\t\t\t* FastMath.abs(x1), atol)) {\n+\t\t\t\t\t\t\tswitch (allowed) {\n+\t\t\t\t\t\t\tcase ANY_SIDE:\n+\t\t\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t\t\tcase LEFT_SIDE:\n+\t\t\t\t\t\t\t\treturn inverted ? x1 : x0;\n+\t\t\t\t\t\t\tcase RIGHT_SIDE:\n+\t\t\t\t\t\t\t\treturn inverted ? x0 : x1;\n+\t\t\t\t\t\t\tcase BELOW_SIDE:\n+\t\t\t\t\t\t\t\treturn (f1 <= 0) ? x1 : x0;\n+\t\t\t\t\t\t\tcase ABOVE_SIDE:\n+\t\t\t\t\t\t\t\treturn (f1 >= 0) ? x1 : x0;\n+\t\t\t\t\t\t\tdefault:\n+\t\t\t\t\t\t\t\tthrow new MathInternalError();\n+\t\t\t\t\t\t\t}\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_478/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:16.112216428 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        f0 *= 0.5;\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -441,10 +440,10 @@
           "type": "Replace", 
           "seed": "f0*=0.5;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_478/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:16.112216428 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        f0 *= 0.5;\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:04:34.144640983 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_804/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:26:20.656077893 -0500\n@@ -368,9 +368,7 @@\n     public static void verifyBracketing(UnivariateRealFunction function,\n                                         final double lower,\n                                         final double upper) {\n-        if (function == null) {\n-            throw new NullArgumentException(LocalizedFormats.FUNCTION);\n-        }\n+        final UnivariateRealSolver solver = new BrentSolver();\n         verifyInterval(lower, upper);\n         if (!isBracketing(function, lower, upper)) {\n             throw new NoBracketingException(lower, upper,\n\n\n--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_804/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:20.656077893 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
@@ -460,10 +459,10 @@
           "type": "Delete", 
           "seed": "switch (method) {\ncase ILLINOIS:\n  f0*=0.5;\nbreak;\ncase PEGASUS:\nf0*=f1 / (f1 + fx);\nbreak;\ncase REGULA_FALSI:\nif (x == x1) {\nx0=0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1),atol));\nf0=computeObjectiveValue(x0);\n}\nbreak;\ndefault :\nthrow new MathInternalError();\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:04:34.144640983 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_804/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:26:20.656077893 -0500\n@@ -368,9 +368,7 @@\n     public static void verifyBracketing(UnivariateRealFunction function,\n                                         final double lower,\n                                         final double upper) {\n-        if (function == null) {\n-            throw new NullArgumentException(LocalizedFormats.FUNCTION);\n-        }\n+        final UnivariateRealSolver solver = new BrentSolver();\n         verifyInterval(lower, upper);\n         if (!isBracketing(function, lower, upper)) {\n             throw new NoBracketingException(lower, upper,\n\n\n--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_804/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:20.656077893 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_490/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:21.088213535 -0500\n@@ -148,7 +148,8 @@\n         // Get accuracies.\n         final double ftol = getFunctionValueAccuracy();\n         final double atol = getAbsoluteAccuracy();\n-        final double rtol = getRelativeAccuracy();\n+        final double functionValueAccuracy = getFunctionValueAccuracy();\n+\t\tfinal double rtol = getRelativeAccuracy();\n \n         // Keep track of inverted intervals, meaning that the left bound is\n         // larger than the right bound.\n@@ -185,7 +186,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -479,10 +478,10 @@
           "type": "Delete", 
           "seed": "final double x=x1 - ((f1 * (x1 - x0)) / (f1 - f0));"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_490/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:21.088213535 -0500\n@@ -148,7 +148,8 @@\n         // Get accuracies.\n         final double ftol = getFunctionValueAccuracy();\n         final double atol = getAbsoluteAccuracy();\n-        final double rtol = getRelativeAccuracy();\n+        final double functionValueAccuracy = getFunctionValueAccuracy();\n+\t\tfinal double rtol = getRelativeAccuracy();\n \n         // Keep track of inverted intervals, meaning that the left bound is\n         // larger than the right bound.\n@@ -185,7 +186,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_553/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:47.756198476 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -498,10 +497,10 @@
           "type": "Replace", 
           "seed": "Complex H=null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_553/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:47.756198476 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_1000/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:28:09.319995061 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double oldx = Double.POSITIVE_INFINITY;\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -510,10 +509,10 @@
           "type": "Replace", 
           "seed": "double oldx=Double.POSITIVE_INFINITY;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_1000/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:28:09.319995061 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double oldx = Double.POSITIVE_INFINITY;\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_121/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:55.096363820 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        int start = 0;\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -522,10 +521,10 @@
           "type": "Replace", 
           "seed": "int start=0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_121/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:55.096363820 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        int start = 0;\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_185/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:20:24.656337466 -0500\n@@ -185,7 +185,9 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (f1 == 0.0) {\n+\t\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -534,10 +533,10 @@
           "type": "Replace", 
           "seed": "if (f1 == 0.0) {\n  return x1;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_185/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:20:24.656337466 -0500\n@@ -185,7 +185,9 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (f1 == 0.0) {\n+\t\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_13/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:33.228438391 -0500\n@@ -187,6 +187,7 @@\n                     if (x == x1) {\n                         x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\tf0 = computeObjectiveValue(x0);\n                     }\n                     break;\n                 default:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -546,10 +545,10 @@
           "type": "InsertBefore", 
           "seed": "f0=computeObjectiveValue(x0);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_13/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:18:33.228438391 -0500\n@@ -187,6 +187,7 @@\n                     if (x == x1) {\n                         x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\tf0 = computeObjectiveValue(x0);\n                     }\n                     break;\n                 default:\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_510/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:29.000208988 -0500\n@@ -186,7 +186,7 @@\n                     // Nothing.\n                     if (x == x1) {\n                         x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        return doSolve();\n                     }\n                     break;\n                 default:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -558,10 +557,10 @@
           "type": "Replace", 
           "seed": "return doSolve();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_510/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:29.000208988 -0500\n@@ -186,7 +186,7 @@\n                     // Nothing.\n                     if (x == x1) {\n                         x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        return doSolve();\n                     }\n                     break;\n                 default:\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_879/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:59.672046381 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        int numIterations = 0;\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -570,10 +569,10 @@
           "type": "Replace", 
           "seed": "int numIterations=0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_879/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:59.672046381 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        int numIterations = 0;\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_73/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:11.248406952 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    double x2 = 0.5 * (x0 + x1);\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -582,10 +581,10 @@
           "type": "Replace", 
           "seed": "double x2=0.5 * (x0 + x1);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_73/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:11.248406952 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    double x2 = 0.5 * (x0 + x1);\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_1036/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:28:35.947969666 -0500\n@@ -172,7 +172,8 @@\n                 // The value of x1 has switched to the other bound, thus inverting\n                 // the interval.\n                 x0 = x1;\n-                f0 = f1;\n+                x0 = x1;\n+\t\t\t\tf0 = f1;\n                 inverted = !inverted;\n             } else {\n                 switch (method) {\n@@ -185,7 +186,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double y0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -601,10 +600,10 @@
           "type": "InsertBefore", 
           "seed": "double y0=computeObjectiveValue(x0);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_1036/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:28:35.947969666 -0500\n@@ -172,7 +172,8 @@\n                 // The value of x1 has switched to the other bound, thus inverting\n                 // the interval.\n                 x0 = x1;\n-                f0 = f1;\n+                x0 = x1;\n+\t\t\t\tf0 = f1;\n                 inverted = !inverted;\n             } else {\n                 switch (method) {\n@@ -185,7 +186,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double y0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_976/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:59.072003070 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n@@ -236,7 +235,7 @@\n                                                      atol)) {\n                 switch (allowed) {\n                 case ANY_SIDE:\n-                    return x1;\n+                    ;\n                 case LEFT_SIDE:\n                     return inverted ? x1 : x0;\n                 case RIGHT_SIDE:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -620,10 +619,10 @@
           "type": "Delete", 
           "seed": "if (f1 * fx < 0) {\n  x0=x1;\n  f0=f1;\n  inverted=!inverted;\n}\n else {\nswitch (method) {\ncase ILLINOIS:\n    f0*=0.5;\n  break;\ncase PEGASUS:\nf0*=f1 / (f1 + fx);\nbreak;\ncase REGULA_FALSI:\nif (x == x1) {\nx0=0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1),atol));\nf0=computeObjectiveValue(x0);\n}\nbreak;\ndefault :\nthrow new MathInternalError();\n}\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_976/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:59.072003070 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n@@ -236,7 +235,7 @@\n                                                      atol)) {\n                 switch (allowed) {\n                 case ANY_SIDE:\n-                    return x1;\n+                    ;\n                 case LEFT_SIDE:\n                     return inverted ? x1 : x0;\n                 case RIGHT_SIDE:\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_764/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:25:57.856097623 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final double relativeAccuracy = getRelativeAccuracy();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -632,10 +631,10 @@
           "type": "Replace", 
           "seed": "final double relativeAccuracy=getRelativeAccuracy();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_764/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:25:57.856097623 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final double relativeAccuracy = getRelativeAccuracy();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_719/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:25:20.872131976 -0500\n@@ -185,7 +185,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double y0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -644,10 +643,10 @@
           "type": "InsertBefore", 
           "seed": "double y0=computeObjectiveValue(x0);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_719/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:25:20.872131976 -0500\n@@ -185,7 +185,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double y0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_973/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:52.504007614 -0500\n@@ -183,11 +183,23 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    if (FastMath.abs(x1 - x0) < FastMath.max(\n+\t\t\t\t\t\t\trtol * FastMath.abs(x1), atol)) {\n+\t\t\t\t\t\tswitch (allowed) {\n+\t\t\t\t\t\tcase ANY_SIDE:\n+\t\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t\tcase LEFT_SIDE:\n+\t\t\t\t\t\t\treturn inverted ? x1 : x0;\n+\t\t\t\t\t\tcase RIGHT_SIDE:\n+\t\t\t\t\t\t\treturn inverted ? x0 : x1;\n+\t\t\t\t\t\tcase BELOW_SIDE:\n+\t\t\t\t\t\t\treturn (f1 <= 0) ? x1 : x0;\n+\t\t\t\t\t\tcase ABOVE_SIDE:\n+\t\t\t\t\t\t\treturn (f1 >= 0) ? x1 : x0;\n+\t\t\t\t\t\tdefault:\n+\t\t\t\t\t\t\tthrow new MathInternalError();\n+\t\t\t\t\t\t}\n+\t\t\t\t\t}\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -663,10 +662,10 @@
           "type": "Delete", 
           "seed": "final double functionValueAccuracy=getFunctionValueAccuracy();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_973/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:52.504007614 -0500\n@@ -183,11 +183,23 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    if (FastMath.abs(x1 - x0) < FastMath.max(\n+\t\t\t\t\t\t\trtol * FastMath.abs(x1), atol)) {\n+\t\t\t\t\t\tswitch (allowed) {\n+\t\t\t\t\t\tcase ANY_SIDE:\n+\t\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t\tcase LEFT_SIDE:\n+\t\t\t\t\t\t\treturn inverted ? x1 : x0;\n+\t\t\t\t\t\tcase RIGHT_SIDE:\n+\t\t\t\t\t\t\treturn inverted ? x0 : x1;\n+\t\t\t\t\t\tcase BELOW_SIDE:\n+\t\t\t\t\t\t\treturn (f1 <= 0) ? x1 : x0;\n+\t\t\t\t\t\tcase ABOVE_SIDE:\n+\t\t\t\t\t\t\treturn (f1 >= 0) ? x1 : x0;\n+\t\t\t\t\t\tdefault:\n+\t\t\t\t\t\t\tthrow new MathInternalError();\n+\t\t\t\t\t\t}\n+\t\t\t\t\t}\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_90/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:24.408393460 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final double y = computeObjectiveValue(x);\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -675,10 +674,10 @@
           "type": "Replace", 
           "seed": "final double y=computeObjectiveValue(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_90/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:19:24.408393460 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final double y = computeObjectiveValue(x);\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_862/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:51.884052459 -0500\n@@ -185,7 +185,11 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (x == x1) {\n+\t\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(\n+\t\t\t\t\t\t\t\t\trtol * FastMath.abs(x1), atol));\n+\t\t\t\t\t\t\tf0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -687,10 +686,10 @@
           "type": "Replace", 
           "seed": "if (x == x1) {\n  x0=0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1),atol));\n  f0=computeObjectiveValue(x0);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_862/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:51.884052459 -0500\n@@ -185,7 +185,11 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (x == x1) {\n+\t\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(\n+\t\t\t\t\t\t\t\t\trtol * FastMath.abs(x1), atol));\n+\t\t\t\t\t\t\tf0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_970/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:51.580008257 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        this.allowed = AllowedSolution.ANY_SIDE;\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -699,10 +698,10 @@
           "type": "Replace", 
           "seed": "this.allowed=AllowedSolution.ANY_SIDE;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_970/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:27:51.580008257 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        this.allowed = AllowedSolution.ANY_SIDE;\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_455/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:00.216225861 -0500\n@@ -185,7 +185,9 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (f0 == 0.0) {\n+\t\t\t\t\t\t\treturn x0;\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -711,10 +710,10 @@
           "type": "Replace", 
           "seed": "if (f0 == 0.0) {\n  return x0;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_455/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:00.216225861 -0500\n@@ -185,7 +185,9 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (f0 == 0.0) {\n+\t\t\t\t\t\t\treturn x0;\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_382/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:22:21.820249926 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final UnivariateRealSolver solver = new BrentSolver();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -730,10 +729,10 @@
           "type": "Replace", 
           "seed": "final UnivariateRealSolver solver=new BrentSolver();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_382/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:22:21.820249926 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final UnivariateRealSolver solver = new BrentSolver();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_1015/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:28:15.631988897 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    int start = 0;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -742,10 +741,10 @@
           "type": "Replace", 
           "seed": "int start=0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_1015/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:28:15.631988897 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    int start = 0;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_344/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:22:04.804261228 -0500\n@@ -185,7 +185,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final double y = computeObjectiveValue(x);\n+\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -754,10 +753,10 @@
           "type": "InsertBefore", 
           "seed": "final double y=computeObjectiveValue(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_344/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:22:04.804261228 -0500\n@@ -185,7 +185,8 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        final double y = computeObjectiveValue(x);\n+\t\t\t\t\t\tx0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:04:34.144640983 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_444/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:22:55.620228644 -0500\n@@ -368,9 +368,7 @@\n     public static void verifyBracketing(UnivariateRealFunction function,\n                                         final double lower,\n                                         final double upper) {\n-        if (function == null) {\n-            throw new NullArgumentException(LocalizedFormats.FUNCTION);\n-        }\n+        int agingB = 0;\n         verifyInterval(lower, upper);\n         if (!isBracketing(function, lower, upper)) {\n             throw new NoBracketingException(lower, upper,\n\n\n--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_444/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:22:55.620228644 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
@@ -773,10 +772,10 @@
           "type": "Delete", 
           "seed": "final double fx=computeObjectiveValue(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:04:34.144640983 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_444/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:22:55.620228644 -0500\n@@ -368,9 +368,7 @@\n     public static void verifyBracketing(UnivariateRealFunction function,\n                                         final double lower,\n                                         final double upper) {\n-        if (function == null) {\n-            throw new NullArgumentException(LocalizedFormats.FUNCTION);\n-        }\n+        int agingB = 0;\n         verifyInterval(lower, upper);\n         if (!isBracketing(function, lower, upper)) {\n             throw new NoBracketingException(lower, upper,\n\n\n--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_444/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:22:55.620228644 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_787/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:07.696088981 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    double min = getMin();\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -785,10 +784,10 @@
           "type": "Replace", 
           "seed": "double min=getMin();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_787/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:26:07.696088981 -0500\n@@ -183,11 +183,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    double min = getMin();\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_178/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:20:21.792339932 -0500\n@@ -186,7 +186,8 @@\n                     // Nothing.\n                     if (x == x1) {\n                         x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        double y0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\tf0 = computeObjectiveValue(x0);\n                     }\n                     break;\n                 default:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -797,10 +796,10 @@
           "type": "InsertBefore", 
           "seed": "double y0=computeObjectiveValue(x0);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_178/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:20:21.792339932 -0500\n@@ -186,7 +186,8 @@\n                     // Nothing.\n                     if (x == x1) {\n                         x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        double y0 = computeObjectiveValue(x0);\n+\t\t\t\t\t\tf0 = computeObjectiveValue(x0);\n                     }\n                     break;\n                 default:\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:04:34.144640983 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_494/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:23:21.992213012 -0500\n@@ -302,9 +302,6 @@\n     public static boolean isBracketing(UnivariateRealFunction function,\n                                        final double lower,\n                                        final double upper) {\n-        if (function == null) {\n-            throw new NullArgumentException(LocalizedFormats.FUNCTION);\n-        }\n         final double fLo = function.value(lower);\n         final double fHi = function.value(upper);\n         return (fLo >= 0 && fHi <= 0) || (fLo <= 0 && fHi >= 0);\n\n\n--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_494/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:21.992213012 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java", 
@@ -816,10 +815,10 @@
           "type": "Delete", 
           "seed": "Complex dv=null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:04:34.144640983 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_494/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java\t2018-12-02 03:23:21.992213012 -0500\n@@ -302,9 +302,6 @@\n     public static boolean isBracketing(UnivariateRealFunction function,\n                                        final double lower,\n                                        final double upper) {\n-        if (function == null) {\n-            throw new NullArgumentException(LocalizedFormats.FUNCTION);\n-        }\n         final double fLo = function.value(lower);\n         final double fHi = function.value(upper);\n         return (fLo >= 0 && fHi <= 0) || (fLo <= 0 && fHi >= 0);\n\n\n--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_494/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:21.992213012 -0500\n@@ -185,7 +185,6 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_596/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:24:12.556185105 -0500\n@@ -138,9 +138,7 @@\n         if (f0 == 0.0) {\n             return x0;\n         }\n-        if (f1 == 0.0) {\n-            return x1;\n-        }\n+        final double absoluteAccuracy = getAbsoluteAccuracy();\n \n         // Verify bracketing of initial solution.\n         verifyBracketing(x0, x1);\n@@ -183,11 +181,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -835,10 +834,10 @@
           "type": "Delete", 
           "seed": "final UnivariateRealSolver solver=new BrentSolver();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_596/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:24:12.556185105 -0500\n@@ -138,9 +138,7 @@\n         if (f0 == 0.0) {\n             return x0;\n         }\n-        if (f1 == 0.0) {\n-            return x1;\n-        }\n+        final double absoluteAccuracy = getAbsoluteAccuracy();\n \n         // Verify bracketing of initial solution.\n         verifyBracketing(x0, x1);\n@@ -183,11 +181,7 @@\n                     f0 *= f1 / (f1 + fx);\n                     break;\n                 case REGULA_FALSI:\n-                    // Nothing.\n-                    if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n-                    }\n+                    ;\n                     break;\n                 default:\n                     // Should never happen.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_987/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:28:03.927999746 -0500\n@@ -185,7 +185,9 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (f1 >= 0) {\n+\t\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -847,10 +846,10 @@
           "type": "Replace", 
           "seed": "if (f1 >= 0) {\n  return x1;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_987/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:28:03.927999746 -0500\n@@ -185,7 +185,9 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        if (f1 >= 0) {\n+\t\t\t\t\t\t\treturn x1;\n+\t\t\t\t\t\t}\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_492/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:21.536213276 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double min = getMin();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -859,10 +858,10 @@
           "type": "Replace", 
           "seed": "double min=getMin();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_492/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:23:21.536213276 -0500\n@@ -185,7 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n+                        double min = getMin();\n                         f0 = computeObjectiveValue(x0);\n                     }\n                     break;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_1013/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:28:15.187989328 -0500\n@@ -185,8 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        final double functionValueAccuracy = getFunctionValueAccuracy();\n                     }\n                     break;\n                 default:\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java", 
@@ -878,7 +877,8 @@
           "type": "Replace", 
           "seed": "final double functionValueAccuracy=getFunctionValueAccuracy();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:04:37.768641066 -0500\n+++ /tmp/RSRepair_Defects4J_Math_50/patches_loid/Patch_1013/patched/tmp/RSRepair_Defects4J_Math_50/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java\t2018-12-02 03:28:15.187989328 -0500\n@@ -185,8 +185,7 @@\n                 case REGULA_FALSI:\n                     // Nothing.\n                     if (x == x1) {\n-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));\n-                        f0 = computeObjectiveValue(x0);\n+                        final double functionValueAccuracy = getFunctionValueAccuracy();\n                     }\n                     break;\n                 default:\n\n\n"
     }
   ]
 }

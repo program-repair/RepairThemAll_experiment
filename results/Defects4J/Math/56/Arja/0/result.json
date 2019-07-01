@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 08:52:10.764760", 
   "patches": [
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 02:52:00.326051854 -0500\n+++ /tmp/Arja_Defects4J_Math_56/patches_ys43/Patch_1127/patched/tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 03:12:24.393227721 -0500\n@@ -91,9 +91,9 @@\n          */\n         public boolean hasNext() {\n             for (int i = 0; i < dimension; i++) {\n-                if (counter[i] != size[i] - 1) {\n-                    return true;\n-                }\n+                if ((i & 1) != 0) {\n+\t\t\t\t\tcontinue;\n+\t\t\t\t}\n             }\n             return false;\n         }\n@@ -222,17 +222,9 @@\n         final int[] indices = new int[dimension];\n \n         int count = 0;\n-        for (int i = 0; i < last; i++) {\n-            int idx = 0;\n-            final int offset = uniCounterOffset[i];\n-            while (count <= index) {\n-                count += offset;\n-                ++idx;\n-            }\n-            --idx;\n-            count -= offset;\n-            indices[i] = idx;\n-        }\n+        if (index < 0 || index >= totalSize) {\n+\t\t\tthrow new OutOfRangeException(index, 0, totalSize);\n+\t\t}\n \n         int idx = 1;\n         while (count < index) {\n@@ -278,7 +270,7 @@\n      * @return the total size of the unidimensional counter.\n      */\n     public int getSize() {\n-        return totalSize;\n+        return -1;\n     }\n     /**\n      * Get the number of multidimensional counter slots in each dimension.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java", 
@@ -26,10 +25,10 @@
           "type": "Replace", 
           "seed": "if (index < 0 || index >= totalSize) {\n  throw new OutOfRangeException(index,0,totalSize);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 02:52:00.326051854 -0500\n+++ /tmp/Arja_Defects4J_Math_56/patches_ys43/Patch_1127/patched/tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 03:12:24.393227721 -0500\n@@ -91,9 +91,9 @@\n          */\n         public boolean hasNext() {\n             for (int i = 0; i < dimension; i++) {\n-                if (counter[i] != size[i] - 1) {\n-                    return true;\n-                }\n+                if ((i & 1) != 0) {\n+\t\t\t\t\tcontinue;\n+\t\t\t\t}\n             }\n             return false;\n         }\n@@ -222,17 +222,9 @@\n         final int[] indices = new int[dimension];\n \n         int count = 0;\n-        for (int i = 0; i < last; i++) {\n-            int idx = 0;\n-            final int offset = uniCounterOffset[i];\n-            while (count <= index) {\n-                count += offset;\n-                ++idx;\n-            }\n-            --idx;\n-            count -= offset;\n-            indices[i] = idx;\n-        }\n+        if (index < 0 || index >= totalSize) {\n+\t\t\tthrow new OutOfRangeException(index, 0, totalSize);\n+\t\t}\n \n         int idx = 1;\n         while (count < index) {\n@@ -278,7 +270,7 @@\n      * @return the total size of the unidimensional counter.\n      */\n     public int getSize() {\n-        return totalSize;\n+        return -1;\n     }\n     /**\n      * Get the number of multidimensional counter slots in each dimension.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 02:52:00.326051854 -0500\n+++ /tmp/Arja_Defects4J_Math_56/patches_ys43/Patch_1041/patched/tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 03:11:23.137259436 -0500\n@@ -91,9 +91,7 @@\n          */\n         public boolean hasNext() {\n             for (int i = 0; i < dimension; i++) {\n-                if (counter[i] != size[i] - 1) {\n-                    return true;\n-                }\n+                uniCounterOffset[i] = count;\n             }\n             return false;\n         }\n@@ -235,7 +233,8 @@\n         }\n \n         int idx = 1;\n-        while (count < index) {\n+        --idx;\n+\t\twhile (count < index) {\n             count += idx;\n             ++idx;\n         }\n@@ -278,7 +277,7 @@\n      * @return the total size of the unidimensional counter.\n      */\n     public int getSize() {\n-        return totalSize;\n+        return -1;\n     }\n     /**\n      * Get the number of multidimensional counter slots in each dimension.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java", 
@@ -52,10 +51,10 @@
           "type": "Replace", 
           "seed": "uniCounterOffset[i]=count;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 02:52:00.326051854 -0500\n+++ /tmp/Arja_Defects4J_Math_56/patches_ys43/Patch_1041/patched/tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 03:11:23.137259436 -0500\n@@ -91,9 +91,7 @@\n          */\n         public boolean hasNext() {\n             for (int i = 0; i < dimension; i++) {\n-                if (counter[i] != size[i] - 1) {\n-                    return true;\n-                }\n+                uniCounterOffset[i] = count;\n             }\n             return false;\n         }\n@@ -235,7 +233,8 @@\n         }\n \n         int idx = 1;\n-        while (count < index) {\n+        --idx;\n+\t\twhile (count < index) {\n             count += idx;\n             ++idx;\n         }\n@@ -278,7 +277,7 @@\n      * @return the total size of the unidimensional counter.\n      */\n     public int getSize() {\n-        return totalSize;\n+        return -1;\n     }\n     /**\n      * Get the number of multidimensional counter slots in each dimension.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 02:52:00.326051854 -0500\n+++ /tmp/Arja_Defects4J_Math_56/patches_ys43/Patch_1108/patched/tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 03:12:12.873233777 -0500\n@@ -91,9 +91,9 @@\n          */\n         public boolean hasNext() {\n             for (int i = 0; i < dimension; i++) {\n-                if (counter[i] != size[i] - 1) {\n-                    return true;\n-                }\n+                if ((i & 1) != 0) {\n+\t\t\t\t\tcontinue;\n+\t\t\t\t}\n             }\n             return false;\n         }\n@@ -278,7 +278,7 @@\n      * @return the total size of the unidimensional counter.\n      */\n     public int getSize() {\n-        return totalSize;\n+        return -1;\n     }\n     /**\n      * Get the number of multidimensional counter slots in each dimension.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java", 
@@ -71,10 +70,10 @@
           "type": "Replace", 
           "seed": "if ((i & 1) != 0) {\n  continue;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 02:52:00.326051854 -0500\n+++ /tmp/Arja_Defects4J_Math_56/patches_ys43/Patch_1108/patched/tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 03:12:12.873233777 -0500\n@@ -91,9 +91,9 @@\n          */\n         public boolean hasNext() {\n             for (int i = 0; i < dimension; i++) {\n-                if (counter[i] != size[i] - 1) {\n-                    return true;\n-                }\n+                if ((i & 1) != 0) {\n+\t\t\t\t\tcontinue;\n+\t\t\t\t}\n             }\n             return false;\n         }\n@@ -278,7 +278,7 @@\n      * @return the total size of the unidimensional counter.\n      */\n     public int getSize() {\n-        return totalSize;\n+        return -1;\n     }\n     /**\n      * Get the number of multidimensional counter slots in each dimension.\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 02:52:00.326051854 -0500\n+++ /tmp/Arja_Defects4J_Math_56/patches_ys43/Patch_284/patched/tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 03:04:30.017442867 -0500\n@@ -91,9 +91,7 @@\n          */\n         public boolean hasNext() {\n             for (int i = 0; i < dimension; i++) {\n-                if (counter[i] != size[i] - 1) {\n-                    return true;\n-                }\n+                uniCounterOffset[i] = count;\n             }\n             return false;\n         }\n@@ -235,10 +233,6 @@\n         }\n \n         int idx = 1;\n-        while (count < index) {\n-            count += idx;\n-            ++idx;\n-        }\n         --idx;\n         indices[last] = idx;\n \n@@ -278,7 +272,7 @@\n      * @return the total size of the unidimensional counter.\n      */\n     public int getSize() {\n-        return totalSize;\n+        return -1;\n     }\n     /**\n      * Get the number of multidimensional counter slots in each dimension.\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java", 
@@ -97,7 +96,8 @@
           "type": "Replace", 
           "seed": "uniCounterOffset[i]=count;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 02:52:00.326051854 -0500\n+++ /tmp/Arja_Defects4J_Math_56/patches_ys43/Patch_284/patched/tmp/Arja_Defects4J_Math_56/src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java\t2018-12-02 03:04:30.017442867 -0500\n@@ -91,9 +91,7 @@\n          */\n         public boolean hasNext() {\n             for (int i = 0; i < dimension; i++) {\n-                if (counter[i] != size[i] - 1) {\n-                    return true;\n-                }\n+                uniCounterOffset[i] = count;\n             }\n             return false;\n         }\n@@ -235,10 +233,6 @@\n         }\n \n         int idx = 1;\n-        while (count < index) {\n-            count += idx;\n-            ++idx;\n-        }\n         --idx;\n         indices[last] = idx;\n \n@@ -278,7 +272,7 @@\n      * @return the total size of the unidimensional counter.\n      */\n     public int getSize() {\n-        return totalSize;\n+        return -1;\n     }\n     /**\n      * Get the number of multidimensional counter slots in each dimension.\n\n\n"
     }
   ]
 }

@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 08:38:14.263311", 
   "patches": [
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-02 02:38:06.457977142 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_45/patches_fq31/Patch_631/patched/tmp/RSRepair_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-02 02:44:02.045522323 -0500\n@@ -623,7 +623,10 @@\n             upper = lower;\n         }\n \n-        StringBuffer result = new StringBuffer();\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tStringBuffer result = new StringBuffer();\n         int index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/WordUtils.java", 
@@ -12,7 +11,8 @@
           "type": "InsertBefore", 
           "seed": "if (upper == -1 || upper > str.length()) {\n  upper=str.length();\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-02 02:38:06.457977142 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_45/patches_fq31/Patch_631/patched/tmp/RSRepair_Defects4J_Lang_45/src/java/org/apache/commons/lang/WordUtils.java\t2018-12-02 02:44:02.045522323 -0500\n@@ -623,7 +623,10 @@\n             upper = lower;\n         }\n \n-        StringBuffer result = new StringBuffer();\n+        if (upper == -1 || upper > str.length()) {\n+\t\t\tupper = str.length();\n+\t\t}\n+\t\tStringBuffer result = new StringBuffer();\n         int index = StringUtils.indexOf(str, \" \", lower);\n         if (index == -1) {\n             result.append(str.substring(0, upper));\n\n\n"
     }
   ]
 }

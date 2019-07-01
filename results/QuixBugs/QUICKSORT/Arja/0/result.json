@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 11:36:35.816818", 
   "patches": [
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1280/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:02.203568027 -0500\n@@ -13,7 +13,9 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n-            return new ArrayList<Integer>();\n+            if (arr.isEmpty()) {\n+\t\t\t\treturn new ArrayList<Integer>();\n+\t\t\t}\n         }\n \n         Integer pivot = arr.get(0);\n@@ -23,9 +25,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -26,10 +25,10 @@
           "type": "Replace", 
           "seed": "if (x < pivot) {\n  lesser.add(x);\n}\n else if (x > pivot) {\n  greater.add(x);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1280/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:02.203568027 -0500\n@@ -13,7 +13,9 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n-            return new ArrayList<Integer>();\n+            if (arr.isEmpty()) {\n+\t\t\t\treturn new ArrayList<Integer>();\n+\t\t\t}\n         }\n \n         Integer pivot = arr.get(0);\n@@ -23,9 +25,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1259/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:44.931441007 -0500\n@@ -23,13 +23,15 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n-        lesser = quicksort(lesser);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tlesser = quicksort(lesser);\n         greater = quicksort(greater);\n         middle.addAll(greater);\n         lesser.addAll(middle);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -45,10 +44,10 @@
           "type": "InsertBefore", 
           "seed": "if (arr.isEmpty()) {\n  return new ArrayList<Integer>();\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1259/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:44.931441007 -0500\n@@ -23,13 +23,15 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n-        lesser = quicksort(lesser);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tlesser = quicksort(lesser);\n         greater = quicksort(greater);\n         middle.addAll(greater);\n         lesser.addAll(middle);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_531/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:38:53.543931152 -0500\n@@ -17,15 +17,18 @@\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -78,10 +77,10 @@
           "type": "Delete", 
           "seed": "if (x < pivot) {\n  lesser.add(x);\n}\n else if (x > pivot) {\n  greater.add(x);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_531/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:38:53.543931152 -0500\n@@ -17,15 +17,18 @@\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_993/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:40:47.506590981 -0500\n@@ -20,16 +20,22 @@\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n-        for (Integer x : arr.subList(1, arr.size())) {\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tfor (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n-        ArrayList<Integer> middle = new ArrayList<Integer>();\n-        middle.add(pivot);\n         lesser = quicksort(lesser);\n+\t\tArrayList<Integer> middle = new ArrayList<Integer>();\n+        middle.add(pivot);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tlesser = quicksort(lesser);\n         greater = quicksort(greater);\n         middle.addAll(greater);\n         lesser.addAll(middle);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -118,10 +117,10 @@
           "type": "InsertBefore", 
           "seed": "if (arr.isEmpty()) {\n  return new ArrayList<Integer>();\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_993/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:40:47.506590981 -0500\n@@ -20,16 +20,22 @@\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n-        for (Integer x : arr.subList(1, arr.size())) {\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tfor (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n-        ArrayList<Integer> middle = new ArrayList<Integer>();\n-        middle.add(pivot);\n         lesser = quicksort(lesser);\n+\t\tArrayList<Integer> middle = new ArrayList<Integer>();\n+        middle.add(pivot);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tlesser = quicksort(lesser);\n         greater = quicksort(greater);\n         middle.addAll(greater);\n         lesser.addAll(middle);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_898/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:40:08.922039461 -0500\n@@ -23,9 +23,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -137,10 +136,10 @@
           "type": "InsertBefore", 
           "seed": "if (x < pivot) {\n  lesser.add(x);\n}\n else if (x > pivot) {\n  greater.add(x);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_898/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:40:08.922039461 -0500\n@@ -23,9 +23,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1633/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:45:37.492725758 -0500\n@@ -23,15 +23,15 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n         lesser = quicksort(lesser);\n         greater = quicksort(greater);\n-        middle.addAll(greater);\n+        greater = quicksort(greater);\n+\t\tmiddle.addAll(greater);\n         lesser.addAll(middle);\n         return lesser;\n \n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -163,10 +162,10 @@
           "type": "InsertBefore", 
           "seed": "greater=quicksort(greater);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1633/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:45:37.492725758 -0500\n@@ -23,15 +23,15 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n         lesser = quicksort(lesser);\n         greater = quicksort(greater);\n-        middle.addAll(greater);\n+        greater = quicksort(greater);\n+\t\tmiddle.addAll(greater);\n         lesser.addAll(middle);\n         return lesser;\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1365/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:39.283842080 -0500\n@@ -13,7 +13,10 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n-            return new ArrayList<Integer>();\n+            if (arr.isEmpty()) {\n+\t\t\t\treturn new ArrayList<Integer>();\n+\t\t\t}\n+\t\t\treturn new ArrayList<Integer>();\n         }\n \n         Integer pivot = arr.get(0);\n@@ -23,9 +26,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -189,10 +188,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1365/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:39.283842080 -0500\n@@ -13,7 +13,10 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n-            return new ArrayList<Integer>();\n+            if (arr.isEmpty()) {\n+\t\t\t\treturn new ArrayList<Integer>();\n+\t\t\t}\n+\t\t\treturn new ArrayList<Integer>();\n         }\n \n         Integer pivot = arr.get(0);\n@@ -23,9 +26,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1288/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:03.623578488 -0500\n@@ -23,9 +23,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -208,10 +207,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1288/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:03.623578488 -0500\n@@ -23,9 +23,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1169/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:13.863213673 -0500\n@@ -13,6 +13,9 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tif (arr.isEmpty()) {\n             return new ArrayList<Integer>();\n         }\n \n@@ -23,9 +26,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -227,10 +226,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1169/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:13.863213673 -0500\n@@ -13,6 +13,9 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tif (arr.isEmpty()) {\n             return new ArrayList<Integer>();\n         }\n \n@@ -23,9 +26,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1684/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:45:53.404845641 -0500\n@@ -23,11 +23,11 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n-        ArrayList<Integer> middle = new ArrayList<Integer>();\n+        greater = quicksort(greater);\n+\t\tArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n         lesser = quicksort(lesser);\n         greater = quicksort(greater);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -246,10 +245,10 @@
           "type": "InsertBefore", 
           "seed": "greater=quicksort(greater);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1684/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:45:53.404845641 -0500\n@@ -23,11 +23,11 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n-        ArrayList<Integer> middle = new ArrayList<Integer>();\n+        greater = quicksort(greater);\n+\t\tArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n         lesser = quicksort(lesser);\n         greater = quicksort(greater);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1242/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:33.587357825 -0500\n@@ -23,11 +23,11 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n-        ArrayList<Integer> middle = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n         lesser = quicksort(lesser);\n         greater = quicksort(greater);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -265,10 +264,10 @@
           "type": "InsertBefore", 
           "seed": "lesser=quicksort(lesser);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1242/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:33.587357825 -0500\n@@ -23,11 +23,11 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n-        ArrayList<Integer> middle = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n         lesser = quicksort(lesser);\n         greater = quicksort(greater);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1247/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:34.383363655 -0500\n@@ -17,19 +17,24 @@\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n-        lesser = quicksort(lesser);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tlesser = quicksort(lesser);\n         greater = quicksort(greater);\n         middle.addAll(greater);\n         lesser.addAll(middle);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -291,10 +290,10 @@
           "type": "InsertBefore", 
           "seed": "if (arr.isEmpty()) {\n  return new ArrayList<Integer>();\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1247/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:34.383363655 -0500\n@@ -17,19 +17,24 @@\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n-        lesser = quicksort(lesser);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tlesser = quicksort(lesser);\n         greater = quicksort(greater);\n         middle.addAll(greater);\n         lesser.addAll(middle);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1407/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:53.427947067 -0500\n@@ -17,15 +17,17 @@\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -317,10 +316,10 @@
           "type": "InsertBefore", 
           "seed": "if (x < pivot) {\n  lesser.add(x);\n}\n else if (x > pivot) {\n  greater.add(x);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1407/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:53.427947067 -0500\n@@ -17,15 +17,17 @@\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1481/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:44:25.248184069 -0500\n@@ -23,13 +23,13 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n-        lesser = quicksort(lesser);\n+        greater = quicksort(greater);\n+\t\tlesser = quicksort(lesser);\n         greater = quicksort(greater);\n         middle.addAll(greater);\n         lesser.addAll(middle);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -336,10 +335,10 @@
           "type": "InsertBefore", 
           "seed": "greater=quicksort(greater);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1481/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:44:25.248184069 -0500\n@@ -23,13 +23,13 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n-        lesser = quicksort(lesser);\n+        greater = quicksort(greater);\n+\t\tlesser = quicksort(lesser);\n         greater = quicksort(greater);\n         middle.addAll(greater);\n         lesser.addAll(middle);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1052/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:41:15.714792713 -0500\n@@ -18,14 +18,14 @@\n \n         Integer pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -355,10 +354,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1052/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:41:15.714792713 -0500\n@@ -18,14 +18,14 @@\n \n         Integer pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1028/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:40:54.494640790 -0500\n@@ -18,14 +18,14 @@\n \n         Integer pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -381,10 +380,10 @@
           "type": "InsertBefore", 
           "seed": "if (x < pivot) {\n  lesser.add(x);\n}\n else if (x > pivot) {\n  greater.add(x);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1028/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:40:54.494640790 -0500\n@@ -18,14 +18,14 @@\n \n         Integer pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1417/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:55.303961008 -0500\n@@ -23,13 +23,15 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n-        lesser = quicksort(lesser);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tlesser = quicksort(lesser);\n         greater = quicksort(greater);\n         middle.addAll(greater);\n         lesser.addAll(middle);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -407,10 +406,10 @@
           "type": "InsertBefore", 
           "seed": "if (arr.isEmpty()) {\n  return new ArrayList<Integer>();\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1417/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:55.303961008 -0500\n@@ -23,13 +23,15 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n-        lesser = quicksort(lesser);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tlesser = quicksort(lesser);\n         greater = quicksort(greater);\n         middle.addAll(greater);\n         lesser.addAll(middle);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1305/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:06.675600983 -0500\n@@ -13,7 +13,9 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n-            return new ArrayList<Integer>();\n+            if (arr.isEmpty()) {\n+\t\t\t\treturn new ArrayList<Integer>();\n+\t\t\t}\n         }\n \n         Integer pivot = arr.get(0);\n@@ -23,9 +25,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -426,10 +425,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1305/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:06.675600983 -0500\n@@ -13,7 +13,9 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n-            return new ArrayList<Integer>();\n+            if (arr.isEmpty()) {\n+\t\t\t\treturn new ArrayList<Integer>();\n+\t\t\t}\n         }\n \n         Integer pivot = arr.get(0);\n@@ -23,9 +25,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1531/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:44:58.864435555 -0500\n@@ -18,14 +18,16 @@\n \n         Integer pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -445,10 +444,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1531/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:44:58.864435555 -0500\n@@ -18,14 +18,16 @@\n \n         Integer pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1523/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:44:57.436424850 -0500\n@@ -13,6 +13,9 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tif (arr.isEmpty()) {\n             return new ArrayList<Integer>();\n         }\n \n@@ -20,12 +23,12 @@\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n-        for (Integer x : arr.subList(1, arr.size())) {\n+        lesser = quicksort(lesser);\n+\t\tfor (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -471,10 +470,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1523/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:44:57.436424850 -0500\n@@ -13,6 +13,9 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tif (arr.isEmpty()) {\n             return new ArrayList<Integer>();\n         }\n \n@@ -20,12 +23,12 @@\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n-        for (Integer x : arr.subList(1, arr.size())) {\n+        lesser = quicksort(lesser);\n+\t\tfor (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_435/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:38:17.458340486 -0500\n@@ -17,15 +17,17 @@\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -490,10 +489,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_435/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:38:17.458340486 -0500\n@@ -17,15 +17,17 @@\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1264/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:45.799447380 -0500\n@@ -13,7 +13,10 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n-            return new ArrayList<Integer>();\n+            if (arr.isEmpty()) {\n+\t\t\t\treturn new ArrayList<Integer>();\n+\t\t\t}\n+\t\t\treturn new ArrayList<Integer>();\n         }\n \n         Integer pivot = arr.get(0);\n@@ -23,9 +26,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -509,10 +508,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1264/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:45.799447380 -0500\n@@ -13,7 +13,10 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n-            return new ArrayList<Integer>();\n+            if (arr.isEmpty()) {\n+\t\t\t\treturn new ArrayList<Integer>();\n+\t\t\t}\n+\t\t\treturn new ArrayList<Integer>();\n         }\n \n         Integer pivot = arr.get(0);\n@@ -23,9 +26,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1223/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:24.263289602 -0500\n@@ -16,16 +16,21 @@\n             return new ArrayList<Integer>();\n         }\n \n-        Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tInteger pivot = arr.get(0);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -535,10 +534,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1223/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:24.263289602 -0500\n@@ -16,16 +16,21 @@\n             return new ArrayList<Integer>();\n         }\n \n-        Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tInteger pivot = arr.get(0);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1776/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:46:35.029160066 -0500\n@@ -23,9 +23,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -561,10 +560,10 @@
           "type": "Delete", 
           "seed": "if (x < pivot) {\n  lesser.add(x);\n}\n else if (x > pivot) {\n  greater.add(x);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1776/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:46:35.029160066 -0500\n@@ -23,9 +23,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1299/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:05.667593551 -0500\n@@ -16,16 +16,18 @@\n             return new ArrayList<Integer>();\n         }\n \n-        Integer pivot = arr.get(0);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tInteger pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -580,10 +579,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1299/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:43:05.667593551 -0500\n@@ -16,16 +16,18 @@\n             return new ArrayList<Integer>();\n         }\n \n-        Integer pivot = arr.get(0);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tInteger pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1689/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:45:54.256852065 -0500\n@@ -18,20 +18,23 @@\n \n         Integer pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n         lesser = quicksort(lesser);\n         greater = quicksort(greater);\n-        middle.addAll(greater);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tmiddle.addAll(greater);\n         lesser.addAll(middle);\n         return lesser;\n \n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -606,10 +605,10 @@
           "type": "InsertBefore", 
           "seed": "if (arr.isEmpty()) {\n  return new ArrayList<Integer>();\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1689/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:45:54.256852065 -0500\n@@ -18,20 +18,23 @@\n \n         Integer pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n         lesser = quicksort(lesser);\n         greater = quicksort(greater);\n-        middle.addAll(greater);\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tmiddle.addAll(greater);\n         lesser.addAll(middle);\n         return lesser;\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1485/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:44:39.436290082 -0500\n@@ -20,12 +20,12 @@\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n-        for (Integer x : arr.subList(1, arr.size())) {\n+        lesser = quicksort(lesser);\n+\t\tfor (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -625,10 +624,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1485/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:44:39.436290082 -0500\n@@ -20,12 +20,12 @@\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n-        for (Integer x : arr.subList(1, arr.size())) {\n+        lesser = quicksort(lesser);\n+\t\tfor (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_836/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:39:56.421747089 -0500\n@@ -23,9 +23,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -637,10 +636,10 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_836/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:39:56.421747089 -0500\n@@ -23,9 +23,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_580/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:39:03.412271666 -0500\n@@ -17,15 +17,17 @@\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -670,10 +669,10 @@
           "type": "Delete", 
           "seed": "if (x < pivot) {\n  lesser.add(x);\n}\n else if (x > pivot) {\n  greater.add(x);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_580/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:39:03.412271666 -0500\n@@ -17,15 +17,17 @@\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1185/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:16.911235907 -0500\n@@ -23,9 +23,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -689,10 +688,10 @@
           "type": "Delete", 
           "seed": "if (x < pivot) {\n  lesser.add(x);\n}\n else if (x > pivot) {\n  greater.add(x);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1185/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:16.911235907 -0500\n@@ -23,9 +23,8 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1212/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:22.223274694 -0500\n@@ -18,14 +18,14 @@\n \n         Integer pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -715,10 +714,10 @@
           "type": "Delete", 
           "seed": "if (x < pivot) {\n  lesser.add(x);\n}\n else if (x > pivot) {\n  greater.add(x);\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1212/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:22.223274694 -0500\n@@ -18,14 +18,14 @@\n \n         Integer pivot = arr.get(0);\n         ArrayList<Integer> lesser = new ArrayList<Integer>();\n-        ArrayList<Integer> greater = new ArrayList<Integer>();\n+        lesser = quicksort(lesser);\n+\t\tArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1642/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:45:39.104737895 -0500\n@@ -23,15 +23,15 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n         lesser = quicksort(lesser);\n         greater = quicksort(greater);\n-        middle.addAll(greater);\n+        lesser = quicksort(lesser);\n+\t\tmiddle.addAll(greater);\n         lesser.addAll(middle);\n         return lesser;\n \n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -734,10 +733,10 @@
           "type": "InsertBefore", 
           "seed": "lesser=quicksort(lesser);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1642/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:45:39.104737895 -0500\n@@ -23,15 +23,15 @@\n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n         lesser = quicksort(lesser);\n         greater = quicksort(greater);\n-        middle.addAll(greater);\n+        lesser = quicksort(lesser);\n+\t\tmiddle.addAll(greater);\n         lesser.addAll(middle);\n         return lesser;\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1231/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:31.583343150 -0500\n@@ -13,19 +13,23 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n-            return new ArrayList<Integer>();\n+            if (arr.isEmpty()) {\n+\t\t\t\treturn new ArrayList<Integer>();\n+\t\t\t}\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/QUICKSORT.java", 
@@ -760,7 +759,8 @@
           "type": "Replace", 
           "seed": "greater.add(x);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:36:30.254338040 -0500\n+++ /tmp/Arja_QuixBugs_QUICKSORT_/patches_2c2c/Patch_1231/patched/tmp/Arja_QuixBugs_QUICKSORT_/src/main/java/QUICKSORT.java\t2018-12-02 05:42:31.583343150 -0500\n@@ -13,19 +13,23 @@\n public class QUICKSORT {\n     public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {\n         if (arr.isEmpty()) {\n-            return new ArrayList<Integer>();\n+            if (arr.isEmpty()) {\n+\t\t\t\treturn new ArrayList<Integer>();\n+\t\t\t}\n         }\n \n         Integer pivot = arr.get(0);\n-        ArrayList<Integer> lesser = new ArrayList<Integer>();\n+        if (arr.isEmpty()) {\n+\t\t\treturn new ArrayList<Integer>();\n+\t\t}\n+\t\tArrayList<Integer> lesser = new ArrayList<Integer>();\n         ArrayList<Integer> greater = new ArrayList<Integer>();\n \n         for (Integer x : arr.subList(1, arr.size())) {\n             if (x < pivot) {\n                 lesser.add(x);\n-            } else if (x > pivot) {\n-                greater.add(x);\n-            }\n+            } else\n+\t\t\t\tgreater.add(x);\n         }\n         ArrayList<Integer> middle = new ArrayList<Integer>();\n         middle.add(pivot);\n\n\n"
     }
   ]
 }

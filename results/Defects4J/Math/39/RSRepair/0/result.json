@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 09:10:55.965970", 
   "patches": [
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_39/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java\t2018-12-02 03:10:43.749131167 -0500\n+++ /tmp/RSRepair_Defects4J_Math_39/patches_k55r/Patch_690/patched/tmp/RSRepair_Defects4J_Math_39/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java\t2018-12-02 04:05:08.403495773 -0500\n@@ -248,7 +248,15 @@\n \n         stepSize = hNew;\n \n-        // next stages\n+        if (!isLastStep) {\n+\t\t\tinterpolator.storeTime(stepStart);\n+\t\t\tfinal double nextT = stepStart + stepSize;\n+\t\t\tfinal boolean nextIsLast = forward ? (nextT >= t) : (nextT <= t);\n+\t\t\tif (nextIsLast) {\n+\t\t\t\tstepSize = t - stepStart;\n+\t\t\t}\n+\t\t}\n+\t\t// next stages\n         for (int k = 1; k < stages; ++k) {\n \n           for (int j = 0; j < y0.length; ++j) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java", 
@@ -12,10 +11,10 @@
           "type": "InsertBefore", 
           "seed": "if (!isLastStep) {\n  interpolator.storeTime(stepStart);\n  final double nextT=stepStart + stepSize;\n  final boolean nextIsLast=forward ? (nextT >= t) : (nextT <= t);\n  if (nextIsLast) {\n    stepSize=t - stepStart;\n  }\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_39/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java\t2018-12-02 03:10:43.749131167 -0500\n+++ /tmp/RSRepair_Defects4J_Math_39/patches_k55r/Patch_690/patched/tmp/RSRepair_Defects4J_Math_39/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java\t2018-12-02 04:05:08.403495773 -0500\n@@ -248,7 +248,15 @@\n \n         stepSize = hNew;\n \n-        // next stages\n+        if (!isLastStep) {\n+\t\t\tinterpolator.storeTime(stepStart);\n+\t\t\tfinal double nextT = stepStart + stepSize;\n+\t\t\tfinal boolean nextIsLast = forward ? (nextT >= t) : (nextT <= t);\n+\t\t\tif (nextIsLast) {\n+\t\t\t\tstepSize = t - stepStart;\n+\t\t\t}\n+\t\t}\n+\t\t// next stages\n         for (int k = 1; k < stages; ++k) {\n \n           for (int j = 0; j < y0.length; ++j) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Math_39/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java\t2018-12-02 03:10:43.749131167 -0500\n+++ /tmp/RSRepair_Defects4J_Math_39/patches_k55r/Patch_17/patched/tmp/RSRepair_Defects4J_Math_39/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java\t2018-12-02 03:27:33.233182453 -0500\n@@ -256,7 +256,11 @@\n             for (int l = 1; l < k; ++l) {\n               sum += a[k-1][l] * yDotK[l][j];\n             }\n-            yTmp[j] = y[j] + stepSize * sum;\n+            if ((forward && (stepStart + stepSize > t))\n+\t\t\t\t\t|| ((!forward) && (stepStart + stepSize < t))) {\n+\t\t\t\tstepSize = t - stepStart;\n+\t\t\t}\n+\t\t\tyTmp[j] = y[j] + stepSize * sum;\n           }\n \n           computeDerivatives(stepStart + c[k-1] * stepSize, yTmp, yDotK[k]);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java", 
@@ -24,7 +23,8 @@
           "type": "InsertBefore", 
           "seed": "if ((forward && (stepStart + stepSize > t)) || ((!forward) && (stepStart + stepSize < t))) {\n  stepSize=t - stepStart;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Math_39/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java\t2018-12-02 03:10:43.749131167 -0500\n+++ /tmp/RSRepair_Defects4J_Math_39/patches_k55r/Patch_17/patched/tmp/RSRepair_Defects4J_Math_39/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java\t2018-12-02 03:27:33.233182453 -0500\n@@ -256,7 +256,11 @@\n             for (int l = 1; l < k; ++l) {\n               sum += a[k-1][l] * yDotK[l][j];\n             }\n-            yTmp[j] = y[j] + stepSize * sum;\n+            if ((forward && (stepStart + stepSize > t))\n+\t\t\t\t\t|| ((!forward) && (stepStart + stepSize < t))) {\n+\t\t\t\tstepSize = t - stepStart;\n+\t\t\t}\n+\t\t\tyTmp[j] = y[j] + stepSize * sum;\n           }\n \n           computeDerivatives(stepStart + c[k-1] * stepSize, yTmp, yDotK[k]);\n\n\n"
     }
   ]
 }

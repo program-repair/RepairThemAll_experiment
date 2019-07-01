@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-01 13:01:23.713431", 
   "patches": [
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_717/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:49:01.005284729 -0500\n@@ -297,12 +297,8 @@\n \n     /** {@inheritDoc} */\n     public Complex reciprocal() {\n-        if (isNaN) {\n-            return NaN;\n-        }\n-\n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -19,10 +18,10 @@
           "type": "Replace", 
           "seed": "return INF;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_717/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:49:01.005284729 -0500\n@@ -297,12 +297,8 @@\n \n     /** {@inheritDoc} */\n     public Complex reciprocal() {\n-        if (isNaN) {\n-            return NaN;\n-        }\n-\n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_956/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:52:44.722451622 -0500\n@@ -297,12 +297,15 @@\n \n     /** {@inheritDoc} */\n     public Complex reciprocal() {\n-        if (isNaN) {\n+        if (real > 20.0) {\n+\t\t\treturn createComplex(1.0, 0.0);\n+\t\t}\n+\t\tif (isNaN) {\n             return NaN;\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -337,9 +340,6 @@\n      */\n     @Override\n     public boolean equals(Object other) {\n-        if (this == other) {\n-            return true;\n-        }\n         if (other instanceof Complex){\n             Complex c = (Complex)other;\n             if (c.isNaN) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -45,10 +44,10 @@
           "type": "Delete", 
           "seed": "this.imaginary=imaginary;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_956/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:52:44.722451622 -0500\n@@ -297,12 +297,15 @@\n \n     /** {@inheritDoc} */\n     public Complex reciprocal() {\n-        if (isNaN) {\n+        if (real > 20.0) {\n+\t\t\treturn createComplex(1.0, 0.0);\n+\t\t}\n+\t\tif (isNaN) {\n             return NaN;\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -337,9 +340,6 @@\n      */\n     @Override\n     public boolean equals(Object other) {\n-        if (this == other) {\n-            return true;\n-        }\n         if (other instanceof Complex){\n             Complex c = (Complex)other;\n             if (c.isNaN) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_623/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:47:38.400841467 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -337,9 +337,6 @@\n      */\n     @Override\n     public boolean equals(Object other) {\n-        if (this == other) {\n-            return true;\n-        }\n         if (other instanceof Complex){\n             Complex c = (Complex)other;\n             if (c.isNaN) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -64,10 +63,10 @@
           "type": "Delete", 
           "seed": "isNaN=Double.isNaN(real) || Double.isNaN(imaginary);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_623/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:47:38.400841467 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -337,9 +337,6 @@\n      */\n     @Override\n     public boolean equals(Object other) {\n-        if (this == other) {\n-            return true;\n-        }\n         if (other instanceof Complex){\n             Complex c = (Complex)other;\n             if (c.isNaN) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_743/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:49:23.853405979 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -340,7 +340,10 @@\n         if (this == other) {\n             return true;\n         }\n-        if (other instanceof Complex){\n+        if (this == other) {\n+\t\t\treturn true;\n+\t\t}\n+\t\tif (other instanceof Complex){\n             Complex c = (Complex)other;\n             if (c.isNaN) {\n                 return isNaN;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -83,10 +82,10 @@
           "type": "InsertBefore", 
           "seed": "if (this == other) {\n  return true;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_743/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:49:23.853405979 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -340,7 +340,10 @@\n         if (this == other) {\n             return true;\n         }\n-        if (other instanceof Complex){\n+        if (this == other) {\n+\t\t\treturn true;\n+\t\t}\n+\t\tif (other instanceof Complex){\n             Complex c = (Complex)other;\n             if (c.isNaN) {\n                 return isNaN;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_707/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:52.509239477 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -1225,7 +1225,7 @@\n     /** {@inheritDoc} */\n     @Override\n     public String toString() {\n-        return \"(\" + real + \", \" + imaginary + \")\";\n+        return null;\n     }\n \n }\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -102,10 +101,10 @@
           "type": "Replace", 
           "seed": "return null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_707/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:52.509239477 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -1225,7 +1225,7 @@\n     /** {@inheritDoc} */\n     @Override\n     public String toString() {\n-        return \"(\" + real + \", \" + imaginary + \")\";\n+        return null;\n     }\n \n }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_681/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:28.921113447 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -342,7 +342,10 @@\n         }\n         if (other instanceof Complex){\n             Complex c = (Complex)other;\n-            if (c.isNaN) {\n+            if (this == other) {\n+\t\t\t\treturn true;\n+\t\t\t}\n+\t\t\tif (c.isNaN) {\n                 return isNaN;\n             } else {\n                 return (real == c.real) && (imaginary == c.imaginary);\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -121,10 +120,10 @@
           "type": "InsertBefore", 
           "seed": "if (this == other) {\n  return true;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_681/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:28.921113447 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -342,7 +342,10 @@\n         }\n         if (other instanceof Complex){\n             Complex c = (Complex)other;\n-            if (c.isNaN) {\n+            if (this == other) {\n+\t\t\t\treturn true;\n+\t\t\t}\n+\t\t\tif (c.isNaN) {\n                 return isNaN;\n             } else {\n                 return (real == c.real) && (imaginary == c.imaginary);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_966/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:52:52.318490597 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -345,7 +345,10 @@\n             if (c.isNaN) {\n                 return isNaN;\n             } else {\n-                return (real == c.real) && (imaginary == c.imaginary);\n+                if (this == other) {\n+\t\t\t\t\treturn true;\n+\t\t\t\t}\n+\t\t\t\treturn (real == c.real) && (imaginary == c.imaginary);\n             }\n         }\n         return false;\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -140,10 +139,10 @@
           "type": "InsertBefore", 
           "seed": "if (this == other) {\n  return true;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_966/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:52:52.318490597 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -345,7 +345,10 @@\n             if (c.isNaN) {\n                 return isNaN;\n             } else {\n-                return (real == c.real) && (imaginary == c.imaginary);\n+                if (this == other) {\n+\t\t\t\t\treturn true;\n+\t\t\t\t}\n+\t\t\t\treturn (real == c.real) && (imaginary == c.imaginary);\n             }\n         }\n         return false;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_423/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:44:15.259747680 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -152,10 +151,10 @@
           "type": "Replace", 
           "seed": "return INF;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_423/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:44:15.259747680 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_670/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:20.373067629 -0500\n@@ -298,11 +298,14 @@\n     /** {@inheritDoc} */\n     public Complex reciprocal() {\n         if (isNaN) {\n+\t\t\treturn NaN;\n+\t\t}\n+\t\tif (isNaN) {\n             return NaN;\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -171,10 +170,10 @@
           "type": "Replace", 
           "seed": "return INF;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_670/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:20.373067629 -0500\n@@ -298,11 +298,14 @@\n     /** {@inheritDoc} */\n     public Complex reciprocal() {\n         if (isNaN) {\n+\t\t\treturn NaN;\n+\t\t}\n+\t\tif (isNaN) {\n             return NaN;\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_962/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:52:49.498476131 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -338,6 +338,9 @@\n     @Override\n     public boolean equals(Object other) {\n         if (this == other) {\n+\t\t\treturn true;\n+\t\t}\n+\t\tif (this == other) {\n             return true;\n         }\n         if (other instanceof Complex){\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -190,10 +189,10 @@
           "type": "InsertBefore", 
           "seed": "if (this == other) {\n  return true;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_962/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:52:49.498476131 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -338,6 +338,9 @@\n     @Override\n     public boolean equals(Object other) {\n         if (this == other) {\n+\t\t\treturn true;\n+\t\t}\n+\t\tif (this == other) {\n             return true;\n         }\n         if (other instanceof Complex){\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_507/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:45:39.068202378 -0500\n@@ -301,8 +301,11 @@\n             return NaN;\n         }\n \n-        if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+        if (imaginary < -20.0) {\n+\t\t\treturn createComplex(0.0, -1.0);\n+\t\t}\n+\t\tif (real == 0.0 && imaginary == 0.0) {\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -209,10 +208,10 @@
           "type": "Replace", 
           "seed": "return INF;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_507/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:45:39.068202378 -0500\n@@ -301,8 +301,11 @@\n             return NaN;\n         }\n \n-        if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+        if (imaginary < -20.0) {\n+\t\t\treturn createComplex(0.0, -1.0);\n+\t\t}\n+\t\tif (real == 0.0 && imaginary == 0.0) {\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_650/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:03.288975816 -0500\n@@ -301,8 +301,11 @@\n             return NaN;\n         }\n \n-        if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+        if (real > 20.0) {\n+\t\t\treturn createComplex(1.0, 0.0);\n+\t\t}\n+\t\tif (real == 0.0 && imaginary == 0.0) {\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -337,9 +340,6 @@\n      */\n     @Override\n     public boolean equals(Object other) {\n-        if (this == other) {\n-            return true;\n-        }\n         if (other instanceof Complex){\n             Complex c = (Complex)other;\n             if (c.isNaN) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -235,10 +234,10 @@
           "type": "Delete", 
           "seed": "isNaN=Double.isNaN(real) || Double.isNaN(imaginary);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_650/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:03.288975816 -0500\n@@ -301,8 +301,11 @@\n             return NaN;\n         }\n \n-        if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+        if (real > 20.0) {\n+\t\t\treturn createComplex(1.0, 0.0);\n+\t\t}\n+\t\tif (real == 0.0 && imaginary == 0.0) {\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -337,9 +340,6 @@\n      */\n     @Override\n     public boolean equals(Object other) {\n-        if (this == other) {\n-            return true;\n-        }\n         if (other instanceof Complex){\n             Complex c = (Complex)other;\n             if (c.isNaN) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_657/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:08.973006399 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -254,10 +253,10 @@
           "type": "Replace", 
           "seed": "return \"(\" + real + \", \"+ imaginary+ \")\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_657/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:08.973006399 -0500\n@@ -302,7 +302,7 @@\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_1031/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:53:52.590798629 -0500\n@@ -297,12 +297,8 @@\n \n     /** {@inheritDoc} */\n     public Complex reciprocal() {\n-        if (isNaN) {\n-            return NaN;\n-        }\n-\n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -337,9 +333,6 @@\n      */\n     @Override\n     public boolean equals(Object other) {\n-        if (this == other) {\n-            return true;\n-        }\n         if (other instanceof Complex){\n             Complex c = (Complex)other;\n             if (c.isNaN) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -280,10 +279,10 @@
           "type": "Delete", 
           "seed": "this.imaginary=imaginary;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_1031/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:53:52.590798629 -0500\n@@ -297,12 +297,8 @@\n \n     /** {@inheritDoc} */\n     public Complex reciprocal() {\n-        if (isNaN) {\n-            return NaN;\n-        }\n-\n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n@@ -337,9 +333,6 @@\n      */\n     @Override\n     public boolean equals(Object other) {\n-        if (this == other) {\n-            return true;\n-        }\n         if (other instanceof Complex){\n             Complex c = (Complex)other;\n             if (c.isNaN) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_739/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:49:21.013390957 -0500\n@@ -297,12 +297,15 @@\n \n     /** {@inheritDoc} */\n     public Complex reciprocal() {\n-        if (isNaN) {\n+        if (real > 20.0) {\n+\t\t\treturn createComplex(1.0, 0.0);\n+\t\t}\n+\t\tif (isNaN) {\n             return NaN;\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -299,10 +298,10 @@
           "type": "Replace", 
           "seed": "return INF;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_739/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:49:21.013390957 -0500\n@@ -297,12 +297,15 @@\n \n     /** {@inheritDoc} */\n     public Complex reciprocal() {\n-        if (isNaN) {\n+        if (real > 20.0) {\n+\t\t\treturn createComplex(1.0, 0.0);\n+\t\t}\n+\t\tif (isNaN) {\n             return NaN;\n         }\n \n         if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_674/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:23.261083118 -0500\n@@ -301,8 +301,11 @@\n             return NaN;\n         }\n \n-        if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+        if (real > 20.0) {\n+\t\t\treturn createComplex(1.0, 0.0);\n+\t\t}\n+\t\tif (real == 0.0 && imaginary == 0.0) {\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n", 
       "edits": [
         {
           "path": "src/main/java/org/apache/commons/math3/complex/Complex.java", 
@@ -318,7 +317,8 @@
           "type": "Replace", 
           "seed": "return INF;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:01:09.709772458 -0500\n+++ /tmp/Arja_Defects4J_Math_5/patches_22ad/Patch_674/patched/tmp/Arja_Defects4J_Math_5/src/main/java/org/apache/commons/math3/complex/Complex.java\t2018-12-01 07:48:23.261083118 -0500\n@@ -301,8 +301,11 @@\n             return NaN;\n         }\n \n-        if (real == 0.0 && imaginary == 0.0) {\n-            return NaN;\n+        if (real > 20.0) {\n+\t\t\treturn createComplex(1.0, 0.0);\n+\t\t}\n+\t\tif (real == 0.0 && imaginary == 0.0) {\n+            return INF;\n         }\n \n         if (isInfinite) {\n\n\n"
     }
   ]
 }

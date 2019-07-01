@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 08:36:09.002483", 
   "patches": [
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Lang_51/src/java/org/apache/commons/lang/BooleanUtils.java\t2018-12-02 02:36:01.593845651 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_51/patches_u76w/Patch_894/patched/tmp/RSRepair_Defects4J_Lang_51/src/java/org/apache/commons/lang/BooleanUtils.java\t2018-12-02 02:42:27.770694383 -0500\n@@ -683,10 +683,19 @@\n             case 4: {\n                 char ch = str.charAt(0);\n                 if (ch == 't') {\n-                    return \n-                        (str.charAt(1) == 'r' || str.charAt(1) == 'R') &&\n-                        (str.charAt(2) == 'u' || str.charAt(2) == 'U') &&\n-                        (str.charAt(3) == 'e' || str.charAt(3) == 'E');\n+                    if (\"true\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.TRUE;\n+\t\t\t\t\t} else if (\"false\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.FALSE;\n+\t\t\t\t\t} else if (\"on\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.TRUE;\n+\t\t\t\t\t} else if (\"off\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.FALSE;\n+\t\t\t\t\t} else if (\"yes\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.TRUE;\n+\t\t\t\t\t} else if (\"no\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.FALSE;\n+\t\t\t\t\t}\n                 }\n                 if (ch == 'T') {\n                     return \n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/BooleanUtils.java", 
@@ -12,7 +11,8 @@
           "type": "Replace", 
           "seed": "if (\"true\".equalsIgnoreCase(str)) {\n  return Boolean.TRUE;\n}\n else if (\"false\".equalsIgnoreCase(str)) {\n  return Boolean.FALSE;\n}\n else if (\"on\".equalsIgnoreCase(str)) {\n  return Boolean.TRUE;\n}\n else if (\"off\".equalsIgnoreCase(str)) {\n  return Boolean.FALSE;\n}\n else if (\"yes\".equalsIgnoreCase(str)) {\n  return Boolean.TRUE;\n}\n else if (\"no\".equalsIgnoreCase(str)) {\n  return Boolean.FALSE;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Lang_51/src/java/org/apache/commons/lang/BooleanUtils.java\t2018-12-02 02:36:01.593845651 -0500\n+++ /tmp/RSRepair_Defects4J_Lang_51/patches_u76w/Patch_894/patched/tmp/RSRepair_Defects4J_Lang_51/src/java/org/apache/commons/lang/BooleanUtils.java\t2018-12-02 02:42:27.770694383 -0500\n@@ -683,10 +683,19 @@\n             case 4: {\n                 char ch = str.charAt(0);\n                 if (ch == 't') {\n-                    return \n-                        (str.charAt(1) == 'r' || str.charAt(1) == 'R') &&\n-                        (str.charAt(2) == 'u' || str.charAt(2) == 'U') &&\n-                        (str.charAt(3) == 'e' || str.charAt(3) == 'E');\n+                    if (\"true\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.TRUE;\n+\t\t\t\t\t} else if (\"false\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.FALSE;\n+\t\t\t\t\t} else if (\"on\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.TRUE;\n+\t\t\t\t\t} else if (\"off\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.FALSE;\n+\t\t\t\t\t} else if (\"yes\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.TRUE;\n+\t\t\t\t\t} else if (\"no\".equalsIgnoreCase(str)) {\n+\t\t\t\t\t\treturn Boolean.FALSE;\n+\t\t\t\t\t}\n                 }\n                 if (ch == 'T') {\n                     return \n\n\n"
     }
   ]
 }

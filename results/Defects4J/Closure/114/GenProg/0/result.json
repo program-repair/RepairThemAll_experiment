@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 11:51:48.251742", 
   "patches": [
     {
-      "diff": "--- /tmp/GenProg_Defects4J_Closure_114/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:51:27.866763740 -0500\n+++ /tmp/GenProg_Defects4J_Closure_114/patches_5fhy/Patch_1757/patched/tmp/GenProg_Defects4J_Closure_114/src/com/google/javascript/rhino/Node.java\t2018-12-02 06:19:34.090327018 -0500\n@@ -1427,7 +1427,8 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        this.sourcePosition = sourcePosition;\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1456,7 +1457,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/rhino/Node.java", 
@@ -26,7 +25,8 @@
           "type": "InsertBefore", 
           "seed": "return null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/GenProg_Defects4J_Closure_114/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:51:27.866763740 -0500\n+++ /tmp/GenProg_Defects4J_Closure_114/patches_5fhy/Patch_1757/patched/tmp/GenProg_Defects4J_Closure_114/src/com/google/javascript/rhino/Node.java\t2018-12-02 06:19:34.090327018 -0500\n@@ -1427,7 +1427,8 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n+        this.sourcePosition = sourcePosition;\n+\t\treturn \"Node tree inequality:\" +\n             \"\\nTree1:\\n\" + toStringTree() +\n             \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n             \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n@@ -1456,7 +1457,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        return null;\n       }\n     }\n     return res;\n\n\n"
     }
   ]
 }

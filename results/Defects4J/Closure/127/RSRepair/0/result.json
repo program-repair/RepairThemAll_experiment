@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 11:17:58.656235", 
   "patches": [
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:42.950647785 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_146/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:23:35.914834286 -0500\n@@ -951,7 +951,8 @@\n       sb.append(' ');\n       sb.append(getString());\n     } else if (type == Token.FUNCTION) {\n-      sb.append(' ');\n+      String name = getString();\n+\tsb.append(' ');\n       // In the case of JsDoc trees, the first child is often not a string\n       // which causes exceptions to be thrown when calling toString or\n       // toStringTree.\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_146/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:23:35.918834334 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/ControlFlowAnalysis.java\t2018-12-02 05:17:42.938647646 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_146/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/ControlFlowAnalysis.java\t2018-12-02 05:23:35.918834334 -0500\n@@ -851,7 +851,6 @@\n             finallyMap.put(lastJump, catchBlock);\n           }\n         }\n-        lastJump = handler;\n       }\n     }\n   }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/rhino/Node.java", 
@@ -26,10 +25,10 @@
           "type": "Delete", 
           "seed": "return new DefaultCodingConvention();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:42.950647785 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_146/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:23:35.914834286 -0500\n@@ -951,7 +951,8 @@\n       sb.append(' ');\n       sb.append(getString());\n     } else if (type == Token.FUNCTION) {\n-      sb.append(' ');\n+      String name = getString();\n+\tsb.append(' ');\n       // In the case of JsDoc trees, the first child is often not a string\n       // which causes exceptions to be thrown when calling toString or\n       // toStringTree.\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_146/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:23:35.918834334 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/ControlFlowAnalysis.java\t2018-12-02 05:17:42.938647646 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_146/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/ControlFlowAnalysis.java\t2018-12-02 05:23:35.918834334 -0500\n@@ -851,7 +851,6 @@\n             finallyMap.put(lastJump, catchBlock);\n           }\n         }\n-        lastJump = handler;\n       }\n     }\n   }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_18/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:18.701909710 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -38,10 +37,10 @@
           "type": "Delete", 
           "seed": "return 0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_18/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:18.701909710 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_523/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:27:29.737619071 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -57,10 +56,10 @@
           "type": "Delete", 
           "seed": "formatConclusion();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_523/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:27:29.737619071 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_25/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:22.169951296 -0500\n@@ -167,9 +167,6 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n           }\n       }\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_25/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:22:22.169951296 -0500\n@@ -261,7 +261,7 @@\n           case CATCH:           return \"CATCH\";\n           case EMPTY:           return \"EMPTY\";\n           case BLOCK:           return \"BLOCK\";\n-          case LABEL:           return \"LABEL\";\n+          case LABEL:           ;\n           case EXPR_RESULT:     return \"EXPR_RESULT\";\n           case SCRIPT:          return \"SCRIPT\";\n           case GETTER_DEF:      return \"GETTER_DEF\";\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/rhino/Token.java", 
@@ -76,10 +75,10 @@
           "type": "Delete", 
           "seed": "this.cfg=null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_25/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:22.169951296 -0500\n@@ -167,9 +167,6 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n           }\n       }\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_25/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:22:22.169951296 -0500\n@@ -261,7 +261,7 @@\n           case CATCH:           return \"CATCH\";\n           case EMPTY:           return \"EMPTY\";\n           case BLOCK:           return \"BLOCK\";\n-          case LABEL:           return \"LABEL\";\n+          case LABEL:           ;\n           case EXPR_RESULT:     return \"EXPR_RESULT\";\n           case SCRIPT:          return \"SCRIPT\";\n           case GETTER_DEF:      return \"GETTER_DEF\";\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_52/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:38.802150659 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          final String paramName = \"jscomp_throw_param\";\n       }\n     }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -88,10 +87,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_52/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:38.802150659 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          final String paramName = \"jscomp_throw_param\";\n       }\n     }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_220/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:24:20.975372643 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -100,10 +99,10 @@
           "type": "Delete", 
           "seed": "return new DotFormatter();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_220/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:24:20.975372643 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_197/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:24:07.283209149 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -119,10 +118,10 @@
           "type": "Delete", 
           "seed": "traverseNodes(n);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_197/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:24:07.283209149 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_68/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:48.218263469 -0500\n@@ -167,9 +167,7 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n+            int type = n.getType();\n           }\n       }\n     }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -131,10 +130,10 @@
           "type": "Replace", 
           "seed": "int type=n.getType();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_68/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:48.218263469 -0500\n@@ -167,9 +167,7 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n+            int type = n.getType();\n           }\n       }\n     }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_116/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:23:17.454613481 -0500\n@@ -168,7 +168,7 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n+              int start = 0;\n             }\n           }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_116/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:23:17.454613481 -0500\n@@ -226,7 +226,7 @@\n           case INSTANCEOF:      return \"INSTANCEOF\";\n           case ARRAYLIT:        return \"ARRAYLIT\";\n           case OBJECTLIT:       return \"OBJECTLIT\";\n-          case TRY:             return \"TRY\";\n+          case TRY:             ;\n           case PARAM_LIST:      return \"PARAM_LIST\";\n           case COMMA:           return \"COMMA\";\n           case ASSIGN:          return \"ASSIGN\";\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/rhino/Token.java", 
@@ -150,10 +149,10 @@
           "type": "Replace", 
           "seed": "int start=0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_116/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:23:17.454613481 -0500\n@@ -168,7 +168,7 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n+              int start = 0;\n             }\n           }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_116/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:23:17.454613481 -0500\n@@ -226,7 +226,7 @@\n           case INSTANCEOF:      return \"INSTANCEOF\";\n           case ARRAYLIT:        return \"ARRAYLIT\";\n           case OBJECTLIT:       return \"OBJECTLIT\";\n-          case TRY:             return \"TRY\";\n+          case TRY:             ;\n           case PARAM_LIST:      return \"PARAM_LIST\";\n           case COMMA:           return \"COMMA\";\n           case ASSIGN:          return \"ASSIGN\";\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:42.950647785 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_199/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:24:07.867216123 -0500\n@@ -1454,7 +1454,6 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n       }\n     }\n     return res;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_199/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:24:07.867216123 -0500\n@@ -167,9 +167,6 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n           }\n       }\n     }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -169,10 +168,10 @@
           "type": "Delete", 
           "seed": "Preconditions.checkState(this.propListHead == null,\"Node has existing properties.\");"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:42.950647785 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_199/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:24:07.867216123 -0500\n@@ -1454,7 +1454,6 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n       }\n     }\n     return res;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_199/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:24:07.867216123 -0500\n@@ -167,9 +167,6 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n           }\n       }\n     }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_406/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:26:16.736751897 -0500\n@@ -168,7 +168,7 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n+              final String paramName = \"jscomp_throw_param\";\n             }\n           }\n       }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -181,10 +180,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_406/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:26:16.736751897 -0500\n@@ -168,7 +168,7 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n+              final String paramName = \"jscomp_throw_param\";\n             }\n           }\n       }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_5/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:09.493799266 -0500\n@@ -167,9 +167,6 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n           }\n       }\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/ControlFlowAnalysis.java\t2018-12-02 05:17:42.938647646 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_5/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/ControlFlowAnalysis.java\t2018-12-02 05:22:09.497799314 -0500\n@@ -839,7 +839,8 @@\n \n         if (!NodeUtil.hasCatchHandler(catchBlock)) { // No catch but a FINALLY.\n           if (lastJump == cfgNode) {\n-            createEdge(cfgNode, Branch.ON_EX, handler.getLastChild());\n+            int index = -1;\n+\t\t\tcreateEdge(cfgNode, Branch.ON_EX, handler.getLastChild());\n           } else {\n             finallyMap.put(lastJump, handler.getLastChild());\n           }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -200,10 +199,10 @@
           "type": "InsertBefore", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_5/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:09.493799266 -0500\n@@ -167,9 +167,6 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n           }\n       }\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/ControlFlowAnalysis.java\t2018-12-02 05:17:42.938647646 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_5/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/ControlFlowAnalysis.java\t2018-12-02 05:22:09.497799314 -0500\n@@ -839,7 +839,8 @@\n \n         if (!NodeUtil.hasCatchHandler(catchBlock)) { // No catch but a FINALLY.\n           if (lastJump == cfgNode) {\n-            createEdge(cfgNode, Branch.ON_EX, handler.getLastChild());\n+            int index = -1;\n+\t\t\tcreateEdge(cfgNode, Branch.ON_EX, handler.getLastChild());\n           } else {\n             finallyMap.put(lastJump, handler.getLastChild());\n           }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:42.950647785 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_360/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:25:47.440403336 -0500\n@@ -119,7 +119,7 @@\n         case QUOTED_PROP:        return \"quoted\";\n         case OPT_ARG_NAME:       return \"opt_arg\";\n \n-        case SYNTHETIC_BLOCK_PROP: return \"synthetic\";\n+        case SYNTHETIC_BLOCK_PROP: ;\n         case EMPTY_BLOCK:        return \"empty_block\";\n         case ORIGINALNAME_PROP:  return \"originalname\";\n         case SIDE_EFFECT_FLAGS:  return \"side_effect_flags\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_360/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:25:47.440403336 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/rhino/Node.java", 
@@ -219,10 +218,10 @@
           "type": "Delete", 
           "seed": "int start=0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:42.950647785 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_360/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:25:47.440403336 -0500\n@@ -119,7 +119,7 @@\n         case QUOTED_PROP:        return \"quoted\";\n         case OPT_ARG_NAME:       return \"opt_arg\";\n \n-        case SYNTHETIC_BLOCK_PROP: return \"synthetic\";\n+        case SYNTHETIC_BLOCK_PROP: ;\n         case EMPTY_BLOCK:        return \"empty_block\";\n         case ORIGINALNAME_PROP:  return \"originalname\";\n         case SIDE_EFFECT_FLAGS:  return \"side_effect_flags\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_360/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:25:47.440403336 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_487/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:27:07.825358976 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_487/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:27:07.829359024 -0500\n@@ -214,7 +214,7 @@\n           case NUMBER:          return \"NUMBER\";\n           case STRING:          return \"STRING\";\n           case STRING_KEY:      return \"STRING_KEY\";\n-          case NULL:            return \"NULL\";\n+          case NULL:            ;\n           case THIS:            return \"THIS\";\n           case FALSE:           return \"FALSE\";\n           case TRUE:            return \"TRUE\";\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -238,10 +237,10 @@
           "type": "Delete", 
           "seed": "return \"SUB\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_487/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:27:07.825358976 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_487/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:27:07.829359024 -0500\n@@ -214,7 +214,7 @@\n           case NUMBER:          return \"NUMBER\";\n           case STRING:          return \"STRING\";\n           case STRING_KEY:      return \"STRING_KEY\";\n-          case NULL:            return \"NULL\";\n+          case NULL:            ;\n           case THIS:            return \"THIS\";\n           case FALSE:           return \"FALSE\";\n           case TRUE:            return \"TRUE\";\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_21/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:20.313929041 -0500\n@@ -167,9 +167,6 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n           }\n       }\n     }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -250,10 +249,10 @@
           "type": "Delete", 
           "seed": "this.cfg=null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_21/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:20.313929041 -0500\n@@ -167,9 +167,6 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n           }\n       }\n     }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_326/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:25:26.312151754 -0500\n@@ -168,7 +168,7 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n+              StringBuilder builder = new StringBuilder();\n             }\n           }\n       }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -262,10 +261,10 @@
           "type": "Replace", 
           "seed": "StringBuilder builder=new StringBuilder();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_326/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:25:26.312151754 -0500\n@@ -168,7 +168,7 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n+              StringBuilder builder = new StringBuilder();\n             }\n           }\n       }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_527/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:27:31.497639955 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -281,10 +280,10 @@
           "type": "InsertBefore", 
           "seed": "return toDot(n,null);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_527/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:27:31.497639955 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:42.950647785 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_280/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:24:58.267817550 -0500\n@@ -1454,7 +1454,6 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n       }\n     }\n     return res;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_280/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:24:58.271817597 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/rhino/Node.java", 
@@ -300,10 +299,10 @@
           "type": "Delete", 
           "seed": "return this;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:42.950647785 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_280/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:24:58.267817550 -0500\n@@ -1454,7 +1454,6 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n       }\n     }\n     return res;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_280/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:24:58.271817597 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_79/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:54.462338255 -0500\n@@ -168,7 +168,7 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n+              int start = 0;\n             }\n           }\n       }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -312,10 +311,10 @@
           "type": "Replace", 
           "seed": "int start=0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_79/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:54.462338255 -0500\n@@ -168,7 +168,7 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n+              int start = 0;\n             }\n           }\n       }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_90/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:23:01.142418242 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_90/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:23:01.146418290 -0500\n@@ -261,7 +261,10 @@\n           case CATCH:           return \"CATCH\";\n           case EMPTY:           return \"EMPTY\";\n           case BLOCK:           return \"BLOCK\";\n-          case LABEL:           return \"LABEL\";\n+          case LABEL:           {\n+\t\t\t\tStringBuilder s = new StringBuilder();\n+\t\t\t\treturn \"LABEL\";\n+\t\t\t}\n           case EXPR_RESULT:     return \"EXPR_RESULT\";\n           case SCRIPT:          return \"SCRIPT\";\n           case GETTER_DEF:      return \"GETTER_DEF\";\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/rhino/Token.java", 
@@ -331,10 +330,10 @@
           "type": "Delete", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_90/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:23:01.142418242 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_90/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:23:01.146418290 -0500\n@@ -261,7 +261,10 @@\n           case CATCH:           return \"CATCH\";\n           case EMPTY:           return \"EMPTY\";\n           case BLOCK:           return \"BLOCK\";\n-          case LABEL:           return \"LABEL\";\n+          case LABEL:           {\n+\t\t\t\tStringBuilder s = new StringBuilder();\n+\t\t\t\treturn \"LABEL\";\n+\t\t\t}\n           case EXPR_RESULT:     return \"EXPR_RESULT\";\n           case SCRIPT:          return \"SCRIPT\";\n           case GETTER_DEF:      return \"GETTER_DEF\";\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_422/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:26:25.896860815 -0500\n@@ -168,7 +168,7 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n+              int type = n.getType();\n             }\n           }\n       }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -343,10 +342,10 @@
           "type": "Replace", 
           "seed": "int type=n.getType();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_422/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:26:25.896860815 -0500\n@@ -168,7 +168,7 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n+              int type = n.getType();\n             }\n           }\n       }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_472/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:26:58.689250482 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_472/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:26:58.693250530 -0500\n@@ -210,7 +210,7 @@\n           case GETELEM:         return \"GETELEM\";\n           case CALL:            return \"CALL\";\n           case NAME:            return \"NAME\";\n-          case LABEL_NAME:      return \"LABEL_NAME\";\n+          case LABEL_NAME:      ;\n           case NUMBER:          return \"NUMBER\";\n           case STRING:          return \"STRING\";\n           case STRING_KEY:      return \"STRING_KEY\";\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/rhino/Token.java", 
@@ -362,10 +361,10 @@
           "type": "Delete", 
           "seed": "formatPreamble();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_472/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:26:58.689250482 -0500\n@@ -168,7 +168,6 @@\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n             if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n             }\n           }\n       }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_472/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:26:58.693250530 -0500\n@@ -210,7 +210,7 @@\n           case GETELEM:         return \"GETELEM\";\n           case CALL:            return \"CALL\";\n           case NAME:            return \"NAME\";\n-          case LABEL_NAME:      return \"LABEL_NAME\";\n+          case LABEL_NAME:      ;\n           case NUMBER:          return \"NUMBER\";\n           case STRING:          return \"STRING\";\n           case STRING_KEY:      return \"STRING_KEY\";\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:42.950647785 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_193/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:24:05.343185977 -0500\n@@ -131,7 +131,7 @@\n         case DIRECT_EVAL:        return \"direct_eval\";\n         case FREE_CALL:          return \"free_call\";\n         case STATIC_SOURCE_FILE:    return \"source_file\";\n-        case INPUT_ID:  return \"input_id\";\n+        case INPUT_ID:  return \"EMPTY\";\n         case LENGTH:    return \"length\";\n         case SLASH_V:   return \"slash_v\";\n         case INFERRED_FUNCTION:   return \"inferred\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_193/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:24:05.347186025 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/rhino/Node.java", 
@@ -381,10 +380,10 @@
           "type": "Delete", 
           "seed": "JSType type=n.getJSType();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:17:42.950647785 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_193/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Node.java\t2018-12-02 05:24:05.343185977 -0500\n@@ -131,7 +131,7 @@\n         case DIRECT_EVAL:        return \"direct_eval\";\n         case FREE_CALL:          return \"free_call\";\n         case STATIC_SOURCE_FILE:    return \"source_file\";\n-        case INPUT_ID:  return \"input_id\";\n+        case INPUT_ID:  return \"EMPTY\";\n         case LENGTH:    return \"length\";\n         case SLASH_V:   return \"slash_v\";\n         case INFERRED_FUNCTION:   return \"inferred\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_193/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:24:05.347186025 -0500\n@@ -159,18 +159,7 @@\n           // branches to the same node. If after removing it control still\n           // branches to the same node, it is safe to remove.\n           List<DiGraphEdge<Node, Branch>> outEdges = gNode.getOutEdges();\n-          if (outEdges.size() == 1 &&\n-              // If there is a next node, this jump is not useless.\n-              (n.getNext() == null || n.getNext().isFunction())) {\n-\n-            Preconditions.checkState(\n-                outEdges.get(0).getValue() == Branch.UNCOND);\n-            Node fallThrough = computeFollowing(n);\n-            Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n-          }\n+          ;\n       }\n     }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_54/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:39.622160486 -0500\n@@ -167,9 +167,7 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n+            final String paramName = \"jscomp_throw_param\";\n           }\n       }\n     }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -393,10 +392,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_54/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:39.622160486 -0500\n@@ -167,9 +167,7 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n+            final String paramName = \"jscomp_throw_param\";\n           }\n       }\n     }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_47/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:36.098118256 -0500\n@@ -167,9 +167,6 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n           }\n       }\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_47/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:22:36.098118256 -0500\n@@ -210,7 +210,7 @@\n           case GETELEM:         return \"GETELEM\";\n           case CALL:            return \"CALL\";\n           case NAME:            return \"NAME\";\n-          case LABEL_NAME:      return \"LABEL_NAME\";\n+          case LABEL_NAME:      ;\n           case NUMBER:          return \"NUMBER\";\n           case STRING:          return \"STRING\";\n           case STRING_KEY:      return \"STRING_KEY\";\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/UnreachableCodeElimination.java", 
@@ -412,7 +411,8 @@
           "type": "Delete", 
           "seed": "lazyInitInfo();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:17:45.386676090 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_47/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/jscomp/UnreachableCodeElimination.java\t2018-12-02 05:22:36.098118256 -0500\n@@ -167,9 +167,6 @@\n                 outEdges.get(0).getValue() == Branch.UNCOND);\n             Node fallThrough = computeFollowing(n);\n             Node nextCfgNode = outEdges.get(0).getDestination().getValue();\n-            if (nextCfgNode == fallThrough) {\n-              removeNode(n);\n-            }\n           }\n       }\n     }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:17:42.954647832 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_127/patches_25dy/Patch_47/patched/tmp/RSRepair_Defects4J_Closure_127/src/com/google/javascript/rhino/Token.java\t2018-12-02 05:22:36.098118256 -0500\n@@ -210,7 +210,7 @@\n           case GETELEM:         return \"GETELEM\";\n           case CALL:            return \"CALL\";\n           case NAME:            return \"NAME\";\n-          case LABEL_NAME:      return \"LABEL_NAME\";\n+          case LABEL_NAME:      ;\n           case NUMBER:          return \"NUMBER\";\n           case STRING:          return \"STRING\";\n           case STRING_KEY:      return \"STRING_KEY\";\n\n\n"
     }
   ]
 }

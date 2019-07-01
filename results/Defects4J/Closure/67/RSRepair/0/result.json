@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 14:29:17.556922", 
   "patches": [
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_281/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:36:23.319015681 -0500\n@@ -81,27 +81,7 @@\n     boolean changed = false;\n     for (NameInfo nameInfo : allNameInfo) {\n       if (!nameInfo.isReferenced()) {\n-        for (Symbol declaration : nameInfo.getDeclarations()) {\n-          boolean canRemove = false;\n-\n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n-        }\n+        int start = 0;\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n       }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -12,10 +11,10 @@
           "type": "Replace", 
           "seed": "int start=0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_281/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:36:23.319015681 -0500\n@@ -81,27 +81,7 @@\n     boolean changed = false;\n     for (NameInfo nameInfo : allNameInfo) {\n       if (!nameInfo.isReferenced()) {\n-        for (Symbol declaration : nameInfo.getDeclarations()) {\n-          boolean canRemove = false;\n-\n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n-        }\n+        int start = 0;\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n       }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_51/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:34:04.562541164 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          boolean valid = false;\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -24,10 +23,10 @@
           "type": "Replace", 
           "seed": "boolean valid=false;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_51/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:34:04.562541164 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          boolean valid = false;\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_82/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:34:22.314605913 -0500\n@@ -96,11 +96,6 @@\n               canRemove = true;\n             }\n           }\n-\n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -36,10 +35,10 @@
           "type": "Delete", 
           "seed": "return null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_82/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:34:22.314605913 -0500\n@@ -96,11 +96,6 @@\n               canRemove = true;\n             }\n           }\n-\n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_363/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:37:13.187171985 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          int index = -1;\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -48,10 +47,10 @@
           "type": "Replace", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_363/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:37:13.187171985 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          int index = -1;\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_250/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:36:03.566952007 -0500\n@@ -85,7 +85,7 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n+            int index = -1;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -60,10 +59,10 @@
           "type": "Replace", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_250/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:36:03.566952007 -0500\n@@ -85,7 +85,7 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n+            int index = -1;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:29:01.589227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_588/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:39:32.115581563 -0500\n@@ -1424,7 +1424,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        Context cx = Context.getCurrentContext();\n       }\n     }\n     return res;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_588/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:39:32.115581563 -0500\n@@ -85,7 +85,6 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -79,10 +78,10 @@
           "type": "Replace", 
           "seed": "Context cx=Context.getCurrentContext();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:29:01.589227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_588/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:39:32.115581563 -0500\n@@ -1424,7 +1424,7 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        Context cx = Context.getCurrentContext();\n       }\n     }\n     return res;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_588/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:39:32.115581563 -0500\n@@ -85,7 +85,6 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_66/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:34:13.378573494 -0500\n@@ -81,27 +81,7 @@\n     boolean changed = false;\n     for (NameInfo nameInfo : allNameInfo) {\n       if (!nameInfo.isReferenced()) {\n-        for (Symbol declaration : nameInfo.getDeclarations()) {\n-          boolean canRemove = false;\n-\n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n-        }\n+        boolean valid = false;\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n       }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -91,10 +90,10 @@
           "type": "Replace", 
           "seed": "boolean valid=false;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_66/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:34:13.378573494 -0500\n@@ -81,27 +81,7 @@\n     boolean changed = false;\n     for (NameInfo nameInfo : allNameInfo) {\n       if (!nameInfo.isReferenced()) {\n-        for (Symbol declaration : nameInfo.getDeclarations()) {\n-          boolean canRemove = false;\n-\n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n-        }\n+        boolean valid = false;\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n       }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_605/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:39:42.379610661 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          break;\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -103,10 +102,10 @@
           "type": "Replace", 
           "seed": "break;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_605/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:39:42.379610661 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          break;\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_29/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:33:51.246491653 -0500\n@@ -85,7 +85,6 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -115,10 +114,10 @@
           "type": "Delete", 
           "seed": "formatConclusion();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_29/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:33:51.246491653 -0500\n@@ -85,7 +85,6 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_409/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:37:41.251257480 -0500\n@@ -84,18 +84,7 @@\n         for (Symbol declaration : nameInfo.getDeclarations()) {\n           boolean canRemove = false;\n \n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n+          boolean valid = false;\n \n           if (canRemove) {\n             declaration.remove();\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -127,10 +126,10 @@
           "type": "Replace", 
           "seed": "boolean valid=false;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_409/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:37:41.251257480 -0500\n@@ -84,18 +84,7 @@\n         for (Symbol declaration : nameInfo.getDeclarations()) {\n           boolean canRemove = false;\n \n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n+          boolean valid = false;\n \n           if (canRemove) {\n             declaration.remove();\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_220/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:35:45.278892056 -0500\n@@ -84,18 +84,7 @@\n         for (Symbol declaration : nameInfo.getDeclarations()) {\n           boolean canRemove = false;\n \n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n+          int index = -1;\n \n           if (canRemove) {\n             declaration.remove();\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -139,10 +138,10 @@
           "type": "Replace", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_220/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:35:45.278892056 -0500\n@@ -84,18 +84,7 @@\n         for (Symbol declaration : nameInfo.getDeclarations()) {\n           boolean canRemove = false;\n \n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n+          int index = -1;\n \n           if (canRemove) {\n             declaration.remove();\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_75/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:34:18.318591459 -0500\n@@ -81,28 +81,6 @@\n     boolean changed = false;\n     for (NameInfo nameInfo : allNameInfo) {\n       if (!nameInfo.isReferenced()) {\n-        for (Symbol declaration : nameInfo.getDeclarations()) {\n-          boolean canRemove = false;\n-\n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n-        }\n-\n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n       }\n     }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -151,10 +150,10 @@
           "type": "Delete", 
           "seed": "int start=0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_75/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:34:18.318591459 -0500\n@@ -81,28 +81,6 @@\n     boolean changed = false;\n     for (NameInfo nameInfo : allNameInfo) {\n       if (!nameInfo.isReferenced()) {\n-        for (Symbol declaration : nameInfo.getDeclarations()) {\n-          boolean canRemove = false;\n-\n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n-        }\n-\n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n       }\n     }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_711/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:40:47.103791385 -0500\n@@ -81,27 +81,7 @@\n     boolean changed = false;\n     for (NameInfo nameInfo : allNameInfo) {\n       if (!nameInfo.isReferenced()) {\n-        for (Symbol declaration : nameInfo.getDeclarations()) {\n-          boolean canRemove = false;\n-\n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n-        }\n+        StringBuilder builder = new StringBuilder();\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n       }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -163,10 +162,10 @@
           "type": "Replace", 
           "seed": "StringBuilder builder=new StringBuilder();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_711/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:40:47.103791385 -0500\n@@ -81,27 +81,7 @@\n     boolean changed = false;\n     for (NameInfo nameInfo : allNameInfo) {\n       if (!nameInfo.isReferenced()) {\n-        for (Symbol declaration : nameInfo.getDeclarations()) {\n-          boolean canRemove = false;\n-\n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n-        }\n+        StringBuilder builder = new StringBuilder();\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n       }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_173/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:35:17.994800669 -0500\n@@ -84,19 +84,6 @@\n         for (Symbol declaration : nameInfo.getDeclarations()) {\n           boolean canRemove = false;\n \n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n           if (canRemove) {\n             declaration.remove();\n             changed = true;\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -175,10 +174,10 @@
           "type": "Delete", 
           "seed": "return;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_173/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:35:17.994800669 -0500\n@@ -84,19 +84,6 @@\n         for (Symbol declaration : nameInfo.getDeclarations()) {\n           boolean canRemove = false;\n \n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n           if (canRemove) {\n             declaration.remove();\n             changed = true;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_690/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:40:34.471756458 -0500\n@@ -85,7 +85,7 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n+            return;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n@@ -98,7 +98,6 @@\n           }\n \n           if (canRemove) {\n-            declaration.remove();\n             changed = true;\n           }\n         }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -194,10 +193,10 @@
           "type": "Delete", 
           "seed": "return this;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_690/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:40:34.471756458 -0500\n@@ -85,7 +85,7 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n+            return;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n@@ -98,7 +98,6 @@\n           }\n \n           if (canRemove) {\n-            declaration.remove();\n             changed = true;\n           }\n         }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_315/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:36:44.011081270 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          StringBuilder builder = new StringBuilder();\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -206,10 +205,10 @@
           "type": "Replace", 
           "seed": "StringBuilder builder=new StringBuilder();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_315/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:36:44.011081270 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          StringBuilder builder = new StringBuilder();\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java\t2018-12-02 08:29:03.301227328 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_211/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java\t2018-12-02 08:35:40.402875900 -0500\n@@ -532,7 +532,6 @@\n \n     @Override\n     public void remove() {\n-      NodeUtil.removeChild(exprNode.getParent(), exprNode);\n     }\n \n     @Override\n\n\n--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:29:01.589227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_211/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:35:40.406875913 -0500\n@@ -1424,7 +1424,8 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        int[] keys = getSortedPropTypes();\n+\t\treturn res;\n       }\n     }\n     return res;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_211/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:35:40.406875913 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          int start = 0;\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -232,10 +231,10 @@
           "type": "InsertBefore", 
           "seed": "int[] keys=getSortedPropTypes();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java\t2018-12-02 08:29:03.301227328 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_211/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java\t2018-12-02 08:35:40.402875900 -0500\n@@ -532,7 +532,6 @@\n \n     @Override\n     public void remove() {\n-      NodeUtil.removeChild(exprNode.getParent(), exprNode);\n     }\n \n     @Override\n\n\n--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:29:01.589227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_211/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:35:40.406875913 -0500\n@@ -1424,7 +1424,8 @@\n       }\n       res = n.checkTreeEqualsImpl(n2);\n       if (res != null) {\n-        return res;\n+        int[] keys = getSortedPropTypes();\n+\t\treturn res;\n       }\n     }\n     return res;\n\n\n--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_211/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:35:40.406875913 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          int start = 0;\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:29:01.589227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_160/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:35:10.790776123 -0500\n@@ -1382,11 +1382,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return toString(true, true, true);\n       }\n       return null;\n   }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_160/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:35:10.794776136 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          break;\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -251,10 +250,10 @@
           "type": "Replace", 
           "seed": "return toString(true,true,true);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:29:01.589227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_160/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Node.java\t2018-12-02 08:35:10.790776123 -0500\n@@ -1382,11 +1382,7 @@\n   public String checkTreeEquals(Node node2) {\n       NodeMismatch diff = checkTreeEqualsImpl(node2);\n       if (diff != null) {\n-        return \"Node tree inequality:\" +\n-            \"\\nTree1:\\n\" + toStringTree() +\n-            \"\\n\\nTree2:\\n\" + node2.toStringTree() +\n-            \"\\n\\nSubtree1: \" + diff.nodeA.toStringTree() +\n-            \"\\n\\nSubtree2: \" + diff.nodeB.toStringTree();\n+        return toString(true, true, true);\n       }\n       return null;\n   }\n\n\n--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_160/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:35:10.794776136 -0500\n@@ -97,10 +97,7 @@\n             }\n           }\n \n-          if (canRemove) {\n-            declaration.remove();\n-            changed = true;\n-          }\n+          break;\n         }\n \n         logger.fine(\"Removed unused prototype property: \" + nameInfo.name);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_17/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:33:43.070460832 -0500\n@@ -85,7 +85,7 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n+            break;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -263,10 +262,10 @@
           "type": "Replace", 
           "seed": "break;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_17/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:33:43.070460832 -0500\n@@ -85,7 +85,7 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n+            break;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_510/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:38:44.487444697 -0500\n@@ -85,7 +85,7 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n+            return;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -275,10 +274,10 @@
           "type": "Replace", 
           "seed": "return;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_510/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:38:44.487444697 -0500\n@@ -85,7 +85,7 @@\n           boolean canRemove = false;\n \n           if (specializationState == null) {\n-            canRemove = true;\n+            return;\n           } else {\n             Node specializableFunction =\n               getSpecializableFunctionFromSymbol(declaration);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Token.java\t2018-12-02 08:29:01.593227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_180/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Token.java\t2018-12-02 08:35:21.602812894 -0500\n@@ -307,7 +307,7 @@\n           case TYPEOF:          return \"TYPEOF\";\n           case GETPROP:         return \"GETPROP\";\n           case SETPROP:         return \"SETPROP\";\n-          case GETELEM:         return \"GETELEM\";\n+          case GETELEM:         ;\n           case SETELEM:         return \"SETELEM\";\n           case CALL:            return \"CALL\";\n           case NAME:            return \"NAME\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_180/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:35:21.602812894 -0500\n@@ -84,21 +84,7 @@\n         for (Symbol declaration : nameInfo.getDeclarations()) {\n           boolean canRemove = false;\n \n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n           if (canRemove) {\n-            declaration.remove();\n             changed = true;\n           }\n         }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java", 
@@ -301,7 +300,8 @@
           "type": "Delete", 
           "seed": "int tt=peekToken();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Token.java\t2018-12-02 08:29:01.593227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_180/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/rhino/Token.java\t2018-12-02 08:35:21.602812894 -0500\n@@ -307,7 +307,7 @@\n           case TYPEOF:          return \"TYPEOF\";\n           case GETPROP:         return \"GETPROP\";\n           case SETPROP:         return \"SETPROP\";\n-          case GETELEM:         return \"GETELEM\";\n+          case GETELEM:         ;\n           case SETELEM:         return \"SETELEM\";\n           case CALL:            return \"CALL\";\n           case NAME:            return \"NAME\";\n\n\n--- /tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:29:01.569227355 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_67/patches_z92j/Patch_180/patched/tmp/RSRepair_Defects4J_Closure_67/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java\t2018-12-02 08:35:21.602812894 -0500\n@@ -84,21 +84,7 @@\n         for (Symbol declaration : nameInfo.getDeclarations()) {\n           boolean canRemove = false;\n \n-          if (specializationState == null) {\n-            canRemove = true;\n-          } else {\n-            Node specializableFunction =\n-              getSpecializableFunctionFromSymbol(declaration);\n-\n-            if (specializableFunction != null) {\n-              specializationState.reportRemovedFunction(\n-                  specializableFunction, null);\n-              canRemove = true;\n-            }\n-          }\n-\n           if (canRemove) {\n-            declaration.remove();\n             changed = true;\n           }\n         }\n\n\n"
     }
   ]
 }

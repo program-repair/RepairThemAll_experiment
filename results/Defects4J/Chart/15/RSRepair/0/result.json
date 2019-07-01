@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 10:33:40.296766", 
   "patches": [
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Chart_15/source/org/jfree/chart/plot/PiePlot3D.java\t2018-12-02 04:33:25.133932501 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_15/patches_rh23/Patch_106/patched/tmp/RSRepair_Defects4J_Chart_15/source/org/jfree/chart/plot/PiePlot3D.java\t2018-12-02 04:37:29.454335645 -0500\n@@ -236,8 +236,6 @@\n             info.setDataArea(plotArea);\n         }\n \n-        drawBackground(g2, plotArea);\n-\n         Shape savedClip = g2.getClip();\n         g2.clip(plotArea);\n \n@@ -247,9 +245,16 @@\n         if (getLabelGenerator() != null) {\n             labelPercent = getLabelGap() + getMaximumLabelWidth();   \n         }\n-        double gapHorizontal = plotArea.getWidth() * (gapPercent \n+        Rectangle2D[] r = new Rectangle2D[] { null, null, null, null };\n+\t\tdouble gapHorizontal = plotArea.getWidth() * (gapPercent \n                 + labelPercent) * 2.0;\n-        double gapVertical = plotArea.getHeight() * gapPercent * 2.0;\n+        if (DatasetUtilities.isEmptyOrNull(getDataset())) {\n+\t\t\tdrawNoDataMessage(g2, plotArea);\n+\t\t\tg2.setClip(savedClip);\n+\t\t\tdrawOutline(g2, plotArea);\n+\t\t\treturn;\n+\t\t}\n+\t\tdouble gapVertical = plotArea.getHeight() * gapPercent * 2.0;\n \n         if (DEBUG_DRAW_INTERIOR) {\n             double hGap = plotArea.getWidth() * getInteriorGap();\n\n\n", 
       "edits": [
         {
           "path": "source/org/jfree/chart/plot/PiePlot3D.java", 
@@ -26,7 +25,8 @@
           "type": "InsertBefore", 
           "seed": "if (DatasetUtilities.isEmptyOrNull(getDataset())) {\n  drawNoDataMessage(g2,plotArea);\n  g2.setClip(savedClip);\n  drawOutline(g2,plotArea);\n  return;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Chart_15/source/org/jfree/chart/plot/PiePlot3D.java\t2018-12-02 04:33:25.133932501 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_15/patches_rh23/Patch_106/patched/tmp/RSRepair_Defects4J_Chart_15/source/org/jfree/chart/plot/PiePlot3D.java\t2018-12-02 04:37:29.454335645 -0500\n@@ -236,8 +236,6 @@\n             info.setDataArea(plotArea);\n         }\n \n-        drawBackground(g2, plotArea);\n-\n         Shape savedClip = g2.getClip();\n         g2.clip(plotArea);\n \n@@ -247,9 +245,16 @@\n         if (getLabelGenerator() != null) {\n             labelPercent = getLabelGap() + getMaximumLabelWidth();   \n         }\n-        double gapHorizontal = plotArea.getWidth() * (gapPercent \n+        Rectangle2D[] r = new Rectangle2D[] { null, null, null, null };\n+\t\tdouble gapHorizontal = plotArea.getWidth() * (gapPercent \n                 + labelPercent) * 2.0;\n-        double gapVertical = plotArea.getHeight() * gapPercent * 2.0;\n+        if (DatasetUtilities.isEmptyOrNull(getDataset())) {\n+\t\t\tdrawNoDataMessage(g2, plotArea);\n+\t\t\tg2.setClip(savedClip);\n+\t\t\tdrawOutline(g2, plotArea);\n+\t\t\treturn;\n+\t\t}\n+\t\tdouble gapVertical = plotArea.getHeight() * gapPercent * 2.0;\n \n         if (DEBUG_DRAW_INTERIOR) {\n             double hGap = plotArea.getWidth() * getInteriorGap();\n\n\n"
     }
   ]
 }

@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 11:24:20.560527", 
   "patches": [
     {
-      "diff": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,6 +17,14 @@\n         while (true) {\n-            if (hare.getSuccessor() == null)\n+            if (hare == null) {\n+                if ( node.getSuccessor() == null)\n                 return false;\n+            } else {\n+                if (hare.getSuccessor() == null)\n+                return false;\n+            }\n \n             tortoise = tortoise.getSuccessor();\n+            if (hare == null) {\n+                return Boolean.FALSE;\n+            }\n             hare = hare.getSuccessor().getSuccessor();\n", 
       "locations": [
         {
           "executionCount": 0, 
@@ -19,10 +18,10 @@
           "sourceStart": 353, 
           "sourceEnd": 356
         }
-      ]
+      ], 
+      "patch": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,6 +17,14 @@\n         while (true) {\n-            if (hare.getSuccessor() == null)\n+            if (hare == null) {\n+                if ( node.getSuccessor() == null)\n                 return false;\n+            } else {\n+                if (hare.getSuccessor() == null)\n+                return false;\n+            }\n \n             tortoise = tortoise.getSuccessor();\n+            if (hare == null) {\n+                return Boolean.FALSE;\n+            }\n             hare = hare.getSuccessor().getSuccessor();\n"
     }, 
     {
-      "diff": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,6 +17,14 @@\n         while (true) {\n-            if (hare.getSuccessor() == null)\n+            if (hare == null) {\n+                if ( node.getSuccessor() == null)\n                 return false;\n+            } else {\n+                if (hare.getSuccessor() == null)\n+                return false;\n+            }\n \n             tortoise = tortoise.getSuccessor();\n+            if (hare == null) {\n+                return false;\n+            }\n             hare = hare.getSuccessor().getSuccessor();\n", 
       "locations": [
         {
           "executionCount": 0, 
@@ -38,10 +37,10 @@
           "sourceStart": 353, 
           "sourceEnd": 356
         }
-      ]
+      ], 
+      "patch": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,6 +17,14 @@\n         while (true) {\n-            if (hare.getSuccessor() == null)\n+            if (hare == null) {\n+                if ( node.getSuccessor() == null)\n                 return false;\n+            } else {\n+                if (hare.getSuccessor() == null)\n+                return false;\n+            }\n \n             tortoise = tortoise.getSuccessor();\n+            if (hare == null) {\n+                return false;\n+            }\n             hare = hare.getSuccessor().getSuccessor();\n"
     }, 
     {
-      "diff": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,4 +17,9 @@\n         while (true) {\n-            if (hare.getSuccessor() == null)\n+            if (hare == null) {\n+                if ( tortoise.getSuccessor() == null)\n                 return false;\n+            } else {\n+                if (hare.getSuccessor() == null)\n+                return false;\n+            }\n \n", 
       "locations": [
         {
           "executionCount": 0, 
@@ -50,10 +49,10 @@
           "sourceStart": 353, 
           "sourceEnd": 356
         }
-      ]
+      ], 
+      "patch": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,4 +17,9 @@\n         while (true) {\n-            if (hare.getSuccessor() == null)\n+            if (hare == null) {\n+                if ( tortoise.getSuccessor() == null)\n                 return false;\n+            } else {\n+                if (hare.getSuccessor() == null)\n+                return false;\n+            }\n \n"
     }, 
     {
-      "diff": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,2 +17,5 @@\n         while (true) {\n+            if (hare == null) {\n+                hare = tortoise;\n+            }\n             if (hare.getSuccessor() == null)\n", 
       "locations": [
         {
           "executionCount": 0, 
@@ -62,10 +61,10 @@
           "sourceStart": 353, 
           "sourceEnd": 356
         }
-      ]
+      ], 
+      "patch": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,2 +17,5 @@\n         while (true) {\n+            if (hare == null) {\n+                hare = tortoise;\n+            }\n             if (hare.getSuccessor() == null)\n"
     }, 
     {
-      "diff": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,4 +17,9 @@\n         while (true) {\n-            if (hare.getSuccessor() == null)\n+            if (hare == null) {\n+                if ( new Node().getSuccessor() == null)\n                 return false;\n+            } else {\n+                if (hare.getSuccessor() == null)\n+                return false;\n+            }\n \n", 
       "locations": [
         {
           "executionCount": 0, 
@@ -74,10 +73,10 @@
           "sourceStart": 353, 
           "sourceEnd": 356
         }
-      ]
+      ], 
+      "patch": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,4 +17,9 @@\n         while (true) {\n-            if (hare.getSuccessor() == null)\n+            if (hare == null) {\n+                if ( new Node().getSuccessor() == null)\n                 return false;\n+            } else {\n+                if (hare.getSuccessor() == null)\n+                return false;\n+            }\n \n"
     }, 
     {
-      "diff": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,2 +17,5 @@\n         while (true) {\n+            if (hare == null) {\n+                hare = new Node();\n+            }\n             if (hare.getSuccessor() == null)\n", 
       "locations": [
         {
           "executionCount": 0, 
@@ -86,10 +85,10 @@
           "sourceStart": 353, 
           "sourceEnd": 356
         }
-      ]
+      ], 
+      "patch": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,2 +17,5 @@\n         while (true) {\n+            if (hare == null) {\n+                hare = new Node();\n+            }\n             if (hare.getSuccessor() == null)\n"
     }, 
     {
-      "diff": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,2 +17,5 @@\n         while (true) {\n+            if (hare == null) {\n+                return Boolean.FALSE;\n+            }\n             if (hare.getSuccessor() == null)\n", 
       "locations": [
         {
           "executionCount": 0, 
@@ -98,10 +97,10 @@
           "sourceStart": 353, 
           "sourceEnd": 356
         }
-      ]
+      ], 
+      "patch": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,2 +17,5 @@\n         while (true) {\n+            if (hare == null) {\n+                return Boolean.FALSE;\n+            }\n             if (hare.getSuccessor() == null)\n"
     }, 
     {
-      "diff": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,2 +17,5 @@\n         while (true) {\n+            if (hare == null) {\n+                return false;\n+            }\n             if (hare.getSuccessor() == null)\n", 
       "locations": [
         {
           "executionCount": 0, 
@@ -110,7 +109,8 @@
           "sourceStart": 353, 
           "sourceEnd": 356
         }
-      ]
+      ], 
+      "patch": "--- /DETECT_CYCLE.java\n+++ /DETECT_CYCLE.java\n@@ -17,2 +17,5 @@\n         while (true) {\n+            if (hare == null) {\n+                return false;\n+            }\n             if (hare.getSuccessor() == null)\n"
     }
   ]
 }

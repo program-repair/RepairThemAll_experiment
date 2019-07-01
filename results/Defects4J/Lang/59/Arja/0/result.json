@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 11:40:07.241099", 
   "patches": [
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1767/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:50:30.016866567 -0500\n@@ -876,7 +876,8 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        ensureCapacity(size + 4);\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -12,10 +11,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 4);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1767/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:50:30.016866567 -0500\n@@ -876,7 +876,8 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        ensureCapacity(size + 4);\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_801/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:38.121643555 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -38,10 +37,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_801/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:38.121643555 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_262/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:56.093271814 -0500\n@@ -877,11 +877,16 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                if (str == null) {\n+\t\t\t\t\tstr = nullText;\n+\t\t\t\t}\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -64,10 +63,10 @@
           "type": "InsertBefore", 
           "seed": "if (str == null) {\n  str=nullText;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_262/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:56.093271814 -0500\n@@ -877,11 +877,16 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                if (str == null) {\n+\t\t\t\t\tstr = nullText;\n+\t\t\t\t}\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_600/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:36.872917663 -0500\n@@ -877,7 +877,7 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -76,10 +75,10 @@
           "type": "Replace", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_600/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:36.872917663 -0500\n@@ -877,7 +877,7 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1332/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:19.395459841 -0500\n@@ -877,11 +877,14 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.newLine = newLine;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -102,10 +101,10 @@
           "type": "InsertBefore", 
           "seed": "this.newLine=newLine;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1332/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:19.395459841 -0500\n@@ -877,11 +877,14 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.newLine = newLine;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1271/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:01.423262622 -0500\n@@ -877,11 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -128,10 +127,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1271/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:01.423262622 -0500\n@@ -877,11 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_160/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:25.717271121 -0500\n@@ -879,8 +879,9 @@\n         if (width > 0) {\n             ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n-            if (strLen >= width) {\n+            int strLen = (str == null ? 0 : str.length());\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -147,10 +146,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_160/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:25.717271121 -0500\n@@ -879,8 +879,9 @@\n         if (width > 0) {\n             ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n-            if (strLen >= width) {\n+            int strLen = (str == null ? 0 : str.length());\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_413/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:41.750600936 -0500\n@@ -877,9 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -166,10 +165,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_413/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:41.750600936 -0500\n@@ -877,9 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1036/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:46:50.182469292 -0500\n@@ -877,9 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -185,10 +184,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1036/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:46:50.182469292 -0500\n@@ -877,9 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1084/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:04.346628644 -0500\n@@ -878,8 +878,10 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            this.nullText = nullText;\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -204,10 +203,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1084/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:04.346628644 -0500\n@@ -878,8 +878,10 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            this.nullText = nullText;\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1444/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:53.011826049 -0500\n@@ -876,9 +876,16 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tif (width > 0) {\n+            this.newLine = newLine;\n+\t\t\tensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -230,10 +229,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 4);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1444/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:53.011826049 -0500\n@@ -876,9 +876,16 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tif (width > 0) {\n+            this.newLine = newLine;\n+\t\t\tensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_449/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:51.583275175 -0500\n@@ -877,8 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            if (nullText != null && nullText.length() == 0) {\n+\t\t\t\tnullText = null;\n+\t\t\t}\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -249,10 +248,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_449/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:51.583275175 -0500\n@@ -877,8 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            if (nullText != null && nullText.length() == 0) {\n+\t\t\t\tnullText = null;\n+\t\t\t}\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_62/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:41:56.137270446 -0500\n@@ -877,10 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -268,10 +267,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_62/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:41:56.137270446 -0500\n@@ -877,10 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1648/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:53.840481008 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            nullText = null;\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -287,10 +286,10 @@
           "type": "InsertBefore", 
           "seed": "nullText=null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1648/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:53.840481008 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            nullText = null;\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_356/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:24.593272465 -0500\n@@ -877,8 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -306,10 +305,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_356/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:24.593272465 -0500\n@@ -877,8 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_699/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:07.129279406 -0500\n@@ -877,7 +877,8 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -318,10 +317,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_699/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:07.129279406 -0500\n@@ -877,7 +877,8 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_323/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:14.961272245 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 1);\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -337,10 +336,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 1);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_323/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:14.961272245 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 1);\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_168/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:27.341271158 -0500\n@@ -880,7 +880,8 @@\n             ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -349,10 +348,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_168/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:27.341271158 -0500\n@@ -880,7 +880,8 @@\n             ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_714/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:11.541331621 -0500\n@@ -878,10 +878,19 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n+\t\t\t} else {\n+\t\t\t\tint padLen = width - strLen;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n+\t\t\t\tfor (int i = 0; i < padLen; i++) {\n+\t\t\t\t\tbuffer[size + strLen + i] = padChar;\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tif (strLen >= width) {\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -375,10 +374,10 @@
           "type": "Delete", 
           "seed": "if (obj == null) {\n  return null;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_714/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:11.541331621 -0500\n@@ -878,10 +878,19 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n+\t\t\t} else {\n+\t\t\t\tint padLen = width - strLen;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n+\t\t\t\tfor (int i = 0; i < padLen; i++) {\n+\t\t\t\t\tbuffer[size + strLen + i] = padChar;\n+\t\t\t\t}\n+\t\t\t}\n+\t\t\tif (strLen >= width) {\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_634/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:47.273042768 -0500\n@@ -877,11 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -394,10 +393,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_634/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:47.273042768 -0500\n@@ -877,11 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_558/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:23.884604285 -0500\n@@ -877,9 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -420,10 +419,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_558/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:23.884604285 -0500\n@@ -877,9 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1472/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:01.235915147 -0500\n@@ -877,9 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -439,10 +438,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1472/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:01.235915147 -0500\n@@ -877,9 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1757/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:50:27.520840048 -0500\n@@ -877,8 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 1);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -458,10 +457,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1757/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:50:27.520840048 -0500\n@@ -877,8 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 1);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_475/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:59.167687031 -0500\n@@ -878,9 +878,11 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -477,10 +476,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_475/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:59.167687031 -0500\n@@ -878,9 +878,11 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1660/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:57.332518343 -0500\n@@ -877,11 +877,14 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -503,10 +502,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1660/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:57.332518343 -0500\n@@ -877,11 +877,14 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_351/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:23.301272435 -0500\n@@ -877,10 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 1);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n-            if (strLen >= width) {\n+            int strLen = (str == null ? 0 : str.length());\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -529,10 +528,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_351/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:23.301272435 -0500\n@@ -877,10 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 1);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n-            if (strLen >= width) {\n+            int strLen = (str == null ? 0 : str.length());\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_19/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:41:41.881270121 -0500\n@@ -878,7 +878,8 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -541,10 +540,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_19/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:41:41.881270121 -0500\n@@ -878,7 +878,8 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_127/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:16.669270915 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -567,10 +566,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_127/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:16.669270915 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_199/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:37.041271380 -0500\n@@ -878,10 +878,12 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -586,10 +585,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_199/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:37.041271380 -0500\n@@ -878,10 +878,12 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_8/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:41:38.085270034 -0500\n@@ -877,7 +877,8 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -598,10 +597,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_8/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:41:38.085270034 -0500\n@@ -877,7 +877,8 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_165/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:26.701271144 -0500\n@@ -878,7 +878,8 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -610,10 +609,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 4);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_165/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:26.701271144 -0500\n@@ -878,7 +878,8 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_236/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:48.325271637 -0500\n@@ -877,9 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            this.newLine = newLine;\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -636,10 +635,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_236/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:48.325271637 -0500\n@@ -877,9 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            this.newLine = newLine;\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1636/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:50.708447499 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -662,10 +661,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1636/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:50.708447499 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_153/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:23.805271078 -0500\n@@ -877,8 +877,8 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -681,10 +680,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_153/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:23.805271078 -0500\n@@ -877,8 +877,8 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_536/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:17.208404545 -0500\n@@ -877,7 +877,7 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -693,10 +692,10 @@
           "type": "Replace", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_536/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:17.208404545 -0500\n@@ -877,7 +877,7 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1639/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:51.336454220 -0500\n@@ -876,9 +876,15 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -712,10 +711,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1639/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:51.336454220 -0500\n@@ -876,9 +876,15 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_533/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:16.540383207 -0500\n@@ -877,10 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -731,10 +730,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_533/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:16.540383207 -0500\n@@ -877,10 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1581/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:34.608274899 -0500\n@@ -877,11 +877,15 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                if (str == null) {\n+\t\t\t\t\tstr = nullText;\n+\t\t\t\t}\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -757,10 +756,10 @@
           "type": "InsertBefore", 
           "seed": "if (str == null) {\n  str=nullText;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1581/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:34.608274899 -0500\n@@ -877,11 +877,15 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                if (str == null) {\n+\t\t\t\t\tstr = nullText;\n+\t\t\t\t}\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1433/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:49.891792198 -0500\n@@ -877,8 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -776,10 +775,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1433/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:49.891792198 -0500\n@@ -877,8 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_460/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:54.739456430 -0500\n@@ -877,9 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -795,10 +794,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_460/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:54.739456430 -0500\n@@ -877,9 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1127/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:16.962769864 -0500\n@@ -877,11 +877,14 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -821,10 +820,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1127/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:16.962769864 -0500\n@@ -877,11 +877,14 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1319/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:15.939421998 -0500\n@@ -876,9 +876,11 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        size = 0;\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -840,10 +839,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1319/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:15.939421998 -0500\n@@ -876,9 +876,11 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        size = 0;\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_374/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:29.681478105 -0500\n@@ -877,10 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n-            if (strLen >= width) {\n+            int strLen = (str == null ? 0 : str.length());\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -866,10 +865,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_374/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:29.681478105 -0500\n@@ -877,10 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n-            if (strLen >= width) {\n+            int strLen = (str == null ? 0 : str.length());\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_216/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:42.197271497 -0500\n@@ -877,8 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            this.newLine = newLine;\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -885,10 +884,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 4);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_216/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:42.197271497 -0500\n@@ -877,8 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            this.newLine = newLine;\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1125/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:16.646766334 -0500\n@@ -877,8 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -904,10 +903,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1125/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:16.646766334 -0500\n@@ -877,8 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1326/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:17.831442720 -0500\n@@ -877,11 +877,13 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                ensureCapacity(size + 1);\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -923,10 +922,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 1);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1326/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:17.831442720 -0500\n@@ -877,11 +877,13 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                ensureCapacity(size + 1);\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1392/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:37.903661878 -0500\n@@ -876,9 +876,11 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        this.newLine = newLine;\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -942,10 +941,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1392/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:37.903661878 -0500\n@@ -876,9 +876,11 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        this.newLine = newLine;\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_362/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:26.189272501 -0500\n@@ -877,7 +877,7 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -954,10 +953,10 @@
           "type": "Replace", 
           "seed": "ensureCapacity(size + 4);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_362/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:26.189272501 -0500\n@@ -877,7 +877,7 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1040/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:46:51.122479895 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            this.newLine = newLine;\n+\t\t\tensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -980,10 +979,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1040/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:46:51.122479895 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            this.newLine = newLine;\n+\t\t\tensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_816/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:42.189690915 -0500\n@@ -878,10 +878,12 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                ensureCapacity(size + 1);\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1006,10 +1005,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 1);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_816/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:42.189690915 -0500\n@@ -878,10 +878,12 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                ensureCapacity(size + 1);\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_253/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:53.437271754 -0500\n@@ -878,8 +878,10 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            this.newLine = newLine;\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1025,10 +1024,10 @@
           "type": "InsertBefore", 
           "seed": "this.newLine=newLine;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_253/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:53.437271754 -0500\n@@ -878,8 +878,10 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            this.newLine = newLine;\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1142/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:21.398819364 -0500\n@@ -878,9 +878,11 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n-            if (strLen >= width) {\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n+            buffer = new char[CAPACITY];\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1051,10 +1050,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1142/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:21.398819364 -0500\n@@ -878,9 +878,11 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n-            if (strLen >= width) {\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n+            buffer = new char[CAPACITY];\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1612/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:43.772373214 -0500\n@@ -878,10 +878,12 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                nullText = null;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1070,10 +1069,10 @@
           "type": "InsertBefore", 
           "seed": "nullText=null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1612/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:43.772373214 -0500\n@@ -878,10 +878,12 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                nullText = null;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1515/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:14.512058600 -0500\n@@ -878,10 +878,12 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                ensureCapacity(size + 1);\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1096,10 +1095,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 1);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1515/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:14.512058600 -0500\n@@ -878,10 +878,12 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                ensureCapacity(size + 1);\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1074/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:01.506596763 -0500\n@@ -878,8 +878,10 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 1);\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1115,10 +1114,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 1);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1074/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:01.506596763 -0500\n@@ -878,8 +878,10 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 1);\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1405/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:41.363699533 -0500\n@@ -877,9 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1141,10 +1140,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1405/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:41.363699533 -0500\n@@ -877,9 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_339/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:19.773272355 -0500\n@@ -877,9 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 1);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            this.newLine = newLine;\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1167,10 +1166,10 @@
           "type": "InsertBefore", 
           "seed": "this.newLine=newLine;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_339/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:19.773272355 -0500\n@@ -877,9 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 1);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            this.newLine = newLine;\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_163/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:26.381271136 -0500\n@@ -877,7 +877,8 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1179,10 +1178,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 4);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_163/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:26.381271136 -0500\n@@ -877,7 +877,8 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_437/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:48.415077311 -0500\n@@ -877,9 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            if (str == null) {\n+\t\t\t\tstr = nullText;\n+\t\t\t}\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1198,10 +1197,10 @@
           "type": "InsertBefore", 
           "seed": "if (str == null) {\n  str=nullText;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_437/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:48.415077311 -0500\n@@ -877,9 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            if (str == null) {\n+\t\t\t\tstr = nullText;\n+\t\t\t}\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_424/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:44.938840022 -0500\n@@ -877,11 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1217,10 +1216,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_424/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:44.938840022 -0500\n@@ -877,11 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_146/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:21.877271034 -0500\n@@ -877,9 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1236,10 +1235,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_146/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:21.877271034 -0500\n@@ -877,9 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1588/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:36.492295128 -0500\n@@ -877,9 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1262,10 +1261,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1588/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:36.492295128 -0500\n@@ -877,9 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_874/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:59.497891353 -0500\n@@ -877,8 +877,8 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1281,10 +1280,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 4);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_874/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:59.497891353 -0500\n@@ -877,8 +877,8 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_807/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:39.681661728 -0500\n@@ -877,10 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            buffer = new char[str.length() + CAPACITY];\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1300,10 +1299,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[str.length() + CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_807/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:39.681661728 -0500\n@@ -877,10 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            buffer = new char[str.length() + CAPACITY];\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1398/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:39.479679034 -0500\n@@ -876,9 +876,11 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        ensureCapacity(size + 1);\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1319,10 +1318,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1398/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:39.479679034 -0500\n@@ -876,9 +876,11 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        ensureCapacity(size + 1);\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_509/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:09.296127556 -0500\n@@ -878,10 +878,14 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                if (str == null) {\n+\t\t\t\t\tstr = nullText;\n+\t\t\t\t}\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1338,10 +1337,10 @@
           "type": "InsertBefore", 
           "seed": "if (str == null) {\n  str=nullText;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_509/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:09.296127556 -0500\n@@ -878,10 +878,14 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                if (str == null) {\n+\t\t\t\t\tstr = nullText;\n+\t\t\t\t}\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_758/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:25.149491871 -0500\n@@ -876,12 +876,13 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n-            ensureCapacity(size + width);\n+        ensureCapacity(size + 4);\n+\t\tif (width > 0) {\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1364,10 +1363,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_758/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:25.149491871 -0500\n@@ -876,12 +876,13 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n-            ensureCapacity(size + width);\n+        ensureCapacity(size + 4);\n+\t\tif (width > 0) {\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_442/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:49.679158056 -0500\n@@ -877,11 +877,13 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1390,10 +1389,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_442/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:49.679158056 -0500\n@@ -877,11 +877,13 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_789/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:34.661603197 -0500\n@@ -877,8 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1409,10 +1408,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_789/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:34.661603197 -0500\n@@ -877,8 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_435/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:48.099056789 -0500\n@@ -877,8 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n+            ensureCapacity(size + 4);\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1428,10 +1427,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + width);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_435/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:48.099056789 -0500\n@@ -877,8 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n+            ensureCapacity(size + 4);\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_289/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:04.421272004 -0500\n@@ -878,8 +878,9 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1447,10 +1446,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_289/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:43:04.421272004 -0500\n@@ -878,8 +878,9 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1467/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:59.983901595 -0500\n@@ -877,10 +877,14 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            if (nullText != null && nullText.length() == 0) {\n+\t\t\t\tnullText = null;\n+\t\t\t}\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1466,10 +1465,10 @@
           "type": "InsertBefore", 
           "seed": "if (nullText != null && nullText.length() == 0) {\n  nullText=null;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1467/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:59.983901595 -0500\n@@ -877,10 +877,14 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            if (nullText != null && nullText.length() == 0) {\n+\t\t\t\tnullText = null;\n+\t\t\t}\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_487/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:02.643850616 -0500\n@@ -878,7 +878,8 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 5);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1478,10 +1477,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_487/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:02.643850616 -0500\n@@ -878,7 +878,8 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 5);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1172/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:30.534921067 -0500\n@@ -876,12 +876,19 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1504,10 +1503,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1172/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:30.534921067 -0500\n@@ -876,12 +876,19 @@\n      * @return this, to enable chaining\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n-        if (width > 0) {\n+        if (buffer.length > length()) {\n+\t\t\tchar[] old = buffer;\n+\t\t\tbuffer = new char[length()];\n+\t\t\tSystem.arraycopy(old, 0, buffer, 0, size);\n+\t\t}\n+\t\tif (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_850/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:52.265807806 -0500\n@@ -878,9 +878,11 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + width);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1523,10 +1522,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + width);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_850/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:52.265807806 -0500\n@@ -878,9 +878,11 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + width);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1765/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:50:29.704863253 -0500\n@@ -877,11 +877,15 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                if (str == null) {\n+\t\t\t\t\tstr = nullText;\n+\t\t\t\t}\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1542,10 +1541,10 @@
           "type": "InsertBefore", 
           "seed": "if (str == null) {\n  str=nullText;\n}"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1765/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:50:29.704863253 -0500\n@@ -877,11 +877,15 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                if (str == null) {\n+\t\t\t\t\tstr = nullText;\n+\t\t\t\t}\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_140/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:20.229270996 -0500\n@@ -877,10 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            this.nullText = nullText;\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1561,10 +1560,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_140/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:20.229270996 -0500\n@@ -877,10 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            this.nullText = nullText;\n+\t\t\tensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_134/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:18.629270960 -0500\n@@ -877,10 +877,13 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            if (nullText != null && nullText.length() == 0) {\n+\t\t\t\tnullText = null;\n+\t\t\t}\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1580,10 +1579,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 5);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_134/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:18.629270960 -0500\n@@ -877,10 +877,13 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            if (nullText != null && nullText.length() == 0) {\n+\t\t\t\tnullText = null;\n+\t\t\t}\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n-            if (strLen >= width) {\n+            ensureCapacity(size + 5);\n+\t\t\tif (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_841/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:49.761778812 -0500\n@@ -877,8 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            this.newLine = newLine;\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1599,10 +1598,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_841/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:45:49.761778812 -0500\n@@ -877,8 +877,9 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            this.newLine = newLine;\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_645/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:50.441080709 -0500\n@@ -877,11 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1618,10 +1617,10 @@
           "type": "InsertBefore", 
           "seed": "this.nullText=nullText;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_645/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:44:50.441080709 -0500\n@@ -877,11 +877,12 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n             String str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n-                str.getChars(0, strLen, buffer, size);\n+                this.nullText = nullText;\n+\t\t\t\tstr.getChars(0, strLen, buffer, size);\n             } else {\n                 int padLen = width - strLen;\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1622/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:46.612403644 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1644,10 +1643,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1622/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:46.612403644 -0500\n@@ -877,9 +877,11 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1119/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:15.054748548 -0500\n@@ -878,8 +878,9 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1663,10 +1662,10 @@
           "type": "Replace", 
           "seed": "int strLen=(str == null ? 0 : str.length());"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1119/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:47:15.054748548 -0500\n@@ -878,8 +878,9 @@\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n             ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n+            int strLen = (str == null ? 0 : str.length());\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1305/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:11.811376746 -0500\n@@ -877,8 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            this.newLine = newLine;\n+\t\t\tensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1682,10 +1681,10 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 4);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1305/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:48:11.811376746 -0500\n@@ -877,8 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            this.newLine = newLine;\n+\t\t\tensureCapacity(size + width);\n+            ensureCapacity(size + 4);\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_93/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:05.989270671 -0500\n@@ -877,8 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1701,10 +1700,10 @@
           "type": "InsertBefore", 
           "seed": "buffer=new char[CAPACITY];"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_93/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:42:05.989270671 -0500\n@@ -877,8 +877,10 @@\n      */\n     public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {\n         if (width > 0) {\n-            ensureCapacity(size + width);\n-            String str = (obj == null ? getNullText() : obj.toString());\n+            ensureCapacity(size + 5);\n+\t\t\tensureCapacity(size + width);\n+            buffer = new char[CAPACITY];\n+\t\t\tString str = (obj == null ? getNullText() : obj.toString());\n             int strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1552/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:25.816180390 -0500\n@@ -879,7 +879,8 @@\n         if (width > 0) {\n             ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 4);\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n", 
       "edits": [
         {
           "path": "src/java/org/apache/commons/lang/text/StrBuilder.java", 
@@ -1713,7 +1712,8 @@
           "type": "InsertBefore", 
           "seed": "ensureCapacity(size + 4);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:39:59.457267784 -0500\n+++ /tmp/Arja_Defects4J_Lang_59/patches_u933/Patch_1552/patched/tmp/Arja_Defects4J_Lang_59/src/java/org/apache/commons/lang/text/StrBuilder.java\t2018-12-02 05:49:25.816180390 -0500\n@@ -879,7 +879,8 @@\n         if (width > 0) {\n             ensureCapacity(size + width);\n             String str = (obj == null ? getNullText() : obj.toString());\n-            int strLen = str.length();\n+            ensureCapacity(size + 4);\n+\t\t\tint strLen = str.length();\n             if (strLen >= width) {\n                 str.getChars(0, strLen, buffer, size);\n             } else {\n\n\n"
     }
   ]
 }

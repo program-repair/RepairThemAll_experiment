@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 10:34:33.514836", 
   "patches": [
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:34:23.767899462 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_13/patches_a9gi/Patch_26/patched/tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:36:35.705191044 -0500\n@@ -311,7 +311,8 @@\n         h[2] = Math.max(h[2], h[3]);\n         h[3] = h[2];\n \n-        if (this.centerBlock != null) {\n+        this.leftBlock = null;\n+\t\tif (this.centerBlock != null) {\n             RectangleConstraint c4 = new RectangleConstraint(width - w[2]\n                     - w[3], null, LengthConstraintType.FIXED, 0.0, null,\n                     LengthConstraintType.NONE);\n\n\n", 
       "edits": [
         {
           "path": "source/org/jfree/chart/block/BorderArrangement.java", 
@@ -12,10 +11,10 @@
           "type": "InsertBefore", 
           "seed": "this.leftBlock=null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:34:23.767899462 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_13/patches_a9gi/Patch_26/patched/tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:36:35.705191044 -0500\n@@ -311,7 +311,8 @@\n         h[2] = Math.max(h[2], h[3]);\n         h[3] = h[2];\n \n-        if (this.centerBlock != null) {\n+        this.leftBlock = null;\n+\t\tif (this.centerBlock != null) {\n             RectangleConstraint c4 = new RectangleConstraint(width - w[2]\n                     - w[3], null, LengthConstraintType.FIXED, 0.0, null,\n                     LengthConstraintType.NONE);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:34:23.767899462 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_13/patches_a9gi/Patch_30/patched/tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:36:36.793196665 -0500\n@@ -423,7 +423,7 @@\n                                RectangleConstraint constraint) {\n         double[] w = new double[5];\n         double[] h = new double[5];\n-        w[0] = constraint.getWidth();\n+        this.leftBlock = null;\n         if (this.topBlock != null) {\n             RectangleConstraint c1 = new RectangleConstraint(w[0], null,\n                     LengthConstraintType.FIXED, 0.0,\n@@ -433,13 +433,6 @@\n             h[0] = size.height;\n         }\n         w[1] = w[0];\n-        if (this.bottomBlock != null) {\n-            RectangleConstraint c2 = new RectangleConstraint(w[0], null,\n-                    LengthConstraintType.FIXED, 0.0, new Range(0.0,\n-                    constraint.getHeight() - h[0]), LengthConstraintType.RANGE);\n-            Size2D size = this.bottomBlock.arrange(g2, c2);\n-            h[1] = size.height;\n-        }\n         h[2] = constraint.getHeight() - h[1] - h[0];\n         if (this.leftBlock != null) {\n             RectangleConstraint c3 = new RectangleConstraint(0.0,\n\n\n", 
       "edits": [
         {
           "path": "source/org/jfree/chart/block/BorderArrangement.java", 
@@ -31,10 +30,10 @@
           "type": "Delete", 
           "seed": "h[2]=Math.max(h[2],h[3]);"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:34:23.767899462 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_13/patches_a9gi/Patch_30/patched/tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:36:36.793196665 -0500\n@@ -423,7 +423,7 @@\n                                RectangleConstraint constraint) {\n         double[] w = new double[5];\n         double[] h = new double[5];\n-        w[0] = constraint.getWidth();\n+        this.leftBlock = null;\n         if (this.topBlock != null) {\n             RectangleConstraint c1 = new RectangleConstraint(w[0], null,\n                     LengthConstraintType.FIXED, 0.0,\n@@ -433,13 +433,6 @@\n             h[0] = size.height;\n         }\n         w[1] = w[0];\n-        if (this.bottomBlock != null) {\n-            RectangleConstraint c2 = new RectangleConstraint(w[0], null,\n-                    LengthConstraintType.FIXED, 0.0, new Range(0.0,\n-                    constraint.getHeight() - h[0]), LengthConstraintType.RANGE);\n-            Size2D size = this.bottomBlock.arrange(g2, c2);\n-            h[1] = size.height;\n-        }\n         h[2] = constraint.getHeight() - h[1] - h[0];\n         if (this.leftBlock != null) {\n             RectangleConstraint c3 = new RectangleConstraint(0.0,\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:34:23.767899462 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_13/patches_a9gi/Patch_101/patched/tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:36:59.241295086 -0500\n@@ -298,7 +298,8 @@\n             h[2] = size.height;\n         }\n         if (this.rightBlock != null) {\n-            double maxW = Math.max(width - w[2], 0.0);\n+            this.leftBlock = null;\n+\t\t\tdouble maxW = Math.max(width - w[2], 0.0);\n             RectangleConstraint c3 = new RectangleConstraint(0.0,\n                     new Range(Math.min(w[2], maxW), maxW),\n                     LengthConstraintType.RANGE, 0.0, null,\n\n\n", 
       "edits": [
         {
           "path": "source/org/jfree/chart/block/BorderArrangement.java", 
@@ -43,10 +42,10 @@
           "type": "InsertBefore", 
           "seed": "this.leftBlock=null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:34:23.767899462 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_13/patches_a9gi/Patch_101/patched/tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:36:59.241295086 -0500\n@@ -298,7 +298,8 @@\n             h[2] = size.height;\n         }\n         if (this.rightBlock != null) {\n-            double maxW = Math.max(width - w[2], 0.0);\n+            this.leftBlock = null;\n+\t\t\tdouble maxW = Math.max(width - w[2], 0.0);\n             RectangleConstraint c3 = new RectangleConstraint(0.0,\n                     new Range(Math.min(w[2], maxW), maxW),\n                     LengthConstraintType.RANGE, 0.0, null,\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:34:23.767899462 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_13/patches_a9gi/Patch_256/patched/tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:37:46.465446126 -0500\n@@ -146,7 +146,8 @@\n         }\n         else if (w == LengthConstraintType.FIXED) {\n             if (h == LengthConstraintType.NONE) {\n-                contentSize = arrangeFN(container, g2, constraint.getWidth());\n+                double y = 0.0;\n+\t\t\t\tcontentSize = arrangeFN(container, g2, constraint.getWidth());\n             }\n             else if (h == LengthConstraintType.FIXED) {\n                 contentSize = arrangeFF(container, g2, constraint);\n@@ -308,14 +309,16 @@\n             h[3] = size.height;\n         }\n \n-        h[2] = Math.max(h[2], h[3]);\n+        this.rightBlock = null;\n+\t\th[2] = Math.max(h[2], h[3]);\n         h[3] = h[2];\n \n         if (this.centerBlock != null) {\n             RectangleConstraint c4 = new RectangleConstraint(width - w[2]\n                     - w[3], null, LengthConstraintType.FIXED, 0.0, null,\n                     LengthConstraintType.NONE);\n-            Size2D size = this.centerBlock.arrange(g2, c4);\n+            h[4] = h[2];\n+\t\t\tSize2D size = this.centerBlock.arrange(g2, c4);\n             w[4] = size.width;\n             h[4] = size.height;\n         }\n@@ -424,22 +427,8 @@\n         double[] w = new double[5];\n         double[] h = new double[5];\n         w[0] = constraint.getWidth();\n-        if (this.topBlock != null) {\n-            RectangleConstraint c1 = new RectangleConstraint(w[0], null,\n-                    LengthConstraintType.FIXED, 0.0,\n-                    new Range(0.0, constraint.getHeight()),\n-                    LengthConstraintType.RANGE);\n-            Size2D size = this.topBlock.arrange(g2, c1);\n-            h[0] = size.height;\n-        }\n         w[1] = w[0];\n-        if (this.bottomBlock != null) {\n-            RectangleConstraint c2 = new RectangleConstraint(w[0], null,\n-                    LengthConstraintType.FIXED, 0.0, new Range(0.0,\n-                    constraint.getHeight() - h[0]), LengthConstraintType.RANGE);\n-            Size2D size = this.bottomBlock.arrange(g2, c2);\n-            h[1] = size.height;\n-        }\n+        BlockResult result = null;\n         h[2] = constraint.getHeight() - h[1] - h[0];\n         if (this.leftBlock != null) {\n             RectangleConstraint c3 = new RectangleConstraint(0.0,\n\n\n", 
       "edits": [
         {
           "path": "source/org/jfree/chart/block/BorderArrangement.java", 
@@ -83,10 +82,10 @@
           "type": "Replace", 
           "seed": "BlockResult result=null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:34:23.767899462 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_13/patches_a9gi/Patch_256/patched/tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:37:46.465446126 -0500\n@@ -146,7 +146,8 @@\n         }\n         else if (w == LengthConstraintType.FIXED) {\n             if (h == LengthConstraintType.NONE) {\n-                contentSize = arrangeFN(container, g2, constraint.getWidth());\n+                double y = 0.0;\n+\t\t\t\tcontentSize = arrangeFN(container, g2, constraint.getWidth());\n             }\n             else if (h == LengthConstraintType.FIXED) {\n                 contentSize = arrangeFF(container, g2, constraint);\n@@ -308,14 +309,16 @@\n             h[3] = size.height;\n         }\n \n-        h[2] = Math.max(h[2], h[3]);\n+        this.rightBlock = null;\n+\t\th[2] = Math.max(h[2], h[3]);\n         h[3] = h[2];\n \n         if (this.centerBlock != null) {\n             RectangleConstraint c4 = new RectangleConstraint(width - w[2]\n                     - w[3], null, LengthConstraintType.FIXED, 0.0, null,\n                     LengthConstraintType.NONE);\n-            Size2D size = this.centerBlock.arrange(g2, c4);\n+            h[4] = h[2];\n+\t\t\tSize2D size = this.centerBlock.arrange(g2, c4);\n             w[4] = size.width;\n             h[4] = size.height;\n         }\n@@ -424,22 +427,8 @@\n         double[] w = new double[5];\n         double[] h = new double[5];\n         w[0] = constraint.getWidth();\n-        if (this.topBlock != null) {\n-            RectangleConstraint c1 = new RectangleConstraint(w[0], null,\n-                    LengthConstraintType.FIXED, 0.0,\n-                    new Range(0.0, constraint.getHeight()),\n-                    LengthConstraintType.RANGE);\n-            Size2D size = this.topBlock.arrange(g2, c1);\n-            h[0] = size.height;\n-        }\n         w[1] = w[0];\n-        if (this.bottomBlock != null) {\n-            RectangleConstraint c2 = new RectangleConstraint(w[0], null,\n-                    LengthConstraintType.FIXED, 0.0, new Range(0.0,\n-                    constraint.getHeight() - h[0]), LengthConstraintType.RANGE);\n-            Size2D size = this.bottomBlock.arrange(g2, c2);\n-            h[1] = size.height;\n-        }\n+        BlockResult result = null;\n         h[2] = constraint.getHeight() - h[1] - h[0];\n         if (this.leftBlock != null) {\n             RectangleConstraint c3 = new RectangleConstraint(0.0,\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:34:23.767899462 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_13/patches_a9gi/Patch_301/patched/tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:37:59.657486961 -0500\n@@ -308,7 +308,8 @@\n             h[3] = size.height;\n         }\n \n-        h[2] = Math.max(h[2], h[3]);\n+        this.rightBlock = null;\n+\t\th[2] = Math.max(h[2], h[3]);\n         h[3] = h[2];\n \n         if (this.centerBlock != null) {\n\n\n", 
       "edits": [
         {
           "path": "source/org/jfree/chart/block/BorderArrangement.java", 
@@ -95,7 +94,8 @@
           "type": "InsertBefore", 
           "seed": "this.rightBlock=null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:34:23.767899462 -0500\n+++ /tmp/RSRepair_Defects4J_Chart_13/patches_a9gi/Patch_301/patched/tmp/RSRepair_Defects4J_Chart_13/source/org/jfree/chart/block/BorderArrangement.java\t2018-12-02 04:37:59.657486961 -0500\n@@ -308,7 +308,8 @@\n             h[3] = size.height;\n         }\n \n-        h[2] = Math.max(h[2], h[3]);\n+        this.rightBlock = null;\n+\t\th[2] = Math.max(h[2], h[3]);\n         h[3] = h[2];\n \n         if (this.centerBlock != null) {\n\n\n"
     }
   ]
 }

@@ -3,7 +3,6 @@
   "repair_begin": "2018-12-02 11:29:14.101317", 
   "patches": [
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_31/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:13.426269302 -0500\n@@ -1146,7 +1146,6 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -12,10 +11,10 @@
           "type": "Delete", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_31/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:13.426269302 -0500\n@@ -1146,7 +1146,6 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_28/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:11.426269194 -0500\n@@ -1039,10 +1039,7 @@\n     Node callTarget = call.getFirstChild();\n     if (NodeUtil.isGet(callTarget)) {\n       Node obj = callTarget.getFirstChild();\n-      maybeResolveTemplatedType(\n-          fnType.getTypeOfThis(),\n-          getJSType(obj),\n-          resolvedTypes);\n+      final String paramName = \"jscomp_throw_param\";\n     }\n \n     if (call.hasMoreThanOneChild()) {\n@@ -1146,7 +1143,6 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -31,10 +30,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_28/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:11.426269194 -0500\n@@ -1039,10 +1039,7 @@\n     Node callTarget = call.getFirstChild();\n     if (NodeUtil.isGet(callTarget)) {\n       Node obj = callTarget.getFirstChild();\n-      maybeResolveTemplatedType(\n-          fnType.getTypeOfThis(),\n-          getJSType(obj),\n-          resolvedTypes);\n+      final String paramName = \"jscomp_throw_param\";\n     }\n \n     if (call.hasMoreThanOneChild()) {\n@@ -1146,7 +1143,6 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_1/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:35:43.758267684 -0500\n@@ -1062,54 +1062,8 @@\n       // @param {T}\n       resolvedTemplateType(\n           resolvedTypes, paramType.toMaybeTemplateType(), argType);\n-    } else if (paramType.isUnionType()) {\n-      // @param {Array.<T>|NodeList|Arguments|{length:number}}\n-      UnionType unionType = paramType.toMaybeUnionType();\n-      for (JSType alernative : unionType.getAlternates()) {\n-        maybeResolveTemplatedType(alernative, argType, resolvedTypes);\n-      }\n-    } else if (paramType.isFunctionType()) {\n-      FunctionType paramFunctionType = paramType.toMaybeFunctionType();\n-      FunctionType argFunctionType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion()\n-          .toMaybeFunctionType();\n-      if (argFunctionType != null && argFunctionType.isSubtype(paramType)) {\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getTypeOfThis(),\n-            argFunctionType.getTypeOfThis(), resolvedTypes);\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getReturnType(),\n-            argFunctionType.getReturnType(), resolvedTypes);\n-        // infer from parameter types of the function type\n-        maybeResolveTemplateTypeFromNodes(\n-            paramFunctionType.getParameters(),\n-            argFunctionType.getParameters(), resolvedTypes);\n-      }\n-    } else if (paramType.isTemplatizedType()) {\n-      // @param {Array.<T>}\n-      ObjectType referencedParamType = paramType\n-          .toMaybeTemplatizedType()\n-          .getReferencedType();\n-      JSType argObjectType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion();\n-\n-      if (argObjectType.isSubtype(referencedParamType)) {\n-        // If the argument type is a subtype of the parameter type, resolve any\n-        // template types amongst their templatized types.\n-        TemplateTypeMap paramTypeMap = paramType.getTemplateTypeMap();\n-        TemplateTypeMap argTypeMap = argObjectType.getTemplateTypeMap();\n-        for (TemplateType key : paramTypeMap.getTemplateKeys()) {\n-          maybeResolveTemplatedType(\n-              paramTypeMap.getTemplateType(key),\n-              argTypeMap.getTemplateType(key),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    } else\n+\t\t;\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -43,10 +42,10 @@
           "type": "Delete", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_1/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:35:43.758267684 -0500\n@@ -1062,54 +1062,8 @@\n       // @param {T}\n       resolvedTemplateType(\n           resolvedTypes, paramType.toMaybeTemplateType(), argType);\n-    } else if (paramType.isUnionType()) {\n-      // @param {Array.<T>|NodeList|Arguments|{length:number}}\n-      UnionType unionType = paramType.toMaybeUnionType();\n-      for (JSType alernative : unionType.getAlternates()) {\n-        maybeResolveTemplatedType(alernative, argType, resolvedTypes);\n-      }\n-    } else if (paramType.isFunctionType()) {\n-      FunctionType paramFunctionType = paramType.toMaybeFunctionType();\n-      FunctionType argFunctionType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion()\n-          .toMaybeFunctionType();\n-      if (argFunctionType != null && argFunctionType.isSubtype(paramType)) {\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getTypeOfThis(),\n-            argFunctionType.getTypeOfThis(), resolvedTypes);\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getReturnType(),\n-            argFunctionType.getReturnType(), resolvedTypes);\n-        // infer from parameter types of the function type\n-        maybeResolveTemplateTypeFromNodes(\n-            paramFunctionType.getParameters(),\n-            argFunctionType.getParameters(), resolvedTypes);\n-      }\n-    } else if (paramType.isTemplatizedType()) {\n-      // @param {Array.<T>}\n-      ObjectType referencedParamType = paramType\n-          .toMaybeTemplatizedType()\n-          .getReferencedType();\n-      JSType argObjectType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion();\n-\n-      if (argObjectType.isSubtype(referencedParamType)) {\n-        // If the argument type is a subtype of the parameter type, resolve any\n-        // template types amongst their templatized types.\n-        TemplateTypeMap paramTypeMap = paramType.getTemplateTypeMap();\n-        TemplateTypeMap argTypeMap = argObjectType.getTemplateTypeMap();\n-        for (TemplateType key : paramTypeMap.getTemplateKeys()) {\n-          maybeResolveTemplatedType(\n-              paramTypeMap.getTemplateType(key),\n-              argTypeMap.getTemplateType(key),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    } else\n+\t\t;\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_369/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:43:02.378436992 -0500\n@@ -1124,21 +1124,7 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    StringBuilder builder = new StringBuilder();\n   }\n \n   private static void resolvedTemplateType(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -55,10 +54,10 @@
           "type": "Replace", 
           "seed": "StringBuilder builder=new StringBuilder();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_369/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:43:02.378436992 -0500\n@@ -1124,21 +1124,7 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    StringBuilder builder = new StringBuilder();\n   }\n \n   private static void resolvedTemplateType(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_85/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:37:02.266271903 -0500\n@@ -1144,14 +1144,7 @@\n   private static void resolvedTemplateType(\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n-    if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n-    }\n+    int index = -1;\n   }\n \n   private static class TemplateTypeReplacer extends ModificationVisitor {\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -67,10 +66,10 @@
           "type": "Replace", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_85/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:37:02.266271903 -0500\n@@ -1144,14 +1144,7 @@\n   private static void resolvedTemplateType(\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n-    if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n-    }\n+    int index = -1;\n   }\n \n   private static class TemplateTypeReplacer extends ModificationVisitor {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_531/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:46:13.078569071 -0500\n@@ -1062,54 +1062,8 @@\n       // @param {T}\n       resolvedTemplateType(\n           resolvedTypes, paramType.toMaybeTemplateType(), argType);\n-    } else if (paramType.isUnionType()) {\n-      // @param {Array.<T>|NodeList|Arguments|{length:number}}\n-      UnionType unionType = paramType.toMaybeUnionType();\n-      for (JSType alernative : unionType.getAlternates()) {\n-        maybeResolveTemplatedType(alernative, argType, resolvedTypes);\n-      }\n-    } else if (paramType.isFunctionType()) {\n-      FunctionType paramFunctionType = paramType.toMaybeFunctionType();\n-      FunctionType argFunctionType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion()\n-          .toMaybeFunctionType();\n-      if (argFunctionType != null && argFunctionType.isSubtype(paramType)) {\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getTypeOfThis(),\n-            argFunctionType.getTypeOfThis(), resolvedTypes);\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getReturnType(),\n-            argFunctionType.getReturnType(), resolvedTypes);\n-        // infer from parameter types of the function type\n-        maybeResolveTemplateTypeFromNodes(\n-            paramFunctionType.getParameters(),\n-            argFunctionType.getParameters(), resolvedTypes);\n-      }\n-    } else if (paramType.isTemplatizedType()) {\n-      // @param {Array.<T>}\n-      ObjectType referencedParamType = paramType\n-          .toMaybeTemplatizedType()\n-          .getReferencedType();\n-      JSType argObjectType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion();\n-\n-      if (argObjectType.isSubtype(referencedParamType)) {\n-        // If the argument type is a subtype of the parameter type, resolve any\n-        // template types amongst their templatized types.\n-        TemplateTypeMap paramTypeMap = paramType.getTemplateTypeMap();\n-        TemplateTypeMap argTypeMap = argObjectType.getTemplateTypeMap();\n-        for (TemplateType key : paramTypeMap.getTemplateKeys()) {\n-          maybeResolveTemplatedType(\n-              paramTypeMap.getTemplateType(key),\n-              argTypeMap.getTemplateType(key),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    } else\n+\t\t;\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n@@ -1149,7 +1103,6 @@\n         map.put(template, resolved);\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n       }\n     }\n   }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -86,10 +85,10 @@
           "type": "Delete", 
           "seed": "StringBuilder builder=new StringBuilder();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_531/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:46:13.078569071 -0500\n@@ -1062,54 +1062,8 @@\n       // @param {T}\n       resolvedTemplateType(\n           resolvedTypes, paramType.toMaybeTemplateType(), argType);\n-    } else if (paramType.isUnionType()) {\n-      // @param {Array.<T>|NodeList|Arguments|{length:number}}\n-      UnionType unionType = paramType.toMaybeUnionType();\n-      for (JSType alernative : unionType.getAlternates()) {\n-        maybeResolveTemplatedType(alernative, argType, resolvedTypes);\n-      }\n-    } else if (paramType.isFunctionType()) {\n-      FunctionType paramFunctionType = paramType.toMaybeFunctionType();\n-      FunctionType argFunctionType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion()\n-          .toMaybeFunctionType();\n-      if (argFunctionType != null && argFunctionType.isSubtype(paramType)) {\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getTypeOfThis(),\n-            argFunctionType.getTypeOfThis(), resolvedTypes);\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getReturnType(),\n-            argFunctionType.getReturnType(), resolvedTypes);\n-        // infer from parameter types of the function type\n-        maybeResolveTemplateTypeFromNodes(\n-            paramFunctionType.getParameters(),\n-            argFunctionType.getParameters(), resolvedTypes);\n-      }\n-    } else if (paramType.isTemplatizedType()) {\n-      // @param {Array.<T>}\n-      ObjectType referencedParamType = paramType\n-          .toMaybeTemplatizedType()\n-          .getReferencedType();\n-      JSType argObjectType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion();\n-\n-      if (argObjectType.isSubtype(referencedParamType)) {\n-        // If the argument type is a subtype of the parameter type, resolve any\n-        // template types amongst their templatized types.\n-        TemplateTypeMap paramTypeMap = paramType.getTemplateTypeMap();\n-        TemplateTypeMap argTypeMap = argObjectType.getTemplateTypeMap();\n-        for (TemplateType key : paramTypeMap.getTemplateKeys()) {\n-          maybeResolveTemplatedType(\n-              paramTypeMap.getTemplateType(key),\n-              argTypeMap.getTemplateType(key),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    } else\n+\t\t;\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n@@ -1149,7 +1103,6 @@\n         map.put(template, resolved);\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n       }\n     }\n   }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_3/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:35:45.086267757 -0500\n@@ -1144,14 +1144,6 @@\n   private static void resolvedTemplateType(\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n-    if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n-    }\n   }\n \n   private static class TemplateTypeReplacer extends ModificationVisitor {\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -98,10 +97,10 @@
           "type": "Delete", 
           "seed": "return this;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_3/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:35:45.086267757 -0500\n@@ -1144,14 +1144,6 @@\n   private static void resolvedTemplateType(\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n-    if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n-    }\n   }\n \n   private static class TemplateTypeReplacer extends ModificationVisitor {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_261/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:40:45.226302780 -0500\n@@ -1116,7 +1116,8 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n+    int index = -1;\n+\tmaybeResolveTemplateTypeFromNodes(\n         declParams.iterator(), callParams.iterator(), resolvedTypes);\n   }\n \n@@ -1146,7 +1147,7 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n+        final String paramName = \"jscomp_throw_param\";\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -117,10 +116,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_261/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:40:45.226302780 -0500\n@@ -1116,7 +1116,8 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n+    int index = -1;\n+\tmaybeResolveTemplateTypeFromNodes(\n         declParams.iterator(), callParams.iterator(), resolvedTypes);\n   }\n \n@@ -1146,7 +1147,7 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n+        final String paramName = \"jscomp_throw_param\";\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_555/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:46:36.670580933 -0500\n@@ -1059,9 +1059,7 @@\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n     if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n+      final String paramName = \"jscomp_throw_param\";\n     } else if (paramType.isUnionType()) {\n       // @param {Array.<T>|NodeList|Arguments|{length:number}}\n       UnionType unionType = paramType.toMaybeUnionType();\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -129,10 +128,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_555/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:46:36.670580933 -0500\n@@ -1059,9 +1059,7 @@\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n     if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n+      final String paramName = \"jscomp_throw_param\";\n     } else if (paramType.isUnionType()) {\n       // @param {Array.<T>|NodeList|Arguments|{length:number}}\n       UnionType unionType = paramType.toMaybeUnionType();\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_137/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:38:14.762275640 -0500\n@@ -1059,9 +1059,6 @@\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n     if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n     } else if (paramType.isUnionType()) {\n       // @param {Array.<T>|NodeList|Arguments|{length:number}}\n       UnionType unionType = paramType.toMaybeUnionType();\n@@ -1143,7 +1140,8 @@\n \n   private static void resolvedTemplateType(\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n-    JSType previous = map.get(template);\n+    StringBuilder builder = new StringBuilder();\n+\tJSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n         map.put(template, resolved);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -148,10 +147,10 @@
           "type": "InsertBefore", 
           "seed": "StringBuilder builder=new StringBuilder();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_137/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:38:14.762275640 -0500\n@@ -1059,9 +1059,6 @@\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n     if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n     } else if (paramType.isUnionType()) {\n       // @param {Array.<T>|NodeList|Arguments|{length:number}}\n       UnionType unionType = paramType.toMaybeUnionType();\n@@ -1143,7 +1140,8 @@\n \n   private static void resolvedTemplateType(\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n-    JSType previous = map.get(template);\n+    StringBuilder builder = new StringBuilder();\n+\tJSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n         map.put(template, resolved);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_660/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:48:34.038712734 -0500\n@@ -1039,10 +1039,6 @@\n     Node callTarget = call.getFirstChild();\n     if (NodeUtil.isGet(callTarget)) {\n       Node obj = callTarget.getFirstChild();\n-      maybeResolveTemplatedType(\n-          fnType.getTypeOfThis(),\n-          getJSType(obj),\n-          resolvedTypes);\n     }\n \n     if (call.hasMoreThanOneChild()) {\n@@ -1116,8 +1112,6 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -167,10 +166,10 @@
           "type": "Delete", 
           "seed": "return new DefaultCodingConvention();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_660/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:48:34.038712734 -0500\n@@ -1039,10 +1039,6 @@\n     Node callTarget = call.getFirstChild();\n     if (NodeUtil.isGet(callTarget)) {\n       Node obj = callTarget.getFirstChild();\n-      maybeResolveTemplatedType(\n-          fnType.getTypeOfThis(),\n-          getJSType(obj),\n-          resolvedTypes);\n     }\n \n     if (call.hasMoreThanOneChild()) {\n@@ -1116,8 +1112,6 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_39/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:21.166269720 -0500\n@@ -1145,12 +1145,6 @@\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n     }\n   }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -179,10 +178,10 @@
           "type": "Delete", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_39/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:21.166269720 -0500\n@@ -1145,12 +1145,6 @@\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n     }\n   }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_199/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:39:33.270279560 -0500\n@@ -1116,8 +1116,7 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n+    StringBuilder builder = new StringBuilder();\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -191,10 +190,10 @@
           "type": "Replace", 
           "seed": "StringBuilder builder=new StringBuilder();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_199/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:39:33.270279560 -0500\n@@ -1116,8 +1116,7 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n+    StringBuilder builder = new StringBuilder();\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_268/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:40:56.610312404 -0500\n@@ -1124,21 +1124,6 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n   }\n \n   private static void resolvedTemplateType(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -210,10 +209,10 @@
           "type": "InsertBefore", 
           "seed": "return false;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_268/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:40:56.610312404 -0500\n@@ -1124,21 +1124,6 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n   }\n \n   private static void resolvedTemplateType(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_244/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:40:23.758283630 -0500\n@@ -1126,10 +1126,6 @@\n       Map<TemplateType, JSType> resolvedTypes) {\n     while (declParams.hasNext() && callParams.hasNext()) {\n       Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n       if (declParam.isVarArgs()) {\n         while (callParams.hasNext()) {\n           maybeResolveTemplatedType(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -222,10 +221,10 @@
           "type": "Delete", 
           "seed": "return null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_244/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:40:23.758283630 -0500\n@@ -1126,10 +1126,6 @@\n       Map<TemplateType, JSType> resolvedTypes) {\n     while (declParams.hasNext() && callParams.hasNext()) {\n       Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n       if (declParam.isVarArgs()) {\n         while (callParams.hasNext()) {\n           maybeResolveTemplatedType(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_223/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:39:56.170280684 -0500\n@@ -1058,58 +1058,6 @@\n       JSType paramType,\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n-    } else if (paramType.isUnionType()) {\n-      // @param {Array.<T>|NodeList|Arguments|{length:number}}\n-      UnionType unionType = paramType.toMaybeUnionType();\n-      for (JSType alernative : unionType.getAlternates()) {\n-        maybeResolveTemplatedType(alernative, argType, resolvedTypes);\n-      }\n-    } else if (paramType.isFunctionType()) {\n-      FunctionType paramFunctionType = paramType.toMaybeFunctionType();\n-      FunctionType argFunctionType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion()\n-          .toMaybeFunctionType();\n-      if (argFunctionType != null && argFunctionType.isSubtype(paramType)) {\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getTypeOfThis(),\n-            argFunctionType.getTypeOfThis(), resolvedTypes);\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getReturnType(),\n-            argFunctionType.getReturnType(), resolvedTypes);\n-        // infer from parameter types of the function type\n-        maybeResolveTemplateTypeFromNodes(\n-            paramFunctionType.getParameters(),\n-            argFunctionType.getParameters(), resolvedTypes);\n-      }\n-    } else if (paramType.isTemplatizedType()) {\n-      // @param {Array.<T>}\n-      ObjectType referencedParamType = paramType\n-          .toMaybeTemplatizedType()\n-          .getReferencedType();\n-      JSType argObjectType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion();\n-\n-      if (argObjectType.isSubtype(referencedParamType)) {\n-        // If the argument type is a subtype of the parameter type, resolve any\n-        // template types amongst their templatized types.\n-        TemplateTypeMap paramTypeMap = paramType.getTemplateTypeMap();\n-        TemplateTypeMap argTypeMap = argObjectType.getTemplateTypeMap();\n-        for (TemplateType key : paramTypeMap.getTemplateKeys()) {\n-          maybeResolveTemplatedType(\n-              paramTypeMap.getTemplateType(key),\n-              argTypeMap.getTemplateType(key),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -234,10 +233,10 @@
           "type": "Delete", 
           "seed": "return this;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_223/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:39:56.170280684 -0500\n@@ -1058,58 +1058,6 @@\n       JSType paramType,\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n-    } else if (paramType.isUnionType()) {\n-      // @param {Array.<T>|NodeList|Arguments|{length:number}}\n-      UnionType unionType = paramType.toMaybeUnionType();\n-      for (JSType alernative : unionType.getAlternates()) {\n-        maybeResolveTemplatedType(alernative, argType, resolvedTypes);\n-      }\n-    } else if (paramType.isFunctionType()) {\n-      FunctionType paramFunctionType = paramType.toMaybeFunctionType();\n-      FunctionType argFunctionType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion()\n-          .toMaybeFunctionType();\n-      if (argFunctionType != null && argFunctionType.isSubtype(paramType)) {\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getTypeOfThis(),\n-            argFunctionType.getTypeOfThis(), resolvedTypes);\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getReturnType(),\n-            argFunctionType.getReturnType(), resolvedTypes);\n-        // infer from parameter types of the function type\n-        maybeResolveTemplateTypeFromNodes(\n-            paramFunctionType.getParameters(),\n-            argFunctionType.getParameters(), resolvedTypes);\n-      }\n-    } else if (paramType.isTemplatizedType()) {\n-      // @param {Array.<T>}\n-      ObjectType referencedParamType = paramType\n-          .toMaybeTemplatizedType()\n-          .getReferencedType();\n-      JSType argObjectType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion();\n-\n-      if (argObjectType.isSubtype(referencedParamType)) {\n-        // If the argument type is a subtype of the parameter type, resolve any\n-        // template types amongst their templatized types.\n-        TemplateTypeMap paramTypeMap = paramType.getTemplateTypeMap();\n-        TemplateTypeMap argTypeMap = argObjectType.getTemplateTypeMap();\n-        for (TemplateType key : paramTypeMap.getTemplateKeys()) {\n-          maybeResolveTemplatedType(\n-              paramTypeMap.getTemplateType(key),\n-              argTypeMap.getTemplateType(key),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_408/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:43:51.242478408 -0500\n@@ -964,7 +964,6 @@\n   private void backwardsInferenceFromCallSite(Node n, FunctionType fnType) {\n     boolean updatedFnType = inferTemplatedTypesForCall(n, fnType);\n     if (updatedFnType) {\n-      fnType = n.getFirstChild().getJSType().toMaybeFunctionType();\n     }\n     updateTypeOfParameters(n, fnType);\n     updateBind(n);\n@@ -1146,7 +1145,7 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n+        final String paramName = \"jscomp_throw_param\";\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -253,10 +252,10 @@
           "type": "Delete", 
           "seed": "return new DotFormatter();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_408/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:43:51.242478408 -0500\n@@ -964,7 +964,6 @@\n   private void backwardsInferenceFromCallSite(Node n, FunctionType fnType) {\n     boolean updatedFnType = inferTemplatedTypesForCall(n, fnType);\n     if (updatedFnType) {\n-      fnType = n.getFirstChild().getJSType().toMaybeFunctionType();\n     }\n     updateTypeOfParameters(n, fnType);\n     updateBind(n);\n@@ -1146,7 +1145,7 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n+        final String paramName = \"jscomp_throw_param\";\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_41/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:22.266269778 -0500\n@@ -1145,12 +1145,7 @@\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n+      final String paramName = \"jscomp_throw_param\";\n     }\n   }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -265,10 +264,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_41/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:22.266269778 -0500\n@@ -1145,12 +1145,7 @@\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n+      final String paramName = \"jscomp_throw_param\";\n     }\n   }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_17/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:01.118268635 -0500\n@@ -1146,7 +1146,7 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n+        final String paramName = \"jscomp_throw_param\";\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -277,10 +276,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_17/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:01.118268635 -0500\n@@ -1146,7 +1146,7 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n+        final String paramName = \"jscomp_throw_param\";\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_631/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:48:05.254676340 -0500\n@@ -1124,21 +1124,6 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n   }\n \n   private static void resolvedTemplateType(\n\n\n--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/rhino/jstype/TemplateTypeMapReplacer.java\t2018-12-02 05:28:52.322249296 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_631/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/rhino/jstype/TemplateTypeMapReplacer.java\t2018-12-02 05:48:05.254676340 -0500\n@@ -91,11 +91,6 @@\n    * traversal of a JSType.\n    */\n   private boolean hasVisitedType(TemplateType type) {\n-    for (TemplateType visitedType : visitedTypes) {\n-      if (visitedType == type) {\n-        return true;\n-      }\n-    }\n     return false;\n   }\n }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -296,10 +295,10 @@
           "type": "Delete", 
           "seed": "return EMPTY;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_631/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:48:05.254676340 -0500\n@@ -1124,21 +1124,6 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n   }\n \n   private static void resolvedTemplateType(\n\n\n--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/rhino/jstype/TemplateTypeMapReplacer.java\t2018-12-02 05:28:52.322249296 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_631/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/rhino/jstype/TemplateTypeMapReplacer.java\t2018-12-02 05:48:05.254676340 -0500\n@@ -91,11 +91,6 @@\n    * traversal of a JSType.\n    */\n   private boolean hasVisitedType(TemplateType type) {\n-    for (TemplateType visitedType : visitedTypes) {\n-      if (visitedType == type) {\n-        return true;\n-      }\n-    }\n     return false;\n   }\n }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_299/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:41:35.414344857 -0500\n@@ -1124,21 +1124,7 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    final String paramName = \"jscomp_throw_param\";\n   }\n \n   private static void resolvedTemplateType(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -308,10 +307,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_299/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:41:35.414344857 -0500\n@@ -1124,21 +1124,7 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    final String paramName = \"jscomp_throw_param\";\n   }\n \n   private static void resolvedTemplateType(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_75/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:53.790271457 -0500\n@@ -1046,10 +1046,7 @@\n     }\n \n     if (call.hasMoreThanOneChild()) {\n-      maybeResolveTemplateTypeFromNodes(\n-          fnType.getParameters(),\n-          call.getChildAtIndex(1).siblings(),\n-          resolvedTypes);\n+      int index = -1;\n     }\n     return resolvedTypes;\n   }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -320,10 +319,10 @@
           "type": "Replace", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_75/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:53.790271457 -0500\n@@ -1046,10 +1046,7 @@\n     }\n \n     if (call.hasMoreThanOneChild()) {\n-      maybeResolveTemplateTypeFromNodes(\n-          fnType.getParameters(),\n-          call.getChildAtIndex(1).siblings(),\n-          resolvedTypes);\n+      int index = -1;\n     }\n     return resolvedTypes;\n   }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_203/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:39:36.498279719 -0500\n@@ -1059,9 +1059,7 @@\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n     if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n+      int index = -1;\n     } else if (paramType.isUnionType()) {\n       // @param {Array.<T>|NodeList|Arguments|{length:number}}\n       UnionType unionType = paramType.toMaybeUnionType();\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -332,10 +331,10 @@
           "type": "Replace", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_203/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:39:36.498279719 -0500\n@@ -1059,9 +1059,7 @@\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n     if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n+      int index = -1;\n     } else if (paramType.isUnionType()) {\n       // @param {Array.<T>|NodeList|Arguments|{length:number}}\n       UnionType unionType = paramType.toMaybeUnionType();\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_61/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:41.330270797 -0500\n@@ -1116,8 +1116,6 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -344,10 +343,10 @@
           "type": "Delete", 
           "seed": "return 0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_61/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:41.330270797 -0500\n@@ -1116,8 +1116,6 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_102/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:37:23.954273035 -0500\n@@ -1116,8 +1116,7 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n+    int start = 0;\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -356,10 +355,10 @@
           "type": "Replace", 
           "seed": "int start=0;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_102/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:37:23.954273035 -0500\n@@ -1116,8 +1116,7 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n+    int start = 0;\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_546/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:46:27.974576647 -0500\n@@ -1116,8 +1116,7 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n+    final String paramName = \"jscomp_throw_param\";\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -368,10 +367,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_546/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:46:27.974576647 -0500\n@@ -1116,8 +1116,7 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n+    final String paramName = \"jscomp_throw_param\";\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_45/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:25.634269959 -0500\n@@ -1356,7 +1356,7 @@\n         TemplateTypeMap typeMap = restrictedObjType.getTemplateTypeMap();\n         TemplateTypeMapReplacer replacer = new TemplateTypeMapReplacer(\n             registry, typeMap);\n-        propertyType = propertyType.visit(replacer);\n+        return null;\n       }\n     }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -380,10 +379,10 @@
           "type": "Replace", 
           "seed": "return null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_45/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:25.634269959 -0500\n@@ -1356,7 +1356,7 @@\n         TemplateTypeMap typeMap = restrictedObjType.getTemplateTypeMap();\n         TemplateTypeMapReplacer replacer = new TemplateTypeMapReplacer(\n             registry, typeMap);\n-        propertyType = propertyType.visit(replacer);\n+        return null;\n       }\n     }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_195/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:39:30.070279402 -0500\n@@ -1126,10 +1126,7 @@\n       Map<TemplateType, JSType> resolvedTypes) {\n     while (declParams.hasNext() && callParams.hasNext()) {\n       Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n+      final String paramName = \"jscomp_throw_param\";\n       if (declParam.isVarArgs()) {\n         while (callParams.hasNext()) {\n           maybeResolveTemplatedType(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -392,10 +391,10 @@
           "type": "Replace", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_195/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:39:30.070279402 -0500\n@@ -1126,10 +1126,7 @@\n       Map<TemplateType, JSType> resolvedTypes) {\n     while (declParams.hasNext() && callParams.hasNext()) {\n       Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n+      final String paramName = \"jscomp_throw_param\";\n       if (declParam.isVarArgs()) {\n         while (callParams.hasNext()) {\n           maybeResolveTemplatedType(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_466/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:44:55.822524363 -0500\n@@ -1058,58 +1058,7 @@\n       JSType paramType,\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n-    } else if (paramType.isUnionType()) {\n-      // @param {Array.<T>|NodeList|Arguments|{length:number}}\n-      UnionType unionType = paramType.toMaybeUnionType();\n-      for (JSType alernative : unionType.getAlternates()) {\n-        maybeResolveTemplatedType(alernative, argType, resolvedTypes);\n-      }\n-    } else if (paramType.isFunctionType()) {\n-      FunctionType paramFunctionType = paramType.toMaybeFunctionType();\n-      FunctionType argFunctionType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion()\n-          .toMaybeFunctionType();\n-      if (argFunctionType != null && argFunctionType.isSubtype(paramType)) {\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getTypeOfThis(),\n-            argFunctionType.getTypeOfThis(), resolvedTypes);\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getReturnType(),\n-            argFunctionType.getReturnType(), resolvedTypes);\n-        // infer from parameter types of the function type\n-        maybeResolveTemplateTypeFromNodes(\n-            paramFunctionType.getParameters(),\n-            argFunctionType.getParameters(), resolvedTypes);\n-      }\n-    } else if (paramType.isTemplatizedType()) {\n-      // @param {Array.<T>}\n-      ObjectType referencedParamType = paramType\n-          .toMaybeTemplatizedType()\n-          .getReferencedType();\n-      JSType argObjectType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion();\n-\n-      if (argObjectType.isSubtype(referencedParamType)) {\n-        // If the argument type is a subtype of the parameter type, resolve any\n-        // template types amongst their templatized types.\n-        TemplateTypeMap paramTypeMap = paramType.getTemplateTypeMap();\n-        TemplateTypeMap argTypeMap = argObjectType.getTemplateTypeMap();\n-        for (TemplateType key : paramTypeMap.getTemplateKeys()) {\n-          maybeResolveTemplatedType(\n-              paramTypeMap.getTemplateType(key),\n-              argTypeMap.getTemplateType(key),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    int index = -1;\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -404,10 +403,10 @@
           "type": "Replace", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_466/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:44:55.822524363 -0500\n@@ -1058,58 +1058,7 @@\n       JSType paramType,\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n-    } else if (paramType.isUnionType()) {\n-      // @param {Array.<T>|NodeList|Arguments|{length:number}}\n-      UnionType unionType = paramType.toMaybeUnionType();\n-      for (JSType alernative : unionType.getAlternates()) {\n-        maybeResolveTemplatedType(alernative, argType, resolvedTypes);\n-      }\n-    } else if (paramType.isFunctionType()) {\n-      FunctionType paramFunctionType = paramType.toMaybeFunctionType();\n-      FunctionType argFunctionType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion()\n-          .toMaybeFunctionType();\n-      if (argFunctionType != null && argFunctionType.isSubtype(paramType)) {\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getTypeOfThis(),\n-            argFunctionType.getTypeOfThis(), resolvedTypes);\n-        // infer from return type of the function type\n-        maybeResolveTemplatedType(\n-            paramFunctionType.getReturnType(),\n-            argFunctionType.getReturnType(), resolvedTypes);\n-        // infer from parameter types of the function type\n-        maybeResolveTemplateTypeFromNodes(\n-            paramFunctionType.getParameters(),\n-            argFunctionType.getParameters(), resolvedTypes);\n-      }\n-    } else if (paramType.isTemplatizedType()) {\n-      // @param {Array.<T>}\n-      ObjectType referencedParamType = paramType\n-          .toMaybeTemplatizedType()\n-          .getReferencedType();\n-      JSType argObjectType = argType\n-          .restrictByNotNullOrUndefined()\n-          .collapseUnion();\n-\n-      if (argObjectType.isSubtype(referencedParamType)) {\n-        // If the argument type is a subtype of the parameter type, resolve any\n-        // template types amongst their templatized types.\n-        TemplateTypeMap paramTypeMap = paramType.getTemplateTypeMap();\n-        TemplateTypeMap argTypeMap = argObjectType.getTemplateTypeMap();\n-        for (TemplateType key : paramTypeMap.getTemplateKeys()) {\n-          maybeResolveTemplatedType(\n-              paramTypeMap.getTemplateType(key),\n-              argTypeMap.getTemplateType(key),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    int index = -1;\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_305/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:41:41.514352228 -0500\n@@ -1145,12 +1145,7 @@\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n+      int index = -1;\n     }\n   }\n \n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -416,10 +415,10 @@
           "type": "Replace", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_305/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:41:41.514352228 -0500\n@@ -1145,12 +1145,7 @@\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n+      int index = -1;\n     }\n   }\n \n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_73/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:52.594271394 -0500\n@@ -1059,9 +1059,7 @@\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n     if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n+      StringBuilder builder = new StringBuilder();\n     } else if (paramType.isUnionType()) {\n       // @param {Array.<T>|NodeList|Arguments|{length:number}}\n       UnionType unionType = paramType.toMaybeUnionType();\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -428,10 +427,10 @@
           "type": "Replace", 
           "seed": "StringBuilder builder=new StringBuilder();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_73/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:52.594271394 -0500\n@@ -1059,9 +1059,7 @@\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n     if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n+      StringBuilder builder = new StringBuilder();\n     } else if (paramType.isUnionType()) {\n       // @param {Array.<T>|NodeList|Arguments|{length:number}}\n       UnionType unionType = paramType.toMaybeUnionType();\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_23/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:06.826268945 -0500\n@@ -1116,8 +1116,7 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n+    int index = -1;\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -440,10 +439,10 @@
           "type": "Replace", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_23/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:06.826268945 -0500\n@@ -1116,8 +1116,7 @@\n       Iterable<Node> declParams,\n       Iterable<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    maybeResolveTemplateTypeFromNodes(\n-        declParams.iterator(), callParams.iterator(), resolvedTypes);\n+    int index = -1;\n   }\n \n   private void maybeResolveTemplateTypeFromNodes(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_156/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:38:34.058276614 -0500\n@@ -1124,21 +1124,6 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n   }\n \n   private static void resolvedTemplateType(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -452,10 +451,10 @@
           "type": "Delete", 
           "seed": "final String paramName=\"jscomp_throw_param\";"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_156/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:38:34.058276614 -0500\n@@ -1124,21 +1124,6 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n   }\n \n   private static void resolvedTemplateType(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_97/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:37:19.562272807 -0500\n@@ -1144,14 +1144,7 @@\n   private static void resolvedTemplateType(\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n-    if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n-    }\n+    StringBuilder builder = new StringBuilder();\n   }\n \n   private static class TemplateTypeReplacer extends ModificationVisitor {\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -464,10 +463,10 @@
           "type": "Replace", 
           "seed": "StringBuilder builder=new StringBuilder();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_97/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:37:19.562272807 -0500\n@@ -1144,14 +1144,7 @@\n   private static void resolvedTemplateType(\n       Map<TemplateType, JSType> map, TemplateType template, JSType resolved) {\n     JSType previous = map.get(template);\n-    if (!resolved.isUnknownType()) {\n-      if (previous == null) {\n-        map.put(template, resolved);\n-      } else {\n-        JSType join = previous.getLeastSupertype(resolved);\n-        map.put(template, join);\n-      }\n-    }\n+    StringBuilder builder = new StringBuilder();\n   }\n \n   private static class TemplateTypeReplacer extends ModificationVisitor {\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_80/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:58.226271690 -0500\n@@ -1059,9 +1059,6 @@\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n     if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n     } else if (paramType.isUnionType()) {\n       // @param {Array.<T>|NodeList|Arguments|{length:number}}\n       UnionType unionType = paramType.toMaybeUnionType();\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -476,10 +475,10 @@
           "type": "Delete", 
           "seed": "return null;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_80/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:58.226271690 -0500\n@@ -1059,9 +1059,6 @@\n       JSType argType,\n       Map<TemplateType, JSType> resolvedTypes) {\n     if (paramType.isTemplateType()) {\n-      // @param {T}\n-      resolvedTemplateType(\n-          resolvedTypes, paramType.toMaybeTemplateType(), argType);\n     } else if (paramType.isUnionType()) {\n       // @param {Array.<T>|NodeList|Arguments|{length:number}}\n       UnionType unionType = paramType.toMaybeUnionType();\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_635/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:48:08.386680460 -0500\n@@ -1124,21 +1124,7 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    int index = -1;\n   }\n \n   private static void resolvedTemplateType(\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -488,10 +487,10 @@
           "type": "Replace", 
           "seed": "int index=-1;"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_635/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:48:08.386680460 -0500\n@@ -1124,21 +1124,7 @@\n       Iterator<Node> declParams,\n       Iterator<Node> callParams,\n       Map<TemplateType, JSType> resolvedTypes) {\n-    while (declParams.hasNext() && callParams.hasNext()) {\n-      Node declParam = declParams.next();\n-      maybeResolveTemplatedType(\n-          getJSType(declParam),\n-          getJSType(callParams.next()),\n-          resolvedTypes);\n-      if (declParam.isVarArgs()) {\n-        while (callParams.hasNext()) {\n-          maybeResolveTemplatedType(\n-              getJSType(declParam),\n-              getJSType(callParams.next()),\n-              resolvedTypes);\n-        }\n-      }\n-    }\n+    int index = -1;\n   }\n \n   private static void resolvedTemplateType(\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_63/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:42.474270858 -0500\n@@ -1046,10 +1046,6 @@\n     }\n \n     if (call.hasMoreThanOneChild()) {\n-      maybeResolveTemplateTypeFromNodes(\n-          fnType.getParameters(),\n-          call.getChildAtIndex(1).siblings(),\n-          resolvedTypes);\n     }\n     return resolvedTypes;\n   }\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -500,10 +499,10 @@
           "type": "Delete", 
           "seed": "formatPreamble();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_63/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:36:42.474270858 -0500\n@@ -1046,10 +1046,6 @@\n     }\n \n     if (call.hasMoreThanOneChild()) {\n-      maybeResolveTemplateTypeFromNodes(\n-          fnType.getParameters(),\n-          call.getChildAtIndex(1).siblings(),\n-          resolvedTypes);\n     }\n     return resolvedTypes;\n   }\n\n\n"
     }, 
     {
-      "diff": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_188/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:39:23.818279094 -0500\n@@ -1146,7 +1146,7 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n+        StringBuilder builder = new StringBuilder();\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n", 
       "edits": [
         {
           "path": "src/com/google/javascript/jscomp/TypeInference.java", 
@@ -512,7 +511,8 @@
           "type": "Replace", 
           "seed": "StringBuilder builder=new StringBuilder();"
         }
-      ]
+      ], 
+      "patch": "--- /tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:28:55.270249364 -0500\n+++ /tmp/RSRepair_Defects4J_Closure_112/patches_pvgv/Patch_188/patched/tmp/RSRepair_Defects4J_Closure_112/src/com/google/javascript/jscomp/TypeInference.java\t2018-12-02 05:39:23.818279094 -0500\n@@ -1146,7 +1146,7 @@\n     JSType previous = map.get(template);\n     if (!resolved.isUnknownType()) {\n       if (previous == null) {\n-        map.put(template, resolved);\n+        StringBuilder builder = new StringBuilder();\n       } else {\n         JSType join = previous.getLeastSupertype(resolved);\n         map.put(template, join);\n\n\n"
     }
   ]
 }
