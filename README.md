@@ -30,7 +30,7 @@ The repository is structured as follow:
 │                       ├── grid5k.stdout.log: stdout of the execution (without the repair)
 │                       ├── repair.log: repair log
 │                       ├── result.json: sandardize output 
-│                       └── detailed_result.json: raw output of the repair tool if it generates a json file
+│                       └── detailed-result.json: raw output of the repair tool, if it generates a json file
 └── script
     └── get_patched_bugs.py: the script that are used to generate the table for the paper
 ```
