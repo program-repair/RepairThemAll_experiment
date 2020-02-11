@@ -12,6 +12,14 @@ This repository contains the raw results of the execution of 11 repair tools on 
 }
 ```
 
+Benchmark:
+
+* Bears
+* Bugs.jar
+* [Defects4J version 1.4.0](https://github.com/rjust/defects4j/tree/v1.4.0)
+* IntroClassJava
+* QuixBugs
+
 The execution framework that has been used is available at: https://github.com/program-repair/RepairThemAll
 
 ## Repository Structure
